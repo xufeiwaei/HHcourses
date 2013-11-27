@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE settings PUBLIC "-//NetBeans//DTD Session settings 1.0//EN" "http://www.netbeans.org/dtds/sessionsettings-1_0.dtd">
+<settings version="1.0">
+    <module name="org.netbeans.modules.debugger.jpda.ui/1" spec="1.15.2"/>
+    <instanceof class="java.awt.Component"/>
+    <instanceof class="java.awt.Container"/>
+    <instanceof class="java.awt.MenuContainer"/>
+    <instanceof class="java.awt.event.AdjustmentListener"/>
+    <instanceof class="java.awt.event.MouseWheelListener"/>
+    <instanceof class="java.awt.image.ImageObserver"/>
+    <instanceof class="java.beans.PropertyChangeListener"/>
+    <instanceof class="java.io.Externalizable"/>
+    <instanceof class="java.io.Serializable"/>
+    <instanceof class="java.lang.Object"/>
+    <instanceof class="java.util.EventListener"/>
+    <instanceof class="javax.accessibility.Accessible"/>
+    <instanceof class="javax.swing.JComponent"/>
+    <instanceof class="javax.swing.TransferHandler$HasGetTransferHandler"/>
+    <instanceof class="javax.swing.event.ChangeListener"/>
+    <instanceof class="javax.swing.event.TreeExpansionListener"/>
+    <instanceof class="javax.swing.event.TreeModelListener"/>
+    <instanceof class="javax.swing.event.TreeSelectionListener"/>
+    <instanceof class="org.netbeans.modules.debugger.jpda.ui.debugging.DebuggingView"/>
+    <instanceof class="org.openide.explorer.ExplorerManager$Provider"/>
+    <instanceof class="org.openide.util.HelpCtx$Provider"/>
+    <instanceof class="org.openide.util.Lookup$Provider"/>
+    <instanceof class="org.openide.windows.TopComponent"/>
+    <serialdata class="org.netbeans.modules.debugger.jpda.ui.debugging.DebuggingView">
+        ACED0005737200296F72672E6F70656E6964652E77696E646F77732E546F70436F6D706F6E656E74245265706C6163657284
+        874494BDDF6D64030000787074003D6F72672E6E65746265616E732E6D6F64756C65732E64656275676765722E6A7064612E
+        75692E646562756767696E672E446562756767696E67566965777372000F6A6176612E6C616E672E53686F7274684D371334
+        60DA5202000153000576616C7565787200106A6176612E6C616E672E4E756D62657286AC951D0B94E08B0200007870000177
+        0400000001740009446562756767696E6774000E446562756767696E6720566965777078
+    </serialdata>
+</settings>

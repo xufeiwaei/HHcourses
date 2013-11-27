@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://www.netbeans.org/ns/project/1">
+    <type>org.netbeans.modules.kjava.j2meproject</type>
+    <configuration>
+        <data xmlns="http://www.netbeans.org/ns/j2me-project">
+            <name>PokerApplication</name>
+            <minimum-ant-version>1.6</minimum-ant-version>
+        </data>
+        <references xmlns="http://www.netbeans.org/ns/ant-project-references/2">
+            <reference>
+                <foreign-project>CommonClasses</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>${project.CommonClasses}/build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+                <properties>
+                    <property name="config.active"/>
+                </properties>
+            </reference>
+            <reference>
+                <foreign-project>CommonClasses</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>${project.CommonClasses}/build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar.OptimizedConfiguration</id>
+                <properties>
+                    <property name="config.active">OptimizedConfiguration</property>
+                </properties>
+            </reference>
+            <reference>
+                <foreign-project>PokerEvaluator</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>${project.PokerEvaluator}/build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+                <properties>
+                    <property name="config.active"/>
+                </properties>
+            </reference>
+            <reference>
+                <foreign-project>PokerEvaluator</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>${project.PokerEvaluator}/build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar.OptimizedConfiguration</id>
+                <properties>
+                    <property name="config.active">OptimizedConfiguration</property>
+                </properties>
+            </reference>
+            <reference>
+                <foreign-project>PokerServerClientBase</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>${project.PokerServerClientBase}/build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+                <properties>
+                    <property name="config.active"/>
+                </properties>
+            </reference>
+            <reference>
+                <foreign-project>PokerServerClientBase</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>${project.PokerServerClientBase}/build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar.OptimizedConfiguration</id>
+                <properties>
+                    <property name="config.active">OptimizedConfiguration</property>
+                </properties>
+            </reference>
+            <reference>
+                <foreign-project>SocketLibrary</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>${project.SocketLibrary}/build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+                <properties>
+                    <property name="config.active"/>
+                </properties>
+            </reference>
+            <reference>
+                <foreign-project>SocketLibrary</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>${project.SocketLibrary}/build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar.OptimizedConfiguration</id>
+                <properties>
+                    <property name="config.active">OptimizedConfiguration</property>
+                </properties>
+            </reference>
+        </references>
+    </configuration>
+</project>

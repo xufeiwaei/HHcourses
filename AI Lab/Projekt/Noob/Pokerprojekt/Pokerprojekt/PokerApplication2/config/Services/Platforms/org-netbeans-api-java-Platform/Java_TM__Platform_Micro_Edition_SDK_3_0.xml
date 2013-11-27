@@ -1,0 +1,204 @@
+<?xml version='1.0'?>
+<!DOCTYPE platform PUBLIC '-//NetBeans//DTD J2ME PlatformDefinition 1.0//EN' 'http://www.netbeans.org/dtds/j2me-platformdefinition-1_0.dtd'>
+<platform name="Java_TM__Platform_Micro_Edition_SDK_3_0" home="C:\Program Files\NetBeans 6.9.1\mobility/Java_ME_platform_SDK_3.0" type="UEI-1.0.1" displayname="Java(TM) Platform Micro Edition SDK 3.0" srcpath="" docpath="${platform.home}/docs/api/agui10,${platform.home}/docs/api/cdc-1.1,${platform.home}/docs/api/fp-1.1,${platform.home}/docs/api/jaas10,${platform.home}/docs/api/jce10,${platform.home}/docs/api/jsr135,${platform.home}/docs/api/jsr172,${platform.home}/docs/api/jsr177,${platform.home}/docs/api/jsr211,${platform.home}/docs/api/jsr239,${platform.home}/docs/api/jsse10,${platform.home}/docs/api/midp-2.0,${platform.home}/docs/api/pbp11,${platform.home}/docs/html-helpset,${platform.home}/docs/html-installWinMobile,">
+    <device name="ClamshellCldcPhone1" securitydomains="minimum,maximum,unidentified_third_party,identified_third_party,operator,manufacturer" description="ClamshellCldcPhone1">
+        <optional name="JSR184" version="1.1" displayname="Mobile 3D Graphics Optional Package" classpath="${platform.home}/lib/jsr184_1.1.jar" dependencies="CLDC > 1.0 | CDC" default="true"/>
+        <optional name="JSR172" version="1.0" displayname="Java ME Web Services" classpath="${platform.home}/lib/jsr172_1.0.jar" dependencies="" default="true"/>
+        <optional name="SATSA" version="1.0" displayname="Security and Trust Services API for J2ME(TM)" classpath="${platform.home}/lib/jsr177_1.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="MMAPI" version="1.1" displayname="Mobile Media API" classpath="${platform.home}/lib/jsr135_1.1.jar" dependencies="CLDC > 1.0 | CDC" default="true"/>
+        <optional name="JSR177" version="1.0" displayname="Security and Trust Services APIs" classpath="${platform.home}/lib/jsr177_1.0.jar" dependencies="" default="true"/>
+        <optional name="JSR239" version="1.0" displayname="Java(TM) Binding for OpenGL(R) ES API Reference Implementation" classpath="${platform.home}/lib/jsr239_1.0.jar" dependencies="CLDC >= 1.1 | CDC >= 1.1, MIDP >= 2.0 | PBP >= 1.1" default="true"/>
+        <optional name="JSR238" version="1.0" displayname="Mobile Internationalization API" classpath="${platform.home}/lib/jsr238_1.0.jar" dependencies="CLDC >= 1.1 | CDC, MIDP >= 2.0 | CDC" default="true"/>
+        <optional name="JSR82" version="1.1" displayname="Java APIs for Bluetooth Wireless Technology" classpath="${platform.home}/lib/jsr082_1.1.jar" dependencies="CLDC | CDC" default="true"/>
+        <configuration name="CLDC" version="1.0" displayname="Connected Limited Device Configuration" classpath="${platform.home}/lib/cldc_1.0.jar" dependencies="" default="true"/>
+        <optional name="WMA" version="2.0" displayname="Wireless Messaging API" classpath="${platform.home}/lib/jsr205_2.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="JSR180" version="1.1.0" displayname="SIP API" classpath="${platform.home}/lib/jsr180_1.1.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="JSR234" version="1.0" displayname="Advanced Multimedia Supplements API" classpath="${platform.home}/lib/jsr234_1.0.jar" dependencies="CLDC | CDC, MMAPI | MIDP >= 2.0" default="true"/>
+        <optional name="JSR211" version="1.0" displayname="ContentHandler APIs" classpath="${platform.home}/lib/jsr211_1.0.jar" dependencies="CLDC | CDC, MIDP | PBP" default="true"/>
+        <optional name="JSR280" version="1.0" displayname="XML API for Java(TM) ME" classpath="${platform.home}/lib/jsr280_1.0.jar" dependencies="CLDC >= 1.1 | CDC, MIDP | CDC, J2ME-XMLBASE &lt;= 0.0" default="true"/>
+        <optional name="WMA" version="1.1" displayname="Wireless Messaging API" classpath="${platform.home}/lib/jsr120_1.1.jar" dependencies="CLDC | CDC" default="true"/>
+        <profile name="MIDP" version="2.0" displayname="Mobile Information Device Profile" classpath="${platform.home}/lib/midp_2.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="J2ME-WS" version="1.0" displayname="J2ME Web Services" classpath="${platform.home}/lib/jsr172_1.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="JSR75" version="1.0" displayname="File Connection and PIM Optional Packages" classpath="${platform.home}/lib/jsr75_1.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <configuration name="CLDC" version="1.1" displayname="Connected Limited Device Configuration" classpath="${platform.home}/lib/cldc_1.1.jar" dependencies="" default="true"/>
+        <optional name="JSR256" version="1.0" displayname="Mobile Sensor API" classpath="${platform.home}/lib/jsr256_1.0.jar" dependencies="CLDC >= 1.1 | CDC" default="true"/>
+        <profile name="MIDP" version="2.1" displayname="Mobile Information Device Profile" classpath="${platform.home}/lib/midp_2.1.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="OBEX" version="1.0" displayname="Object Exchange APIs" classpath="${platform.home}/lib/jsr082_1.1.jar" dependencies="" default="true"/>
+        <optional name="JSR229" version="1.1" displayname="Payment API" classpath="${platform.home}/lib/jsr229_1.1.jar" dependencies="CLDC" default="true"/>
+        <optional name="JSR226" version="1.0" displayname="SVG API" classpath="${platform.home}/lib/jsr226_1.0.jar" dependencies="CLDC > 1.0 | CDC, J2ME-XMLRPC" default="true"/>
+        <optional name="JSR179" version="1.0" displayname="Location Based APIs" classpath="${platform.home}/lib/jsr179_1.0.jar" dependencies="CLDC > 1.0 | CDC" default="true"/>
+        <screen width="240" height="320" bitDepth="16" isColor="true" isTouch="false"/>
+    </device>
+    <device name="DefaultCldcJtwiPhone1" securitydomains="minimum,maximum,trusted,untrusted" description="DefaultCldcJtwiPhone1">
+        <configuration name="CLDC" version="1.1" displayname="Connected Limited Device Configuration" classpath="${platform.home}/lib/cldc_1.1.jar" dependencies="" default="true"/>
+        <profile name="MIDP" version="1.0" displayname="Mobile Information Device Profile" classpath="${platform.home}/lib/midp_1.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="WMA" version="1.1" displayname="Wireless Messaging API" classpath="${platform.home}/lib/jsr120_1.1.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="MMAPI" version="1.1" displayname="Mobile Media API" classpath="${platform.home}/lib/jsr135_1.1.jar" dependencies="CLDC > 1.0 | CDC" default="true"/>
+        <profile name="MIDP" version="2.0" displayname="Mobile Information Device Profile" classpath="${platform.home}/lib/midp_2.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <configuration name="CLDC" version="1.0" displayname="Connected Limited Device Configuration" classpath="${platform.home}/lib/cldc_1.0.jar" dependencies="" default="true"/>
+        <screen width="180" height="208" bitDepth="16" isColor="true" isTouch="false"/>
+    </device>
+    <device name="DefaultCldcJtwiPhone2" securitydomains="minimum,maximum,trusted,untrusted" description="DefaultCldcJtwiPhone2">
+        <configuration name="CLDC" version="1.1" displayname="Connected Limited Device Configuration" classpath="${platform.home}/lib/cldc_1.1.jar" dependencies="" default="true"/>
+        <profile name="MIDP" version="1.0" displayname="Mobile Information Device Profile" classpath="${platform.home}/lib/midp_1.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="WMA" version="1.1" displayname="Wireless Messaging API" classpath="${platform.home}/lib/jsr120_1.1.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="MMAPI" version="1.1" displayname="Mobile Media API" classpath="${platform.home}/lib/jsr135_1.1.jar" dependencies="CLDC > 1.0 | CDC" default="true"/>
+        <profile name="MIDP" version="2.0" displayname="Mobile Information Device Profile" classpath="${platform.home}/lib/midp_2.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <configuration name="CLDC" version="1.0" displayname="Connected Limited Device Configuration" classpath="${platform.home}/lib/cldc_1.0.jar" dependencies="" default="true"/>
+        <screen width="180" height="208" bitDepth="16" isColor="true" isTouch="false"/>
+    </device>
+    <device name="DefaultCldcMsaPhone1" securitydomains="minimum,maximum,unidentified_third_party,identified_third_party,operator,manufacturer" description="DefaultCldcMsaPhone1">
+        <optional name="JSR75" version="1.0" displayname="File Connection and PIM Optional Packages" classpath="${platform.home}/lib/jsr75_1.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="JSR184" version="1.1" displayname="Mobile 3D Graphics Optional Package" classpath="${platform.home}/lib/jsr184_1.1.jar" dependencies="CLDC > 1.0 | CDC" default="true"/>
+        <configuration name="CLDC" version="1.1" displayname="Connected Limited Device Configuration" classpath="${platform.home}/lib/cldc_1.1.jar" dependencies="" default="true"/>
+        <optional name="JSR172" version="1.0" displayname="Java ME Web Services" classpath="${platform.home}/lib/jsr172_1.0.jar" dependencies="" default="true"/>
+        <optional name="SATSA" version="1.0" displayname="Security and Trust Services API for J2ME(TM)" classpath="${platform.home}/lib/jsr177_1.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="MMAPI" version="1.1" displayname="Mobile Media API" classpath="${platform.home}/lib/jsr135_1.1.jar" dependencies="CLDC > 1.0 | CDC" default="true"/>
+        <optional name="JSR177" version="1.0" displayname="Security and Trust Services APIs" classpath="${platform.home}/lib/jsr177_1.0.jar" dependencies="" default="true"/>
+        <optional name="JSR238" version="1.0" displayname="Mobile Internationalization API" classpath="${platform.home}/lib/jsr238_1.0.jar" dependencies="CLDC >= 1.1 | CDC, MIDP >= 2.0 | CDC" default="true"/>
+        <optional name="JSR82" version="1.1" displayname="Java APIs for Bluetooth Wireless Technology" classpath="${platform.home}/lib/jsr082_1.1.jar" dependencies="CLDC | CDC" default="true"/>
+        <configuration name="CLDC" version="1.0" displayname="Connected Limited Device Configuration" classpath="${platform.home}/lib/cldc_1.0.jar" dependencies="" default="true"/>
+        <optional name="WMA" version="2.0" displayname="Wireless Messaging API" classpath="${platform.home}/lib/jsr205_2.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="JSR180" version="1.1.0" displayname="SIP API" classpath="${platform.home}/lib/jsr180_1.1.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="JSR234" version="1.0" displayname="Advanced Multimedia Supplements API" classpath="${platform.home}/lib/jsr234_1.0.jar" dependencies="CLDC | CDC, MMAPI | MIDP >= 2.0" default="true"/>
+        <optional name="OBEX" version="1.0" displayname="Object Exchange APIs" classpath="${platform.home}/lib/jsr082_1.1.jar" dependencies="" default="true"/>
+        <profile name="MIDP" version="2.1" displayname="Mobile Information Device Profile" classpath="${platform.home}/lib/midp_2.1.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="JSR211" version="1.0" displayname="ContentHandler APIs" classpath="${platform.home}/lib/jsr211_1.0.jar" dependencies="CLDC | CDC, MIDP | PBP" default="true"/>
+        <optional name="JSR226" version="1.0" displayname="SVG API" classpath="${platform.home}/lib/jsr226_1.0.jar" dependencies="CLDC > 1.0 | CDC, J2ME-XMLRPC" default="true"/>
+        <optional name="WMA" version="1.1" displayname="Wireless Messaging API" classpath="${platform.home}/lib/jsr120_1.1.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="JSR179" version="1.0" displayname="Location Based APIs" classpath="${platform.home}/lib/jsr179_1.0.jar" dependencies="CLDC > 1.0 | CDC" default="true"/>
+        <profile name="MIDP" version="2.0" displayname="Mobile Information Device Profile" classpath="${platform.home}/lib/midp_2.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="J2ME-WS" version="1.0" displayname="J2ME Web Services" classpath="${platform.home}/lib/jsr172_1.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <screen width="240" height="320" bitDepth="16" isColor="true" isTouch="false"/>
+    </device>
+    <device name="DefaultCldcMsaPhone2" securitydomains="minimum,maximum,unidentified_third_party,identified_third_party,operator,manufacturer" description="DefaultCldcMsaPhone2">
+        <optional name="JSR75" version="1.0" displayname="File Connection and PIM Optional Packages" classpath="${platform.home}/lib/jsr75_1.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <configuration name="CLDC" version="1.1" displayname="Connected Limited Device Configuration" classpath="${platform.home}/lib/cldc_1.1.jar" dependencies="" default="true"/>
+        <optional name="JSR184" version="1.1" displayname="Mobile 3D Graphics Optional Package" classpath="${platform.home}/lib/jsr184_1.1.jar" dependencies="CLDC > 1.0 | CDC" default="true"/>
+        <optional name="JSR172" version="1.0" displayname="Java ME Web Services" classpath="${platform.home}/lib/jsr172_1.0.jar" dependencies="" default="true"/>
+        <optional name="SATSA" version="1.0" displayname="Security and Trust Services API for J2ME(TM)" classpath="${platform.home}/lib/jsr177_1.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="MMAPI" version="1.1" displayname="Mobile Media API" classpath="${platform.home}/lib/jsr135_1.1.jar" dependencies="CLDC > 1.0 | CDC" default="true"/>
+        <optional name="JSR177" version="1.0" displayname="Security and Trust Services APIs" classpath="${platform.home}/lib/jsr177_1.0.jar" dependencies="" default="true"/>
+        <optional name="JSR238" version="1.0" displayname="Mobile Internationalization API" classpath="${platform.home}/lib/jsr238_1.0.jar" dependencies="CLDC >= 1.1 | CDC, MIDP >= 2.0 | CDC" default="true"/>
+        <configuration name="CLDC" version="1.0" displayname="Connected Limited Device Configuration" classpath="${platform.home}/lib/cldc_1.0.jar" dependencies="" default="true"/>
+        <optional name="JSR82" version="1.1" displayname="Java APIs for Bluetooth Wireless Technology" classpath="${platform.home}/lib/jsr082_1.1.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="JSR180" version="1.1.0" displayname="SIP API" classpath="${platform.home}/lib/jsr180_1.1.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="WMA" version="2.0" displayname="Wireless Messaging API" classpath="${platform.home}/lib/jsr205_2.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="JSR234" version="1.0" displayname="Advanced Multimedia Supplements API" classpath="${platform.home}/lib/jsr234_1.0.jar" dependencies="CLDC | CDC, MMAPI | MIDP >= 2.0" default="true"/>
+        <optional name="OBEX" version="1.0" displayname="Object Exchange APIs" classpath="${platform.home}/lib/jsr082_1.1.jar" dependencies="" default="true"/>
+        <profile name="MIDP" version="2.1" displayname="Mobile Information Device Profile" classpath="${platform.home}/lib/midp_2.1.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="JSR211" version="1.0" displayname="ContentHandler APIs" classpath="${platform.home}/lib/jsr211_1.0.jar" dependencies="CLDC | CDC, MIDP | PBP" default="true"/>
+        <optional name="JSR226" version="1.0" displayname="SVG API" classpath="${platform.home}/lib/jsr226_1.0.jar" dependencies="CLDC > 1.0 | CDC, J2ME-XMLRPC" default="true"/>
+        <optional name="WMA" version="1.1" displayname="Wireless Messaging API" classpath="${platform.home}/lib/jsr120_1.1.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="JSR179" version="1.0" displayname="Location Based APIs" classpath="${platform.home}/lib/jsr179_1.0.jar" dependencies="CLDC > 1.0 | CDC" default="true"/>
+        <profile name="MIDP" version="2.0" displayname="Mobile Information Device Profile" classpath="${platform.home}/lib/midp_2.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="J2ME-WS" version="1.0" displayname="J2ME Web Services" classpath="${platform.home}/lib/jsr172_1.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <screen width="240" height="320" bitDepth="16" isColor="true" isTouch="false"/>
+    </device>
+    <device name="DefaultCldcPhone1" securitydomains="minimum,maximum,unidentified_third_party,identified_third_party,operator,manufacturer" description="DefaultCldcPhone1">
+        <optional name="JSR184" version="1.1" displayname="Mobile 3D Graphics Optional Package" classpath="${platform.home}/lib/jsr184_1.1.jar" dependencies="CLDC > 1.0 | CDC" default="true"/>
+        <optional name="JSR172" version="1.0" displayname="Java ME Web Services" classpath="${platform.home}/lib/jsr172_1.0.jar" dependencies="" default="true"/>
+        <optional name="SATSA" version="1.0" displayname="Security and Trust Services API for J2ME(TM)" classpath="${platform.home}/lib/jsr177_1.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="MMAPI" version="1.1" displayname="Mobile Media API" classpath="${platform.home}/lib/jsr135_1.1.jar" dependencies="CLDC > 1.0 | CDC" default="true"/>
+        <optional name="JSR177" version="1.0" displayname="Security and Trust Services APIs" classpath="${platform.home}/lib/jsr177_1.0.jar" dependencies="" default="true"/>
+        <optional name="JSR239" version="1.0" displayname="Java(TM) Binding for OpenGL(R) ES API Reference Implementation" classpath="${platform.home}/lib/jsr239_1.0.jar" dependencies="CLDC >= 1.1 | CDC >= 1.1, MIDP >= 2.0 | PBP >= 1.1" default="true"/>
+        <optional name="JSR238" version="1.0" displayname="Mobile Internationalization API" classpath="${platform.home}/lib/jsr238_1.0.jar" dependencies="CLDC >= 1.1 | CDC, MIDP >= 2.0 | CDC" default="true"/>
+        <configuration name="CLDC" version="1.0" displayname="Connected Limited Device Configuration" classpath="${platform.home}/lib/cldc_1.0.jar" dependencies="" default="true"/>
+        <optional name="JSR82" version="1.1" displayname="Java APIs for Bluetooth Wireless Technology" classpath="${platform.home}/lib/jsr082_1.1.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="JSR180" version="1.1.0" displayname="SIP API" classpath="${platform.home}/lib/jsr180_1.1.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="WMA" version="2.0" displayname="Wireless Messaging API" classpath="${platform.home}/lib/jsr205_2.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="JSR234" version="1.0" displayname="Advanced Multimedia Supplements API" classpath="${platform.home}/lib/jsr234_1.0.jar" dependencies="CLDC | CDC, MMAPI | MIDP >= 2.0" default="true"/>
+        <optional name="JSR211" version="1.0" displayname="ContentHandler APIs" classpath="${platform.home}/lib/jsr211_1.0.jar" dependencies="CLDC | CDC, MIDP | PBP" default="true"/>
+        <optional name="JSR280" version="1.0" displayname="XML API for Java(TM) ME" classpath="${platform.home}/lib/jsr280_1.0.jar" dependencies="CLDC >= 1.1 | CDC, MIDP | CDC, J2ME-XMLBASE &lt;= 0.0" default="true"/>
+        <optional name="WMA" version="1.1" displayname="Wireless Messaging API" classpath="${platform.home}/lib/jsr120_1.1.jar" dependencies="CLDC | CDC" default="true"/>
+        <profile name="MIDP" version="2.0" displayname="Mobile Information Device Profile" classpath="${platform.home}/lib/midp_2.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="J2ME-WS" version="1.0" displayname="J2ME Web Services" classpath="${platform.home}/lib/jsr172_1.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="JSR75" version="1.0" displayname="File Connection and PIM Optional Packages" classpath="${platform.home}/lib/jsr75_1.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <configuration name="CLDC" version="1.1" displayname="Connected Limited Device Configuration" classpath="${platform.home}/lib/cldc_1.1.jar" dependencies="" default="true"/>
+        <optional name="JSR256" version="1.0" displayname="Mobile Sensor API" classpath="${platform.home}/lib/jsr256_1.0.jar" dependencies="CLDC >= 1.1 | CDC" default="true"/>
+        <profile name="MIDP" version="2.1" displayname="Mobile Information Device Profile" classpath="${platform.home}/lib/midp_2.1.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="OBEX" version="1.0" displayname="Object Exchange APIs" classpath="${platform.home}/lib/jsr082_1.1.jar" dependencies="" default="true"/>
+        <optional name="JSR229" version="1.1" displayname="Payment API" classpath="${platform.home}/lib/jsr229_1.1.jar" dependencies="CLDC" default="true"/>
+        <optional name="JSR226" version="1.0" displayname="SVG API" classpath="${platform.home}/lib/jsr226_1.0.jar" dependencies="CLDC > 1.0 | CDC, J2ME-XMLRPC" default="true"/>
+        <optional name="JSR179" version="1.0" displayname="Location Based APIs" classpath="${platform.home}/lib/jsr179_1.0.jar" dependencies="CLDC > 1.0 | CDC" default="true"/>
+        <screen width="240" height="320" bitDepth="16" isColor="true" isTouch="true"/>
+    </device>
+    <device name="DefaultCldcPhone2" securitydomains="minimum,maximum,unidentified_third_party,identified_third_party,operator,manufacturer" description="DefaultCldcPhone2">
+        <optional name="JSR184" version="1.1" displayname="Mobile 3D Graphics Optional Package" classpath="${platform.home}/lib/jsr184_1.1.jar" dependencies="CLDC > 1.0 | CDC" default="true"/>
+        <optional name="JSR172" version="1.0" displayname="Java ME Web Services" classpath="${platform.home}/lib/jsr172_1.0.jar" dependencies="" default="true"/>
+        <optional name="SATSA" version="1.0" displayname="Security and Trust Services API for J2ME(TM)" classpath="${platform.home}/lib/jsr177_1.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="MMAPI" version="1.1" displayname="Mobile Media API" classpath="${platform.home}/lib/jsr135_1.1.jar" dependencies="CLDC > 1.0 | CDC" default="true"/>
+        <optional name="JSR177" version="1.0" displayname="Security and Trust Services APIs" classpath="${platform.home}/lib/jsr177_1.0.jar" dependencies="" default="true"/>
+        <optional name="JSR239" version="1.0" displayname="Java(TM) Binding for OpenGL(R) ES API Reference Implementation" classpath="${platform.home}/lib/jsr239_1.0.jar" dependencies="CLDC >= 1.1 | CDC >= 1.1, MIDP >= 2.0 | PBP >= 1.1" default="true"/>
+        <optional name="JSR238" version="1.0" displayname="Mobile Internationalization API" classpath="${platform.home}/lib/jsr238_1.0.jar" dependencies="CLDC >= 1.1 | CDC, MIDP >= 2.0 | CDC" default="true"/>
+        <configuration name="CLDC" version="1.0" displayname="Connected Limited Device Configuration" classpath="${platform.home}/lib/cldc_1.0.jar" dependencies="" default="true"/>
+        <optional name="JSR82" version="1.1" displayname="Java APIs for Bluetooth Wireless Technology" classpath="${platform.home}/lib/jsr082_1.1.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="WMA" version="2.0" displayname="Wireless Messaging API" classpath="${platform.home}/lib/jsr205_2.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="JSR180" version="1.1.0" displayname="SIP API" classpath="${platform.home}/lib/jsr180_1.1.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="JSR234" version="1.0" displayname="Advanced Multimedia Supplements API" classpath="${platform.home}/lib/jsr234_1.0.jar" dependencies="CLDC | CDC, MMAPI | MIDP >= 2.0" default="true"/>
+        <optional name="JSR211" version="1.0" displayname="ContentHandler APIs" classpath="${platform.home}/lib/jsr211_1.0.jar" dependencies="CLDC | CDC, MIDP | PBP" default="true"/>
+        <optional name="JSR280" version="1.0" displayname="XML API for Java(TM) ME" classpath="${platform.home}/lib/jsr280_1.0.jar" dependencies="CLDC >= 1.1 | CDC, MIDP | CDC, J2ME-XMLBASE &lt;= 0.0" default="true"/>
+        <optional name="WMA" version="1.1" displayname="Wireless Messaging API" classpath="${platform.home}/lib/jsr120_1.1.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="J2ME-WS" version="1.0" displayname="J2ME Web Services" classpath="${platform.home}/lib/jsr172_1.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <profile name="MIDP" version="2.0" displayname="Mobile Information Device Profile" classpath="${platform.home}/lib/midp_2.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="JSR75" version="1.0" displayname="File Connection and PIM Optional Packages" classpath="${platform.home}/lib/jsr75_1.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <configuration name="CLDC" version="1.1" displayname="Connected Limited Device Configuration" classpath="${platform.home}/lib/cldc_1.1.jar" dependencies="" default="true"/>
+        <optional name="JSR256" version="1.0" displayname="Mobile Sensor API" classpath="${platform.home}/lib/jsr256_1.0.jar" dependencies="CLDC >= 1.1 | CDC" default="true"/>
+        <profile name="MIDP" version="2.1" displayname="Mobile Information Device Profile" classpath="${platform.home}/lib/midp_2.1.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="OBEX" version="1.0" displayname="Object Exchange APIs" classpath="${platform.home}/lib/jsr082_1.1.jar" dependencies="" default="true"/>
+        <optional name="JSR229" version="1.1" displayname="Payment API" classpath="${platform.home}/lib/jsr229_1.1.jar" dependencies="CLDC" default="true"/>
+        <optional name="JSR226" version="1.0" displayname="SVG API" classpath="${platform.home}/lib/jsr226_1.0.jar" dependencies="CLDC > 1.0 | CDC, J2ME-XMLRPC" default="true"/>
+        <optional name="JSR179" version="1.0" displayname="Location Based APIs" classpath="${platform.home}/lib/jsr179_1.0.jar" dependencies="CLDC > 1.0 | CDC" default="true"/>
+        <screen width="240" height="320" bitDepth="16" isColor="true" isTouch="true"/>
+    </device>
+    <device name="DefaultFxPhone1" securitydomains="minimum,maximum,unidentified_third_party,identified_third_party,operator,manufacturer" description="DefaultFxPhone1">
+        <optional name="JSR75" version="1.0" displayname="File Connection and PIM Optional Packages" classpath="${platform.home}/lib/jsr75_1.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <configuration name="CLDC" version="1.1" displayname="Connected Limited Device Configuration" classpath="${platform.home}/lib/cldc_1.1.jar" dependencies="" default="true"/>
+        <optional name="JSR184" version="1.1" displayname="Mobile 3D Graphics Optional Package" classpath="${platform.home}/lib/jsr184_1.1.jar" dependencies="CLDC > 1.0 | CDC" default="true"/>
+        <optional name="JSR172" version="1.0" displayname="Java ME Web Services" classpath="${platform.home}/lib/jsr172_1.0.jar" dependencies="" default="true"/>
+        <optional name="SATSA" version="1.0" displayname="Security and Trust Services API for J2ME(TM)" classpath="${platform.home}/lib/jsr177_1.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="MMAPI" version="1.1" displayname="Mobile Media API" classpath="${platform.home}/lib/jsr135_1.1.jar" dependencies="CLDC > 1.0 | CDC" default="true"/>
+        <optional name="JSR177" version="1.0" displayname="Security and Trust Services APIs" classpath="${platform.home}/lib/jsr177_1.0.jar" dependencies="" default="true"/>
+        <optional name="JSR256" version="1.1" displayname="Mobile Sensor API" classpath="${platform.home}/lib/jsr256_1.1.jar" dependencies="CLDC >= 1.1 | CDC" default="true"/>
+        <optional name="JSR238" version="1.0" displayname="Mobile Internationalization API" classpath="${platform.home}/lib/jsr238_1.0.jar" dependencies="CLDC >= 1.1 | CDC, MIDP >= 2.0 | CDC" default="true"/>
+        <configuration name="CLDC" version="1.0" displayname="Connected Limited Device Configuration" classpath="${platform.home}/lib/cldc_1.0.jar" dependencies="" default="true"/>
+        <optional name="JSR82" version="1.1" displayname="Java APIs for Bluetooth Wireless Technology" classpath="${platform.home}/lib/jsr082_1.1.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="JSR180" version="1.1.0" displayname="SIP API" classpath="${platform.home}/lib/jsr180_1.1.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="WMA" version="2.0" displayname="Wireless Messaging API" classpath="${platform.home}/lib/jsr205_2.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="JSR234" version="1.0" displayname="Advanced Multimedia Supplements API" classpath="${platform.home}/lib/jsr234_1.0.jar" dependencies="CLDC | CDC, MMAPI | MIDP >= 2.0" default="true"/>
+        <optional name="OBEX" version="1.0" displayname="Object Exchange APIs" classpath="${platform.home}/lib/jsr082_1.1.jar" dependencies="" default="true"/>
+        <profile name="MIDP" version="2.1" displayname="Mobile Information Device Profile" classpath="${platform.home}/lib/midp_2.1.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="JSR211" version="1.0" displayname="ContentHandler APIs" classpath="${platform.home}/lib/jsr211_1.0.jar" dependencies="CLDC | CDC, MIDP | PBP" default="true"/>
+        <optional name="JSR226" version="1.0" displayname="SVG API" classpath="${platform.home}/lib/jsr226_1.0.jar" dependencies="CLDC > 1.0 | CDC, J2ME-XMLRPC" default="true"/>
+        <optional name="WMA" version="1.1" displayname="Wireless Messaging API" classpath="${platform.home}/lib/jsr120_1.1.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="JSR179" version="1.0" displayname="Location Based APIs" classpath="${platform.home}/lib/jsr179_1.0.jar" dependencies="CLDC > 1.0 | CDC" default="true"/>
+        <profile name="MIDP" version="2.0" displayname="Mobile Information Device Profile" classpath="${platform.home}/lib/midp_2.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="J2ME-WS" version="1.0" displayname="J2ME Web Services" classpath="${platform.home}/lib/jsr172_1.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <screen width="240" height="320" bitDepth="16" isColor="true" isTouch="true"/>
+    </device>
+    <device name="DefaultFxTouchPhone1" securitydomains="minimum,maximum,unidentified_third_party,identified_third_party,operator,manufacturer" description="DefaultFxTouchPhone1">
+        <optional name="JSR75" version="1.0" displayname="File Connection and PIM Optional Packages" classpath="${platform.home}/lib/jsr75_1.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="JSR184" version="1.1" displayname="Mobile 3D Graphics Optional Package" classpath="${platform.home}/lib/jsr184_1.1.jar" dependencies="CLDC > 1.0 | CDC" default="true"/>
+        <configuration name="CLDC" version="1.1" displayname="Connected Limited Device Configuration" classpath="${platform.home}/lib/cldc_1.1.jar" dependencies="" default="true"/>
+        <optional name="JSR172" version="1.0" displayname="Java ME Web Services" classpath="${platform.home}/lib/jsr172_1.0.jar" dependencies="" default="true"/>
+        <optional name="SATSA" version="1.0" displayname="Security and Trust Services API for J2ME(TM)" classpath="${platform.home}/lib/jsr177_1.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="MMAPI" version="1.1" displayname="Mobile Media API" classpath="${platform.home}/lib/jsr135_1.1.jar" dependencies="CLDC > 1.0 | CDC" default="true"/>
+        <optional name="JSR177" version="1.0" displayname="Security and Trust Services APIs" classpath="${platform.home}/lib/jsr177_1.0.jar" dependencies="" default="true"/>
+        <optional name="JSR256" version="1.1" displayname="Mobile Sensor API" classpath="${platform.home}/lib/jsr256_1.1.jar" dependencies="CLDC >= 1.1 | CDC" default="true"/>
+        <optional name="JSR238" version="1.0" displayname="Mobile Internationalization API" classpath="${platform.home}/lib/jsr238_1.0.jar" dependencies="CLDC >= 1.1 | CDC, MIDP >= 2.0 | CDC" default="true"/>
+        <configuration name="CLDC" version="1.0" displayname="Connected Limited Device Configuration" classpath="${platform.home}/lib/cldc_1.0.jar" dependencies="" default="true"/>
+        <optional name="JSR82" version="1.1" displayname="Java APIs for Bluetooth Wireless Technology" classpath="${platform.home}/lib/jsr082_1.1.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="WMA" version="2.0" displayname="Wireless Messaging API" classpath="${platform.home}/lib/jsr205_2.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="JSR180" version="1.1.0" displayname="SIP API" classpath="${platform.home}/lib/jsr180_1.1.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="JSR234" version="1.0" displayname="Advanced Multimedia Supplements API" classpath="${platform.home}/lib/jsr234_1.0.jar" dependencies="CLDC | CDC, MMAPI | MIDP >= 2.0" default="true"/>
+        <optional name="OBEX" version="1.0" displayname="Object Exchange APIs" classpath="${platform.home}/lib/jsr082_1.1.jar" dependencies="" default="true"/>
+        <profile name="MIDP" version="2.1" displayname="Mobile Information Device Profile" classpath="${platform.home}/lib/midp_2.1.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="JSR211" version="1.0" displayname="ContentHandler APIs" classpath="${platform.home}/lib/jsr211_1.0.jar" dependencies="CLDC | CDC, MIDP | PBP" default="true"/>
+        <optional name="JSR226" version="1.0" displayname="SVG API" classpath="${platform.home}/lib/jsr226_1.0.jar" dependencies="CLDC > 1.0 | CDC, J2ME-XMLRPC" default="true"/>
+        <optional name="WMA" version="1.1" displayname="Wireless Messaging API" classpath="${platform.home}/lib/jsr120_1.1.jar" dependencies="CLDC | CDC" default="true"/>
+        <optional name="JSR179" version="1.0" displayname="Location Based APIs" classpath="${platform.home}/lib/jsr179_1.0.jar" dependencies="CLDC > 1.0 | CDC" default="true"/>
+        <optional name="J2ME-WS" version="1.0" displayname="J2ME Web Services" classpath="${platform.home}/lib/jsr172_1.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <profile name="MIDP" version="2.0" displayname="Mobile Information Device Profile" classpath="${platform.home}/lib/midp_2.0.jar" dependencies="CLDC | CDC" default="true"/>
+        <screen width="240" height="320" bitDepth="16" isColor="true" isTouch="true"/>
+    </device>
+</platform>

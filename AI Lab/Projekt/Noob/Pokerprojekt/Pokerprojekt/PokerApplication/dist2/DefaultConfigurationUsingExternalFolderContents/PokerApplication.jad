@@ -1,0 +1,8 @@
+MIDlet-1: Poker,/icon4.png,com.medicwave.cardgame.poker.PokerMIDlet
+MIDlet-Jar-Size: 294144
+MIDlet-Jar-URL: PokerApplication.jar
+MIDlet-Name: PokerApplication
+MIDlet-Vendor: MedicWave AB
+MIDlet-Version: 1.0
+MicroEdition-Configuration: CLDC-1.1
+MicroEdition-Profile: MIDP-2.0

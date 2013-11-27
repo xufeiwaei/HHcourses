@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE library PUBLIC "-//NetBeans//DTD Library Declaration 1.0//EN" "http://www.netbeans.org/dtds/library-declaration-1_0.dtd">
+<library version="1.0">
+    <name>restlib_gfv3ee6</name>
+    <type>j2se</type>
+    <volume>
+        <type>classpath</type>
+        <resource>jar:file:/C:/Program%20Files/glassfish-3.0.1/glassfish/modules/asm-all-repackaged.jar!/</resource>
+        <resource>jar:file:/C:/Program%20Files/glassfish-3.0.1/glassfish/modules/jackson-core-asl.jar!/</resource>
+        <resource>jar:file:/C:/Program%20Files/glassfish-3.0.1/glassfish/modules/jersey-gf-bundle.jar!/</resource>
+        <resource>jar:file:/C:/Program%20Files/glassfish-3.0.1/glassfish/modules/jersey-multipart.jar!/</resource>
+        <resource>jar:file:/C:/Program%20Files/glassfish-3.0.1/glassfish/modules/jettison.jar!/</resource>
+        <resource>jar:file:/C:/Program%20Files/glassfish-3.0.1/glassfish/modules/jsr311-api.jar!/</resource>
+    </volume>
+    <volume>
+        <type>src</type>
+    </volume>
+    <volume>
+        <type>javadoc</type>
+        <resource>jar:file:/C:/Program%20Files/NetBeans%206.9.1/enterprise/docs/jsr311-api-1.1.1-javadoc.zip!/</resource>
+    </volume>
+    <volume>
+        <type>maven-pom</type>
+    </volume>
+</library>

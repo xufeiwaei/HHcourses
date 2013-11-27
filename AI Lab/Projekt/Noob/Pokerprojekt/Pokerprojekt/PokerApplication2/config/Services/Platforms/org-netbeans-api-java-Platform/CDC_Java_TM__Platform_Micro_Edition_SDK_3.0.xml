@@ -1,0 +1,25 @@
+<?xml version='1.0'?>
+<!DOCTYPE platform PUBLIC '-//NetBeans//DTD CDC PlatformDefinition 1.1//EN' 'http://www.netbeans.org/dtds/cdc-platformdefinition-1_1.dtd'>
+<platform name="CDC Java(TM) Platform Micro Edition SDK 3.0" antname="CDC_Java_TM__Platform_Micro_Edition_SDK_3.0" type="cdc-hi" classversion="1.3" displayname="CDC Java(TM) Platform Micro Edition SDK 3.0" fatjar="true">
+  <platformhome>
+    <resource>file:/C:\Program Files\NetBeans 6.9.1\mobility/Java_ME_platform_SDK_3.0</resource>
+  </platformhome>
+  <device name="DefaultCdcPbpPhone1" description="CDC emulator">
+    <profile name="PBP-1.1" description="Personal basis profile 1.1" version="1.1" classpath="${platform.home}/lib/cdc_1.1.jar;${platform.home}/lib/fp_1.1.jar;${platform.home}/lib/pbp_1.1.jar;${platform.home}/lib/secop_1.0.jar" runclasspath="${platform.home}/lib/cdc_1.1.jar;${platform.home}/lib/fp_1.1.jar;${platform.home}/lib/pbp_1.1.jar;${platform.home}/lib/secop_1.0.jar" isDefault="true">
+      <execution type="main" class=""/>
+    </profile>
+    <screen isColor="false" isTouch="false" isMain="true"/>
+  </device>
+  <device name="SunVgaAGUIPhone1" description="AGUI VGA emulator">
+    <profile name="PBP-1.1" description="Personal basis profile 1.1" version="1.1" classpath="${platform.home}/lib/agui_1.0.jar;${platform.home}/lib/cdc_1.1.jar;${platform.home}/lib/fp_1.1.jar;${platform.home}/lib/pbp_1.1.jar;${platform.home}/lib/secop_1.0.jar" runclasspath="${platform.home}/lib/agui_1.0.jar;${platform.home}/lib/cdc_1.1.jar;${platform.home}/lib/fp_1.1.jar;${platform.home}/lib/pbp_1.1.jar;${platform.home}/lib/secop_1.0.jar" isDefault="true">
+      <execution type="main" class=""/>
+    </profile>
+    <screen isColor="false" isTouch="false" isMain="true"/>
+  </device>
+  <device name="SunVgaCdcPhone1" description="CDC VGA emulator">
+    <profile name="PBP-1.1" description="Personal basis profile 1.1" version="1.1" classpath="${platform.home}/lib/cdc_1.1.jar;${platform.home}/lib/fp_1.1.jar;${platform.home}/lib/pbp_1.1.jar;${platform.home}/lib/secop_1.0.jar" runclasspath="${platform.home}/lib/cdc_1.1.jar;${platform.home}/lib/fp_1.1.jar;${platform.home}/lib/pbp_1.1.jar;${platform.home}/lib/secop_1.0.jar" isDefault="true">
+      <execution type="main" class=""/>
+    </profile>
+    <screen isColor="false" isTouch="false" isMain="true"/>
+  </device>
+</platform>

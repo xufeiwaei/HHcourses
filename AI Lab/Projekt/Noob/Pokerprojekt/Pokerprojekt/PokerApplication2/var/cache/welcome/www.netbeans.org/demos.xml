@@ -1,0 +1,65 @@
+<?xml version="1.0" ?>
+<rss version="2.0">
+   <channel>
+      
+      <title>NetBeans Screencasts and Video Demos</title>
+      <link>http://netbeans.org/index.html</link>
+      <description>Screencasts that show you all the cool features of NetBeans, the free and open-source IDE for Java development and scripting.</description>
+      <language>en</language>
+      <webMaster>webmaster@netbeans.org (NetBeans webmaster)</webMaster>
+      <image>
+         <title>NetBeans Screencasts and Video Demos</title>
+         <url>http://netbeans.org/images_www/v5/nb-logo.gif</url>
+         <link>http://netbeans.org/index.html</link>
+         <width>110</width>
+         <height>30</height>
+      </image>
+
+<item>
+         <pubDate>Mon, 04 October 2010 12:00:00 +0200</pubDate>
+         <title>Creating an Animated NetBeans Logo Application in JavaFX Composer</title>
+         <link>http://netbeans.org/kb/docs/javafx/nblogo-screencast.html</link>
+         <guid>http://netbeans.org/kb/docs/javafx/nblogo-screencast.html</guid>
+         <description>Quickly create a small demo with animated graphics using the NetBeans JavaFX Composer.</description>
+         <enclosure url="http://netbeans.org/images_www/demos/javafx-composer.png" type="image/png" length="35253" />
+      </item>
+
+<item>
+         <pubDate>Mon, 20 September 2010 12:00:00 +0200</pubDate>
+         <title>Editing Java Code in NetBeans IDE</title>
+         <link>http://netbeans.org/kb/docs/java/java-editor-screencast.html</link>
+         <guid>http://netbeans.org/kb/docs/java/java-editor-screencast.html</guid>
+         <description>This demonstration walks you through the creation of a simple Java application in the Java Editor of NetBeans IDE 6.9.1</description>
+         <enclosure url="http://netbeans.org/images_www/demos/java-editor.jpg" type="image/jpg" length="35253" />
+      </item>
+
+<item>
+         <pubDate>Tue, 07 September 2010 12:00:00 +0200</pubDate>
+         <title>Deploying a Web Application to the Oracle WebLogic Server</title>
+         <link>http://netbeans.org/kb/docs/javaee/weblogic-javaee-m1-screencast.html</link>
+         <guid>http://netbeans.org/kb/docs/javaee/weblogic-javaee-m1-screencast.html</guid>
+         <description>This screencast shows support for the Oracle WebLogic server in NetBeans IDE 6.10 Milestone 1. See how to register an instance of the server with the IDE and then deploy a Java EE 5 web application.</description>
+         <enclosure url="http://netbeans.org/images_www/demos/weblogic-demo-610m1.png" type="image/png" length="35253" />
+      </item>
+
+<item>
+         <pubDate>Wed, 28 July 2010 12:00:00 +0200</pubDate>
+         <title>Using JavaFX Composer in NetBeans IDE 6.9</title>
+         <link>http://netbeans.org/kb/docs/javafx/composer-screencast.html</link>
+         <guid>http://netbeans.org/kb/docs/javafx/composer-screencast.html</guid>
+         <description>The JavaFX Composer is a visual layout tool for building JavaFX GUI applications, similar to the Swing GUI Builder for Java SE applications.</description>
+         <enclosure url="http://netbeans.org/images_www/demos/javafx-composer.png" type="image/png" length="35253" />
+      </item>
+
+      <item>
+         <pubDate>Wed, 16 June 2010 12:00:00 +0200</pubDate>
+         <title>NetBeans Platform 6.9</title>
+         <link>http://netbeans.org/kb/docs/ide/platform-screencast.html</link>
+         <guid>http://netbeans.org/kb/docs/ide/platform-screencast.html</guid>
+         <description>An overview of the NetBeans Platform, a Swing-based framework for developing desktop applications.</description>
+         <enclosure url="http://netbeans.org/images_www/demos/platform.png" type="image/png" length="35253" />
+      </item>
+   </channel>
+</rss>
+
+

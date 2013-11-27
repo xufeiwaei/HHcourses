@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE library PUBLIC "-//NetBeans//DTD Library Declaration 1.0//EN" "http://www.netbeans.org/dtds/library-declaration-1_0.dtd">
+<library version="1.0">
+    <name>Comet-GlassFish-v3</name>
+    <type>j2se</type>
+    <volume>
+        <type>classpath</type>
+        <resource>jar:file:/C:/Program%20Files/glassfish-3.0.1/glassfish/modules/grizzly-comet.jar!/</resource>
+    </volume>
+    <volume>
+        <type>src</type>
+    </volume>
+    <volume>
+        <type>javadoc</type>
+    </volume>
+    <volume>
+        <type>maven-pom</type>
+    </volume>
+</library>
