@@ -1,0 +1,252 @@
+
+butterflyTest.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000011c  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .stab         000004a4  00000000  00000000  00000170  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  2 .stabstr      000006ea  00000000  00000000  00000614  2**0
+                  CONTENTS, READONLY, DEBUGGING
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2e 00 	jmp	0x5c	; 0x5c <__ctors_end>
+   4:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+   8:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+   c:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  10:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  14:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  18:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  1c:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  20:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  24:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  28:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  2c:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  30:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  34:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  38:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  3c:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  40:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  44:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  48:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  4c:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  50:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  54:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  58:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+
+0000005c <__ctors_end>:
+  5c:	11 24       	eor	r1, r1
+  5e:	1f be       	out	0x3f, r1	; 63
+  60:	cf ef       	ldi	r28, 0xFF	; 255
+  62:	d4 e0       	ldi	r29, 0x04	; 4
+  64:	de bf       	out	0x3e, r29	; 62
+  66:	cd bf       	out	0x3d, r28	; 61
+
+00000068 <__do_copy_data>:
+  68:	11 e0       	ldi	r17, 0x01	; 1
+  6a:	a0 e0       	ldi	r26, 0x00	; 0
+  6c:	b1 e0       	ldi	r27, 0x01	; 1
+  6e:	ec e1       	ldi	r30, 0x1C	; 28
+  70:	f1 e0       	ldi	r31, 0x01	; 1
+  72:	02 c0       	rjmp	.+4      	; 0x78 <.do_copy_data_start>
+
+00000074 <.do_copy_data_loop>:
+  74:	05 90       	lpm	r0, Z+
+  76:	0d 92       	st	X+, r0
+
+00000078 <.do_copy_data_start>:
+  78:	a0 30       	cpi	r26, 0x00	; 0
+  7a:	b1 07       	cpc	r27, r17
+  7c:	d9 f7       	brne	.-10     	; 0x74 <.do_copy_data_loop>
+
+0000007e <__do_clear_bss>:
+  7e:	11 e0       	ldi	r17, 0x01	; 1
+  80:	a0 e0       	ldi	r26, 0x00	; 0
+  82:	b1 e0       	ldi	r27, 0x01	; 1
+  84:	01 c0       	rjmp	.+2      	; 0x88 <.do_clear_bss_start>
+
+00000086 <.do_clear_bss_loop>:
+  86:	1d 92       	st	X+, r1
+
+00000088 <.do_clear_bss_start>:
+  88:	a0 30       	cpi	r26, 0x00	; 0
+  8a:	b1 07       	cpc	r27, r17
+  8c:	e1 f7       	brne	.-8      	; 0x86 <.do_clear_bss_loop>
+  8e:	0e 94 71 00 	call	0xe2	; 0xe2 <main>
+  92:	0c 94 8c 00 	jmp	0x118	; 0x118 <_exit>
+
+00000096 <__bad_interrupt>:
+  96:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000009a <lcd_int>:
+#include <avr/io.h>
+
+void lcd_int(void)
+{
+	LCDCRA  = 0x80;
+  9a:	80 e8       	ldi	r24, 0x80	; 128
+  9c:	80 93 e4 00 	sts	0x00E4, r24
+	LCDCRB  = 0xb7;
+  a0:	87 eb       	ldi	r24, 0xB7	; 183
+  a2:	80 93 e5 00 	sts	0x00E5, r24
+}
+  a6:	08 95       	ret
+
+000000a8 <disp_on>:
+
+void disp_on(void)
+{
+	
+
+	LCDDR3=0x01;
+  a8:	81 e0       	ldi	r24, 0x01	; 1
+  aa:	80 93 ef 00 	sts	0x00EF, r24
+	LCDDR13=0x00;
+  ae:	10 92 f9 00 	sts	0x00F9, r1
+}
+  b2:	08 95       	ret
+
+000000b4 <disp_off>:
+
+void disp_off(void)
+{
+	
+	LCDDR3=0x00;
+  b4:	10 92 ef 00 	sts	0x00EF, r1
+	LCDDR13=0x01;
+  b8:	81 e0       	ldi	r24, 0x01	; 1
+  ba:	80 93 f9 00 	sts	0x00F9, r24
+	
+}
+  be:	08 95       	ret
+
+000000c0 <button>:
+
+
+
+void button(void)
+{
+	PORTB |=1<<7;
+  c0:	2f 9a       	sbi	0x05, 7	; 5
+}
+
+void disp_off(void)
+{
+	
+	LCDDR3=0x00;
+  c2:	10 92 ef 00 	sts	0x00EF, r1
+	LCDDR13=0x01;
+  c6:	81 e0       	ldi	r24, 0x01	; 1
+  c8:	80 93 f9 00 	sts	0x00F9, r24
+{
+	PORTB |=1<<7;
+	disp_off();
+	while(1)
+	{
+		while((PINB&(1<<7)));
+  cc:	1f 99       	sbic	0x03, 7	; 3
+  ce:	fe cf       	rjmp	.-4      	; 0xcc <button+0xc>
+
+void disp_on(void)
+{
+	
+
+	LCDDR3=0x01;
+  d0:	80 93 ef 00 	sts	0x00EF, r24
+	LCDDR13=0x00;
+  d4:	10 92 f9 00 	sts	0x00F9, r1
+	disp_off();
+	while(1)
+	{
+		while((PINB&(1<<7)));
+		disp_on();
+		while(!(PINB&(1<<7)));
+  d8:	1f 9b       	sbis	0x03, 7	; 3
+  da:	fe cf       	rjmp	.-4      	; 0xd8 <button+0x18>
+}
+
+void disp_off(void)
+{
+	
+	LCDDR3=0x00;
+  dc:	10 92 ef 00 	sts	0x00EF, r1
+  e0:	f3 cf       	rjmp	.-26     	; 0xc8 <button+0x8>
+
+000000e2 <main>:
+
+
+
+int main(void)
+{
+	CLKPR=0x80;
+  e2:	80 e8       	ldi	r24, 0x80	; 128
+  e4:	80 93 61 00 	sts	0x0061, r24
+	CLKPR=0x00;
+  e8:	10 92 61 00 	sts	0x0061, r1
+#include <avr/io.h>
+
+void lcd_int(void)
+{
+	LCDCRA  = 0x80;
+  ec:	80 93 e4 00 	sts	0x00E4, r24
+	LCDCRB  = 0xb7;
+  f0:	87 eb       	ldi	r24, 0xB7	; 183
+  f2:	80 93 e5 00 	sts	0x00E5, r24
+
+
+
+void button(void)
+{
+	PORTB |=1<<7;
+  f6:	2f 9a       	sbi	0x05, 7	; 5
+}
+
+void disp_off(void)
+{
+	
+	LCDDR3=0x00;
+  f8:	10 92 ef 00 	sts	0x00EF, r1
+	LCDDR13=0x01;
+  fc:	81 e0       	ldi	r24, 0x01	; 1
+  fe:	80 93 f9 00 	sts	0x00F9, r24
+{
+	PORTB |=1<<7;
+	disp_off();
+	while(1)
+	{
+		while((PINB&(1<<7)));
+ 102:	1f 99       	sbic	0x03, 7	; 3
+ 104:	fe cf       	rjmp	.-4      	; 0x102 <main+0x20>
+
+void disp_on(void)
+{
+	
+
+	LCDDR3=0x01;
+ 106:	80 93 ef 00 	sts	0x00EF, r24
+	LCDDR13=0x00;
+ 10a:	10 92 f9 00 	sts	0x00F9, r1
+	disp_off();
+	while(1)
+	{
+		while((PINB&(1<<7)));
+		disp_on();
+		while(!(PINB&(1<<7)));
+ 10e:	1f 9b       	sbis	0x03, 7	; 3
+ 110:	fe cf       	rjmp	.-4      	; 0x10e <main+0x2c>
+}
+
+void disp_off(void)
+{
+	
+	LCDDR3=0x00;
+ 112:	10 92 ef 00 	sts	0x00EF, r1
+ 116:	f3 cf       	rjmp	.-26     	; 0xfe <main+0x1c>
+
+00000118 <_exit>:
+ 118:	f8 94       	cli
+
+0000011a <__stop_program>:
+ 11a:	ff cf       	rjmp	.-2      	; 0x11a <__stop_program>

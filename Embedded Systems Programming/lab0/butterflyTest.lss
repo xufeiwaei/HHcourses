@@ -1,0 +1,119 @@
+
+butterflyTest.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000000d2  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .stab         000006b4  00000000  00000000  00000128  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  2 .stabstr      0000069e  00000000  00000000  000007dc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2e 00 	jmp	0x5c	; 0x5c <__ctors_end>
+   4:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+   8:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+   c:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  10:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  14:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  18:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  1c:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  20:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  24:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  28:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  2c:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  30:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  34:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  38:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  3c:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  40:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  44:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  48:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  4c:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  50:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  54:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  58:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+
+0000005c <__ctors_end>:
+  5c:	11 24       	eor	r1, r1
+  5e:	1f be       	out	0x3f, r1	; 63
+  60:	cf ef       	ldi	r28, 0xFF	; 255
+  62:	d4 e0       	ldi	r29, 0x04	; 4
+  64:	de bf       	out	0x3e, r29	; 62
+  66:	cd bf       	out	0x3d, r28	; 61
+
+00000068 <__do_copy_data>:
+  68:	11 e0       	ldi	r17, 0x01	; 1
+  6a:	a0 e0       	ldi	r26, 0x00	; 0
+  6c:	b1 e0       	ldi	r27, 0x01	; 1
+  6e:	e2 ed       	ldi	r30, 0xD2	; 210
+  70:	f0 e0       	ldi	r31, 0x00	; 0
+  72:	02 c0       	rjmp	.+4      	; 0x78 <.do_copy_data_start>
+
+00000074 <.do_copy_data_loop>:
+  74:	05 90       	lpm	r0, Z+
+  76:	0d 92       	st	X+, r0
+
+00000078 <.do_copy_data_start>:
+  78:	a0 30       	cpi	r26, 0x00	; 0
+  7a:	b1 07       	cpc	r27, r17
+  7c:	d9 f7       	brne	.-10     	; 0x74 <.do_copy_data_loop>
+
+0000007e <__do_clear_bss>:
+  7e:	11 e0       	ldi	r17, 0x01	; 1
+  80:	a0 e0       	ldi	r26, 0x00	; 0
+  82:	b1 e0       	ldi	r27, 0x01	; 1
+  84:	01 c0       	rjmp	.+2      	; 0x88 <.do_clear_bss_start>
+
+00000086 <.do_clear_bss_loop>:
+  86:	1d 92       	st	X+, r1
+
+00000088 <.do_clear_bss_start>:
+  88:	a0 30       	cpi	r26, 0x00	; 0
+  8a:	b1 07       	cpc	r27, r17
+  8c:	e1 f7       	brne	.-8      	; 0x86 <.do_clear_bss_loop>
+  8e:	0c 94 4b 00 	jmp	0x96	; 0x96 <main>
+
+00000092 <__bad_interrupt>:
+  92:	0c 94 00 00 	jmp	0	; 0x0 <__heap_end>
+
+00000096 <main>:
+#include<avr/io.h>
+int main() {
+  LCDCRA  = 0x80;
+  96:	80 e8       	ldi	r24, 0x80	; 128
+  98:	80 93 e4 00 	sts	0x00E4, r24
+  LCDCRB  = 0xb7;
+  9c:	87 eb       	ldi	r24, 0xB7	; 183
+  9e:	80 93 e5 00 	sts	0x00E5, r24
+  
+  LCDDR0  = 0x11;
+  a2:	21 e1       	ldi	r18, 0x11	; 17
+  a4:	20 93 ec 00 	sts	0x00EC, r18
+  LCDDR5  = 0x88;
+  a8:	98 e8       	ldi	r25, 0x88	; 136
+  aa:	90 93 f1 00 	sts	0x00F1, r25
+  LCDDR15 = 0x33;
+  ae:	83 e3       	ldi	r24, 0x33	; 51
+  b0:	80 93 fb 00 	sts	0x00FB, r24
+
+
+  LCDDR1  = 0x11;
+  b4:	20 93 ed 00 	sts	0x00ED, r18
+  LCDDR6  = 0x88;
+  b8:	90 93 f2 00 	sts	0x00F2, r25
+  LCDDR16 = 0x33;
+  bc:	80 93 fc 00 	sts	0x00FC, r24
+
+  LCDDR2  = 0x11;
+  c0:	20 93 ee 00 	sts	0x00EE, r18
+  LCDDR7  = 0x88;
+  c4:	90 93 f3 00 	sts	0x00F3, r25
+  LCDDR17 = 0x33;
+  c8:	80 93 fd 00 	sts	0x00FD, r24
+}
+  cc:	80 e0       	ldi	r24, 0x00	; 0
+  ce:	90 e0       	ldi	r25, 0x00	; 0
+  d0:	08 95       	ret

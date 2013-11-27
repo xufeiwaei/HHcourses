@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    <TextView
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:text="" 
+      android:textSize="10sp"/>
+    
+  <TextView  
+      android:layout_width="fill_parent" 
+      android:layout_height="wrap_content" 
+      android:text="Your name:"
+      android:textSize="20sp"
+      />
+  <EditText  
+      android:id="@+id/phone"
+      android:layout_width="fill_parent" 
+      android:layout_height="wrap_content" 
+      />
+  
+	<TextView
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:text="" 
+      android:textSize="15sp"/>
+	
+  <TextView
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:text="Teacher's IP:" 
+      android:textSize="20sp"/>
+
+  <EditText  
+      android:id="@+id/ipNumber"
+      android:layout_width="fill_parent" 
+      android:layout_height="wrap_content" 
+      />
+  
+  <TextView
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:text="" 
+      android:textSize="15sp"/>
+  
+  <TextView
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:text="Port Number:" 
+      android:textSize="20sp"/>
+
+  <EditText  
+      android:id="@+id/portNumber"
+      android:layout_width="fill_parent" 
+      android:layout_height="wrap_content"
+      />
+  
+
+  <TextView
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:text="" 
+      android:textSize="40sp"/>
+  
+  
+  
+  <Button
+      android:id="@+id/connect"
+      android:layout_width="200sp"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:text="Connect" 
+      android:textSize="20sp"/>
+  
+</LinearLayout>

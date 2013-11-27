@@ -1,0 +1,25 @@
+/.cvsignore/1.1/Fri Aug  9 16:52:38 2002//Tavr-libc-1_0_5-release
+/Makefile.am/1.36.2.2/Fri Apr 23 21:16:56 2004//Tavr-libc-1_0_5-release
+/acknowledge.dox/1.9/Tue May 13 17:05:45 2003//Tavr-libc-1_0_5-release
+/assembler.dox/1.4.2.2/Thu Oct 21 21:57:17 2004//Tavr-libc-1_0_5-release
+/dox.css/1.2/Wed Oct 30 18:39:47 2002//Tavr-libc-1_0_5-release
+/dox_html_footer/1.1/Tue Jul 16 20:11:37 2002//Tavr-libc-1_0_5-release
+/dox_html_header/1.3/Wed Oct 30 18:39:47 2002//Tavr-libc-1_0_5-release
+/doxygen.config.in/1.10/Wed Dec 18 22:35:38 2002//Tavr-libc-1_0_5-release
+/faq.dox/1.27.2.7/Thu Oct 21 21:26:25 2004//Tavr-libc-1_0_5-release
+/inline_asm.dox/1.13.2.2/Sun Feb 22 20:20:55 2004//Tavr-libc-1_0_5-release
+/interrupts.dox/1.4/Tue Nov 26 13:30:24 2002//Tavr-libc-1_0_5-release
+/main_page.dox/1.15.2.1/Mon Apr  5 21:40:50 2004//Tavr-libc-1_0_5-release
+/malloc-std.fig/1.3/Tue Oct 29 00:27:29 2002//Tavr-libc-1_0_5-release
+/malloc-x1.fig/1.3/Tue Oct 29 00:27:29 2002//Tavr-libc-1_0_5-release
+/malloc-x2.fig/1.4/Tue Oct 29 19:38:44 2002//Tavr-libc-1_0_5-release
+/malloc.dox/1.9/Sat Nov 16 21:05:17 2002//Tavr-libc-1_0_5-release
+/rel-method.dox/1.4.2.1/Mon Sep 22 05:09:05 2003//Tavr-libc-1_0_5-release
+/releases.fig/1.1/Thu Aug 14 22:01:27 2003//Tavr-libc-1_0_5-release
+/sections.dox/1.5.2.1/Thu Sep 11 22:45:41 2003//Tavr-libc-1_0_5-release
+/sfr.dox/1.4/Thu Aug 29 20:22:03 2002//Tavr-libc-1_0_5-release
+/tools-install.dox/1.8/Sat Aug 16 06:21:32 2003//Tavr-libc-1_0_5-release
+/unjs.pl/1.2/Mon Jan 20 21:05:19 2003//Tavr-libc-1_0_5-release
+/using-avrprog.dox/1.2/Thu Feb 27 18:32:46 2003//Tavr-libc-1_0_5-release
+/using-tools.dox/1.6/Thu Feb  6 13:50:40 2003//Tavr-libc-1_0_5-release
+D

@@ -1,0 +1,13 @@
+aclocal.m4
+config.guess
+configure
+install-sh
+missing
+mkinstalldirs
+Makefile.in
+build
+avr3
+avr4
+avr5
+*.diff
+*.patch

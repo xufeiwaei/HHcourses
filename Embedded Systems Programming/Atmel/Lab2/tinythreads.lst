@@ -1,0 +1,934 @@
+   1               		.file	"tinythreads.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  11               		.text
+  12               	.Ltext0:
+  80               	.global	freeQ
+  81               		.data
+  84               	freeQ:
+  85 0000 0000      		.word	threads
+  86               	.global	readyQ
+  87               	.global	readyQ
+  88               		.section .bss
+  91               	readyQ:
+  92 0000 0000      		.skip 2,0
+  93               	.global	current
+  94               		.data
+  97               	current:
+  98 0002 0000      		.word	initp
+  99               	.global	initialized
+ 100               	.global	initialized
+ 101               		.section .bss
+ 104               	initialized:
+ 105 0002 0000      		.skip 2,0
+ 106               		.text
+ 109               	initialize:
+   1:tinythreads.c **** #include <setjmp.h>
+   2:tinythreads.c **** #include <avr/io.h>
+   3:tinythreads.c **** #include <avr/interrupt.h>
+   4:tinythreads.c **** #include <avr/signal.h>
+   5:tinythreads.c **** #include "tinythreads.h"
+   6:tinythreads.c **** 
+   7:tinythreads.c **** #define NULL            0
+   8:tinythreads.c **** #define DISABLE()       cli()
+   9:tinythreads.c **** #define ENABLE()        sei()
+  10:tinythreads.c **** #define STACKSIZE       80
+  11:tinythreads.c **** #define NTHREADS        4
+  12:tinythreads.c **** #define SETSTACK(buf,a) *((unsigned int *)(buf)+8) = (unsigned int)(a) + STACKSIZE - 4; \
+  13:tinythreads.c ****                         *((unsigned int *)(buf)+9) = (unsigned int)(a) + STACKSIZE - 4
+  14:tinythreads.c **** 
+  15:tinythreads.c **** struct thread_block {
+  16:tinythreads.c ****     void (*function)(int);   // code to run
+  17:tinythreads.c ****     int arg;                 // argument to the above
+  18:tinythreads.c ****     thread next;             // for use in linked lists
+  19:tinythreads.c ****     jmp_buf context;         // machine state
+  20:tinythreads.c ****     char stack[STACKSIZE];   // execution stack space
+  21:tinythreads.c **** };
+  22:tinythreads.c **** 
+  23:tinythreads.c **** struct thread_block threads[NTHREADS];
+  24:tinythreads.c **** 
+  25:tinythreads.c **** struct thread_block initp;
+  26:tinythreads.c **** 
+  27:tinythreads.c **** thread freeQ   = threads;
+  28:tinythreads.c **** thread readyQ  = NULL;
+  29:tinythreads.c **** thread current = &initp;
+  30:tinythreads.c **** 
+  31:tinythreads.c **** int initialized = 0;
+  32:tinythreads.c **** 
+  33:tinythreads.c **** static void initialize(void) 
+  34:tinythreads.c **** {
+ 110               	tabn	68,0,34,.LM0-.LFBB1
+ 111               	.LM0:
+ 112               	.LFBB1:
+ 113 0000 DF93      		push r29
+ 114 0002 CF93      		push r28
+ 115 0004 00D0      		rcall .
+ 116 0006 CDB7      		in r28,__SP_L__
+ 117 0008 DEB7      		in r29,__SP_H__
+ 118               	/* prologue: function */
+ 119               	/* frame size = 2 */
+  35:tinythreads.c **** ock threads[NTHREADS];
+  36:tinythreads.c **** 
+  37:tinythreads.c **** struct thread_block initp;
+ 120               	,0,37,.LM1-.LFBB1
+ 121               	.LM1:
+ 122 000a E4EE      		ldi r30,lo8(228)
+ 123 000c F0E0      		ldi r31,hi8(228)
+ 124 000e 80E8      		ldi r24,lo8(-128)
+ 125 0010 8083      		st Z,r24
+  38:tinythreads.c **** se in linked lists
+ 126               	n	68,0,38,.LM2-.LFBB1
+ 127               	.LM2:
+ 128 0012 E5EE      		ldi r30,lo8(229)
+ 129 0014 F0E0      		ldi r31,hi8(229)
+ 130 0016 87EB      		ldi r24,lo8(-73)
+ 131 0018 8083      		st Z,r24
+  39:tinythreads.c **** (a) + STACKSIZE - 4
+  40:tinythreads.c **** 
+  41:tinythreads.c **** struct thread_block {
+  42:tinythreads.c ****     void (*function)(int);   // code to run
+  43:tinythreads.c ****     int arg;                 // argument to the above
+  44:tinythreads.c ****     thread next;             // for use in linked lists
+  45:tinythreads.c ****     jmp_buf context;         // machine state
+  46:tinythreads.c ****     char stack[STACKSIZE];   // execution stack space
+  47:tinythreads.c **** };
+  48:tinythreads.c **** 
+  49:tinythreads.c **** struct thread_block threads[NTHREADS];
+  50:tinythreads.c **** 
+  51:tinythreads.c **** struct thread_block initp;
+  52:tinythreads.c **** 
+  53:tinythreads.c **** thread freeQ   = threads;
+  54:tinythreads.c **** thread readyQ  = NULL;
+  55:tinythreads.c **** thread current = &initp;
+  56:tinythreads.c **** 
+  57:tinythreads.c **** int initialized = 0;
+  58:tinythreads.c **** 
+  59:tinythreads.c **** static void initialize(void) 
+ 132               	n	68,0,59,.LM3-.LFBB1
+ 133               	.LM3:
+ 134 001a E0E7      		ldi r30,lo8(112)
+ 135 001c F0E0      		ldi r31,hi8(112)
+ 136 001e 1082      		st Z,__zero_reg__
+  60:tinythreads.c **** _block threads[NTHREADS];
+ 137               	bn	68,0,60,.LM4-.LFBB1
+ 138               	.LM4:
+ 139 0020 E6EB      		ldi r30,lo8(182)
+ 140 0022 F0E0      		ldi r31,hi8(182)
+ 141 0024 88E0      		ldi r24,lo8(8)
+ 142 0026 8083      		st Z,r24
+  61:tinythreads.c **** ead next;             // for use in linked lists
+ 143               	n	68,0,61,.LM5-.LFBB1
+ 144               	.LM5:
+ 145 0028 E2EB      		ldi r30,lo8(178)
+ 146 002a F0E0      		ldi r31,hi8(178)
+ 147 002c 1082      		st Z,__zero_reg__
+  62:tinythreads.c **** (a) + STACKSIZE - 4
+ 148               	bn	68,0,62,.LM6-.LFBB1
+ 149               	.LM6:
+ 150 002e E3EB      		ldi r30,lo8(179)
+ 151 0030 F0E0      		ldi r31,hi8(179)
+ 152 0032 82E3      		ldi r24,lo8(50)
+ 153 0034 8083      		st Z,r24
+  63:tinythreads.c **** define NTHREADS        4
+ 154               	n	68,0,63,.LM7-.LFBB1
+ 155               	.LM7:
+ 156 0036 E0EB      		ldi r30,lo8(176)
+ 157 0038 F0E0      		ldi r31,hi8(176)
+ 158 003a 8BE0      		ldi r24,lo8(11)
+ 159 003c 8083      		st Z,r24
+ 160               	.L2:
+  64:tinythreads.c **** r/interrupt.h>
+ 161               		68,0,64,.LM8-.LFBB1
+ 162               	.LM8:
+ 163 003e E6EB      		ldi r30,lo8(182)
+ 164 0040 F0E0      		ldi r31,hi8(182)
+ 165 0042 8081      		ld r24,Z
+ 166 0044 882F      		mov r24,r24
+ 167 0046 90E0      		ldi r25,lo8(0)
+ 168 0048 8770      		andi r24,lo8(7)
+ 169 004a 9070      		andi r25,hi8(7)
+ 170 004c 0097      		sbiw r24,0
+ 171 004e 01F4      		brne .L2
+  65:tinythreads.c **** #include <setjmp.h>
+ 172               	0,65,.LM9-.LFBB1
+ 173               	.LM9:
+ 174 0050 E7E3      		ldi r30,lo8(55)
+ 175 0052 F0E0      		ldi r31,hi8(55)
+ 176 0054 1082      		st Z,__zero_reg__
+  66:tinythreads.c **** #include <setjmp.h>
+ 177               	bn	68,0,66,.LM10-.LFBB1
+ 178               	.LM10:
+ 179 0056 E0E7      		ldi r30,lo8(112)
+ 180 0058 F0E0      		ldi r31,hi8(112)
+ 181 005a 82E0      		ldi r24,lo8(2)
+ 182 005c 8083      		st Z,r24
+  67:tinythreads.c **** #include <setjmp.h>
+  68:tinythreads.c **** #include <avr/io.h>
+  69:tinythreads.c **** #include <avr/interrupt.h>
+  70:tinythreads.c **** #include <avr/signal.h>
+  71:tinythreads.c **** #include "tinythreads.h"
+  72:tinythreads.c **** 
+  73:tinythreads.c **** #define NULL            0
+  74:tinythreads.c **** #define DISABLE()       cli()
+  75:tinythreads.c **** #define ENABLE()        sei()
+  76:tinythreads.c **** #define STACKSIZE       80
+  77:tinythreads.c **** #define NTHREADS        4
+  78:tinythreads.c **** #define SETSTACK(buf,a) *((unsigned int *)(buf)+8) = (unsigned int)(a) + STACKSIZE - 4; \
+  79:tinythreads.c ****                         *((unsigned int *)(buf)+9) = (unsigned int)(a) + STACKSIZE - 4
+  80:tinythreads.c **** 
+  81:tinythreads.c **** struct thread_block {
+  82:tinythreads.c ****     void (*function)(int);   // code to run
+  83:tinythreads.c ****     int arg;                 // argument to the above
+  84:tinythreads.c ****     thread next;             // for use in linked lists
+ 183               	n	68,0,84,.LM11-.LFBB1
+ 184               	.LM11:
+ 185 005e 1A82      		std Y+2,__zero_reg__
+ 186 0060 1982      		std Y+1,__zero_reg__
+ 187 0062 00C0      		rjmp .L3
+ 188               	.L4:
+  85:tinythreads.c **** (a) + STACKSIZE - 4
+ 189               	n	68,0,85,.LM12-.LFBB1
+ 190               	.LM12:
+ 191 0064 4981      		ldd r20,Y+1
+ 192 0066 5A81      		ldd r21,Y+2
+ 193 0068 8981      		ldd r24,Y+1
+ 194 006a 9A81      		ldd r25,Y+2
+ 195 006c 9C01      		movw r18,r24
+ 196 006e 2F5F      		subi r18,lo8(-(1))
+ 197 0070 3F4F      		sbci r19,hi8(-(1))
+ 198 0072 8DE6      		ldi r24,lo8(109)
+ 199 0074 90E0      		ldi r25,hi8(109)
+ 200 0076 BC01      		movw r22,r24
+ 201 0078 269F      		mul r18,r22
+ 202 007a C001      		movw r24,r0
+ 203 007c 279F      		mul r18,r23
+ 204 007e 900D      		add r25,r0
+ 205 0080 369F      		mul r19,r22
+ 206 0082 900D      		add r25,r0
+ 207 0084 1124      		clr r1
+ 208 0086 9C01      		movw r18,r24
+ 209 0088 2050      		subi r18,lo8(-(threads))
+ 210 008a 3040      		sbci r19,hi8(-(threads))
+ 211 008c 8DE6      		ldi r24,lo8(109)
+ 212 008e 90E0      		ldi r25,hi8(109)
+ 213 0090 BC01      		movw r22,r24
+ 214 0092 469F      		mul r20,r22
+ 215 0094 C001      		movw r24,r0
+ 216 0096 479F      		mul r20,r23
+ 217 0098 900D      		add r25,r0
+ 218 009a 569F      		mul r21,r22
+ 219 009c 900D      		add r25,r0
+ 220 009e 1124      		clr r1
+ 221 00a0 FC01      		movw r30,r24
+ 222 00a2 E050      		subi r30,lo8(-(threads+4))
+ 223 00a4 F040      		sbci r31,hi8(-(threads+4))
+ 224 00a6 3183      		std Z+1,r19
+ 225 00a8 2083      		st Z,r18
+ 227               	.LM13:
+ 228 00aa 8981      		ldd r24,Y+1
+ 229 00ac 9A81      		ldd r25,Y+2
+ 230 00ae 0196      		adiw r24,1
+ 231 00b0 9A83      		std Y+2,r25
+ 232 00b2 8983      		std Y+1,r24
+ 233               	.L3:
+ 234 00b4 8981      		ldd r24,Y+1
+ 235 00b6 9A81      		ldd r25,Y+2
+ 236 00b8 8330      		cpi r24,3
+ 237 00ba 9105      		cpc r25,__zero_reg__
+ 238 00bc 04F0      		brlt .L4
+  86:tinythreads.c **** define NTHREADS        4
+ 239               	331)+1,__zero_reg__
+ 240               		sts threads+331,__zero_reg__
+ 242 00c2 1092 0000 	.LM15:
+  87:tinythreads.c **** r/interrupt.h>
+  88:tinythreads.c **** #include <avr/signal.h>
+  89:tinythreads.c **** #include "tinythreads.h"
+ 243               	 r24,lo8(1)
+ 244               		ldi r25,hi8(1)
+ 245 00c6 81E0      		sts (initialized)+1,r25
+ 246 00c8 90E0      		sts initialized,r24
+ 247 00ca 9093 0000 	/* epilogue start */
+ 249               	.LM16:
+  90:tinythreads.c **** #include <setjmp.h>
+ 250               	tmp_reg__
+ 251               		pop __tmp_reg__
+ 252 00d2 0F90      		pop r28
+ 253 00d4 0F90      		pop r29
+ 254 00d6 CF91      		ret
+ 259               	.Lscope1:
+ 264               	enqueue:
+ 266               	.LM17:
+  91:tinythreads.c **** #include <setjmp.h>
+  92:tinythreads.c **** #include <avr/io.h>
+  93:tinythreads.c **** #include <avr/interrupt.h>
+  94:tinythreads.c **** #include <avr/signal.h>
+  95:tinythreads.c **** #include "tinythreads.h"
+ 267               	
+ 268               		push r28
+ 269               		rcall .
+ 270 00dc DF93      		rcall .
+ 271 00de CF93      		rcall .
+ 272 00e0 00D0      		in r28,__SP_L__
+ 273 00e2 00D0      		in r29,__SP_H__
+ 274 00e4 00D0      	/* prologue: function */
+ 275 00e6 CDB7      	/* frame size = 6 */
+ 276 00e8 DEB7      		std Y+4,r25
+ 277               		std Y+3,r24
+ 278               		std Y+6,r23
+ 279 00ea 9C83      		std Y+5,r22
+ 281 00ee 7E83      	.LM18:
+ 282 00f0 6D83      		ldd r30,Y+3
+  96:tinythreads.c **** #include <setjmp.h>
+ 283               	td Z+5,__zero_reg__
+ 284               		std Z+4,__zero_reg__
+ 286 00f4 FC81      	.LM19:
+ 287 00f6 1582      		ldd r30,Y+5
+ 288 00f8 1482      		ldd r31,Y+6
+  97:tinythreads.c **** #include <setjmp.h>
+ 289               	4,Z
+ 290               		ldd r25,Z+1
+ 291 00fa ED81      		sbiw r24,0
+ 292 00fc FE81      		brne .L7
+ 294 0100 9181      	.LM20:
+ 295 0102 0097      		ldd r30,Y+5
+ 296 0104 01F4      		ldd r31,Y+6
+  98:tinythreads.c **** #include <setjmp.h>
+ 297               	,Y+3
+ 298               		ldd r25,Y+4
+ 299 0106 ED81      		std Z+1,r25
+ 300 0108 FE81      		st Z,r24
+ 301 010a 8B81      		rjmp .L11
+ 302 010c 9C81      	.L7:
+ 303 010e 9183      	.LBB2:
+ 305 0112 00C0      	.LM21:
+ 306               		ldd r30,Y+5
+ 307               		ldd r31,Y+6
+  99:tinythreads.c **** #include <setjmp.h>
+ 100:tinythreads.c **** #include <avr/io.h>
+ 308               	ldd r25,Z+1
+ 309               		std Y+2,r25
+ 310 0114 ED81      		std Y+1,r24
+ 311 0116 FE81      		rjmp .L9
+ 312 0118 8081      	.L10:
+ 314 011c 9A83      	.LM22:
+ 315 011e 8983      		ldd r30,Y+1
+ 316 0120 00C0      		ldd r31,Y+2
+ 317               		ldd r24,Z+4
+ 101:tinythreads.c **** #include <setjmp.h>
+ 102:tinythreads.c **** #include <avr/io.h>
+ 318               	+5
+ 319               		std Y+2,r25
+ 320 0122 E981      		std Y+1,r24
+ 321 0124 FA81      	.L9:
+ 323 0128 9581      	.LM23:
+ 324 012a 9A83      		ldd r30,Y+1
+ 325 012c 8983      		ldd r31,Y+2
+ 326               		ldd r24,Z+4
+ 327               		ldd r25,Z+5
+ 328               		sbiw r24,0
+ 329 012e E981      		brne .L10
+ 331 0132 8481      	.LM24:
+ 332 0134 9581      		ldd r30,Y+1
+ 333 0136 0097      		ldd r31,Y+2
+ 334 0138 01F4      		ldd r24,Y+3
+ 103:tinythreads.c **** #include <setjmp.h>
+ 335               	 Z+5,r25
+ 336               		std Z+4,r24
+ 337 013a E981      	.L11:
+ 338 013c FA81      	/* epilogue start */
+ 339 013e 8B81      	.LBE2:
+ 341 0142 9583      	.LM25:
+ 342 0144 8483      		adiw r28,6
+ 343               		in __tmp_reg__,__SREG__
+ 344               		cli
+ 345               		out __SP_H__,r29
+ 104:tinythreads.c **** #include <setjmp.h>
+ 105:tinythreads.c **** #include <avr/io.h>
+ 346               	__,__tmp_reg__
+ 347               		out __SP_L__,r28
+ 348 0146 2696      		pop r28
+ 349 0148 0FB6      		pop r29
+ 350 014a F894      		ret
+ 355 0154 DF91      	.Lscope2:
+ 359               	dequeue:
+ 361               	.LM26:
+ 362               	.LFBB3:
+ 363               		push r29
+ 364               		push r28
+ 365               		rcall .
+ 106:tinythreads.c **** #include <setjmp.h>
+ 107:tinythreads.c **** #include <avr/io.h>
+ 108:tinythreads.c **** #include <avr/interrupt.h>
+ 109:tinythreads.c **** #include <avr/signal.h>
+ 110:tinythreads.c **** #include "tinythreads.h"
+ 366               	P_L__
+ 367               		in r29,__SP_H__
+ 368               	/* prologue: function */
+ 369 0158 DF93      	/* frame size = 4 */
+ 370 015a CF93      		std Y+4,r25
+ 371 015c 00D0      		std Y+3,r24
+ 373 0160 CDB7      	.LM27:
+ 374 0162 DEB7      		ldd r30,Y+3
+ 375               		ldd r31,Y+4
+ 376               		ld r24,Z
+ 377 0164 9C83      		ldd r25,Z+1
+ 378 0166 8B83      		std Y+2,r25
+ 111:tinythreads.c **** #include <setjmp.h>
+ 380               	.LM28:
+ 381 0168 EB81      		ldd r30,Y+3
+ 382 016a FC81      		ldd r31,Y+4
+ 383 016c 8081      		ld r24,Z
+ 384 016e 9181      		ldd r25,Z+1
+ 385 0170 9A83      		sbiw r24,0
+ 386 0172 8983      		breq .L13
+ 112:tinythreads.c **** #include <setjmp.h>
+ 387               	68,0,113,.LM29-.LFBB3
+ 388               	.LM29:
+ 389 0174 EB81      		ldd r30,Y+3
+ 390 0176 FC81      		ldd r31,Y+4
+ 391 0178 8081      		ld __tmp_reg__,Z+
+ 392 017a 9181      		ld r31,Z
+ 393 017c 0097      		mov r30,__tmp_reg__
+ 394 017e 01F0      		ldd r24,Z+4
+ 113:tinythreads.c **** #include <setjmp.h>
+ 395               	,Z+5
+ 396               		ldd r30,Y+3
+ 397 0180 EB81      		ldd r31,Y+4
+ 398 0182 FC81      		std Z+1,r25
+ 399 0184 0190      		st Z,r24
+ 401 0188 E02D      	.LM30:
+ 402 018a 8481      		ldd r24,Y+1
+ 403 018c 9581      		ldd r25,Y+2
+ 404 018e EB81      	/* epilogue start */
+ 406 0192 9183      	.LM31:
+ 407 0194 8083      		pop __tmp_reg__
+ 114:tinythreads.c **** #include <setjmp.h>
+ 115:tinythreads.c **** #include <avr/io.h>
+ 116:tinythreads.c **** #include <avr/interrupt.h>
+ 117:tinythreads.c **** #include <avr/signal.h>
+ 118:tinythreads.c **** #include "tinythreads.h"
+ 408               	g__
+ 409               		pop __tmp_reg__
+ 410 0196 8981      		pop __tmp_reg__
+ 411 0198 9A81      		pop r28
+ 412               		pop r29
+ 119:tinythreads.c **** #include <setjmp.h>
+ 413               	.L13:
+ 414               		rjmp .L13
+ 419 01a2 CF91      	.Lscope3:
+ 423 01a8 00C0      	dispatch:
+ 425               	.LM32:
+ 426               	.LFBB4:
+ 427               		push r29
+ 428               		push r28
+ 429               		rcall .
+ 430               		in r28,__SP_L__
+ 431               		in r29,__SP_H__
+ 432               	/* prologue: function */
+ 120:tinythreads.c **** #include <setjmp.h>
+ 121:tinythreads.c **** #include <avr/io.h>
+ 122:tinythreads.c **** #include <avr/interrupt.h>
+ 123:tinythreads.c **** #include <avr/signal.h>
+ 124:tinythreads.c **** #include "tinythreads.h"
+ 125:tinythreads.c **** 
+ 433               	
+ 434               		std Y+2,r25
+ 435               		std Y+1,r24
+ 437 01ac CF93      	.LM33:
+ 438 01ae 00D0      		lds r24,current
+ 439 01b0 CDB7      		lds r25,(current)+1
+ 440 01b2 DEB7      		adiw r24,6
+ 441               		call setjmp
+ 442               		sbiw r24,0
+ 443 01b4 9A83      		brne .L17
+ 126:tinythreads.c **** #include <setjmp.h>
+ 445               	 r24,Y+1
+ 446               		ldd r25,Y+2
+ 447 01b8 8091 0000 		sts (current)+1,r25
+ 448 01bc 9091 0000 		sts current,r24
+ 450 01c2 0E94 0000 	.LM35:
+ 451 01c6 0097      		ldd r24,Y+1
+ 452 01c8 01F4      		ldd r25,Y+2
+ 127:tinythreads.c **** #include <setjmp.h>
+ 128:tinythreads.c **** #include <avr/io.h>
+ 453               	4,6
+ 454               		ldi r22,lo8(1)
+ 455 01ca 8981      		ldi r23,hi8(1)
+ 456 01cc 9A81      		call longjmp
+ 457 01ce 9093 0000 	.L17:
+ 458 01d2 8093 0000 	/* epilogue start */
+ 129:tinythreads.c **** #include <setjmp.h>
+ 459               	n	68,0,131,.LM36-.LFBB4
+ 460               	.LM36:
+ 461 01d6 8981      		pop __tmp_reg__
+ 462 01d8 9A81      		pop __tmp_reg__
+ 463 01da 0696      		pop r28
+ 464 01dc 61E0      		pop r29
+ 465 01de 70E0      		ret
+ 467               	.Lscope4:
+ 130:tinythreads.c **** #include <setjmp.h>
+ 131:tinythreads.c **** #include <avr/io.h>
+ 469               	unction:p(0,16)",160,0,0,3
+ 471 01e4 0F90      	.global	spawn
+ 473 01e8 CF91      	spawn:
+ 475 01ec 0895      	.LM37:
+ 476               	.LFBB5:
+ 477               		push r29
+ 478               		push r28
+ 479               		rcall .
+ 480               		rcall .
+ 481               		rcall .
+ 482               		in r28,__SP_L__
+ 483               		in r29,__SP_H__
+ 132:tinythreads.c **** #include <setjmp.h>
+ 133:tinythreads.c **** #include <avr/io.h>
+ 134:tinythreads.c **** #include <avr/interrupt.h>
+ 135:tinythreads.c **** #include <avr/signal.h>
+ 136:tinythreads.c **** #include "tinythreads.h"
+ 137:tinythreads.c **** 
+ 484               	nction */
+ 485               	/* frame size = 6 */
+ 486               		std Y+4,r25
+ 487 01ee DF93      		std Y+3,r24
+ 488 01f0 CF93      		std Y+6,r23
+ 489 01f2 00D0      		std Y+5,r22
+ 491 01f6 00D0      	.LM38:
+ 492 01f8 CDB7      	/* #APP */
+ 493 01fa DEB7      	 ;  140 "tinythreads.c" 1
+ 494               		cli
+ 495               	 ;  0 "" 2
+ 497 01fe 8B83      	.LM39:
+ 498 0200 7E83      	/* #NOAPP */
+ 499 0202 6D83      		lds r24,initialized
+ 138:tinythreads.c **** #include <setjmp.h>
+ 139:tinythreads.c **** #include <avr/io.h>
+ 140:tinythreads.c **** #include <avr/interrupt.h>
+ 500               	lized)+1
+ 501               		sbiw r24,0
+ 502               		brne .L19
+ 503               		call initialize
+ 504 0204 F894      	.L19:
+ 141:tinythreads.c **** #include <setjmp.h>
+ 506               	
+ 507               		ldi r24,lo8(freeQ)
+ 508               		ldi r25,hi8(freeQ)
+ 509 0206 8091 0000 		call dequeue
+ 510 020a 9091 0000 		std Y+2,r25
+ 511 020e 0097      		std Y+1,r24
+ 513 0212 0E94 0000 	.LM41:
+ 514               		ldd r30,Y+1
+ 142:tinythreads.c **** #include <setjmp.h>
+ 143:tinythreads.c **** #include <avr/io.h>
+ 515               	,Y+2
+ 516               		ldd r24,Y+3
+ 517 0216 80E0      		ldd r25,Y+4
+ 518 0218 90E0      		std Z+1,r25
+ 519 021a 0E94 0000 		st Z,r24
+ 521 0220 8983      	.LM42:
+ 144:tinythreads.c **** #include <setjmp.h>
+ 522               	0,Y+1
+ 523               		ldd r31,Y+2
+ 524 0222 E981      		ldd r24,Y+5
+ 525 0224 FA81      		ldd r25,Y+6
+ 526 0226 8B81      		std Z+3,r25
+ 527 0228 9C81      		std Z+2,r24
+ 529 022c 8083      	.LM43:
+ 145:tinythreads.c **** #include <setjmp.h>
+ 530               	,Y+1
+ 531               		ldd r31,Y+2
+ 532 022e E981      		std Z+5,__zero_reg__
+ 533 0230 FA81      		std Z+4,__zero_reg__
+ 535 0234 9E81      	.LM44:
+ 536 0236 9383      		ldd r24,Y+1
+ 537 0238 8283      		ldd r25,Y+2
+ 146:tinythreads.c **** #include <setjmp.h>
+ 538               	4,6
+ 539               		call setjmp
+ 540 023a E981      		cpi r24,1
+ 541 023c FA81      		cpc r25,__zero_reg__
+ 542 023e 1582      		brne .L20
+ 147:tinythreads.c **** #include <setjmp.h>
+ 544               	
+ 545               	/* #APP */
+ 546 0242 8981      	 ;  148 "tinythreads.c" 1
+ 547 0244 9A81      		sei
+ 548 0246 0696      	 ;  0 "" 2
+ 550 024c 8130      	.LM46:
+ 551 024e 9105      	/* #NOAPP */
+ 552 0250 01F4      		lds r30,current
+ 148:tinythreads.c **** #include <setjmp.h>
+ 553               	,(current)+1
+ 554               		ld r18,Z
+ 555               		ldd r19,Z+1
+ 556               		lds r30,current
+ 557 0252 7894      		lds r31,(current)+1
+ 558               		ldd r24,Z+2
+ 149:tinythreads.c **** #include <setjmp.h>
+ 559               	25,Z+3
+ 560               		movw r30,r18
+ 561               		icall
+ 563 0258 F091 0000 	.LM47:
+ 564 025c 2081      	/* #APP */
+ 565 025e 3181      	 ;  150 "tinythreads.c" 1
+ 566 0260 E091 0000 		cli
+ 567 0264 F091 0000 	 ;  0 "" 2
+ 569 026a 9381      	.LM48:
+ 570 026c F901      	/* #NOAPP */
+ 571 026e 0995      		lds r18,current
+ 150:tinythreads.c **** #include <setjmp.h>
+ 572               	rent)+1
+ 573               		ldi r24,lo8(freeQ)
+ 574               		ldi r25,hi8(freeQ)
+ 575               		movw r22,r24
+ 576 0270 F894      		movw r24,r18
+ 577               		call enqueue
+ 151:tinythreads.c **** #include <setjmp.h>
+ 578               	n	68,0,152,.LM49-.LFBB5
+ 579               	.LM49:
+ 580               		ldi r24,lo8(readyQ)
+ 581 0272 2091 0000 		ldi r25,hi8(readyQ)
+ 582 0276 3091 0000 		call dequeue
+ 583 027a 80E0      		call dispatch
+ 584 027c 90E0      	.L20:
+ 586 0280 C901      	.LM50:
+ 587 0282 0E94 0000 		ldd r24,Y+1
+ 152:tinythreads.c **** #include <setjmp.h>
+ 588               	+2
+ 589               		adiw r24,6
+ 590 0286 80E0      		movw r30,r24
+ 591 0288 90E0      		adiw r30,16
+ 592 028a 0E94 0000 		ldd r24,Y+1
+ 593 028e 0E94 0000 		ldd r25,Y+2
+ 594               		adiw r24,29
+ 153:tinythreads.c **** #include <setjmp.h>
+ 154:tinythreads.c **** #include <avr/io.h>
+ 595               	24,lo8(-(76))
+ 596               		sbci r25,hi8(-(76))
+ 597 0292 8981      		std Z+1,r25
+ 598 0294 9A81      		st Z,r24
+ 599 0296 0696      		ldd r24,Y+1
+ 600 0298 FC01      		ldd r25,Y+2
+ 601 029a 7096      		adiw r24,6
+ 602 029c 8981      		movw r30,r24
+ 603 029e 9A81      		adiw r30,18
+ 604 02a0 4D96      		ldd r24,Y+1
+ 605 02a2 845B      		ldd r25,Y+2
+ 606 02a4 9F4F      		adiw r24,29
+ 607 02a6 9183      		subi r24,lo8(-(76))
+ 608 02a8 8083      		sbci r25,hi8(-(76))
+ 609 02aa 8981      		std Z+1,r25
+ 610 02ac 9A81      		st Z,r24
+ 612 02b0 FC01      	.LM51:
+ 613 02b2 7296      		ldi r24,lo8(readyQ)
+ 614 02b4 8981      		ldi r25,hi8(readyQ)
+ 615 02b6 9A81      		ldd r18,Y+1
+ 616 02b8 4D96      		ldd r19,Y+2
+ 617 02ba 845B      		movw r22,r24
+ 618 02bc 9F4F      		movw r24,r18
+ 619 02be 9183      		call enqueue
+ 155:tinythreads.c **** #include <setjmp.h>
+ 156:tinythreads.c **** #include <avr/io.h>
+ 621               	"tinythreads.c" 1
+ 622               		sei
+ 623 02c2 80E0      	 ;  0 "" 2
+ 624 02c4 90E0      	/* epilogue start */
+ 626 02c8 3A81      	.LM53:
+ 627 02ca BC01      	/* #NOAPP */
+ 628 02cc C901      		adiw r28,6
+ 629 02ce 0E94 0000 		in __tmp_reg__,__SREG__
+ 157:tinythreads.c **** #include <setjmp.h>
+ 630               	 __SP_H__,r29
+ 631               		out __SREG__,__tmp_reg__
+ 632               		out __SP_L__,r28
+ 633               		pop r28
+ 634 02d2 7894      		pop r29
+ 635               		ret
+ 158:tinythreads.c **** #include <setjmp.h>
+ 637               	nythreads.c" 1
+ 638               		sei
+ 639               	 ;  0 "" 2
+ 640 02d4 2696      	/* epilogue start */
+ 642 02d8 F894      	.LM53:
+ 643 02da DEBF      	/* #NOAPP */
+ 644 02dc 0FBE      		adiw r28,6
+ 645 02de CDBF      		in __tmp_reg__,__SREG__
+ 646 02e0 CF91      		cli
+ 647 02e2 DF91      		out __SP_H__,r29
+ 648 02e4 0895      		out __SREG__,__tmp_reg__
+ 649               		out __SP_L__,r28
+ 650               		pop r28
+ 651               		pop r29
+ 652               		ret
+ 657               	.Lscope5:
+ 159:tinythreads.c **** #include <setjmp.h>
+ 160:tinythreads.c **** #include <avr/io.h>
+ 161:tinythreads.c **** #include <avr/interrupt.h>
+ 162:tinythreads.c **** #include <avr/signal.h>
+ 163:tinythreads.c **** #include "tinythreads.h"
+ 164:tinythreads.c **** 
+ 165:tinythreads.c **** #define NULL            0
+ 658               	)",36,0,0,yield
+ 659               	.global	yield
+ 661 02e6 DF93      	yield:
+ 663 02ea CDB7      	.LM54:
+ 664 02ec DEB7      	.LFBB6:
+ 665               		push r29
+ 666               		push r28
+ 166:tinythreads.c **** #include <setjmp.h>
+ 667               	p:(7,1)",128,0,0,1
+ 670 02f2 3091 0000 	.Lscope5:
+ 672 02f8 90E0      	.global	yield
+ 674 02fc C901      	yield:
+ 167:tinythreads.c **** #include <setjmp.h>
+ 676               		ret
+ 681 030a 0E94 0000 	.Lscope5:
+ 168:tinythreads.c **** #include <setjmp.h>
+ 683               	out __SP_H__,r29
+ 684               		out __SREG__,__tmp_reg__
+ 685 030e CF91      		out __SP_L__,r28
+ 686 0310 DF91      		pop r28
+ 687 0312 0895      		pop r29
+ 688               		ret
+ 693               	.Lscope5:
+ 169:tinythreads.c **** #include <setjmp.h>
+ 170:tinythreads.c **** #include <avr/io.h>
+ 171:tinythreads.c **** #include <avr/interrupt.h>
+ 172:tinythreads.c **** #include <avr/signal.h>
+ 173:tinythreads.c **** #include "tinythreads.h"
+ 174:tinythreads.c **** 
+ 175:tinythreads.c **** #define NULL            0
+ 695               	out __SP_H__,r29
+ 696               		out __SREG__,__tmp_reg__
+ 697               		out __SP_L__,r28
+ 698 0314 DF93      		pop r28
+ 699 0316 CF93      		pop r29
+ 700 0318 00D0      		ret
+ 705 031e 9A83      	.Lscope5:
+ 176:tinythreads.c **** #include <setjmp.h>
+ 707               	out __SP_H__,r29
+ 708               		out __SREG__,__tmp_reg__
+ 709               		out __SP_L__,r28
+ 710               		pop r28
+ 711 0322 F894      		pop r29
+ 712               		ret
+ 177:tinythreads.c **** #include <setjmp.h>
+ 713               	
+ 714               	/* #APP */
+ 715               	 ;  157 "tinythreads.c" 1
+ 716 0324 E981      		sei
+ 717 0326 FA81      	 ;  0 "" 2
+ 718 0328 8081      	/* epilogue start */
+ 720 032c 0097      	.LM53:
+ 721 032e 01F4      	/* #NOAPP */
+ 722 0330 E981      		adiw r28,6
+ 723 0332 FA81      		in __tmp_reg__,__SREG__
+ 724 0334 81E0      		cli
+ 725 0336 90E0      		out __SP_H__,r29
+ 726 0338 9183      		out __SREG__,__tmp_reg__
+ 727 033a 8083      		out __SP_L__,r28
+ 728 033c 00C0      		pop r28
+ 729               		pop r29
+ 178:tinythreads.c **** #include <setjmp.h>
+ 179:tinythreads.c **** #include <avr/io.h>
+ 180:tinythreads.c **** #include <avr/interrupt.h>
+ 730               	n, .-spawn
+ 734 0342 0296      	.Lscope5:
+ 736 0348 3091 0000 	.global	yield
+ 738 034e C901      	yield:
+ 181:tinythreads.c **** #include <setjmp.h>
+ 740               		ret
+ 745 035c 0E94 0000 	.Lscope5:
+ 182:tinythreads.c **** #include <setjmp.h>
+ 183:tinythreads.c **** #include <avr/io.h>
+ 747               	out __SP_H__,r29
+ 748               		out __SREG__,__tmp_reg__
+ 749               		out __SP_L__,r28
+ 750               		pop r28
+ 751 0360 7894      		pop r29
+ 752               		ret
+ 184:tinythreads.c **** #include <setjmp.h>
+ 754               	nythreads.c" 1
+ 755               		sei
+ 756               	 ;  0 "" 2
+ 757 0362 0F90      	/* epilogue start */
+ 759 0366 CF91      	.LM53:
+ 760 0368 DF91      	/* #NOAPP */
+ 761 036a 0895      		adiw r28,6
+ 762               		in __tmp_reg__,__SREG__
+ 763               		cli
+ 764               		out __SP_H__,r29
+ 765               		out __SREG__,__tmp_reg__
+ 766               		out __SP_L__,r28
+ 767               		pop r28
+ 768               		pop r29
+ 185:tinythreads.c **** #include <setjmp.h>
+ 186:tinythreads.c **** #include <avr/io.h>
+ 187:tinythreads.c **** #include <avr/interrupt.h>
+ 188:tinythreads.c **** #include <avr/signal.h>
+ 189:tinythreads.c **** #include "tinythreads.h"
+ 769               	wn, .-spawn
+ 773 036e CF93      	.Lscope5:
+ 775 0372 CDB7      	.global	yield
+ 777               	yield:
+ 779 0376 9A83      	.LM54:
+ 780 0378 8983      	.LFBB6:
+ 190:tinythreads.c **** #include <setjmp.h>
+ 781               	, .-spawn
+ 785 037a F894      	.Lscope5:
+ 191:tinythreads.c **** #include <setjmp.h>
+ 787               	out __SP_H__,r29
+ 788               		out __SREG__,__tmp_reg__
+ 789               		out __SP_L__,r28
+ 790 037c E981      		pop r28
+ 791 037e FA81      		pop r29
+ 792 0380 8281      		ret
+ 192:tinythreads.c **** #include <setjmp.h>
+ 193:tinythreads.c **** #include <avr/io.h>
+ 796               	0,158,.LM53-.LFBB5
+ 797               	.LM53:
+ 798 0388 8981      	/* #NOAPP */
+ 799 038a 9A81      		adiw r28,6
+ 800 038c 0296      		in __tmp_reg__,__SREG__
+ 801 038e 0E94 0000 		cli
+ 802 0392 9C01      		out __SP_H__,r29
+ 803 0394 80E0      		out __SREG__,__tmp_reg__
+ 804 0396 90E0      		out __SP_L__,r28
+ 805 0398 BC01      		pop r28
+ 806 039a C901      		pop r29
+ 807 039c 0E94 0000 		ret
+ 194:tinythreads.c **** #include <setjmp.h>
+ 195:tinythreads.c **** #include <avr/io.h>
+ 810               	0,.LFBB5-.LFBB5
+ 812 03a2 E981      	.Lscope5:
+ 814 03a6 1182      	.global	yield
+ 816               	yield:
+ 196:tinythreads.c **** #include <setjmp.h>
+ 817               	__SP_L__,r28
+ 818               		pop r28
+ 819               		pop r29
+ 820               		ret
+ 197:tinythreads.c **** #include <setjmp.h>
+ 824               	0,158,.LM53-.LFBB5
+ 825               	.LM53:
+ 826               	/* #NOAPP */
+ 827 03ac 0F90      		adiw r28,6
+ 828 03ae 0F90      		in __tmp_reg__,__SREG__
+ 829 03b0 CF91      		cli
+ 830 03b2 DF91      		out __SP_H__,r29
+ 831 03b4 0895      		out __SREG__,__tmp_reg__
+ 832               		out __SP_L__,r28
+ 833               		pop r28
+ 834               		pop r29
+ 835               		ret
+ 198:tinythreads.c **** #include <setjmp.h>
+ 199:tinythreads.c **** #include <avr/io.h>
+ 200:tinythreads.c **** #include <avr/interrupt.h>
+ 201:tinythreads.c **** #include <avr/signal.h>
+ 202:tinythreads.c **** #include "tinythreads.h"
+ 203:tinythreads.c **** 
+ 204:tinythreads.c **** #define NULL            0
+ 205:tinythreads.c **** #define DISABLE()       cli()
+ 206:tinythreads.c **** #define ENABLE()        sei()
+ 207:tinythreads.c **** #define STACKSIZE       80
+ 208:tinythreads.c **** #define NTHREADS        4
+ 209:tinythreads.c **** #define SETSTACK(buf,a) *((unsigned int *)(buf)+8) = (unsigned int)(a) + STACKSIZE - 4; \
+ 210:tinythreads.c ****                         *((unsigned int *)(buf)+9) = (unsigned int)(a) + STACKSIZE - 4
+ 211:tinythreads.c **** 
+ 212:tinythreads.c **** struct thread_block {
+ 213:tinythreads.c ****     void (*function)(int);   // code to run
+ 214:tinythreads.c ****     int arg;                 // argument to the above
+ 215:tinythreads.c ****     thread next;             // for use in linked lists
+ 216:tinythreads.c ****     jmp_buf context;         // machine state
+ 217:tinythreads.c ****     char stack[STACKSIZE];   // execution stack space
+ 218:tinythreads.c **** };
+ 219:tinythreads.c **** 
+ 220:tinythreads.c **** struct thread_block threads[NTHREADS];
+ 221:tinythreads.c **** 
+ 838               	0,.LFBB5-.LFBB5
+ 840               	.Lscope5:
+ 842 03b8 0F92      	.global	yield
+ 844 03bc 0F92      	yield:
+ 846 03c0 2F93      	.LM54:
+ 847 03c2 3F93      	.LFBB6:
+ 848 03c4 4F93      		push r29
+ 849 03c6 5F93      		push r28
+ 850 03c8 6F93      		in r28,__SP_L__
+ 851 03ca 7F93      		in r29,__SP_H__
+ 852 03cc 8F93      	/* prologue: function */
+ 853 03ce 9F93      	/* frame size = 0 */
+ 855 03d2 BF93      	.LM55:
+ 856 03d4 EF93      		lds r18,current
+ 857 03d6 FF93      		lds r19,(current)+1
+ 858 03d8 DF93      		ldi r24,lo8(readyQ)
+ 859 03da CF93      		ldi r25,hi8(readyQ)
+ 860 03dc CDB7      		movw r22,r24
+ 861 03de DEB7      		movw r24,r18
+ 862               		call enqueue
+ 222:tinythreads.c **** d next;             // for use in linked lists
+ 864               	: function */
+ 865               	/* frame size = 0 */
+ 867               	.LM55:
+ 223:tinythreads.c **** (a) + STACKSIZE - 4
+ 868               	ield
+ 869               	.global	yield
+ 871 03e6 DF91      	yield:
+ 873 03ea EF91      	.LM54:
+ 874 03ec BF91      	.LFBB6:
+ 875 03ee AF91      		push r29
+ 876 03f0 9F91      		push r28
+ 877 03f2 8F91      		in r28,__SP_L__
+ 878 03f4 7F91      		in r29,__SP_H__
+ 879 03f6 6F91      	/* prologue: function */
+ 880 03f8 5F91      	/* frame size = 0 */
+ 882 03fc 3F91      	.LM55:
+ 883 03fe 2F91      		lds r18,current
+ 884 0400 0F90      		lds r19,(current)+1
+ 885 0402 0FBE      		ldi r24,lo8(readyQ)
+ 886 0404 0F90      		ldi r25,hi8(readyQ)
+ 887 0406 1F90      		movw r22,r24
+ 888 0408 1895      		movw r24,r18
+ 889               		call enqueue
+ 891               	.LM56:
+ 892               		ldi r24,lo8(readyQ)
+ 893               		ldi r25,hi8(readyQ)
+ 894               		call dequeue
+ 895               		call dispatch
+ 896               	/* epilogue start */
+ 898               	.LM57:
+ 899               		pop r28
+ 900               		pop r29
+DEFINED SYMBOLS
+                            *ABS*:00000000 tinythreads.c
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cc1VY4QL.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cc1VY4QL.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cc1VY4QL.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cc1VY4QL.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cc1VY4QL.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cc1VY4QL.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cc1VY4QL.s:84     .data:00000000 freeQ
+                            *COM*:000001b4 threads
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cc1VY4QL.s:91     .bss:00000000 readyQ
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cc1VY4QL.s:97     .data:00000002 current
+                            *COM*:0000006d initp
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cc1VY4QL.s:104    .bss:00000002 initialized
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cc1VY4QL.s:109    .text:00000000 initialize
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cc1VY4QL.s:266    .text:000000dc enqueue
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cc1VY4QL.s:365    .text:00000158 dequeue
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cc1VY4QL.s:432    .text:000001aa dispatch
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cc1VY4QL.s:483    .text:000001ee spawn
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cc1VY4QL.s:657    .text:000002e6 yield
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cc1VY4QL.s:694    .text:00000314 lock
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cc1VY4QL.s:768    .text:0000036c unlock
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cc1VY4QL.s:837    .text:000003b6 __vector_4
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
+setjmp
+longjmp

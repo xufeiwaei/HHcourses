@@ -1,0 +1,208 @@
+
+butterflyTest.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000012c  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .stab         00000414  00000000  00000000  00000180  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  2 .stabstr      000006c8  00000000  00000000  00000594  2**0
+                  CONTENTS, READONLY, DEBUGGING
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2e 00 	jmp	0x5c	; 0x5c <__ctors_end>
+   4:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+   8:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+   c:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  10:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  14:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  18:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  1c:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  20:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  24:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  28:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  2c:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  30:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  34:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  38:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  3c:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  40:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  44:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  48:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  4c:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  50:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  54:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+  58:	0c 94 4b 00 	jmp	0x96	; 0x96 <__bad_interrupt>
+
+0000005c <__ctors_end>:
+  5c:	11 24       	eor	r1, r1
+  5e:	1f be       	out	0x3f, r1	; 63
+  60:	cf ef       	ldi	r28, 0xFF	; 255
+  62:	d4 e0       	ldi	r29, 0x04	; 4
+  64:	de bf       	out	0x3e, r29	; 62
+  66:	cd bf       	out	0x3d, r28	; 61
+
+00000068 <__do_copy_data>:
+  68:	11 e0       	ldi	r17, 0x01	; 1
+  6a:	a0 e0       	ldi	r26, 0x00	; 0
+  6c:	b1 e0       	ldi	r27, 0x01	; 1
+  6e:	ec e2       	ldi	r30, 0x2C	; 44
+  70:	f1 e0       	ldi	r31, 0x01	; 1
+  72:	02 c0       	rjmp	.+4      	; 0x78 <.do_copy_data_start>
+
+00000074 <.do_copy_data_loop>:
+  74:	05 90       	lpm	r0, Z+
+  76:	0d 92       	st	X+, r0
+
+00000078 <.do_copy_data_start>:
+  78:	a0 30       	cpi	r26, 0x00	; 0
+  7a:	b1 07       	cpc	r27, r17
+  7c:	d9 f7       	brne	.-10     	; 0x74 <.do_copy_data_loop>
+
+0000007e <__do_clear_bss>:
+  7e:	11 e0       	ldi	r17, 0x01	; 1
+  80:	a0 e0       	ldi	r26, 0x00	; 0
+  82:	b1 e0       	ldi	r27, 0x01	; 1
+  84:	01 c0       	rjmp	.+2      	; 0x88 <.do_clear_bss_start>
+
+00000086 <.do_clear_bss_loop>:
+  86:	1d 92       	st	X+, r1
+
+00000088 <.do_clear_bss_start>:
+  88:	a0 30       	cpi	r26, 0x00	; 0
+  8a:	b1 07       	cpc	r27, r17
+  8c:	e1 f7       	brne	.-8      	; 0x86 <.do_clear_bss_loop>
+  8e:	0e 94 6f 00 	call	0xde	; 0xde <main>
+  92:	0c 94 94 00 	jmp	0x128	; 0x128 <_exit>
+
+00000096 <__bad_interrupt>:
+  96:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000009a <lcd_int>:
+#define blink_on  LCDDR8=0x01
+
+
+void lcd_int(void)
+{
+	LCDCRA  = 0x80;
+  9a:	80 e8       	ldi	r24, 0x80	; 128
+  9c:	80 93 e4 00 	sts	0x00E4, r24
+	LCDCRB  = 0xb7;
+  a0:	87 eb       	ldi	r24, 0xB7	; 183
+  a2:	80 93 e5 00 	sts	0x00E5, r24
+}
+  a6:	08 95       	ret
+
+000000a8 <blink>:
+
+
+
+void blink(void)
+{
+	TCCR1B=0x04;
+  a8:	84 e0       	ldi	r24, 0x04	; 4
+  aa:	80 93 81 00 	sts	0x0081, r24
+	{
+		while(TCNT1<15625);
+		blink_off;
+	
+		while(TCNT1<31250);
+		blink_on;
+  ae:	21 e0       	ldi	r18, 0x01	; 1
+void blink(void)
+{
+	TCCR1B=0x04;
+	while(1)
+	{
+		while(TCNT1<15625);
+  b0:	80 91 84 00 	lds	r24, 0x0084
+  b4:	90 91 85 00 	lds	r25, 0x0085
+  b8:	89 50       	subi	r24, 0x09	; 9
+  ba:	9d 43       	sbci	r25, 0x3D	; 61
+  bc:	c8 f3       	brcs	.-14     	; 0xb0 <blink+0x8>
+		blink_off;
+  be:	10 92 f4 00 	sts	0x00F4, r1
+	
+		while(TCNT1<31250);
+  c2:	80 91 84 00 	lds	r24, 0x0084
+  c6:	90 91 85 00 	lds	r25, 0x0085
+  ca:	82 51       	subi	r24, 0x12	; 18
+  cc:	9a 47       	sbci	r25, 0x7A	; 122
+  ce:	c8 f3       	brcs	.-14     	; 0xc2 <blink+0x1a>
+		blink_on;
+  d0:	20 93 f4 00 	sts	0x00F4, r18
+		TCNT1=0;
+  d4:	10 92 85 00 	sts	0x0085, r1
+  d8:	10 92 84 00 	sts	0x0084, r1
+  dc:	e9 cf       	rjmp	.-46     	; 0xb0 <blink+0x8>
+
+000000de <main>:
+}
+
+
+int main(void)
+{
+	CLKPR=0x80;
+  de:	80 e8       	ldi	r24, 0x80	; 128
+  e0:	80 93 61 00 	sts	0x0061, r24
+	CLKPR=0x00;
+  e4:	10 92 61 00 	sts	0x0061, r1
+#define blink_on  LCDDR8=0x01
+
+
+void lcd_int(void)
+{
+	LCDCRA  = 0x80;
+  e8:	80 93 e4 00 	sts	0x00E4, r24
+	LCDCRB  = 0xb7;
+  ec:	87 eb       	ldi	r24, 0xB7	; 183
+  ee:	80 93 e5 00 	sts	0x00E5, r24
+
+
+
+void blink(void)
+{
+	TCCR1B=0x04;
+  f2:	84 e0       	ldi	r24, 0x04	; 4
+  f4:	80 93 81 00 	sts	0x0081, r24
+	{
+		while(TCNT1<15625);
+		blink_off;
+	
+		while(TCNT1<31250);
+		blink_on;
+  f8:	21 e0       	ldi	r18, 0x01	; 1
+void blink(void)
+{
+	TCCR1B=0x04;
+	while(1)
+	{
+		while(TCNT1<15625);
+  fa:	80 91 84 00 	lds	r24, 0x0084
+  fe:	90 91 85 00 	lds	r25, 0x0085
+ 102:	89 50       	subi	r24, 0x09	; 9
+ 104:	9d 43       	sbci	r25, 0x3D	; 61
+ 106:	c8 f3       	brcs	.-14     	; 0xfa <main+0x1c>
+		blink_off;
+ 108:	10 92 f4 00 	sts	0x00F4, r1
+	
+		while(TCNT1<31250);
+ 10c:	80 91 84 00 	lds	r24, 0x0084
+ 110:	90 91 85 00 	lds	r25, 0x0085
+ 114:	82 51       	subi	r24, 0x12	; 18
+ 116:	9a 47       	sbci	r25, 0x7A	; 122
+ 118:	c8 f3       	brcs	.-14     	; 0x10c <main+0x2e>
+		blink_on;
+ 11a:	20 93 f4 00 	sts	0x00F4, r18
+		TCNT1=0;
+ 11e:	10 92 85 00 	sts	0x0085, r1
+ 122:	10 92 84 00 	sts	0x0084, r1
+ 126:	e9 cf       	rjmp	.-46     	; 0xfa <main+0x1c>
+
+00000128 <_exit>:
+ 128:	f8 94       	cli
+
+0000012a <__stop_program>:
+ 12a:	ff cf       	rjmp	.-2      	; 0x12a <__stop_program>

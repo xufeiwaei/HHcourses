@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:orientation="vertical"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		>
+
+  <TextView
+      android:id="@+id/instruction"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:text="Type what prime number you want to see:" />
+
+  <EditText
+      android:id="@+id/edittext"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"/>
+
+  <TextView
+      android:id="@+id/showtext"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:text="the prime number" />
+  
+  <Button
+      android:id="@+id/toast"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Am I active?" />
+  
+</LinearLayout>    
+
+
+
+  

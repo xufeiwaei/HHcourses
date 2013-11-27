@@ -1,0 +1,70 @@
+   1               		.file	"ex1.1.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  11               		.text
+  12               	.Ltext0:
+  82               	.global	main
+  84               	main:
+   1:ex1.1.c       **** #include "TinyTimber.h"
+   2:ex1.1.c       **** #include "lcd.h"
+   3:ex1.1.c       **** 
+   4:ex1.1.c       **** LCD lcdDriver = initLCD(); 
+   5:ex1.1.c       **** int main(){
+  85               	*/
+  87               	.LM1:
+  88               		ldi r24,lo8(-73)
+  89               		sts 229,r24
+   6:ex1.1.c       ****   CONFLCD;
+  90               	
+  91               		ldi r24,lo8(-73)
+  92 0000 87EB      		sts 229,r24
+  93 0002 8093 E500 		ldi r24,lo8(16)
+  94 0006 80E1      		sts 230,r24
+  95 0008 8093 E600 		ldi r24,lo8(15)
+  96 000c 8FE0      		sts 231,r24
+  97 000e 8093 E700 		ldi r24,lo8(-128)
+  98 0012 80E8      		sts 228,r24
+   7:ex1.1.c       ****   return TINYTIMBER(&lcdDriver,writeInt,12345);
+ 100               	stabn	68,0,7,.LM2-.LFBB1
+ 101               	.LM2:
+ 102 0018 49E3      		ldi r20,lo8(12345)
+ 103 001a 50E3      		ldi r21,hi8(12345)
+ 104 001c 60E0      		ldi r22,lo8(gs(writeInt))
+ 105 001e 70E0      		ldi r23,hi8(gs(writeInt))
+ 106 0020 80E0      		ldi r24,lo8(lcdDriver)
+ 107 0022 90E0      		ldi r25,hi8(lcdDriver)
+ 108 0024 0E94 0000 		call tinytimber
+ 109               	/* epilogue start */
+   8:ex1.1.c       **** }
+ 110               	ilogue start */
+ 112 0028 0895      	.LM3:
+ 113               		ret
+ 115               	.Lscope1:
+ 116               	.global	lcdDriver
+ 117               	.global	lcdDriver
+ 118               		.section .bss
+ 121 0000 0000 0000 	lcdDriver:
+ 122               		.skip 4,0
+ 124               		.text
+DEFINED SYMBOLS
+                            *ABS*:00000000 ex1.1.c
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccgwuG8V.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccgwuG8V.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccgwuG8V.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccgwuG8V.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccgwuG8V.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccgwuG8V.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccgwuG8V.s:84     .text:00000000 main
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccgwuG8V.s:120    .bss:00000000 lcdDriver
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
+writeInt
+tinytimber

@@ -1,0 +1,63 @@
+   1               		.file	"piezo.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   9               		.text
+  10               	.Ltext0:
+  82               	.global	PiezoOn
+  84               	PiezoOn:
+   1:piezo.c       **** #include "TinyTimber.h"
+   2:piezo.c       **** #include "piezo.h"
+   3:piezo.c       **** #include <avr/io.h>
+   4:piezo.c       **** 
+   5:piezo.c       **** int  PiezoOn(Piezo *self, int nothing)
+   6:piezo.c       **** {
+  85               	*/
+  87               	.LM1:
+  88               		cbi 37-32,5
+  89               	/* epilogue start */
+   7:piezo.c       **** ing)
+  90               	-32,5
+  91               	/* epilogue start */
+  93               	.LM2:
+   8:piezo.c       **** othing)
+  94               	68,0,8,.LM2-.LFBB1
+  95               	.LM2:
+  96 0002 0895      		ret
+  98               	.Lscope1:
+ 102               	.global	PiezoOff
+ 104               	PiezoOff:
+   9:piezo.c       **** othing)
+  10:piezo.c       **** {
+  11:piezo.c       **** 	PORTB&=~(1<<5);
+  12:piezo.c       **** }
+ 105               	ction
+ 106               	PiezoOff:
+ 108               	.LM3:
+ 109               	.LFBB2:
+  13:piezo.c       **** );
+ 110               	LM3:
+ 111               	.LFBB2:
+ 112 0004 2D9A      	/* prologue: function */
+ 113               	/* frame size = 0 */
+  14:piezo.c       **** <<5);
+ 114               	ize = 0 */
+ 116 0006 0895      	.LM4:
+ 117               		sbi 37-32,5
+ 118               	/* epilogue start */
+ 120               	.LM5:
+DEFINED SYMBOLS
+                            *ABS*:00000000 piezo.c
+C:\Users\sungao\AppData\Local\Temp/ccOqwZmp.s:2      *ABS*:0000003f __SREG__
+C:\Users\sungao\AppData\Local\Temp/ccOqwZmp.s:3      *ABS*:0000003e __SP_H__
+C:\Users\sungao\AppData\Local\Temp/ccOqwZmp.s:4      *ABS*:0000003d __SP_L__
+C:\Users\sungao\AppData\Local\Temp/ccOqwZmp.s:5      *ABS*:00000034 __CCP__
+C:\Users\sungao\AppData\Local\Temp/ccOqwZmp.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\sungao\AppData\Local\Temp/ccOqwZmp.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\sungao\AppData\Local\Temp/ccOqwZmp.s:84     .text:00000000 PiezoOn
+C:\Users\sungao\AppData\Local\Temp/ccOqwZmp.s:104    .text:00000004 PiezoOff
+
+NO UNDEFINED SYMBOLS

@@ -1,0 +1,133 @@
+1.a.
+LCDDR0 = 0x11;
+LCDDR5 = 0x58;
+LCDDR10 = 0xFD;
+LCDDR15=0x01;
+
+2.
+
+We are forced to choose an order to wait for input doing busy waiting on a given input source and risking to miss input from other sources. The CPU is executing all the time, even if there is nothing to be done, just testing registers waiting for input.
+One way of reorganizing the program is to destroy the read functions and do the busy waiting in the main loop:
+
+main(){
+  struct Params params;
+  struct Packet packet;
+  int dist, signal;
+  while(1){
+   if (SONAR_STATUS & READY == 1){
+        dist = SONAR_DATA;
+        control(dist, &signal, &params);
+        servo_write(signal);
+    }
+    if (RADIO_STATUS & READY == 1){
+        pkt->v1 = RADIO_DATA1;
+        ...
+        pkt->vn = RADIO_DATAn;
+        decode(&packet,&params);
+     }
+  }
+}
+One remaining problem is that we cannot do concurrent execution: while
+decoding we are ignoring sonar echoes!
+
+3.
+struct Params params;	
+mutex m = initMutex();
+int sonarTask(int x){
+    int dist, signal;
+    while(1){
+       dist = sonar_read();
+       lock(&m);
+       control(dist,&signal,&params);
+       unlock(&m);
+       servo_write(signal);
+    }
+}
+
+int radioTask(int x){
+   struct Packet packet;	
+   while(1){
+      radio_read(&packet);
+      lock(&m);
+      decode(&packet,&params);
+      unlock(&m);
+   }
+}
+
+main(){
+   spawn(sonarTask, 0);
+   radioTask(0);
+}
+
+
+A remaining problem is that there is still no distinction between
+waiting and computing: CPU is used all the time. This might lead to
+one of the threads not being able to finish its task before the next
+input is ready due to other tasks using the CPU to wait!
+
+4.a. If an object is using a 
+PrimeCalculator pc 
+to calculate prime numbers and calls the function as next(&pc,0) the code of next will be run in the thread of the calling object but will be modifying the state in pc, in doing this it will be interleaving with other threads taht are also using pc and there might be race conditions. If it invokes the method using SYNC(&pc,next,0) the calling object will block, the body of next will be executed in the thread of pc (in strictly sequential order with other methods modifying the state of pc) and on termination the result is returned to the calling object that can then proceed. If it invokes the method using ASYNC(&pc,next,0) the calling object proceeds immediatelly and the body of next is executed in the thread of pc.
+
+b.  In the program we would need an instance of PrimeCalculator, an
+instance of a device driver that lets us write integers and an
+instance of an object that can ask the calculator to calculate the
+next prime number and print it.
+
+PrimeCalculator pc = initPrimeCalculator();
+DEVDRIVER dd = initDEVDRIVER();
+Printer p = initPrinter(&pc,&dd);
+
+INTERRUPT(BUTTON_SIGNAL, ASYNC(&p, print, 0));
+STARTUP(CONFDEVICE);
+
+5.a.
+In the file blinker.h we would have the declarations
+typedef struct {
+  Object super;
+  LED *led;
+  int period;
+  int state;
+  int running;
+} BLINKER;
+#define initBLINKER(led, period) {initObject(), led, period, 0, 0}
+int start(BLINKER *self, void * arg);
+int stop(BLINKER *self, void * arg);
+int setPeriod(BLINKER *self, int * arg);
+
+In the file blinker.c we would have
+int blink(BLINKER *self, void * arg)
+{
+   if(self->running){
+	if(self->state == 0)
+	{
+		ASYNC(self->led,on,NULL);
+	}
+	else
+	{
+		ASYNC(self->led,off,NULL);
+	}	
+
+	self->state = 1-(self->state);
+	AFTER (SEC(self-> period),self,blink,NULL);
+   }
+}
+int start(BLINKER *self, void * arg){
+    self->running = 1;
+    blink(self,NULL);	
+}
+int stop(BLINKER *self, void * arg){
+    self->running = 0;
+}
+int setPeriod(BLINKER *self, int * arg){
+  self->period = *arg;
+}
+
+5.b. By changing the calll to AFTER in blink to WITHIN with a
+deadline, the call to blink will be assigned a higher priority and
+thus get to run first when its baseline is reached.
+
+
+
+
+ 

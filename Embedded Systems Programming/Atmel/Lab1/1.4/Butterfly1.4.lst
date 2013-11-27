@@ -1,0 +1,1089 @@
+   1               		.file	"Butterfly1.4.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  11               		.text
+  12               	.Ltext0:
+  71               	.global	lcd_int
+  73               	lcd_int:
+   1:H:/Lab1/1.4/Butterfly1.4.c **** /*
+   2:H:/Lab1/1.4/Butterfly1.4.c ****  * Butterfly1.4.c
+   3:H:/Lab1/1.4/Butterfly1.4.c ****  *
+   4:H:/Lab1/1.4/Butterfly1.4.c ****  * Created: 2012/11/14 18:31:46
+   5:H:/Lab1/1.4/Butterfly1.4.c ****  *  Author: Sun Gao
+   6:H:/Lab1/1.4/Butterfly1.4.c ****  */ 
+   7:H:/Lab1/1.4/Butterfly1.4.c **** 
+   8:H:/Lab1/1.4/Butterfly1.4.c **** 
+   9:H:/Lab1/1.4/Butterfly1.4.c **** #include <avr/io.h>
+  10:H:/Lab1/1.4/Butterfly1.4.c **** #include <math.h>
+  11:H:/Lab1/1.4/Butterfly1.4.c **** 
+  12:H:/Lab1/1.4/Butterfly1.4.c **** #define blink_off LCDDR8=0x00
+  13:H:/Lab1/1.4/Butterfly1.4.c **** #define blink_on  LCDDR8=0x01
+  14:H:/Lab1/1.4/Butterfly1.4.c **** 
+  15:H:/Lab1/1.4/Butterfly1.4.c **** 
+  16:H:/Lab1/1.4/Butterfly1.4.c **** 
+  17:H:/Lab1/1.4/Butterfly1.4.c **** static int seg[]={0x1551,0x8110,0x11e1,0x11b1,0x05b0,0x14b1,0x14f1,0x1110,0x15f1,0x15b1};
+  18:H:/Lab1/1.4/Butterfly1.4.c **** 
+  19:H:/Lab1/1.4/Butterfly1.4.c **** long i=100000000;
+  20:H:/Lab1/1.4/Butterfly1.4.c **** 
+  21:H:/Lab1/1.4/Butterfly1.4.c **** void lcd_int(void)
+  22:H:/Lab1/1.4/Butterfly1.4.c **** {
+  74               	me size = 0 */
+  76               	.LM1:
+  77               		ldi r24,lo8(-128)
+  78               		sts 228,r24
+  23:H:/Lab1/1.4/Butterfly1.4.c **** 	LCDCRA  = 0x80;
+  79               	bn	68,0,24,.LM2-.LFBB1
+  80               	.LM2:
+  81 0000 80E8      		ldi r24,lo8(-73)
+  82 0002 8093 E400 		sts 229,r24
+  24:H:/Lab1/1.4/Butterfly1.4.c **** 	LCDCRB  = 0xb7;
+  83               	pilogue start */
+  85 0006 87EB      	.LM3:
+  86 0008 8093 E500 		ret
+  25:H:/Lab1/1.4/Butterfly1.4.c **** }
+  88               	pe1:
+  92               	.global	writeChar
+  94               	writeChar:
+  96               	.LM4:
+  97               	.LFBB2:
+  98               	/* prologue: function */
+  26:H:/Lab1/1.4/Butterfly1.4.c **** 
+  27:H:/Lab1/1.4/Butterfly1.4.c **** void writeChar(char ch,int pos)
+  28:H:/Lab1/1.4/Butterfly1.4.c **** {
+  99               	ze = 0 */
+ 100               		mov r30,r24
+ 102               	.LM5:
+ 103               		subi r24,lo8(-(-48))
+ 104 000e E82F      		cpi r24,lo8(10)
+  29:H:/Lab1/1.4/Butterfly1.4.c **** 	if(ch>=0x30&&ch<=0x39)
+ 105               	.+2
+ 106               		rjmp .L12
+ 108 0012 8A30      	.LM6:
+ 109 0014 00F0      		cpi r22,2
+ 110 0016 00C0      		cpc r23,__zero_reg__
+  30:H:/Lab1/1.4/Butterfly1.4.c **** 	{
+  31:H:/Lab1/1.4/Butterfly1.4.c **** 		switch(pos)
+ 111               	.+2
+ 112               		rjmp .L7
+ 113 0018 6230      		cpi r22,3
+ 114 001a 7105      		cpc r23,__zero_reg__
+ 115 001c 01F4      		brge .L11
+ 116 001e 00C0      		cp r22,__zero_reg__
+ 117 0020 6330      		cpc r23,__zero_reg__
+ 118 0022 7105      		breq .L5
+ 119 0024 04F4      		cpi r22,1
+ 120 0026 6115      		cpc r23,__zero_reg__
+ 121 0028 7105      		breq .+2
+ 122 002a 01F0      		rjmp .L12
+ 123 002c 6130      		rjmp .L13
+ 124 002e 7105      	.L11:
+ 125 0030 01F0      		cpi r22,4
+ 126 0032 00C0      		cpc r23,__zero_reg__
+ 127 0034 00C0      		brne .+2
+ 128               		rjmp .L9
+ 129 0036 6430      		cpi r22,4
+ 130 0038 7105      		cpc r23,__zero_reg__
+ 131 003a 01F4      		brge .+2
+ 132 003c 00C0      		rjmp .L8
+ 133 003e 6430      		cpi r22,5
+ 134 0040 7105      		cpc r23,__zero_reg__
+ 135 0042 04F4      		breq .+2
+ 136 0044 00C0      		rjmp .L12
+ 137 0046 6530      		rjmp .L14
+ 138 0048 7105      	.L5:
+ 140 004c 00C0      	.LM7:
+ 141 004e 00C0      		lds r24,236
+ 142               		ldi r31,lo8(0)
+  32:H:/Lab1/1.4/Butterfly1.4.c **** 		{
+  33:H:/Lab1/1.4/Butterfly1.4.c **** 			case 0:
+  34:H:/Lab1/1.4/Butterfly1.4.c **** 			{
+  35:H:/Lab1/1.4/Butterfly1.4.c **** 				LCDDR0 = (LCDDR0 & 0xf0) | ((seg[ch-0x30]>>12)&0x000f);
+ 143               	-(seg-96))
+ 144               		sbci r31,hi8(-(seg-96))
+ 145 0050 8091 EC00 		ld r18,Z
+ 146 0054 F0E0      		ldd r19,Z+1
+ 147 0056 EE0F      		mov r25,r19
+ 148 0058 FF1F      		swap r25
+ 149 005a E050      		andi r25,lo8(15)
+ 150 005c F040      		andi r24,lo8(-16)
+ 151 005e 2081      		or r24,r25
+ 152 0060 3181      		sts 236,r24
+ 154 0064 9295      	.LM8:
+ 155 0066 9F70      		lds r20,241
+ 156 0068 807F      		mov r24,r19
+ 157 006a 892B      		clr r25
+ 158 006c 8093 EC00 		sbrc r24,7
+  36:H:/Lab1/1.4/Butterfly1.4.c **** 				LCDDR5 = (LCDDR5 & 0xf0) | ((seg[ch-0x30]>>8)&0x000f);
+ 159               	24,lo8(15)
+ 160               		andi r20,lo8(-16)
+ 161 0070 4091 F100 		or r24,r20
+ 162 0074 832F      		sts 241,r24
+ 164 0078 87FD      	.LM9:
+ 165 007a 9A95      		lds r20,246
+ 166 007c 8F70      		movw r24,r18
+ 167 007e 407F      		ldi r30,4
+ 168 0080 842B      	1:	asr r25
+ 169 0082 8093 F100 		ror r24
+  37:H:/Lab1/1.4/Butterfly1.4.c **** 				LCDDR10 = (LCDDR10 & 0xf0) | ((seg[ch-0x30]>>4)&0x000f);
+ 170               	rne 1b
+ 171               		andi r24,lo8(15)
+ 172 0086 4091 F600 		andi r20,lo8(-16)
+ 173 008a C901      		or r24,r20
+ 174 008c E4E0      		sts 246,r24
+ 176 0090 8795      	.LM10:
+ 177 0092 EA95      		lds r24,251
+ 178 0094 01F4      		andi r18,lo8(15)
+ 179 0096 8F70      		andi r24,lo8(-16)
+ 180 0098 407F      		or r18,r24
+ 181 009a 842B      		sts 251,r18
+ 182 009c 8093 F600 		ret
+  38:H:/Lab1/1.4/Butterfly1.4.c **** 				LCDDR15 = (LCDDR15 & 0xf0) | (seg[ch-0x30]&0x000f);
+ 183               		68,0,43,.LM11-.LFBB2
+ 184               	.LM11:
+ 185 00a0 8091 FB00 		lds r18,236
+ 186 00a4 2F70      		ldi r31,lo8(0)
+ 187 00a6 807F      		lsl r30
+ 188 00a8 282B      		rol r31
+ 189 00aa 2093 FB00 		subi r30,lo8(-(seg-96))
+ 190 00ae 0895      		sbci r31,hi8(-(seg-96))
+ 191               		ld r20,Z
+  39:H:/Lab1/1.4/Butterfly1.4.c **** 				break;
+  40:H:/Lab1/1.4/Butterfly1.4.c **** 			}
+  41:H:/Lab1/1.4/Butterfly1.4.c **** 			case 1:
+  42:H:/Lab1/1.4/Butterfly1.4.c **** 			{
+  43:H:/Lab1/1.4/Butterfly1.4.c **** 				LCDDR0 = (LCDDR0 & 0x0f) | ((seg[ch-0x30]>>8)&0x00f0);
+ 192               	Z+1
+ 193               		mov r24,r21
+ 194 00b0 2091 EC00 		clr r25
+ 195 00b4 F0E0      		sbrc r24,7
+ 196 00b6 EE0F      		dec r25
+ 197 00b8 FF1F      		andi r24,lo8(-16)
+ 198 00ba E050      		andi r18,lo8(15)
+ 199 00bc F040      		or r24,r18
+ 200 00be 4081      		sts 236,r24
+ 202 00c2 852F      	.LM12:
+ 203 00c4 9927      		lds r18,241
+ 204 00c6 87FD      		movw r24,r20
+ 205 00c8 9A95      		ldi r19,4
+ 206 00ca 807F      	1:	asr r25
+ 207 00cc 2F70      		ror r24
+ 208 00ce 822B      		dec r19
+ 209 00d0 8093 EC00 		brne 1b
+  44:H:/Lab1/1.4/Butterfly1.4.c **** 				LCDDR5 = (LCDDR5 & 0x0f) | ((seg[ch-0x30]>>4)&0x00f0);
+ 210               	
+ 211               		andi r18,lo8(15)
+ 212 00d4 2091 F100 		or r24,r18
+ 213 00d8 CA01      		sts 241,r24
+ 215 00dc 9595      	.LM13:
+ 216 00de 8795      		lds r24,246
+ 217 00e0 3A95      		mov r25,r20
+ 218 00e2 01F4      		andi r25,lo8(-16)
+ 219 00e4 807F      		andi r24,lo8(15)
+ 220 00e6 2F70      		or r25,r24
+ 221 00e8 822B      		sts 246,r25
+  45:H:/Lab1/1.4/Butterfly1.4.c **** 				LCDDR10 = (LCDDR10 & 0x0f) | ((seg[ch-0x30])&0x00f0);
+ 223               	r24,251
+ 224               		ldi r27,4
+ 225 00ee 8091 F600 	1:	lsl r20
+ 226 00f2 942F      		rol r21
+ 227 00f4 907F      		dec r27
+ 228 00f6 8F70      		brne 1b
+ 229 00f8 982B      		andi r24,lo8(15)
+ 230 00fa 9093 F600 		or r24,r20
+  46:H:/Lab1/1.4/Butterfly1.4.c **** 				LCDDR15 = (LCDDR15 & 0x0f) | ((seg[ch-0x30]<<4)&0x00f0);
+ 231               	,r24
+ 232               		ret
+ 233 00fe 8091 FB00 	.L7:
+ 235 0104 440F      	.LM15:
+ 236 0106 551F      		lds r24,237
+ 237 0108 BA95      		ldi r31,lo8(0)
+ 238 010a 01F4      		lsl r30
+ 239 010c 8F70      		rol r31
+ 240 010e 842B      		subi r30,lo8(-(seg-96))
+ 241 0110 8093 FB00 		sbci r31,hi8(-(seg-96))
+ 242 0114 0895      		ld r18,Z
+ 243               		ldd r19,Z+1
+  47:H:/Lab1/1.4/Butterfly1.4.c **** 				break;
+  48:H:/Lab1/1.4/Butterfly1.4.c **** 			}
+  49:H:/Lab1/1.4/Butterfly1.4.c **** 			case 2:
+  50:H:/Lab1/1.4/Butterfly1.4.c **** 			{
+  51:H:/Lab1/1.4/Butterfly1.4.c **** 				LCDDR1 = (LCDDR1 & 0xf0) | ((seg[ch-0x30]>>12)&0x000f);
+ 244               		swap r25
+ 245               		andi r25,lo8(15)
+ 246 0116 8091 ED00 		andi r24,lo8(-16)
+ 247 011a F0E0      		or r24,r25
+ 248 011c EE0F      		sts 237,r24
+ 250 0120 E050      	.LM16:
+ 251 0122 F040      		lds r20,242
+ 252 0124 2081      		mov r24,r19
+ 253 0126 3181      		clr r25
+ 254 0128 932F      		sbrc r24,7
+ 255 012a 9295      		dec r25
+ 256 012c 9F70      		andi r24,lo8(15)
+ 257 012e 807F      		andi r20,lo8(-16)
+ 258 0130 892B      		or r24,r20
+ 259 0132 8093 ED00 		sts 242,r24
+  52:H:/Lab1/1.4/Butterfly1.4.c **** 				LCDDR6 = (LCDDR6 & 0xf0) | ((seg[ch-0x30]>>8)&0x000f);
+ 260               	.LM17-.LFBB2
+ 261               	.LM17:
+ 262 0136 4091 F200 		lds r20,247
+ 263 013a 832F      		movw r24,r18
+ 264 013c 9927      		ldi r30,4
+ 265 013e 87FD      	1:	asr r25
+ 266 0140 9A95      		ror r24
+ 267 0142 8F70      		dec r30
+ 268 0144 407F      		brne 1b
+ 269 0146 842B      		andi r24,lo8(15)
+ 270 0148 8093 F200 		andi r20,lo8(-16)
+  53:H:/Lab1/1.4/Butterfly1.4.c **** 				LCDDR11 = (LCDDR11 & 0xf0) | ((seg[ch-0x30]>>4)&0x000f);
+ 271               	
+ 272               		sts 247,r24
+ 274 0150 C901      	.LM18:
+ 275 0152 E4E0      		lds r24,252
+ 276 0154 9595      		andi r18,lo8(15)
+ 277 0156 8795      		andi r24,lo8(-16)
+ 278 0158 EA95      		or r18,r24
+ 279 015a 01F4      		sts 252,r18
+ 280 015c 8F70      		ret
+ 281 015e 407F      	.L8:
+ 283 0162 8093 F700 	.LM19:
+  54:H:/Lab1/1.4/Butterfly1.4.c **** 				LCDDR16 = (LCDDR16 & 0xf0) | (seg[ch-0x30]&0x000f);
+ 284               	
+ 285               		ldi r31,lo8(0)
+ 286 0166 8091 FC00 		lsl r30
+ 287 016a 2F70      		rol r31
+ 288 016c 807F      		subi r30,lo8(-(seg-96))
+ 289 016e 282B      		sbci r31,hi8(-(seg-96))
+ 290 0170 2093 FC00 		ld r20,Z
+ 291 0174 0895      		ldd r21,Z+1
+ 292               		mov r24,r21
+  55:H:/Lab1/1.4/Butterfly1.4.c **** 				break;
+  56:H:/Lab1/1.4/Butterfly1.4.c **** 			}
+  57:H:/Lab1/1.4/Butterfly1.4.c **** 			case 3:
+  58:H:/Lab1/1.4/Butterfly1.4.c **** 			{
+  59:H:/Lab1/1.4/Butterfly1.4.c **** 				LCDDR1 = (LCDDR1 & 0x0f) | ((seg[ch-0x30]>>8)&0x00f0);
+ 293               	
+ 294               		sbrc r24,7
+ 295 0176 2091 ED00 		dec r25
+ 296 017a F0E0      		andi r24,lo8(-16)
+ 297 017c EE0F      		andi r18,lo8(15)
+ 298 017e FF1F      		or r24,r18
+ 299 0180 E050      		sts 237,r24
+ 301 0184 4081      	.LM20:
+ 302 0186 5181      		lds r18,242
+ 303 0188 852F      		movw r24,r20
+ 304 018a 9927      		ldi r19,4
+ 305 018c 87FD      	1:	asr r25
+ 306 018e 9A95      		ror r24
+ 307 0190 807F      		dec r19
+ 308 0192 2F70      		brne 1b
+ 309 0194 822B      		andi r24,lo8(-16)
+ 310 0196 8093 ED00 		andi r18,lo8(15)
+  60:H:/Lab1/1.4/Butterfly1.4.c **** 				LCDDR6 = (LCDDR6 & 0x0f) | ((seg[ch-0x30]>>4)&0x00f0);
+ 311               	242,r24
+ 313 019a 2091 F200 	.LM21:
+ 314 019e CA01      		lds r24,247
+ 315 01a0 34E0      		mov r25,r20
+ 316 01a2 9595      		andi r25,lo8(-16)
+ 317 01a4 8795      		andi r24,lo8(15)
+ 318 01a6 3A95      		or r25,r24
+ 319 01a8 01F4      		sts 247,r25
+ 321 01ac 2F70      	.LM22:
+ 322 01ae 822B      		lds r24,252
+ 323 01b0 8093 F200 		ldi r27,4
+  61:H:/Lab1/1.4/Butterfly1.4.c **** 				LCDDR11 = (LCDDR11 & 0x0f) | ((seg[ch-0x30])&0x00f0);
+ 324               	ol r21
+ 325               		dec r27
+ 326 01b4 8091 F700 		brne 1b
+ 327 01b8 942F      		andi r24,lo8(15)
+ 328 01ba 907F      		or r24,r20
+ 329 01bc 8F70      		sts 252,r24
+ 330 01be 982B      		ret
+ 331 01c0 9093 F700 	.L9:
+  62:H:/Lab1/1.4/Butterfly1.4.c **** 				LCDDR16 = (LCDDR16 & 0x0f) | ((seg[ch-0x30]<<4)&0x00f0);
+ 332               	68,0,67,.LM23-.LFBB2
+ 333               	.LM23:
+ 334 01c4 8091 FC00 		lds r24,238
+ 335 01c8 B4E0      		ldi r31,lo8(0)
+ 336 01ca 440F      		lsl r30
+ 337 01cc 551F      		rol r31
+ 338 01ce BA95      		subi r30,lo8(-(seg-96))
+ 339 01d0 01F4      		sbci r31,hi8(-(seg-96))
+ 340 01d2 8F70      		ld r18,Z
+ 341 01d4 842B      		ldd r19,Z+1
+ 342 01d6 8093 FC00 		mov r25,r19
+ 343 01da 0895      		swap r25
+ 344               		andi r25,lo8(15)
+  63:H:/Lab1/1.4/Butterfly1.4.c **** 				break;
+  64:H:/Lab1/1.4/Butterfly1.4.c **** 			}
+  65:H:/Lab1/1.4/Butterfly1.4.c **** 			case 4:
+  66:H:/Lab1/1.4/Butterfly1.4.c **** 			{
+  67:H:/Lab1/1.4/Butterfly1.4.c **** 				LCDDR2 = (LCDDR2 & 0xf0) | ((seg[ch-0x30]>>12)&0x000f);
+ 345               	(-16)
+ 346               		or r24,r25
+ 347 01dc 8091 EE00 		sts 238,r24
+ 349 01e2 EE0F      	.LM24:
+ 350 01e4 FF1F      		lds r20,243
+ 351 01e6 E050      		mov r24,r19
+ 352 01e8 F040      		clr r25
+ 353 01ea 2081      		sbrc r24,7
+ 354 01ec 3181      		dec r25
+ 355 01ee 932F      		andi r24,lo8(15)
+ 356 01f0 9295      		andi r20,lo8(-16)
+ 357 01f2 9F70      		or r24,r20
+ 358 01f4 807F      		sts 243,r24
+ 360 01f8 8093 EE00 	.LM25:
+  68:H:/Lab1/1.4/Butterfly1.4.c **** 				LCDDR7 = (LCDDR7 & 0xf0) | ((seg[ch-0x30]>>8)&0x000f);
+ 361               	vw r24,r18
+ 362               		ldi r30,4
+ 363 01fc 4091 F300 	1:	asr r25
+ 364 0200 832F      		ror r24
+ 365 0202 9927      		dec r30
+ 366 0204 87FD      		brne 1b
+ 367 0206 9A95      		andi r24,lo8(15)
+ 368 0208 8F70      		andi r20,lo8(-16)
+ 369 020a 407F      		or r24,r20
+ 370 020c 842B      		sts 248,r24
+  69:H:/Lab1/1.4/Butterfly1.4.c **** 				LCDDR12 = (LCDDR12 & 0xf0) | ((seg[ch-0x30]>>4)&0x000f);
+ 372               	 r24,253
+ 373               		andi r18,lo8(15)
+ 374 0212 4091 F800 		andi r24,lo8(-16)
+ 375 0216 C901      		or r18,r24
+ 376 0218 E4E0      		sts 253,r18
+ 377 021a 9595      		ret
+ 378 021c 8795      	.L14:
+ 380 0220 01F4      	.LM27:
+ 381 0222 8F70      		lds r18,238
+ 382 0224 407F      		ldi r31,lo8(0)
+ 383 0226 842B      		lsl r30
+ 384 0228 8093 F800 		rol r31
+  70:H:/Lab1/1.4/Butterfly1.4.c **** 				LCDDR17 = (LCDDR17 & 0xf0) | (seg[ch-0x30]&0x000f);
+ 385               	(-(seg-96))
+ 386               		sbci r31,hi8(-(seg-96))
+ 387 022c 8091 FD00 		ld r20,Z
+ 388 0230 2F70      		ldd r21,Z+1
+ 389 0232 807F      		mov r24,r21
+ 390 0234 282B      		clr r25
+ 391 0236 2093 FD00 		sbrc r24,7
+ 392 023a 0895      		dec r25
+ 393               		andi r24,lo8(-16)
+  71:H:/Lab1/1.4/Butterfly1.4.c **** 				break;
+  72:H:/Lab1/1.4/Butterfly1.4.c **** 			}
+  73:H:/Lab1/1.4/Butterfly1.4.c **** 			case 5:
+  74:H:/Lab1/1.4/Butterfly1.4.c **** 			{
+  75:H:/Lab1/1.4/Butterfly1.4.c **** 				LCDDR2 = (LCDDR2 & 0x0f) | ((seg[ch-0x30]>>8)&0x00f0);
+ 394               	,lo8(15)
+ 395               		or r24,r18
+ 396 023c 2091 EE00 		sts 238,r24
+ 398 0242 EE0F      	.LM28:
+ 399 0244 FF1F      		lds r18,243
+ 400 0246 E050      		movw r24,r20
+ 401 0248 F040      		ldi r19,4
+ 402 024a 4081      	1:	asr r25
+ 403 024c 5181      		ror r24
+ 404 024e 852F      		dec r19
+ 405 0250 9927      		brne 1b
+ 406 0252 87FD      		andi r24,lo8(-16)
+ 407 0254 9A95      		andi r18,lo8(15)
+ 408 0256 807F      		or r24,r18
+ 409 0258 2F70      		sts 243,r24
+ 411 025c 8093 EE00 	.LM29:
+  76:H:/Lab1/1.4/Butterfly1.4.c **** 				LCDDR7 = (LCDDR7 & 0x0f) | ((seg[ch-0x30]>>4)&0x00f0);
+ 412               	r25,r20
+ 413               		andi r25,lo8(-16)
+ 414 0260 2091 F300 		andi r24,lo8(15)
+ 415 0264 CA01      		or r25,r24
+ 416 0266 34E0      		sts 248,r25
+ 418 026a 8795      	.LM30:
+ 419 026c 3A95      		lds r24,253
+ 420 026e 01F4      		ldi r25,4
+ 421 0270 807F      	1:	lsl r20
+ 422 0272 2F70      		rol r21
+ 423 0274 822B      		dec r25
+ 424 0276 8093 F300 		brne 1b
+  77:H:/Lab1/1.4/Butterfly1.4.c **** 				LCDDR12 = (LCDDR12 & 0x0f) | ((seg[ch-0x30])&0x00f0);
+ 425               	(15)
+ 426               		or r24,r20
+ 427 027a 8091 F800 		sts 253,r24
+ 428 027e 942F      	.L12:
+ 429 0280 907F      		ret
+ 431 0284 982B      	.Lscope2:
+  78:H:/Lab1/1.4/Butterfly1.4.c **** 				LCDDR17 = (LCDDR17 & 0x0f) | ((seg[ch-0x30]<<4)&0x00f0);
+ 433               	writeLong
+ 435 028a 8091 FD00 	writeLong:
+ 437 0290 440F      	.LM31:
+ 438 0292 551F      	.LFBB3:
+ 439 0294 9A95      		push r8
+ 440 0296 01F4      		push r9
+ 441 0298 8F70      		push r10
+ 442 029a 842B      		push r11
+ 443 029c 8093 FD00 		push r12
+ 444               		push r13
+ 445 02a0 0895      		push r14
+ 446               		push r15
+ 447               		push r16
+ 448               		push r17
+ 449               		push r29
+ 450               		push r28
+ 451               		in r28,__SP_L__
+  79:H:/Lab1/1.4/Butterfly1.4.c **** 				break;
+  80:H:/Lab1/1.4/Butterfly1.4.c **** 			}
+  81:H:/Lab1/1.4/Butterfly1.4.c **** 			default:;
+  82:H:/Lab1/1.4/Butterfly1.4.c **** 		}
+  83:H:/Lab1/1.4/Butterfly1.4.c **** 	}
+  84:H:/Lab1/1.4/Butterfly1.4.c **** }
+  85:H:/Lab1/1.4/Butterfly1.4.c **** 
+  86:H:/Lab1/1.4/Butterfly1.4.c **** 
+  87:H:/Lab1/1.4/Butterfly1.4.c **** 
+  88:H:/Lab1/1.4/Butterfly1.4.c **** void writeLong(long i)
+  89:H:/Lab1/1.4/Butterfly1.4.c **** {
+ 452               	biw r28,8
+ 453               		in __tmp_reg__,__SREG__
+ 454               		cli
+ 455 02a2 8F92      		out __SP_H__,r29
+ 456 02a4 9F92      		out __SREG__,__tmp_reg__
+ 457 02a6 AF92      		out __SP_L__,r28
+ 458 02a8 BF92      	/* prologue: function */
+ 459 02aa CF92      	/* frame size = 8 */
+ 460 02ac DF92      		movw r10,r22
+ 461 02ae EF92      		movw r12,r24
+ 463 02b2 0F93      	.LM32:
+ 464 02b4 1F93      		movw r24,r22
+ 465 02b6 DF93      		movw r26,r12
+ 466 02b8 CF93      		movw r22,r24
+ 467 02ba CDB7      		movw r24,r26
+ 468 02bc DEB7      		ldi r17,lo8(1)
+ 469 02be 2897      		rjmp .L16
+ 470 02c0 0FB6      	.L17:
+ 472 02c4 DEBF      	.LM33:
+ 473 02c6 0FBE      		subi r17,lo8(-(1))
+ 474 02c8 CDBF      	.L16:
+ 475               		ldi r18,lo8(10)
+ 476               		ldi r19,hi8(10)
+ 477 02ca 5B01      		ldi r20,hlo8(10)
+ 478 02cc 6C01      		ldi r21,hhi8(10)
+ 479               		call __divmodsi4
+ 480               		movw r24,r18
+ 481 02ce CB01      		movw r26,r20
+ 482 02d0 D601      		movw r22,r24
+ 483 02d2 BC01      		movw r24,r26
+ 484 02d4 CD01      		cp r22,__zero_reg__
+ 485 02d6 11E0      		cpc r23,__zero_reg__
+ 486 02d8 00C0      		cpc r24,__zero_reg__
+ 487               		cpc r25,__zero_reg__
+  90:H:/Lab1/1.4/Butterfly1.4.c **** 	unsigned char a[6],j=5,n=1,k;
+  91:H:/Lab1/1.4/Butterfly1.4.c **** 	long temp=i;
+  92:H:/Lab1/1.4/Butterfly1.4.c **** 	while(temp/=10) n++;
+ 488               	BB3
+ 489               	.LM34:
+ 490 02da 1F5F      		cpi r17,lo8(7)
+ 491               		brlo .L18
+ 492 02dc 2AE0      		ldi r17,lo8(6)
+ 493 02de 30E0      	.L18:
+ 494 02e0 40E0      		mov r14,r17
+ 495 02e2 50E0      		ldi r27,lo8(5)
+ 496 02e4 0E94 0000 		mov r15,r27
+ 498 02ea DA01      	.LM35:
+ 499 02ec BC01      		movw r8,r28
+ 500 02ee CD01      		sec
+ 501 02f0 6115      		adc r8,__zero_reg__
+ 502 02f2 7105      		adc r9,__zero_reg__
+ 503 02f4 8105      		rjmp .L19
+ 504 02f6 9105      	.L20:
+ 505 02f8 01F4      		movw r24,r8
+  93:H:/Lab1/1.4/Butterfly1.4.c **** 	if(n>6) n=6;
+ 506               	r25,__zero_reg__
+ 507               		std Y+8,r25
+ 508 02fa 1730      		std Y+7,r24
+ 509 02fc 00F0      		movw r22,r10
+ 510 02fe 16E0      		movw r24,r12
+ 511               		ldi r18,lo8(10)
+ 512 0300 E12E      		ldi r19,hi8(10)
+ 513 0302 B5E0      		ldi r20,hlo8(10)
+ 514 0304 FB2E      		ldi r21,hhi8(10)
+  94:H:/Lab1/1.4/Butterfly1.4.c **** 	k=n;
+  95:H:/Lab1/1.4/Butterfly1.4.c **** 	while(k--)
+  96:H:/Lab1/1.4/Butterfly1.4.c **** 	{
+  97:H:/Lab1/1.4/Butterfly1.4.c **** 		a[j]=i%10;
+ 515               	ivmodsi4
+ 516               		ldd r30,Y+7
+ 517 0306 4E01      		ldd r31,Y+8
+ 518 0308 0894      		st Z,r22
+ 520 030c 911C      	.LM36:
+ 521 030e 00C0      		movw r22,r10
+ 522               		movw r24,r12
+ 523 0310 C401      		ldi r18,lo8(10)
+ 524 0312 8F0D      		ldi r19,hi8(10)
+ 525 0314 911D      		ldi r20,hlo8(10)
+ 526 0316 9887      		ldi r21,hhi8(10)
+ 527 0318 8F83      		call __divmodsi4
+ 528 031a B501      		movw r10,r18
+ 529 031c C601      		movw r12,r20
+ 531 0320 30E0      	.LM37:
+ 532 0322 40E0      		dec r15
+ 533 0324 50E0      		dec r14
+ 534 0326 0E94 0000 	.L19:
+ 536 032c F885      	.LM38:
+ 537 032e 6083      		tst r14
+  98:H:/Lab1/1.4/Butterfly1.4.c **** 		i/=10;
+ 538               	(5)
+ 540 0330 B501      	.LM39:
+ 541 0332 C601      		movw r14,r28
+ 542 0334 2AE0      		sec
+ 543 0336 30E0      		adc r14,__zero_reg__
+ 544 0338 40E0      		adc r15,__zero_reg__
+ 545 033a 50E0      		rjmp .L21
+ 546 033c 0E94 0000 	.L22:
+ 547 0340 5901      		mov r22,r16
+ 548 0342 6A01      		ldi r23,lo8(0)
+  99:H:/Lab1/1.4/Butterfly1.4.c **** 		j--;
+ 549               	14
+ 550               		add r30,r22
+ 551 0344 FA94      		adc r31,r23
+ 552 0346 EA94      		ld r24,Z
+ 553               		subi r24,lo8(-(48))
+ 554               		call writeChar
+ 556 0348 EE20      	.LM40:
+ 557 034a 01F4      		subi r16,lo8(-(-1))
+ 558 034c 05E0      		subi r17,lo8(-(-1))
+ 100:H:/Lab1/1.4/Butterfly1.4.c **** 	}
+ 101:H:/Lab1/1.4/Butterfly1.4.c **** 	j=5;
+ 102:H:/Lab1/1.4/Butterfly1.4.c **** 	while(n--)
+ 103:H:/Lab1/1.4/Butterfly1.4.c **** 	{
+ 104:H:/Lab1/1.4/Butterfly1.4.c **** 		writeChar(a[j]+0x30,j);
+ 559               	abn	68,0,102,.LM41-.LFBB3
+ 560               	.LM41:
+ 561 034e 7E01      		tst r17
+ 562 0350 0894      		brne .L22
+ 563 0352 E11C      	/* epilogue start */
+ 565 0356 00C0      	.LM42:
+ 566               		adiw r28,8
+ 567 0358 602F      		in __tmp_reg__,__SREG__
+ 568 035a 70E0      		cli
+ 569 035c F701      		out __SP_H__,r29
+ 570 035e E60F      		out __SREG__,__tmp_reg__
+ 571 0360 F71F      		out __SP_L__,r28
+ 572 0362 8081      		pop r28
+ 573 0364 805D      		pop r29
+ 574 0366 0E94 0000 		pop r17
+ 105:H:/Lab1/1.4/Butterfly1.4.c **** 		j--;
+ 575               	5
+ 576               		pop r14
+ 577 036a 0150      		pop r13
+ 578 036c 1150      		pop r12
+ 579               		pop r11
+ 580               		pop r10
+ 581               		pop r9
+ 582 036e 1123      		pop r8
+ 583 0370 01F4      		ret
+ 106:H:/Lab1/1.4/Butterfly1.4.c **** 	}
+ 107:H:/Lab1/1.4/Butterfly1.4.c **** }
+ 585               	:(0,16)=ar(0,17)=r(0,17);0;-1;;0;5;(0,11)",128,0,0,1
+ 591 037a 0FBE      	.Lscope3:
+ 593 037e CF91      	.global	disp_on
+ 595 0382 1F91      	disp_on:
+ 597 0386 FF90      	.LM43:
+ 598 0388 EF90      	.LFBB4:
+ 599 038a DF90      	/* prologue: function */
+ 600 038c CF90      	/* frame size = 0 */
+ 602 0390 AF90      	.LM44:
+ 603 0392 9F90      		ldi r24,lo8(1)
+ 604 0394 8F90      		sts 239,r24
+ 606               	.LM45:
+ 607               		sts 249,__zero_reg__
+ 608               	/* epilogue start */
+ 610               	.LM46:
+ 611               		ret
+ 613               	.Lscope4:
+ 615               	.global	disp_off
+ 617               	disp_off:
+ 108:H:/Lab1/1.4/Butterfly1.4.c **** 
+ 109:H:/Lab1/1.4/Butterfly1.4.c **** 
+ 110:H:/Lab1/1.4/Butterfly1.4.c **** int is_prime(long i)
+ 111:H:/Lab1/1.4/Butterfly1.4.c **** {
+ 112:H:/Lab1/1.4/Butterfly1.4.c **** 	long n;
+ 113:H:/Lab1/1.4/Butterfly1.4.c **** 	long sqrt_value;
+ 114:H:/Lab1/1.4/Butterfly1.4.c **** 	if(i==0||i==1) return 0;
+ 115:H:/Lab1/1.4/Butterfly1.4.c **** 	else if (i==2) return 1;
+ 116:H:/Lab1/1.4/Butterfly1.4.c **** 	else
+ 117:H:/Lab1/1.4/Butterfly1.4.c **** 	{
+ 118:H:/Lab1/1.4/Butterfly1.4.c **** 		sqrt_value=sqrt(i)+1;
+ 119:H:/Lab1/1.4/Butterfly1.4.c **** 		for(n=2;n<sqrt_value;n++)
+ 120:H:/Lab1/1.4/Butterfly1.4.c **** 		{
+ 121:H:/Lab1/1.4/Butterfly1.4.c **** 			if(i%n==0) return 0;
+ 122:H:/Lab1/1.4/Butterfly1.4.c **** 		}
+ 123:H:/Lab1/1.4/Butterfly1.4.c **** 		return 1;
+ 124:H:/Lab1/1.4/Butterfly1.4.c **** 	}
+ 125:H:/Lab1/1.4/Butterfly1.4.c **** 	
+ 126:H:/Lab1/1.4/Butterfly1.4.c **** }
+ 127:H:/Lab1/1.4/Butterfly1.4.c **** 
+ 128:H:/Lab1/1.4/Butterfly1.4.c **** 
+ 129:H:/Lab1/1.4/Butterfly1.4.c **** void primes(void)
+ 130:H:/Lab1/1.4/Butterfly1.4.c **** {
+ 131:H:/Lab1/1.4/Butterfly1.4.c **** 	//long i=0;
+ 132:H:/Lab1/1.4/Butterfly1.4.c **** 	//while(1)
+ 133:H:/Lab1/1.4/Butterfly1.4.c **** 	{
+ 134:H:/Lab1/1.4/Butterfly1.4.c **** 		while(!(is_prime(i))) i++;
+ 135:H:/Lab1/1.4/Butterfly1.4.c **** 		writeLong(i);
+ 136:H:/Lab1/1.4/Butterfly1.4.c **** 		i++;
+ 137:H:/Lab1/1.4/Butterfly1.4.c **** 	}
+ 138:H:/Lab1/1.4/Butterfly1.4.c **** }
+ 139:H:/Lab1/1.4/Butterfly1.4.c **** 
+ 140:H:/Lab1/1.4/Butterfly1.4.c **** 
+ 141:H:/Lab1/1.4/Butterfly1.4.c **** 
+ 142:H:/Lab1/1.4/Butterfly1.4.c **** 
+ 143:H:/Lab1/1.4/Butterfly1.4.c **** void disp_on(void)
+ 144:H:/Lab1/1.4/Butterfly1.4.c **** {
+ 618               	47:
+ 619               	.LFBB5:
+ 620               	/* prologue: function */
+ 621               	/* frame size = 0 */
+ 145:H:/Lab1/1.4/Butterfly1.4.c **** 	
+ 146:H:/Lab1/1.4/Butterfly1.4.c **** 
+ 147:H:/Lab1/1.4/Butterfly1.4.c **** 	LCDDR3=0x01;
+ 623               	:
+ 624               		sts 239,__zero_reg__
+ 626 039a 8093 EF00 	.LM49:
+ 148:H:/Lab1/1.4/Butterfly1.4.c **** 	LCDDR13=0x00;
+ 627               	 r24,lo8(1)
+ 628               		sts 249,r24
+ 629 039e 1092 F900 	/* epilogue start */
+ 149:H:/Lab1/1.4/Butterfly1.4.c **** }
+ 631               	0:
+ 632               		ret
+ 634               	.Lscope5:
+ 636               	.global	button
+ 638               	button:
+ 150:H:/Lab1/1.4/Butterfly1.4.c **** 
+ 151:H:/Lab1/1.4/Butterfly1.4.c **** void disp_off(void)
+ 152:H:/Lab1/1.4/Butterfly1.4.c **** {
+ 640               	FBB6:
+ 641               	/* prologue: function */
+ 642               	/* frame size = 0 */
+ 644               	.LM52:
+ 153:H:/Lab1/1.4/Butterfly1.4.c **** 	
+ 154:H:/Lab1/1.4/Butterfly1.4.c **** 	LCDDR3=0x00;
+ 645               	 35-32,7
+ 646               		rjmp .L29
+ 647 03a4 1092 EF00 	.LBB16:
+ 155:H:/Lab1/1.4/Butterfly1.4.c **** 	LCDDR13=0x01;
+ 648               	B17:
+ 650 03a8 81E0      	.LM53:
+ 651 03aa 8093 F900 		ldi r24,lo8(1)
+ 652               		sts 239,r24
+ 156:H:/Lab1/1.4/Butterfly1.4.c **** 	
+ 157:H:/Lab1/1.4/Butterfly1.4.c **** }
+ 653               	bn	68,0,148,.LM54-.LFBB6
+ 654               	.LM54:
+ 655 03ae 0895      		sts 249,__zero_reg__
+ 656               		ret
+ 657               	.L29:
+ 658               	.LBE17:
+ 659               	.LBE16:
+ 660               	.LBB18:
+ 661               	.LBB19:
+ 158:H:/Lab1/1.4/Butterfly1.4.c **** 
+ 159:H:/Lab1/1.4/Butterfly1.4.c **** 
+ 160:H:/Lab1/1.4/Butterfly1.4.c **** 
+ 161:H:/Lab1/1.4/Butterfly1.4.c **** void button(void)
+ 162:H:/Lab1/1.4/Butterfly1.4.c **** {
+ 662               	8,0,154,.LM55-.LFBB6
+ 663               	.LM55:
+ 664               		sts 239,__zero_reg__
+ 666               	.LM56:
+ 163:H:/Lab1/1.4/Butterfly1.4.c **** 	//PORTB |=1<<7;
+ 164:H:/Lab1/1.4/Butterfly1.4.c **** 	//LCDDR13=0x01;
+ 165:H:/Lab1/1.4/Butterfly1.4.c **** 
+ 166:H:/Lab1/1.4/Butterfly1.4.c **** 	//while(1)
+ 167:H:/Lab1/1.4/Butterfly1.4.c **** 	{
+ 168:H:/Lab1/1.4/Butterfly1.4.c **** 		if((PINB&(1<<7))) disp_on();
+ 667               	r24,lo8(1)
+ 668               		sts 249,r24
+ 669 03b0 1F9B      		ret
+ 670 03b2 00C0      	.LBE19:
+ 671               	.LBE18:
+ 673               	.Lscope6:
+ 675 03b4 81E0      	.global	blink
+ 677               	blink:
+ 679 03ba 1092 F900 	.LM57:
+ 680 03be 0895      	.LFBB7:
+ 681               	/* prologue: function */
+ 682               	/* frame size = 0 */
+ 684               	.LM58:
+ 685               		lds r24,132
+ 686               		lds r25,(132)+1
+ 687               		subi r24,lo8(15625)
+ 688 03c0 1092 EF00 		sbci r25,hi8(15625)
+ 689               		brsh .L33
+ 690               		sts 244,__zero_reg__
+ 691 03c4 81E0      		ret
+ 692 03c6 8093 F900 	.L33:
+ 694               	.LM59:
+ 695               		lds r24,132
+ 696               		lds r25,(132)+1
+ 697               		subi r24,lo8(31250)
+ 698               		sbci r25,hi8(31250)
+ 699               		brsh .L35
+ 701               	.LM60:
+ 169:H:/Lab1/1.4/Butterfly1.4.c **** 		else disp_off();
+ 170:H:/Lab1/1.4/Butterfly1.4.c **** 	}
+ 171:H:/Lab1/1.4/Butterfly1.4.c **** }
+ 172:H:/Lab1/1.4/Butterfly1.4.c **** 
+ 173:H:/Lab1/1.4/Butterfly1.4.c **** 
+ 174:H:/Lab1/1.4/Butterfly1.4.c **** 
+ 175:H:/Lab1/1.4/Butterfly1.4.c **** 
+ 176:H:/Lab1/1.4/Butterfly1.4.c **** void blink(void)
+ 177:H:/Lab1/1.4/Butterfly1.4.c **** {
+ 702               	L35:
+ 704               	.LM61:
+ 705               		sts (132)+1,__zero_reg__
+ 706               		sts 132,__zero_reg__
+ 178:H:/Lab1/1.4/Butterfly1.4.c **** 	{
+ 179:H:/Lab1/1.4/Butterfly1.4.c **** 		
+ 180:H:/Lab1/1.4/Butterfly1.4.c **** 		if(TCNT1<15625) blink_off;
+ 708               	.Lscope7:
+ 711 03d4 8950      	.global	is_prime
+ 713 03d8 00F4      	is_prime:
+ 715 03de 0895      	.LM62:
+ 716               	.LFBB8:
+ 181:H:/Lab1/1.4/Butterfly1.4.c **** 	
+ 182:H:/Lab1/1.4/Butterfly1.4.c **** 		else if(TCNT1<31250)
+ 717               	push r7
+ 718               		push r8
+ 719 03e0 8091 8400 		push r9
+ 720 03e4 9091 8500 		push r10
+ 721 03e8 8251      		push r11
+ 722 03ea 9A47      		push r12
+ 723 03ec 00F4      		push r13
+ 183:H:/Lab1/1.4/Butterfly1.4.c **** 		{
+ 184:H:/Lab1/1.4/Butterfly1.4.c **** 			blink_on;
+ 724               	14
+ 725               		push r15
+ 726 03ee 81E0      		push r16
+ 727 03f0 8093 F400 		push r17
+ 728 03f4 0895      	/* prologue: function */
+ 729               	/* frame size = 0 */
+ 185:H:/Lab1/1.4/Butterfly1.4.c **** 		}
+ 186:H:/Lab1/1.4/Butterfly1.4.c **** 		
+ 187:H:/Lab1/1.4/Butterfly1.4.c **** 		else TCNT1=0;
+ 730               	r10,r22
+ 731               		movw r12,r24
+ 733 03fa 1092 8400 	.LM63:
+ 734 03fe 0895      		ldi r24,lo8(2)
+ 735               		cp r10,r24
+ 736               		cpc r11,__zero_reg__
+ 737               		cpc r12,__zero_reg__
+ 738               		cpc r13,__zero_reg__
+ 739               		brlo .L38
+ 741               	.LM64:
+ 742               		ldi r24,lo8(2)
+ 743               		cp r10,r24
+ 744               		cpc r11,__zero_reg__
+ 745 0400 6F92      		cpc r12,__zero_reg__
+ 746 0402 7F92      		cpc r13,__zero_reg__
+ 747 0404 8F92      		breq .L39
+ 749 0408 AF92      	.LM65:
+ 750 040a BF92      		movw r24,r12
+ 751 040c CF92      		movw r22,r10
+ 752 040e DF92      		call __floatsisf
+ 753 0410 EF92      		call sqrt
+ 754 0412 FF92      		ldi r18,lo8(0x3f800000)
+ 755 0414 0F93      		ldi r19,hi8(0x3f800000)
+ 756 0416 1F93      		ldi r20,hlo8(0x3f800000)
+ 757               		ldi r21,hhi8(0x3f800000)
+ 758               		call __addsf3
+ 759 0418 5B01      		call __fixsfsi
+ 760 041a 6C01      		movw r6,r22
+ 761               		movw r8,r24
+ 762               		ldi r17,lo8(2)
+ 763 041c 82E0      		mov r14,r17
+ 764 041e A816      		mov r15,__zero_reg__
+ 765 0420 B104      		mov r16,__zero_reg__
+ 766 0422 C104      		mov r17,__zero_reg__
+ 767 0424 D104      		rjmp .L40
+ 768 0426 00F0      	.L41:
+ 770               	.LM66:
+ 771 0428 82E0      		movw r24,r12
+ 772 042a A816      		movw r22,r10
+ 773 042c B104      		movw r20,r16
+ 774 042e C104      		movw r18,r14
+ 775 0430 D104      		call __divmodsi4
+ 776 0432 01F0      		cp r22,__zero_reg__
+ 777               		cpc r23,__zero_reg__
+ 778               		cpc r24,__zero_reg__
+ 779 0434 C601      		cpc r25,__zero_reg__
+ 780 0436 B501      		breq .L38
+ 782 043c 0E94 0000 	.LM67:
+ 783 0440 20E0      		sec
+ 784 0442 30E0      		adc r14,__zero_reg__
+ 785 0444 40E8      		adc r15,__zero_reg__
+ 786 0446 5FE3      		adc r16,__zero_reg__
+ 787 0448 0E94 0000 		adc r17,__zero_reg__
+ 788 044c 0E94 0000 	.L40:
+ 789 0450 3B01      		cp r14,r6
+ 790 0452 4C01      		cpc r15,r7
+ 791 0454 12E0      		cpc r16,r8
+ 792 0456 E12E      		cpc r17,r9
+ 793 0458 F12C      		brlt .L41
+ 794 045a 012D      		rjmp .L39
+ 795 045c 112D      	.L38:
+ 796 045e 00C0      		ldi r18,lo8(0)
+ 797               		ldi r19,hi8(0)
+ 798               		rjmp .L42
+ 799               	.L39:
+ 800 0460 C601      		ldi r18,lo8(1)
+ 801 0462 B501      		ldi r19,hi8(1)
+ 802 0464 A801      	.L42:
+ 804 0468 0E94 0000 	.LM68:
+ 805 046c 6115      		movw r24,r18
+ 806 046e 7105      	/* epilogue start */
+ 807 0470 8105      		pop r17
+ 808 0472 9105      		pop r16
+ 809 0474 01F0      		pop r15
+ 810               		pop r14
+ 811               		pop r13
+ 812 0476 0894      		pop r12
+ 813 0478 E11C      		pop r11
+ 814 047a F11C      		pop r10
+ 815 047c 011D      		pop r9
+ 816 047e 111D      		pop r8
+ 817               		pop r7
+ 818 0480 E614      		pop r6
+ 819 0482 F704      		ret
+ 825 048c 20E0      	.Lscope8:
+ 827 0490 00C0      	.global	primes
+ 829 0492 21E0      	primes:
+ 831               	.LM69:
+ 832               	.LFBB9:
+ 833               	/* prologue: function */
+ 834 0496 C901      	/* frame size = 0 */
+ 835               		rjmp .L45
+ 836 0498 1F91      	.L46:
+ 838 049c FF90      	.LM70:
+ 839 049e EF90      		subi r18,lo8(-(1))
+ 840 04a0 DF90      		sbci r19,hi8(-(1))
+ 841 04a2 CF90      		sbci r20,hlo8(-(1))
+ 842 04a4 BF90      		sbci r21,hhi8(-(1))
+ 843 04a6 AF90      		sts i,r18
+ 844 04a8 9F90      		sts (i)+1,r19
+ 845 04aa 8F90      		sts (i)+2,r20
+ 846 04ac 7F90      		sts (i)+3,r21
+ 847 04ae 6F90      	.L45:
+ 848 04b0 0895      		lds r22,i
+ 849               		lds r23,(i)+1
+ 850               		lds r24,(i)+2
+ 851               		lds r25,(i)+3
+ 852               		call is_prime
+ 853               		lds r18,i
+ 854               		lds r19,(i)+1
+ 855               		lds r20,(i)+2
+ 856               		lds r21,(i)+3
+ 857               		or r24,r25
+ 858               		breq .L46
+ 860               	.LM71:
+ 861               		movw r24,r20
+ 862               		movw r22,r18
+ 863               		call writeLong
+ 865               	.LM72:
+ 866               		lds r24,i
+ 867               		lds r25,(i)+1
+ 868 04b4 2F5F      		lds r26,(i)+2
+ 869 04b6 3F4F      		lds r27,(i)+3
+ 870 04b8 4F4F      		adiw r24,1
+ 871 04ba 5F4F      		adc r26,__zero_reg__
+ 872 04bc 2093 0000 		adc r27,__zero_reg__
+ 873 04c0 3093 0000 		sts i,r24
+ 874 04c4 4093 0000 		sts (i)+1,r25
+ 875 04c8 5093 0000 		sts (i)+2,r26
+ 876               		sts (i)+3,r27
+ 877 04cc 6091 0000 	/* epilogue start */
+ 879 04d4 8091 0000 	.LM73:
+ 880 04d8 9091 0000 		ret
+ 882 04e0 2091 0000 	.Lscope9:
+ 884 04e8 4091 0000 	.global	main
+ 886 04f0 892B      	main:
+ 888               	.LM74:
+ 889               	.LFBB10:
+ 890 04f4 CA01      		push r17
+ 891 04f6 B901      	/* prologue: function */
+ 892 04f8 0E94 0000 	/* frame size = 0 */
+ 894               	.LM75:
+ 895 04fc 8091 0000 		sbi 37-32,7
+ 897 0504 A091 0000 	.LM76:
+ 898 0508 B091 0000 		ldi r24,lo8(4)
+ 899 050c 0196      		sts 129,r24
+ 901 0510 B11D      	.LM77:
+ 902 0512 8093 0000 		ldi r24,lo8(-128)
+ 903 0516 9093 0000 		sts 97,r24
+ 905 051e B093 0000 	.LM78:
+ 906               		sts 97,__zero_reg__
+ 907               	.LBB20:
+ 908               	.LBB21:
+ 910               	.LM79:
+ 911               		sts 228,r24
+ 913               	.LM80:
+ 914               		ldi r24,lo8(-73)
+ 915               		sts 229,r24
+ 188:H:/Lab1/1.4/Butterfly1.4.c **** 	}
+ 189:H:/Lab1/1.4/Butterfly1.4.c **** 	
+ 190:H:/Lab1/1.4/Butterfly1.4.c **** }
+ 191:H:/Lab1/1.4/Butterfly1.4.c **** 
+ 192:H:/Lab1/1.4/Butterfly1.4.c **** 
+ 193:H:/Lab1/1.4/Butterfly1.4.c **** 
+ 194:H:/Lab1/1.4/Butterfly1.4.c **** 
+ 195:H:/Lab1/1.4/Butterfly1.4.c **** int main(void)
+ 196:H:/Lab1/1.4/Butterfly1.4.c **** {
+ 916               	imes
+ 917               	.LBB31:
+ 918               	.LBB30:
+ 920               	.LM83:
+ 921               		sbis 35-32,7
+ 197:H:/Lab1/1.4/Butterfly1.4.c **** 	PORTB |=1<<7;
+ 922               	M82:
+ 923               		call primes
+ 924 0526 2F9A      	.LBB31:
+ 198:H:/Lab1/1.4/Butterfly1.4.c **** 	TCCR1B=0x04;
+ 925               	LBE25:
+ 926               	.LBE24:
+ 927 0528 84E0      	.LBE23:
+ 928 052a 8093 8100 	.LBE22:
+ 199:H:/Lab1/1.4/Butterfly1.4.c **** 	CLKPR=0x80;
+ 929               	:
+ 931 052e 80E8      	.LM81:
+ 932 0530 8093 6100 		ldi r17,lo8(1)
+ 200:H:/Lab1/1.4/Butterfly1.4.c **** 	CLKPR=0x00;
+ 933               	E21:
+ 934               	.LBE20:
+ 935 0534 1092 6100 	.LBB22:
+ 936               	.LBB23:
+ 937               	.LBB24:
+ 938               	.LBB25:
+ 940 0538 8093 E400 	.LM81:
+ 941               		ldi r17,lo8(1)
+ 942               	.L55:
+ 943 053c 87EB      	.LBE25:
+ 944 053e 8093 E500 	.LBE24:
+ 945               	.LBE23:
+ 946               	.LBE22:
+ 948               	.LM82:
+ 949               		call primes
+ 950               	.LBB31:
+ 951               	.LBB30:
+ 953 0542 11E0      	.LM83:
+ 954               		sbis 35-32,7
+ 955               		rjmp .L49
+ 956               	.LBB27:
+ 957               	.LBB26:
+ 201:H:/Lab1/1.4/Butterfly1.4.c **** 	lcd_int();
+ 202:H:/Lab1/1.4/Butterfly1.4.c **** 	while(1)
+ 203:H:/Lab1/1.4/Butterfly1.4.c **** 	{
+ 204:H:/Lab1/1.4/Butterfly1.4.c **** 		primes();
+ 959               	10
+ 960               	.LM83:
+ 961 0544 0E94 0000 		sbis 35-32,7
+ 962               		rjmp .L49
+ 963               	.LBB27:
+ 964               	.LBB26:
+ 966 0548 1F9B      	.LM84:
+ 967 054a 00C0      		sts 239,r17
+ 969               	.LM85:
+ 970               		sts 249,__zero_reg__
+ 971               		rjmp .L50
+ 972 054c 1093 EF00 	.L49:
+ 973               	.LBE26:
+ 974               	.LBE27:
+ 975 0550 1092 F900 	.LBB28:
+ 976 0554 00C0      	.LBB29:
+ 978               	.LM86:
+ 979               		sts 239,__zero_reg__
+ 981               	.LM87:
+ 982               		sts 249,r17
+ 983               	.L50:
+ 984 0556 1092 EF00 	.LBE29:
+ 985               	.LBE28:
+ 986               	.LBE30:
+ 987 055a 1093 F900 	.LBE31:
+ 988               	.LBB32:
+ 989               	.LBB33:
+ 991               	.LM88:
+ 992               		lds r24,132
+ 993               		lds r25,(132)+1
+ 994               		subi r24,lo8(15625)
+ 995               		sbci r25,hi8(15625)
+ 996               		brsh .L51
+ 997 055e 8091 8400 		sts 244,__zero_reg__
+ 998 0562 9091 8500 		rjmp .L55
+ 999 0566 8950      	.L51:
+ 1001 056a 00F4      	.LM89:
+ 1002 056c 1092 F400 		lds r24,132
+ 1003 0570 00C0      		lds r25,(132)+1
+ 1004               		subi r24,lo8(31250)
+ 1005               		sbci r25,hi8(31250)
+ 1006               		brsh .L53
+ 1008 0576 9091 8500 	.LM90:
+ 1009 057a 8251      		sts 244,r17
+ 1010 057c 9A47      		rjmp .L55
+ 1011 057e 00F4      	.L53:
+ 1013               	.LM91:
+ 1014 0580 1093 F400 		sts (132)+1,__zero_reg__
+ 1015 0584 00C0      		sts 132,__zero_reg__
+ 1016               		rjmp .L55
+ 1017               	.LBE33:
+ 1018               	.LBE32:
+ 1020 058a 1092 8400 	.Lscope10:
+ 1021 058e 00C0      	.global	i
+ 1022               		.data
+ 1025               	i:
+ 1026               		.byte	0
+ 1027               		.byte	-31
+ 1028               		.byte	-11
+ 1029               		.byte	5
+ 1032 0001 E1        	seg:
+ 1033 0002 F5        		.word	5457
+ 1034 0003 05        		.word	-32496
+ 1035               		.word	4577
+ 1036               		.word	4529
+ 1037               		.word	1456
+ 1038 0004 5115      		.word	5297
+ 1039 0006 1081      		.word	5361
+ 1040 0008 E111      		.word	4368
+ 1041 000a B111      		.word	5617
+ 1042 000c B005      		.word	5553
+ 1045 0012 1011      		.text
+ 1047 0016 B115      	.Letext0:
+ 1048               	...
+DEFINED SYMBOLS
+                            *ABS*:00000000 Butterfly1.4.c
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccXbjqjT.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccXbjqjT.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccXbjqjT.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccXbjqjT.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccXbjqjT.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccXbjqjT.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccXbjqjT.s:73     .text:00000000 lcd_int
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccXbjqjT.s:98     .text:0000000e writeChar
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccXbjqjT.s:1037   .data:00000004 seg
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccXbjqjT.s:451    .text:000002a2 writeLong
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccXbjqjT.s:617    .text:00000398 disp_on
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccXbjqjT.s:639    .text:000003a4 disp_off
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccXbjqjT.s:661    .text:000003b0 button
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccXbjqjT.s:701    .text:000003cc blink
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccXbjqjT.s:741    .text:00000400 is_prime
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccXbjqjT.s:858    .text:000004b2 primes
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccXbjqjT.s:1030   .data:00000000 i
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccXbjqjT.s:915    .text:00000524 main
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
+__divmodsi4
+__floatsisf
+sqrt
+__addsf3
+__fixsfsi

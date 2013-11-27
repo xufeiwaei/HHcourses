@@ -1,0 +1,160 @@
+   1               		.file	"Butterfly1.2.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  11               		.text
+  12               	.Ltext0:
+  71               	.global	lcd_int
+  73               	lcd_int:
+   1:H:\Lab1\1.2\Butterfly1.2.c **** /*
+   2:H:\Lab1\1.2\Butterfly1.2.c ****  * Butterfly_lab1.2.c
+   3:H:\Lab1\1.2\Butterfly1.2.c ****  *
+   4:H:\Lab1\1.2\Butterfly1.2.c ****  * Created: 2012/11/14 15:21:24
+   5:H:\Lab1\1.2\Butterfly1.2.c ****  *  Author: Sun Gao
+   6:H:\Lab1\1.2\Butterfly1.2.c ****  */ 
+   7:H:\Lab1\1.2\Butterfly1.2.c **** 
+   8:H:\Lab1\1.2\Butterfly1.2.c **** #include <avr/io.h>
+   9:H:\Lab1\1.2\Butterfly1.2.c **** 
+  10:H:\Lab1\1.2\Butterfly1.2.c **** #define blink_off LCDDR8=0x00
+  11:H:\Lab1\1.2\Butterfly1.2.c **** #define blink_on  LCDDR8=0x01
+  12:H:\Lab1\1.2\Butterfly1.2.c **** 
+  13:H:\Lab1\1.2\Butterfly1.2.c **** 
+  14:H:\Lab1\1.2\Butterfly1.2.c **** void lcd_int(void)
+  15:H:\Lab1\1.2\Butterfly1.2.c **** {
+  74               	me size = 0 */
+  76               	.LM1:
+  77               		ldi r24,lo8(-128)
+  78               		sts 228,r24
+  16:H:\Lab1\1.2\Butterfly1.2.c **** 	LCDCRA  = 0x80;
+  79               	M0:
+  80               	.LFBB1:
+  81 0000 80E8      	/* prologue: function */
+  82 0002 8093 E400 	/* frame size = 0 */
+  17:H:\Lab1\1.2\Butterfly1.2.c **** 	LCDCRB  = 0xb7;
+  83               	_int
+  85 0006 87EB      	lcd_int:
+  87               	.LM0:
+  18:H:\Lab1\1.2\Butterfly1.2.c **** }
+  88               	,0,0
+  90 000c 0895      	.global	lcd_int
+  92               	lcd_int:
+  94               	.LM0:
+  95               	.LFBB1:
+  96               	/* prologue: function */
+  19:H:\Lab1\1.2\Butterfly1.2.c **** 
+  20:H:\Lab1\1.2\Butterfly1.2.c **** 
+  21:H:\Lab1\1.2\Butterfly1.2.c **** 
+  22:H:\Lab1\1.2\Butterfly1.2.c **** 
+  23:H:\Lab1\1.2\Butterfly1.2.c **** void blink(void)
+  24:H:\Lab1\1.2\Butterfly1.2.c **** {
+  97               	,0,lcd_int
+  98               	.global	lcd_int
+ 100               	lcd_int:
+  25:H:\Lab1\1.2\Butterfly1.2.c **** 	TCCR1B=0x04;
+ 102               	n	162,0,0,0
+ 104 000e 84E0      	.global	lcd_int
+  26:H:\Lab1\1.2\Butterfly1.2.c **** 	while(1)
+  27:H:\Lab1\1.2\Butterfly1.2.c **** 	{
+  28:H:\Lab1\1.2\Butterfly1.2.c **** 		while(TCNT1<15625);
+  29:H:\Lab1\1.2\Butterfly1.2.c **** 		blink_off;
+  30:H:\Lab1\1.2\Butterfly1.2.c **** 	
+  31:H:\Lab1\1.2\Butterfly1.2.c **** 		while(TCNT1<31250);
+  32:H:\Lab1\1.2\Butterfly1.2.c **** 		blink_on;
+ 106               	8;;",128,0,0,0
+ 110               	.global	lcd_int
+ 112 0016 8091 8400 	lcd_int:
+ 114 001e 8950      	.LM0:
+ 115 0020 9D43      	.LFBB1:
+ 116 0022 00F0      	/* prologue: function */
+ 117               	/* frame size = 0 */
+ 119 0024 1092 F400 	.LM1:
+ 120               		ldi r24,lo8(-128)
+ 121               		sts 228,r24
+ 123 0028 8091 8400 	.LM2:
+ 124 002c 9091 8500 		ldi r24,lo8(-73)
+ 125 0030 8251      		sts 229,r24
+ 126 0032 9A47      	/* epilogue start */
+ 128               	.LM3:
+ 129               		ret
+  33:H:\Lab1\1.2\Butterfly1.2.c **** 		TCNT1=0;
+ 131               	di r24,lo8(-73)
+ 132               		sts 229,r24
+ 133 003a 1092 8500 	/* epilogue start */
+ 135 0042 00C0      	.LM3:
+ 136               		ret
+ 138               	.Lscope1:
+ 140               	.global	blink
+  34:H:\Lab1\1.2\Butterfly1.2.c **** 	}
+  35:H:\Lab1\1.2\Butterfly1.2.c **** 	
+  36:H:\Lab1\1.2\Butterfly1.2.c **** }
+  37:H:\Lab1\1.2\Butterfly1.2.c **** 
+  38:H:\Lab1\1.2\Butterfly1.2.c **** 
+  39:H:\Lab1\1.2\Butterfly1.2.c **** int main(void)
+  40:H:\Lab1\1.2\Butterfly1.2.c **** {
+ 143               	.Lscope1:
+ 145               	.global	blink
+  41:H:\Lab1\1.2\Butterfly1.2.c **** 	CLKPR=0x80;
+ 148               	.Lscope1:
+ 150 0046 8093 6100 	.global	blink
+  42:H:\Lab1\1.2\Butterfly1.2.c **** 	CLKPR=0x00;
+ 151               	8,.LM3-.LFBB1
+ 152               	.LM3:
+ 153 004a 1092 6100 		ret
+ 155               	.Lscope1:
+ 157               	.global	blink
+ 159               	blink:
+ 161 0052 87EB      	.LM4:
+ 162 0054 8093 E500 	.LFBB2:
+ 163               	/* prologue: function */
+ 164               	/* frame size = 0 */
+ 166               	.LM5:
+ 167               		ldi r24,lo8(4)
+ 168               		sts 129,r24
+ 170 005a 8093 8100 	.LM6:
+ 171               		ldi r18,lo8(1)
+ 172               	.L10:
+ 174               	.LM7:
+ 175               		lds r24,132
+ 176               		lds r25,(132)+1
+ 177 0060 8091 8400 		subi r24,lo8(15625)
+ 178 0064 9091 8500 		sbci r25,hi8(15625)
+ 179 0068 8950      		brlo .L10
+ 181 006c 00F0      	.LM8:
+ 182               		sts 244,__zero_reg__
+ 183               	.L5:
+ 185               	.LM9:
+ 186               		lds r24,132
+ 187               		lds r25,(132)+1
+ 188 0072 8091 8400 		subi r24,lo8(31250)
+ 189 0076 9091 8500 		sbci r25,hi8(31250)
+ 190 007a 8251      		brlo .L5
+ 192 007e 00F0      	.LM10:
+ 193               		sts 244,r18
+ 195 0080 2093 F400 	.LM11:
+ 196               		sts (132)+1,__zero_reg__
+ 197               		sts 132,__zero_reg__
+ 198 0084 1092 8500 		rjmp .L10
+ 200 008c 00C0      	.Lscope2:
+ 202               	.global	main
+ 204               	main:
+ 206               	.LM12:
+DEFINED SYMBOLS
+                            *ABS*:00000000 Butterfly1.2.c
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cc0n3WCr.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cc0n3WCr.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cc0n3WCr.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cc0n3WCr.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cc0n3WCr.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cc0n3WCr.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cc0n3WCr.s:73     .text:00000000 lcd_int
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cc0n3WCr.s:96     .text:0000000e blink
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cc0n3WCr.s:141    .text:00000044 main
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss

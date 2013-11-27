@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+<TextView  
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="Here you can choose between 2 activities"
+    />
+
+<!-- 
+<Button  
+      android:id="@+id/primesButton"
+      android:layout_width="wrap_content" 
+      android:layout_height="wrap_content" 
+      android:text="@string/primes_text"
+      />
+
+<Button  
+      android:id="@+id/hiThereButton"
+      android:layout_width="wrap_content" 
+      android:layout_height="wrap_content" 
+      android:text="@string/hi_there_text"
+      />
+-->
+
+<RadioGroup
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+      <RadioButton android:id="@+id/radio_primes"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Primes?" />
+
+      <RadioButton android:id="@+id/radio_hi_there"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Hi There?" />
+    </RadioGroup>
+
+
+<Button  
+      android:id="@+id/quitButton"
+      android:layout_width="fill_parent" 
+      android:layout_height="fill_parent" 
+      android:text="@string/quit_text"
+      />
+
+</LinearLayout>
+

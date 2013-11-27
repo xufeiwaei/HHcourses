@@ -1,0 +1,153 @@
+## -*- mode: rpm-spec; -*-
+##
+## $Id: avr-libc.spec.in,v 1.7.2.4 2003/11/12 04:14:43 troth Exp $
+##
+## @configure_input@
+##
+
+%define libc_version @VERSION@
+
+# We don't want rpm stripping any files
+%define __spec_install_post %{nil}
+
+# Don't build the debuginfo rpm
+%define debug_package %{nil}
+
+%define _with_docs 1
+%{?_without_docs: %define _with_docs 0}
+
+Summary: AVR libc.
+Name: avr-libc
+Version: %{libc_version}
+Release: 1
+Copyright: BSD
+Group: Avr/Development/Tools
+URL: http://savannah.gnu.org/projects/avr-libc
+Source0: http://savannah.gnu.org/download/avr-libc/avr-libc-%{version}.tar.gz
+Buildroot: /var/tmp/avr-libc-%{version}-root
+BuildRequires: gzip avr-gcc >= 3.3
+%if %{_with_docs}
+BuildRequires: doxygen >= 1.2.16 tetex
+%endif
+Requires: avr-gcc >= 3.3
+
+%description
+Avr-libc is a C library for developing applications for Atmel AVR
+microcontrollers.
+
+%if %{_with_docs}
+## The avr-libc-docs subpackage
+%package docs
+Summary: Documentation for avr-libc.
+Group: Avr/Documentation
+%description docs
+Documentation for avr-libc in html, postscript and pdf formats.
+%endif
+
+%prep
+%setup -q
+
+%build
+rm -fr obj-%{_target_platform}
+mkdir obj-%{_target_platform}
+cd obj-%{_target_platform}
+
+../configure \
+%if %{_with_docs}
+	--enable-doc \
+%endif
+	--prefix=%{_prefix} --mandir=%{_mandir} --infodir=%{_infodir}
+
+make
+
+%install
+rm -rf ${RPM_BUILD_ROOT}
+mkdir -p ${RPM_BUILD_ROOT}%{_prefix}
+cd obj-%{_target_platform}
+make prefix=$RPM_BUILD_ROOT%{_prefix} mandir=$RPM_BUILD_ROOT%{_mandir} \
+	infodir=$RPM_BUILD_ROOT%{_infodir} install
+
+%if %{_with_docs}
+gzip -9 doc/api/*.ps
+gzip -9 doc/api/*.pdf
+%endif
+
+%clean
+rm -rf ${RPM_BUILD_ROOT}
+
+%files
+%defattr(-,root,root)
+%doc AUTHORS ChangeLog INSTALL LICENSE NEWS README
+%doc doc/CHANGES.old doc/ChangeLog doc/INSTALL doc/TODO
+%doc doc/avr-libc-reference.html
+#%doc doc/examples/*.c doc/examples/*.h doc/examples/*.s doc/examples/prg
+%doc doc/examples/demo/Makefile doc/examples/demo/demo.c
+%doc doc/examples/demo/demo.fig
+%dir %{_prefix}/avr
+%dir %{_prefix}/avr/lib
+%dir %{_prefix}/avr/lib/avr3
+%dir %{_prefix}/avr/lib/avr4
+%dir %{_prefix}/avr/lib/avr5
+%dir %{_prefix}/avr/include
+%dir %{_prefix}/avr/include/avr
+%{_prefix}/avr/lib/lib*
+%{_prefix}/avr/lib/crt*
+%{_prefix}/avr/lib/avr3/lib*
+%{_prefix}/avr/lib/avr3/crt*
+%{_prefix}/avr/lib/avr4/lib*
+%{_prefix}/avr/lib/avr4/crt*
+%{_prefix}/avr/lib/avr5/lib*
+%{_prefix}/avr/lib/avr5/crt*
+%{_prefix}/avr/include/*.h
+%{_prefix}/avr/include/avr/*.h
+
+## TRoth/20021013: Argh! Why does the fscking %doc directive remove the doc
+## dir? That's absolutely stupid. We install things there _assuming_ they
+## will stay there. Rpm should _not_ removing things we've installed, but alas
+## it does. Be sure to watch the output when you are building the packages.
+
+%if %{_with_docs}
+%files docs
+%defattr(-,root,root)
+%doc obj-%{_target_platform}/doc/api/avr-libc-user-manual
+%doc obj-%{_target_platform}/doc/api/avr-libc-user-manual.ps.gz
+%doc obj-%{_target_platform}/doc/api/avr-libc-user-manual.pdf.gz
+%endif
+
+%changelog
+* Tue Oct 21 2003 Theodore Roth <troth@openavr.org>
+- Allow disabling build of docs sub-package with "--without docs".
+
+* Wed Aug 20 2003 Theodore Roth <troth@openavr.org>
+- Require avr-gcc >= 3.3.
+
+* Thu Apr 17 2003 Theodore Roth <troth@openavr.org>
+- Don't build debuginfo package.
+- Don't run post install since it strips binaries.
+
+* Mon Nov 11 2002 Theodore Roth <troth@openavr.org>
+- Add --enable-doc to configure command.
+
+* Sun Oct 13 2002 Theodore Roth <troth@openavr.org>
+- Drop avr-gcc requirement to >= 3.2.75 to allow building snapshot packages.
+- Add docs sub-package for user manual.
+
+* Mon Aug 12 2002 Joerg Wunsch <j.gnu@uriah.heep.sax.de>
+- Require avr-gcc >= 3.3.
+
+* Mon Jul 08 2002 Theodore Roth <troth@verinet.com>
+- Integrate spec file into build system.
+
+* Fri May 03 2002 Theodore Roth <troth@verinet.com>
+- Added patch to fix timer.h for mega128.
+
+* Mon Apr 29 2002 Theodore Roth <troth@verinet.com>
+- Added patch to fix headers.
+- Fix strncasecmp_P macro in pgmspace.h.
+
+* Wed Mar 27 2002 Theodore Roth <troth@verinet.com>
+- Updated avr-gcc dependency to 3.0.4-2.
+- Fixed up %files section to work with rh-7.1.
+
+* Mon Mar 17 2002 Theodore Roth <troth@verinet.com>
+- Initial spec file.

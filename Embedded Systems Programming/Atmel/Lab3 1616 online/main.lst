@@ -1,0 +1,331 @@
+   1               		.file	"main.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  11               		.text
+  12               	.Ltext0:
+  98               	.global	main
+ 100               	main:
+   1:main.c        **** #include "TinyTimber.h"
+   2:main.c        **** #include "lcd.h"
+   3:main.c        **** #include "primes.h"
+   4:main.c        **** #include "blinker.h"
+   5:main.c        **** #include "joystick.h"
+   6:main.c        **** #include "piezo.h"
+   7:main.c        **** #include "tone.h"
+   8:main.c        **** #include <avr/io.h>
+   9:main.c        **** /*
+  10:main.c        **** 
+  11:main.c        **** LCD lcdDriver = initLCD(); 
+  12:main.c        **** PrimeCalculator primeCalc = initPrimeCalculator(&lcdDriver);
+  13:main.c        **** Blinker blinker = initBlinker(&lcdDriver,4,1000);
+  14:main.c        **** Joystick joystick = initJoystick();
+  15:main.c        **** 
+  16:main.c        **** typedef struct{
+  17:main.c        ****   Object super;
+  18:main.c        ****   PrimeCalculator* pctr;
+  19:main.c        ****   Blinker* bkr;
+  20:main.c        **** } APP;
+  21:main.c        **** 
+  22:main.c        **** #define initAPP(p,b) {initObject(),p,b}
+  23:main.c        ****  
+  24:main.c        **** int startup(APP * self, int x){
+  25:main.c        ****   ASYNC(self -> pctr, primes,0);
+  26:main.c        ****   ASYNC(self -> bkr, startBlinking, 0);
+  27:main.c        **** }
+  28:main.c        **** 
+  29:main.c        **** APP app = initAPP(&primeCalc,&blinker);
+  30:main.c        **** 
+  31:main.c        **** 
+  32:main.c        **** int main(){
+  33:main.c        ****   CONFKEY;
+  34:main.c        ****   CONFLCD;
+  35:main.c        ****   INSTALL(&joystick,detect,IRQ_PCINT1);
+  36:main.c        ****   return TINYTIMBER(&app,startup,0);
+  37:main.c        **** }
+  38:main.c        **** 
+  39:main.c        **** */
+  40:main.c        **** 
+  41:main.c        **** 
+  42:main.c        **** typedef struct{
+  43:main.c        ****   Object super;
+  44:main.c        ****   Tone *tone;
+  45:main.c        **** } APP;
+  46:main.c        **** 
+  47:main.c        **** #define initAPP(t) {initObject(),t}
+  48:main.c        **** 
+  49:main.c        **** Piezo piezo = initPiezo();
+  50:main.c        **** Tone tone = initTone(&piezo,523);
+  51:main.c        **** APP app = initAPP(&tone);
+  52:main.c        **** 
+  53:main.c        **** 
+  54:main.c        **** int startup(APP * self, int x){
+  55:main.c        ****   AFTER(MSEC(800),self->tone,stop_playing,0);
+  56:main.c        ****   AFTER(MSEC(700),self->tone,setFrequency,1047);
+  57:main.c        ****   AFTER(MSEC(600),self->tone,setFrequency,988);
+  58:main.c        ****   AFTER(MSEC(500),self->tone,setFrequency,880);
+  59:main.c        ****   AFTER(MSEC(400),self->tone,setFrequency,784);
+  60:main.c        ****   AFTER(MSEC(300),self->tone,setFrequency,698);
+  61:main.c        ****   AFTER(MSEC(200),self->tone,setFrequency,659);
+  62:main.c        ****   AFTER(MSEC(100),self->tone,setFrequency,587);
+  63:main.c        ****   SYNC(self->tone,start_playing,0);
+  64:main.c        **** }
+  65:main.c        **** 
+  66:main.c        **** 
+  67:main.c        **** 
+  68:main.c        **** int main()
+  69:main.c        **** {
+ 101               	,.LM0-.LFBB1
+ 102               	.LM0:
+ 103               	.LFBB1:
+ 104               	/* prologue: function */
+ 105               	/* frame size = 0 */
+  70:main.c        **** {
+ 106               	abs	"APP:t(0,16)=(0,17)=s6super:(1,1),0,32;tone:(0,18)=*(12,1),32,16;;",128,0,0,0
+ 108 0000 259A      	.global	main
+  71:main.c        **** {
+ 109               	ype	main, @function
+ 110               	main:
+ 112 0004 50E0      	.LM0:
+ 113 0006 60E0      	.LFBB1:
+ 114 0008 70E0      	/* prologue: function */
+ 115 000a 80E0      	/* frame size = 0 */
+ 117 000e 0E94 0000 	.LM1:
+ 118               		sbi 36-32,5
+  72:main.c        **** {
+ 119               	,18)=*(12,1),32,16;;",128,0,0,0
+ 121 0012 0895      	.global	main
+ 123               	main:
+ 125               	.LM0:
+ 126               	.LFBB1:
+ 127               	/* prologue: function */
+ 128               	/* frame size = 0 */
+ 130               	.LM1:
+ 131               		sbi 36-32,5
+ 133 0014 8F92      	.LM2:
+ 134 0016 9F92      		ldi r20,lo8(0)
+ 135 0018 AF92      		ldi r21,hi8(0)
+ 136 001a BF92      		ldi r22,lo8(gs(startup))
+ 137 001c CF92      		ldi r23,hi8(gs(startup))
+ 138 001e DF92      		ldi r24,lo8(app)
+ 139 0020 EF92      		ldi r25,hi8(app)
+ 140 0022 FF92      		call tinytimber
+ 141 0024 0F93      	/* epilogue start */
+ 143               	.LM3:
+ 144               		ret
+ 146               	.Lscope1:
+ 150 002e 1581      	.global	startup
+ 152 0032 DD24      	startup:
+ 154 0036 EE2E      	.LM4:
+ 155 0038 E0E0      	.LFBB2:
+ 156 003a FE2E      		push r8
+ 157 003c 20E0      		push r9
+ 158 003e 30E0      		push r10
+ 159 0040 40E0      		push r11
+ 160 0042 50E0      		push r12
+ 161 0044 68EA      		push r13
+ 162 0046 71E6      		push r14
+ 163 0048 80E0      		push r15
+ 164 004a 90E0      		push r16
+ 165 004c 0E94 0000 		push r17
+ 166               	/* prologue: function */
+ 167               	/* frame size = 0 */
+ 168 0050 70E0      		movw r8,r24
+ 170 0054 70E0      	.LM5:
+ 171 0056 B72E      		movw r30,r24
+ 172 0058 F401      		ldd r16,Z+4
+ 173 005a 0481      		ldd r17,Z+5
+ 174 005c 1581      		clr r12
+ 175 005e 67E1      		clr r13
+ 176 0060 C62E      		ldi r30,lo8(gs(stop_playing))
+ 177 0062 64E0      		mov r14,r30
+ 178 0064 D62E      		ldi r30,hi8(gs(stop_playing))
+ 179 0066 7501      		mov r15,r30
+ 180 0068 20E0      		ldi r18,lo8(0)
+ 181 006a 30E0      		ldi r19,hi8(0)
+ 182 006c 40E0      		ldi r20,hlo8(0)
+ 183 006e 50E0      		ldi r21,hhi8(0)
+ 184 0070 63E7      		ldi r22,lo8(25000)
+ 185 0072 75E5      		ldi r23,hi8(25000)
+ 186 0074 80E0      		ldi r24,hlo8(25000)
+ 187 0076 90E0      		ldi r25,hhi8(25000)
+ 188 0078 0E94 0000 		call async
+ 190               	.LM6:
+ 191 007c F401      		ldi r23,lo8(gs(setFrequency))
+ 192 007e 0481      		mov r10,r23
+ 193 0080 1581      		ldi r23,hi8(gs(setFrequency))
+ 194 0082 5CED      		mov r11,r23
+ 195 0084 C52E      		movw r30,r8
+ 196 0086 53E0      		ldd r16,Z+4
+ 197 0088 D52E      		ldd r17,Z+5
+ 198 008a 20E0      		ldi r22,lo8(1047)
+ 199 008c 30E0      		mov r12,r22
+ 200 008e 40E0      		ldi r22,hi8(1047)
+ 201 0090 50E0      		mov r13,r22
+ 202 0092 6EE3      		movw r14,r10
+ 203 0094 79E4      		ldi r18,lo8(0)
+ 204 0096 80E0      		ldi r19,hi8(0)
+ 205 0098 90E0      		ldi r20,hlo8(0)
+ 206 009a 0E94 0000 		ldi r21,hhi8(0)
+ 207               		ldi r22,lo8(21875)
+ 208               		ldi r23,hi8(21875)
+ 209 009e F401      		ldi r24,hlo8(21875)
+ 210 00a0 0481      		ldi r25,hhi8(21875)
+ 211 00a2 1581      		call async
+ 213 00a6 C42E      	.LM7:
+ 214 00a8 43E0      		movw r30,r8
+ 215 00aa D42E      		ldd r16,Z+4
+ 216 00ac 20E0      		ldd r17,Z+5
+ 217 00ae 30E0      		ldi r21,lo8(988)
+ 218 00b0 40E0      		mov r12,r21
+ 219 00b2 50E0      		ldi r21,hi8(988)
+ 220 00b4 69E0      		mov r13,r21
+ 221 00b6 7DE3      		ldi r18,lo8(0)
+ 222 00b8 80E0      		ldi r19,hi8(0)
+ 223 00ba 90E0      		ldi r20,hlo8(0)
+ 224 00bc 0E94 0000 		ldi r21,hhi8(0)
+ 225               		ldi r22,lo8(18750)
+ 226               		ldi r23,hi8(18750)
+ 227 00c0 F401      		ldi r24,hlo8(18750)
+ 228 00c2 0481      		ldi r25,hhi8(18750)
+ 229 00c4 1581      		call async
+ 231 00c8 C32E      	.LM8:
+ 232 00ca 33E0      		movw r30,r8
+ 233 00cc D32E      		ldd r16,Z+4
+ 234 00ce 20E0      		ldd r17,Z+5
+ 235 00d0 30E0      		ldi r20,lo8(880)
+ 236 00d2 40E0      		mov r12,r20
+ 237 00d4 50E0      		ldi r20,hi8(880)
+ 238 00d6 64ED      		mov r13,r20
+ 239 00d8 70E3      		ldi r18,lo8(0)
+ 240 00da 80E0      		ldi r19,hi8(0)
+ 241 00dc 90E0      		ldi r20,hlo8(0)
+ 242 00de 0E94 0000 		ldi r21,hhi8(0)
+ 243               		ldi r22,lo8(15625)
+ 244               		ldi r23,hi8(15625)
+ 245 00e2 F401      		ldi r24,hlo8(15625)
+ 246 00e4 0481      		ldi r25,hhi8(15625)
+ 247 00e6 1581      		call async
+ 249 00ea C22E      	.LM9:
+ 250 00ec 22E0      		movw r30,r8
+ 251 00ee D22E      		ldd r16,Z+4
+ 252 00f0 20E0      		ldd r17,Z+5
+ 253 00f2 30E0      		ldi r19,lo8(784)
+ 254 00f4 40E0      		mov r12,r19
+ 255 00f6 50E0      		ldi r19,hi8(784)
+ 256 00f8 6FE9      		mov r13,r19
+ 257 00fa 74E2      		ldi r18,lo8(0)
+ 258 00fc 80E0      		ldi r19,hi8(0)
+ 259 00fe 90E0      		ldi r20,hlo8(0)
+ 260 0100 0E94 0000 		ldi r21,hhi8(0)
+ 261               		ldi r22,lo8(12500)
+ 262               		ldi r23,hi8(12500)
+ 263 0104 F401      		ldi r24,hlo8(12500)
+ 264 0106 0481      		ldi r25,hhi8(12500)
+ 265 0108 1581      		call async
+ 267 010c C92E      	.LM10:
+ 268 010e 92E0      		movw r30,r8
+ 269 0110 D92E      		ldd r16,Z+4
+ 270 0112 20E0      		ldd r17,Z+5
+ 271 0114 30E0      		ldi r18,lo8(698)
+ 272 0116 40E0      		mov r12,r18
+ 273 0118 50E0      		ldi r18,hi8(698)
+ 274 011a 6AE6      		mov r13,r18
+ 275 011c 78E1      		ldi r18,lo8(0)
+ 276 011e 80E0      		ldi r19,hi8(0)
+ 277 0120 90E0      		ldi r20,hlo8(0)
+ 278 0122 0E94 0000 		ldi r21,hhi8(0)
+ 279               		ldi r22,lo8(9375)
+ 280               		ldi r23,hi8(9375)
+ 281 0126 F401      		ldi r24,hlo8(9375)
+ 282 0128 0481      		ldi r25,hhi8(9375)
+ 283 012a 1581      		call async
+ 285 012e C82E      	.LM11:
+ 286 0130 82E0      		movw r30,r8
+ 287 0132 D82E      		ldd r16,Z+4
+ 288 0134 20E0      		ldd r17,Z+5
+ 289 0136 30E0      		ldi r25,lo8(659)
+ 290 0138 40E0      		mov r12,r25
+ 291 013a 50E0      		ldi r25,hi8(659)
+ 292 013c 65E3      		mov r13,r25
+ 293 013e 7CE0      		ldi r18,lo8(0)
+ 294 0140 80E0      		ldi r19,hi8(0)
+ 295 0142 90E0      		ldi r20,hlo8(0)
+ 296 0144 0E94 0000 		ldi r21,hhi8(0)
+ 297               		ldi r22,lo8(6250)
+ 298               		ldi r23,hi8(6250)
+ 299 0148 40E0      		ldi r24,hlo8(6250)
+ 300 014a 50E0      		ldi r25,hhi8(6250)
+ 301 014c 60E0      		call async
+ 303 0150 F401      	.LM12:
+ 304 0152 8481      		movw r30,r8
+ 305 0154 9581      		ldd r16,Z+4
+ 306 0156 0E94 0000 		ldd r17,Z+5
+ 307               		ldi r24,lo8(587)
+ 308               		mov r12,r24
+ 309               		ldi r24,hi8(587)
+ 310 015a 1F91      		mov r13,r24
+ 311 015c 0F91      		ldi r18,lo8(0)
+ 312 015e FF90      		ldi r19,hi8(0)
+ 313 0160 EF90      		ldi r20,hlo8(0)
+ 314 0162 DF90      		ldi r21,hhi8(0)
+ 315 0164 CF90      		ldi r22,lo8(3125)
+ 316 0166 BF90      		ldi r23,hi8(3125)
+ 317 0168 AF90      		ldi r24,hlo8(3125)
+ 318 016a 9F90      		ldi r25,hhi8(3125)
+ 319 016c 8F90      		call async
+ 321               	.LM13:
+ 322               		ldi r20,lo8(0)
+ 323               		ldi r21,hi8(0)
+ 324               		ldi r22,lo8(gs(start_playing))
+ 325               		ldi r23,hi8(gs(start_playing))
+ 326               		movw r30,r8
+ 327               		ldd r24,Z+4
+ 328               		ldd r25,Z+5
+ 329 0000 0000 0000 		call sync
+ 330               	/* epilogue start */
+ 332               	.LM14:
+ 333               		pop r17
+ 334               		pop r16
+ 335 0000 0000      		pop r15
+ 336 0002 0000      		pop r14
+ 337 0004 0000      		pop r13
+ 338 0006 0B02      		pop r12
+ 339               		pop r11
+ 340               		pop r10
+ 341               		pop r9
+ 342               		pop r8
+ 343 0008 0000      		ret
+ 345 000c 0000      	.Lscope2:
+ 346               	.global	piezo
+ 347               	.global	piezo
+ 348               		.section .bss
+ 351               	piezo:
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccCYzlUx.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccCYzlUx.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccCYzlUx.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccCYzlUx.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccCYzlUx.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccCYzlUx.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccCYzlUx.s:100    .text:00000000 main
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccCYzlUx.s:129    .text:00000014 startup
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccCYzlUx.s:342    .data:00000008 app
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccCYzlUx.s:328    .bss:00000000 piezo
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccCYzlUx.s:334    .data:00000000 tone
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
+tinytimber
+stop_playing
+async
+setFrequency
+start_playing
+sync

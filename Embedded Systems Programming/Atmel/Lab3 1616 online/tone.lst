@@ -1,0 +1,210 @@
+   1               		.file	"tone.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  11               		.text
+  12               	.Ltext0:
+  87               	.global	stop_playing
+  89               	stop_playing:
+   1:tone.c        **** #include "TinyTimber.h"
+   2:tone.c        **** #include "piezo.h"
+   3:tone.c        **** #include "tone.h"
+   4:tone.c        **** #include <avr/io.h>
+   5:tone.c        **** 
+   6:tone.c        **** char flag_play;
+   7:tone.c        **** 
+   8:tone.c        **** int  playing(Tone *self, int nothing)
+   9:tone.c        **** {
+  10:tone.c        **** 	if(flag_play)
+  11:tone.c        **** 	{
+  12:tone.c        **** 		AFTER(RESOLUTION(15625/self->frequency),self,playing,1-nothing);
+  13:tone.c        **** 		if(nothing) ASYNC(self->piezo,PiezoOff,0);
+  14:tone.c        **** 		else ASYNC(self->piezo,PiezoOn,0);
+  15:tone.c        **** 	}
+  16:tone.c        **** }
+  17:tone.c        **** 
+  18:tone.c        **** 
+  19:tone.c        **** int start_playing(Tone *self, int nothing)
+  20:tone.c        **** {
+  21:tone.c        **** 	flag_play=1;
+  22:tone.c        **** 	ASYNC(self,playing,0);
+  23:tone.c        **** }
+  24:tone.c        **** 
+  25:tone.c        **** 
+  26:tone.c        **** int stop_playing(Tone *self, int nothing)
+  27:tone.c        **** {
+  90               	,0
+  94               	.global	stop_playing
+  28:tone.c        **** nothing)
+  95               	quency:(0,1),48,16;;",128,0,0,0
+  29:tone.c        **** nt nothing)
+  30:tone.c        **** {
+  99               	8,1)=(8,2)=s8super:(1,1),0,32;piezo:(8,3)=*(2,1),32,16;frequency:(0,1),48,16;;",128,0,0,0
+ 104               	.global	stop_playing
+ 106               	stop_playing:
+ 108               	.LM0:
+ 109               	.LFBB1:
+  31:tone.c        **** nothing)
+  32:tone.c        **** {
+  33:tone.c        **** 	flag_play=0;
+  34:tone.c        **** 	//ASYNC(self,playing,0);
+ 110               	playing
+ 113               	.global	stop_playing
+  35:tone.c        **** ying,0);
+ 119 000a 6683      	.global	stop_playing
+  36:tone.c        **** ying,0);
+  37:tone.c        **** }
+ 125               	.global	stop_playing
+ 127               	stop_playing:
+ 129               	.LM0:
+ 130               	.LFBB1:
+ 131               	/* prologue: function */
+ 132               	/* frame size = 0 */
+ 134               	.LM1:
+ 135 000e CF92      		sts flag_play,__zero_reg__
+ 136 0010 DF92      	/* epilogue start */
+ 138 0014 FF92      	.LM2:
+ 139 0016 0F93      		ret
+ 141               	.Lscope1:
+ 145 001a 21E0      	.global	setFrequency
+ 147               	setFrequency:
+ 149 0020 CC24      	.LM3:
+ 150 0022 DD24      	.LFBB2:
+ 151 0024 20E0      	/* prologue: function */
+ 152 0026 E22E      	/* frame size = 0 */
+ 154 002a F22E      	.LM4:
+ 155 002c 8C01      		movw r30,r24
+ 156 002e 20E0      		std Z+7,r23
+ 157 0030 30E0      		std Z+6,r22
+ 158 0032 40E0      	/* epilogue start */
+ 160 0036 60E0      	.LM5:
+ 161 0038 70E0      		ret
+ 163 003c 90E0      	.Lscope2:
+ 167               	.global	start_playing
+ 169 0044 0F91      	start_playing:
+ 171 0048 EF90      	.LM6:
+ 172 004a DF90      	.LFBB3:
+ 173 004c CF90      		push r12
+ 174 004e 0895      		push r13
+ 175               		push r14
+ 176               		push r15
+ 177               		push r16
+ 178               		push r17
+ 179               	/* prologue: function */
+ 180               	/* frame size = 0 */
+ 182               	.LM7:
+ 183               		ldi r18,lo8(1)
+ 184               		sts flag_play,r18
+ 186 0050 AF92      	.LM8:
+ 187 0052 BF92      		clr r12
+ 188 0054 CF92      		clr r13
+ 189 0056 DF92      		ldi r18,lo8(gs(playing))
+ 190 0058 EF92      		mov r14,r18
+ 191 005a FF92      		ldi r18,hi8(gs(playing))
+ 192 005c 0F93      		mov r15,r18
+ 193 005e 1F93      		movw r16,r24
+ 194 0060 CF93      		ldi r18,lo8(0)
+ 195 0062 DF93      		ldi r19,hi8(0)
+ 196               		ldi r20,hlo8(0)
+ 197               		ldi r21,hhi8(0)
+ 198 0064 EC01      		ldi r22,lo8(0)
+ 199 0066 5B01      		ldi r23,hi8(0)
+ 200               		ldi r24,hlo8(0)
+ 201               		ldi r25,hhi8(0)
+ 202 0068 8091 0000 		call async
+ 203 006c 8823      	/* epilogue start */
+ 205               	.LM9:
+ 206               		pop r17
+ 207 0070 21E0      		pop r16
+ 208 0072 30E0      		pop r15
+ 209 0074 261B      		pop r14
+ 210 0076 370B      		pop r13
+ 211 0078 6E81      		pop r12
+ 212 007a 7F81      		ret
+ 214 007e 9DE3      	.Lscope3:
+ 218 0088 8095      	.global	playing
+ 220 008c 6901      	playing:
+ 222 0090 E52E      	.LM10:
+ 223 0092 50E0      	.LFBB4:
+ 224 0094 F52E      		push r10
+ 225 0096 8E01      		push r11
+ 226 0098 20E0      		push r12
+ 227 009a 30E0      		push r13
+ 228 009c 40E0      		push r14
+ 229 009e 50E0      		push r15
+ 230 00a0 0E94 0000 		push r16
+ 231 00a4 0C81      		push r17
+ 232 00a6 1D81      		push r28
+ 233               		push r29
+ 234               	/* prologue: function */
+ 235 00a8 AB28      	/* frame size = 0 */
+ 236 00aa 01F0      		movw r28,r24
+ 237 00ac CC24      		movw r10,r22
+ 239 00b0 40E0      	.LM11:
+ 240 00b2 E42E      		lds r24,flag_play
+ 241 00b4 40E0      		tst r24
+ 242 00b6 F42E      		breq .L11
+ 244               	.LM12:
+ 245               		ldi r18,lo8(1)
+ 246               		ldi r19,hi8(1)
+ 247 00ba CC24      		sub r18,r22
+ 248 00bc DD24      		sbc r19,r23
+ 249 00be 30E0      		ldd r22,Y+6
+ 250 00c0 E32E      		ldd r23,Y+7
+ 251 00c2 30E0      		ldi r24,lo8(15625)
+ 252 00c4 F32E      		ldi r25,hi8(15625)
+ 253               		call __divmodhi4
+ 254 00c6 20E0      		clr r24
+ 255 00c8 30E0      		sbrc r23,7
+ 256 00ca 40E0      		com r24
+ 257 00cc 50E0      		mov r25,r24
+ 258 00ce 60E0      		movw r12,r18
+ 259 00d0 70E0      		ldi r21,lo8(gs(playing))
+ 260 00d2 80E0      		mov r14,r21
+ 261 00d4 90E0      		ldi r21,hi8(gs(playing))
+ 262 00d6 0E94 0000 		mov r15,r21
+ 263               		movw r16,r28
+ 264               		ldi r18,lo8(0)
+ 265               		ldi r19,hi8(0)
+ 266               		ldi r20,hlo8(0)
+ 267 00da DF91      		ldi r21,hhi8(0)
+ 268 00dc CF91      		call async
+ 269 00de 1F91      		ldd r16,Y+4
+ 270 00e0 0F91      		ldd r17,Y+5
+ 272 00e4 EF90      	.LM13:
+ 273 00e6 DF90      		or r10,r11
+ 274 00e8 CF90      		breq .L9
+ 275 00ea BF90      		clr r12
+ 276 00ec AF90      		clr r13
+ 277 00ee 0895      		ldi r20,lo8(gs(PiezoOff))
+ 278               		mov r14,r20
+ 279               		ldi r20,hi8(gs(PiezoOff))
+ 280               		mov r15,r20
+ 281               		rjmp .L12
+ 282               	.L9:
+DEFINED SYMBOLS
+                            *ABS*:00000000 tone.c
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccxhOXHl.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccxhOXHl.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccxhOXHl.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccxhOXHl.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccxhOXHl.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccxhOXHl.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccxhOXHl.s:89     .text:00000000 stop_playing
+                            *COM*:00000001 flag_play
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccxhOXHl.s:109    .text:00000006 setFrequency
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccxhOXHl.s:131    .text:0000000e start_playing
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccxhOXHl.s:182    .text:00000050 playing
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
+async
+__divmodhi4
+PiezoOff
+PiezoOn

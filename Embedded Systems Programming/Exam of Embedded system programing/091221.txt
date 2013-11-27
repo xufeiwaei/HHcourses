@@ -1,0 +1,137 @@
+1. 
+void toggleBit(unsigned int *port, int bitNr){
+   *port = *port ^ (1 << bitNr);
+}
+
+2a.
+int is_prime(long i){
+  int n;
+  if(i<2){return 0;}
+  for(n=2; n<i; n++){
+    if ((i%n)==0) return 0;
+  }
+  return 1;
+}
+void primes() {
+  long n;
+  for(n = 1; ; n++) {
+    if (is_prime(n)) {
+      writeLong(n);
+    }
+  }
+}
+
+2b.
+int try_prime(long n){
+	int i = 0;
+	// this is the loop that can take time, so we do parts of
+	// blinking and of joystick while testing whether a number is prime.
+	for(i = 2; i<=n/2; i++){
+          // a little blinking 
+          if(TCNT1>=15625){
+                TCNT1=0;
+		switch (blink_status){
+		   case 0: turnOnS1(); break;
+		   case 1: turnOffS1(); break;
+		}
+		blink_status = 1-blink_status;
+	    }
+	    // a little joystick
+	    if(PINB & 0x80){
+	        switch (joystick_status){
+		   case 0: turnOnS2(); break;
+		   case 1: turnOffS2(); break;
+		}
+		joystick_status = 1-joystick_status;
+            }
+	    // a little prime test
+            if(n%i == 0)return 0;
+	} 
+	return 1;
+}
+void main(){
+ init_up();
+ init_lcd();
+ init_timer();
+ init_joystick();
+ int n = 2;
+ int blink_status = 0;
+ int joystick_status = 0;
+ while(1){
+   if(try_prime(n))
+   writeLong(n);
+   n++;
+  }
+}
+
+3a.
+void lock(mutex *m) {
+  DISABLE();
+  if (m->locked){
+    enqueue(current, &(m->waitQ));
+    ENABLE();
+    dispatch(dequeue(&readyQ));
+  }
+  else{
+    m->locked = 1;
+    ENABLE();
+  }
+  
+}
+
+3b.
+void unlock(mutex *m) {
+  DISABLE();
+  if (m->waitQ){
+    enqueue(dequeue(&(m->waitQ)),&readyQ);
+  }
+  else{
+    m->locked = 0;
+  }
+  ENABLE();
+}
+
+4a. 
+ASYNC(self->cnt,inc,0);
+We use ASYNC because inc is a method in another object and it can be done concurrently with whatever O1 is doing. 
+4b.
+SYNC(self->cnt,readValue,0)
+We use SYNC because readValue is a method in another object and the method in O1 needs to wait for the result.
+4c.
+If we use inc(self->cnt,0) in O1  we interfere with the kernel's discipline of using the variables of an object (c) in mutual
+exclusion, we introduce the possibility of a race condition with the local variables of c.
+
+5. 
+typedef struct{
+  Object super;
+  Mover * mover;
+  DistanceSensor *sensor;
+  int minDist;
+  int speed;
+  int pollingTime;
+}Controller;
+#define initController(m,s)  {initObject(),m,s,MINDIST,SPEED,POLLING_TIME}
+int turnOn(Controller * self, int x){
+   SYNC(self->mover, setSpeed, self->speed);
+   keepMoving(self,0);
+}
+int keepMoving(Controller * self, int x){
+    if(SYNC(self->sensor,getDistance,0)>self->minDist)
+      AFTER(MSEC(self->pollingTime),self,keepMoving,0);
+    else {
+      SYNC(self->mover, setSpeed,0);
+      remainStill(self,0);	
+    }
+}     
+int remainStill(Controller * self, int x){
+    if(SYNC(self->sensor,getDistance,0)<self->minDist)
+      AFTER(MSEC(self->pollingTime),self,remainStill,0);
+    else {
+      SYNC(self->mover, setSpeed,self->speed);
+      keepMoving(self,0);	
+    }
+}     
+6a. A uses 24% of its period for execution (WCET of A is 12 time units), B
+uses 25% of its period for execution (WCET of B is 10 time units) and
+C uses 33% of its period for execution (WCET of C is 10 time units).
+6.b The total utilization is (24 + 25 + 33)% (82%)

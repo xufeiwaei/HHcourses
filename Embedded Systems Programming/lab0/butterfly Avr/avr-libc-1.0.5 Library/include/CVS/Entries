@@ -1,0 +1,20 @@
+/ctype.h/1.4/Thu Dec 12 11:41:01 2002//Tavr-libc-1_0_5-release
+/eeprom.h/1.3/Thu Dec 12 11:41:01 2002//Tavr-libc-1_0_5-release
+/errno.h/1.3/Thu Dec 12 11:41:01 2002//Tavr-libc-1_0_5-release
+/ina90.h/1.3/Thu Dec 12 11:41:01 2002//Tavr-libc-1_0_5-release
+/interrupt.h/1.3/Thu Dec 12 11:41:01 2002//Tavr-libc-1_0_5-release
+/inttypes.h/1.5.2.3/Thu Jul 22 21:55:00 2004//Tavr-libc-1_0_5-release
+/io.h/1.3/Thu Dec 12 11:41:01 2002//Tavr-libc-1_0_5-release
+/math.h/1.4/Thu Dec 12 19:57:34 2002//Tavr-libc-1_0_5-release
+/pgmspace.h/1.3/Thu Dec 12 11:41:01 2002//Tavr-libc-1_0_5-release
+/progmem.h/1.3/Thu Dec 12 11:41:01 2002//Tavr-libc-1_0_5-release
+/setjmp.h/1.4/Fri Nov  8 15:44:45 2002//Tavr-libc-1_0_5-release
+/sig-avr.h/1.3/Thu Dec 12 11:41:01 2002//Tavr-libc-1_0_5-release
+/stdint.h/1.1.2.2/Sun Sep 19 19:16:11 2004//Tavr-libc-1_0_5-release
+/stdio.h/1.11.2.4/Thu Jul 22 11:10:38 2004//Tavr-libc-1_0_5-release
+/stdlib.h/1.14.2.5/Tue Dec 14 23:23:59 2004//Tavr-libc-1_0_5-release
+/string.h/1.6.2.1/Thu Sep  9 16:34:18 2004//Tavr-libc-1_0_5-release
+/timer.h/1.3.2.1/Sun Feb 15 20:28:09 2004//Tavr-libc-1_0_5-release
+/twi.h/1.3/Thu Dec 12 11:41:01 2002//Tavr-libc-1_0_5-release
+/wdt.h/1.3/Thu Dec 12 11:41:01 2002//Tavr-libc-1_0_5-release
+D/avr////

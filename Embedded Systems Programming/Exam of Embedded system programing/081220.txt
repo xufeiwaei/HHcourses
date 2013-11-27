@@ -1,0 +1,196 @@
+1.
+
+int areSet(unsigned char * port, unsigned char bits){
+
+   	return (*port & bits) == bits;
+
+}
+ 
+
+int areClear(unsigned char * port, unsigned char bits){
+
+   	return (*port & bits) == 0x00;
+
+}
+
+
+
+
+2.
+Using busy waiting,a function can be defined that returns when the 
+event has occurred:
+
+
+
+void  waitForEvent(){
+
+    while(!STATUS);
+
+}
+
+
+
+In a program that has to react to such an event we can write
+
+:
+
+
+waitForEvent();
+// do what has to be done to react
+...
+
+
+
+Using interrupts we install an interrupt service routine for the
+ event:
+
+
+ISR(InterruptNr){
+
+// do what has to be done to react 
+
+}
+
+
+
+In the program initializations might need to be done to make the
+ particular interrupt available, but then the interrupt service routine
+ is called by hardware, when the interrupt occurrs (the program does 
+not call the ISR).
+
+
+
+
+3. 
+The critical section is the body of the function printAt that uses 
+a global variable. There are 2 threads executing the body of the 
+function and both threads access the same variable. What might happen
+ is that while one thread increments pp (with start value for pp the
+ value of the argument to the function), the other thread gets to run 
+and updates pp to another value, and then the first thread gets to run 
+with the wrong value of pp for its purpose. To solve this with a
+ mutex, a global variable has to be declared
+:
+ 
+
+mutex m = MUTEX_INIT;
+
+
+
+and the body of the function has to be changed to:
+ 
+
+void printAt(long num, int pos) {
+
+  lock(&m);
+
+  pp = pos;
+
+  writeChar( (num % 100) / 10 + '0', pp);
+
+  pp++;
+
+  writeChar( num % 10 + '0', pp);
+
+  unlock(&m);
+
+}
+
+
+
+4. 
+The function next can be called as an ordinary C function
+...p = next(calc,  x) 
+...
+
+
+then the thread of execution will proceed to execute the code of next 
+and will read and modify the variable 
+calc -> lastPrime 
+concurrently with other threads, without protection (without using a
+ mutex).
+The function next can be called using the kernel function SYNC as in
+
+...
+p = SYNC(calc, next, x);
+...
+
+
+then the thread of execution will execute the body of SYNC that 
+includes locking the mutex variable in the Object that is part of
+ calc, executing the body of next, unlocking the mutex and returning 
+the value. Again, no new threads are started but the call to next is
+ protected by a mutex so that other threads that are using calc can do 
+so safely.
+
+
+The function next can be called using the kernel function ASYNC as in 
+
+
+...
+ASYNC(calc, next,x);
+...
+
+
+then a new thread is created to execute the body of next. The call to
+ next in this thread is protected with a mutex. The result is lost 
+because the thread that executes the call to ASYNC continues to
+ execute concurrently with the thread for next.
+
+
+
+5.
+In blinker.h:
+#include "led.h"
+
+#ifndef BLINKERDEF
+
+#define BLINKERDEF 
+
+
+typedef struct {
+  Object super;
+  LED * led;
+  int status;
+  int period;
+} Blinker;
+
+
+#define initBlinker(led,status,freq)   {initObject(),led,status,freq}
+
+int blink(Blinker *self, void  *x);
+
+int setPeriod(Blinker * self, int *x);
+
+#endif
+
+In blinker.c:
+
+#include "blinker.h"
+int blink(Blinker *self, void  *x){ 
+  AFTER(MSEC(self->period), self, blink, NULL);
+  if(self->status)
+    ASYNC(self->led,on,NULL);
+  else
+    ASYNC(self->led,off,NULL);
+  (self->status==1)?(self->status=0):(self->status=1);
+}
+
+
+
+int setPeriod(Blinker * self, int *x){
+  self->period = *x;
+}
+
+6. 
+
+7. Can be found in a lecture.
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,7 @@
+/.cvsignore/1.1/Fri Aug  9 16:52:38 2002//Tavr-libc-1_0_5-release
+/Makefile.am/1.2/Wed Oct 16 18:08:34 2002//Tavr-libc-1_0_5-release
+D/misc////
+D/pmstring////
+D/stdio////
+D/stdlib////
+D/string////

@@ -1,0 +1,287 @@
+   1               		.file	"melody.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   9               		.text
+  10               	.Ltext0:
+  88               	.global	stop_playing_melody
+  90               	stop_playing_melody:
+   1:melody.c      **** #include "TinyTimber.h"
+   2:melody.c      **** #include "tone.h"
+   3:melody.c      **** #include "melody.h"
+   4:melody.c      **** 
+   5:melody.c      **** int start_playing_melody(Melody *self, int x)
+   6:melody.c      **** {
+   7:melody.c      **** 	unsigned int i,n=0,j;
+   8:melody.c      **** 	int *p;
+   9:melody.c      **** 	p=self->array_durations;
+  10:melody.c      **** 	while(*(p++)!=0) n++;
+  11:melody.c      **** 	n--;
+  12:melody.c      **** 	
+  13:melody.c      **** 	
+  14:melody.c      **** 	ASYNC(self->tone,start_playing,0);
+  15:melody.c      **** 	
+  16:melody.c      **** 	/*
+  17:melody.c      **** 	for(i=0;i<n;i++)
+  18:melody.c      **** 	{
+  19:melody.c      **** 		
+  20:melody.c      **** 		AFTER(MSEC(*((self->array_durations)++)),self->tone,setFrequency,*(++(self->array_tones)));
+  21:melody.c      **** 	}*/
+  22:melody.c      **** 	
+  23:melody.c      **** 	
+  24:melody.c      **** 	
+  25:melody.c      **** 	for(i=0;i<8;i++)
+  26:melody.c      **** 	{
+  27:melody.c      **** 		p=(self->array_durations)++;
+  28:melody.c      **** 		j=(*p)+10*i;
+  29:melody.c      **** 		AFTER(MSEC(j),self->tone,stop_playing,0);
+  30:melody.c      **** 		j=(*p)+10*i+10;
+  31:melody.c      **** 		AFTER(MSEC(j),self->tone,start_playing,0);
+  32:melody.c      **** 		AFTER(MSEC(j),self->tone,setFrequency,*(++(self->array_tones)));
+  33:melody.c      **** 	}
+  34:melody.c      **** 	
+  35:melody.c      **** 	//AFTER(MSEC(430),self->tone,stop_playing,0);
+  36:melody.c      **** 	//AFTER(MSEC(440),self->tone,start_playing,0);
+  37:melody.c      **** 	//AFTER(MSEC(440),self->tone,setFrequency,784);
+  38:melody.c      **** 	
+  39:melody.c      **** 	
+  40:melody.c      **** 	//p=(self->array_durations)++;
+  41:melody.c      **** 	//AFTER(MSEC((*p)+10*0),self->tone,stop_playing,0);
+  42:melody.c      **** 	//AFTER(MSEC((*p)+10*n+10),self->tone,start_playing,0);
+  43:melody.c      **** 	//AFTER(MSEC((*p)+10*n+10),self->tone,setFrequency,*(++(self->array_tones)));
+  44:melody.c      **** 	
+  45:melody.c      **** 	/*
+  46:melody.c      **** 	p=(self->array_durations)++;
+  47:melody.c      **** 	j=(*p)+10*0;
+  48:melody.c      **** 	AFTER(MSEC(j),self->tone,stop_playing,0);
+  49:melody.c      **** 	j=(*p)+10*0+10;
+  50:melody.c      **** 	AFTER(MSEC(j),self->tone,start_playing,0);
+  51:melody.c      **** 	AFTER(MSEC(j),self->tone,setFrequency,*(++(self->array_tones)));
+  52:melody.c      **** 	*/
+  53:melody.c      **** 	
+  54:melody.c      **** 	
+  55:melody.c      **** 	//AFTER(MSEC(210),self->tone,stop_playing,0);
+  56:melody.c      **** 	//AFTER(MSEC(220),self->tone,start_playing,0);
+  57:melody.c      **** 	//AFTER(MSEC(220),self->tone,setFrequency,659);
+  58:melody.c      **** 	
+  59:melody.c      **** 	
+  60:melody.c      **** 	
+  61:melody.c      **** 	//AFTER(MSEC(*((self->array_durations)++)),self->tone,stop_playing,0);
+  62:melody.c      **** 	
+  63:melody.c      **** 	
+  64:melody.c      **** }
+  65:melody.c      **** 
+  66:melody.c      **** 
+  67:melody.c      **** int stop_playing_melody(Melody *self, int x)
+  68:melody.c      **** {
+  91               	"stop_playing_melody:F(0,1)",36,0,0,stop_playing_melody
+  94               	.global	stop_playing_melody
+  96               	stop_playing_melody:
+  69:melody.c      **** 
+  70:melody.c      **** 	
+  97               	"stop_playing_melody:F(0,1)",36,0,0,stop_playing_melody
+ 100               	.global	stop_playing_melody
+ 102               	stop_playing_melody:
+ 104               	.LM0:
+ 105               	.LFBB1:
+ 106               	/* prologue: function */
+ 107               	/* frame size = 0 */
+ 108               	/* epilogue start */
+ 110               	.LM1:
+ 111 0002 6F92      		ret
+ 113 0006 8F92      	.Lscope1:
+ 117 000e CF92      	.global	start_playing_melody
+ 119 0012 EF92      	start_playing_melody:
+ 121 0016 0F93      	.LM2:
+ 122 0018 1F93      	.LFBB2:
+ 123 001a CF93      		push r6
+ 124 001c DF93      		push r7
+ 125               		push r8
+ 126               		push r9
+ 127 001e EC01      		push r10
+ 128               		push r11
+ 129               		push r12
+ 130 0020 E885      		push r13
+ 131 0022 F985      		push r14
+ 132               		push r15
+ 133               		push r16
+ 134               		push r17
+ 135 0024 8191      		push r28
+ 136 0026 9191      		push r29
+ 137 0028 892B      	/* prologue: function */
+ 138 002a 01F4      	/* frame size = 0 */
+ 139               		movw r28,r24
+ 141 002c 0C81      	.LM3:
+ 142 002e 1D81      		ldd r30,Y+8
+ 143 0030 60E0      		ldd r31,Y+9
+ 144 0032 70E0      	.L4:
+ 146 0036 90E0      	.LM4:
+ 147 0038 20E0      		ld r24,Z+
+ 148 003a 30E0      		ld r25,Z+
+ 149 003c 40E0      		or r24,r25
+ 150 003e 50E0      		brne .L4
+ 152 0042 EE2E      	.LM5:
+ 153 0044 E0E0      		ldd r16,Y+4
+ 154 0046 FE2E      		ldd r17,Y+5
+ 155 0048 CC24      		ldi r22,lo8(0)
+ 156 004a DD24      		ldi r23,hi8(0)
+ 157 004c 0E94 0000 		ldi r24,hlo8(0)
+ 158 0050 6624      		ldi r25,hhi8(0)
+ 159 0052 7724      		ldi r18,lo8(0)
+ 160               		ldi r19,hi8(0)
+ 161               		ldi r20,hlo8(0)
+ 162               		ldi r21,hhi8(0)
+ 163 0054 A884      		ldi r30,lo8(gs(start_playing))
+ 164 0056 B984      		mov r14,r30
+ 165 0058 82E0      		ldi r30,hi8(gs(start_playing))
+ 166 005a 90E0      		mov r15,r30
+ 167 005c A80E      		clr r12
+ 168 005e B91E      		clr r13
+ 169 0060 B986      		call async
+ 170 0062 A886      		clr r6
+ 171               		clr r7
+ 172               	.L5:
+ 174 0066 7291      	.LM6:
+ 175 0068 6291      		ldd r10,Y+8
+ 176 006a 5F01      		ldd r11,Y+9
+ 177 006c 660D      		ldi r24,lo8(2)
+ 178 006e 771D      		ldi r25,hi8(2)
+ 179 0070 80E0      		add r10,r24
+ 180 0072 90E0      		adc r11,r25
+ 181 0074 2DE7      		std Y+9,r11
+ 182 0076 30E0      		std Y+8,r10
+ 184 007a 50E0      	.LM7:
+ 185 007c 0E94 0000 		movw r30,r10
+ 186 0080 12E0      		ld r23,-Z
+ 187 0082 9595      		ld r22,-Z
+ 188 0084 8795      		movw r10,r30
+ 189 0086 7795      		add r22,r6
+ 190 0088 6795      		adc r23,r7
+ 191 008a 1A95      		ldi r24,lo8(0)
+ 192 008c 01F4      		ldi r25,hi8(0)
+ 193 008e 0C81      		ldi r18,lo8(125)
+ 194 0090 1D81      		ldi r19,hi8(125)
+ 195 0092 20E0      		ldi r20,hlo8(125)
+ 196 0094 30E0      		ldi r21,hhi8(125)
+ 197 0096 40E0      		call __mulsi3
+ 198 0098 50E0      		ldi r17,2
+ 199 009a B0E0      	1:	asr r25
+ 200 009c EB2E      		ror r24
+ 201 009e B0E0      		ror r23
+ 202 00a0 FB2E      		ror r22
+ 203 00a2 CC24      		dec r17
+ 204 00a4 DD24      		brne 1b
+ 205 00a6 0E94 0000 		ldd r16,Y+4
+ 206               		ldd r17,Y+5
+ 207               		ldi r18,lo8(0)
+ 208 00aa F501      		ldi r19,hi8(0)
+ 209 00ac 6081      		ldi r20,hlo8(0)
+ 210 00ae 7181      		ldi r21,hhi8(0)
+ 211 00b0 665F      		ldi r27,lo8(gs(stop_playing))
+ 212 00b2 7F4F      		mov r14,r27
+ 213 00b4 660D      		ldi r27,hi8(gs(stop_playing))
+ 214 00b6 771D      		mov r15,r27
+ 215 00b8 80E0      		clr r12
+ 216 00ba 90E0      		clr r13
+ 217 00bc 2DE7      		call async
+ 219 00c0 40E0      	.LM8:
+ 220 00c2 50E0      		movw r30,r10
+ 221 00c4 0E94 0000 		ld r22,Z
+ 222 00c8 4B01      		ldd r23,Z+1
+ 223 00ca 5C01      		subi r22,lo8(-(10))
+ 224 00cc A2E0      		sbci r23,hi8(-(10))
+ 225 00ce B594      		add r22,r6
+ 226 00d0 A794      		adc r23,r7
+ 227 00d2 9794      		ldi r24,lo8(0)
+ 228 00d4 8794      		ldi r25,hi8(0)
+ 229 00d6 AA95      		ldi r18,lo8(125)
+ 230 00d8 01F4      		ldi r19,hi8(125)
+ 231 00da 0C81      		ldi r20,hlo8(125)
+ 232 00dc 1D81      		ldi r21,hhi8(125)
+ 233 00de C501      		call __mulsi3
+ 234 00e0 B401      		movw r8,r22
+ 235 00e2 20E0      		movw r10,r24
+ 236 00e4 30E0      		ldi r26,2
+ 237 00e6 40E0      	1:	asr r11
+ 238 00e8 50E0      		ror r10
+ 239 00ea F0E0      		ror r9
+ 240 00ec EF2E      		ror r8
+ 241 00ee F0E0      		dec r26
+ 242 00f0 FF2E      		brne 1b
+ 243 00f2 0E94 0000 		ldd r16,Y+4
+ 244               		ldd r17,Y+5
+ 245               		movw r24,r10
+ 246 00f6 0C81      		movw r22,r8
+ 247 00f8 1D81      		ldi r18,lo8(0)
+ 248 00fa EE81      		ldi r19,hi8(0)
+ 249 00fc FF81      		ldi r20,hlo8(0)
+ 250 00fe 3296      		ldi r21,hhi8(0)
+ 251 0100 FF83      		ldi r31,lo8(gs(start_playing))
+ 252 0102 EE83      		mov r14,r31
+ 253 0104 3297      		ldi r31,hi8(gs(start_playing))
+ 254 0106 C280      		mov r15,r31
+ 255 0108 D380      		call async
+ 257 010c B401      	.LM9:
+ 258 010e 20E0      		ldd r16,Y+4
+ 259 0110 30E0      		ldd r17,Y+5
+ 260 0112 40E0      		ldd r30,Y+6
+ 261 0114 50E0      		ldd r31,Y+7
+ 262 0116 E0E0      		adiw r30,2
+ 263 0118 EE2E      		std Y+7,r31
+ 264 011a E0E0      		std Y+6,r30
+ 265 011c FE2E      		sbiw r30,2
+ 266 011e 0E94 0000 		ldd r12,Z+2
+ 267 0122 8AE0      		ldd r13,Z+3
+ 268 0124 90E0      		movw r24,r10
+ 269 0126 680E      		movw r22,r8
+ 270 0128 791E      		ldi r18,lo8(0)
+ 271               		ldi r19,hi8(0)
+ 272               		ldi r20,hlo8(0)
+ 273 012a 90E5      		ldi r21,hhi8(0)
+ 274 012c 6916      		ldi r30,lo8(gs(setFrequency))
+ 275 012e 7104      		mov r14,r30
+ 276 0130 01F0      		ldi r30,hi8(gs(setFrequency))
+ 277 0132 00C0      		mov r15,r30
+ 278               		call async
+ 279               		ldi r24,lo8(10)
+ 280               		ldi r25,hi8(10)
+ 281 0134 DF91      		add r6,r24
+ 282 0136 CF91      		adc r7,r25
+ 284 013a 0F91      	.LM10:
+ 285 013c FF90      		ldi r25,lo8(80)
+ 286 013e EF90      		cp r6,r25
+ 287 0140 DF90      		cpc r7,__zero_reg__
+ 288 0142 CF90      		breq .+2
+ 289 0144 BF90      		rjmp .L5
+ 290 0146 AF90      	/* epilogue start */
+ 292 014a 8F90      	.LM11:
+ 293 014c 7F90      		pop r29
+ 294 014e 6F90      		pop r28
+ 295 0150 0895      		pop r17
+ 296               		pop r16
+ 297               		pop r15
+ 298               		pop r14
+ 299               		pop r13
+ 300               		pop r12
+ 301               		pop r11
+ 302               		pop r10
+DEFINED SYMBOLS
+                            *ABS*:00000000 melody.c
+C:\Users\sungao\AppData\Local\Temp/ccYflt1A.s:2      *ABS*:0000003f __SREG__
+C:\Users\sungao\AppData\Local\Temp/ccYflt1A.s:3      *ABS*:0000003e __SP_H__
+C:\Users\sungao\AppData\Local\Temp/ccYflt1A.s:4      *ABS*:0000003d __SP_L__
+C:\Users\sungao\AppData\Local\Temp/ccYflt1A.s:5      *ABS*:00000034 __CCP__
+C:\Users\sungao\AppData\Local\Temp/ccYflt1A.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\sungao\AppData\Local\Temp/ccYflt1A.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\sungao\AppData\Local\Temp/ccYflt1A.s:90     .text:00000000 stop_playing_melody
+C:\Users\sungao\AppData\Local\Temp/ccYflt1A.s:107    .text:00000002 start_playing_melody
+
+UNDEFINED SYMBOLS
+start_playing
+async
+__mulsi3
+stop_playing
+setFrequency

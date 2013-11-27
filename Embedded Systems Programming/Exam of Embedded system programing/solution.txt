@@ -1,0 +1,119 @@
+1.a.
+LCDDR0   = LCDDR0   & 0x6F | 0x10
+LCDDR5   = LCDDR5   & 0x0F | 0x50
+LCDDR10  = LCDDR10 & 0x0F | 0xF0
+LCDDR15  = LCDDR15 & 0x0F | 0x00
+
+1.b.  
+We update the value of the register by clearing the segments in the
+position we want to update while keeping the original values in all
+other segments (the & operation with the original value) before
+placing the desired values only in the position we are interested in.
+
+2.a.
+Busy waiting is using the CPU (a program) to test for an event the
+program expects to occurr. It cannot be distinguished from more
+interesting computations.
+
+2.b.
+In laboration 1 busy waiting was used to test the value of the timer
+counter register in order to determine time elapsed in the
+blinker. Busy waiting was also used to test the value of the register
+that indicated that the joystick had been pressed. 
+
+2.c.
+We had to implement concurrent waiting and concurrent execution in an
+ad-hoc way. To do this we interspearsed attemts to blinking and
+toggling (testing the suitable registers and in case we got the
+expected value do the required LCD update) in the code for the
+function that computes prime numbers. The main program used the
+function that computes the prime numbers. 
+
+3.a.
+void temperatureMain(int x){
+     int * sv;
+     int temp;
+     while(1){
+        temp = readTemperature();
+        printf("%s%d", "Temperature", temp);
+        temperatureConvert(temp, sv);
+        writeToSwitch(*sv);
+     }
+}
+
+void pressureMain(int x){
+     int *pv;
+     int pressure;
+     while(1){
+        pressure = readPressure();
+        printf("%s%d", "Pressure", pressure);	
+        pressureConvert(pressure, pv);
+        writeToPump(*pv);
+     }
+}
+
+main(){  
+   spawn(temperatureMain,0);
+   pressureMain(0);
+}	
+
+3.b.
+The function temperatureRead() is doing busyWaiting. If the temperature
+values appear relatively seldom, when the CPU is given to
+temperatureMain() (in time slicing this happens regularly)
+it is just testing for a new temperature value. It causes the
+execution of pressureMain to be outspread in time while not doing
+anything interesting.
+
+4.a. 
+In the implementation of the method in O1, the counter should be
+incremented using 
+  ASYNC(self->cnt, inc, 0)
+The method inc in counter does not return any value and can be
+executed concurrently with the rest of the method in O1.
+
+4.b.
+In the implementation of the method in O1, the counter should be read
+using 
+  SYNC(self->cnt, readValue, 0)
+so that the return value can be used. The method in O1 is blocked
+until readValue is executed in the counter.
+
+4.c 
+If the method in O1 calls inc(self->cnt,0) then the body of inc is
+executed as in O1: there is no mutual exclusion with other methods in
+the counter that might be executing.
+
+5.
+typedef struct{
+  Object super;
+  Mover * mover;
+  DistanceSensor *sensor;
+  int minDist;
+  int speed;
+  int pollingTime;
+}Controller;
+#define initController(m,s)  {initObject(),m,s,MINDIST,SPEED,POLLING_TIME}
+int turnOn(Controller * self, int x){
+   SYNC(self->mover, setSpeed, self->speed);
+   keepMoving(self,0);
+}
+int keepMoving(Controller * self, int x){
+    if(SYNC(self->sensor,getDistance,0)>self->minDist)
+      AFTER(MSEC(self->pollingTime),self,keepMoving,0);
+    else {
+      SYNC(self->mover, setSpeed,0);
+      remainStill(self,0);	
+    }
+}     
+int remainStill(Controller * self, int x){
+    if(SYNC(self->sensor,getDistance,0)<self->minDist)
+      AFTER(MSEC(self->pollingTime),self,remainStill,0);
+    else {
+      SYNC(self->mover, setSpeed,self->speed);
+      keepMoving(self,0);	
+    }
+}   
+
+6.
+Depends on what you did!

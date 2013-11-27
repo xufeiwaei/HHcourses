@@ -1,0 +1,25 @@
+/.cvsignore/1.2/Fri Aug  9 20:31:13 2002//Tavr-libc-1_0_5-release
+/AUTHORS/1.1/Fri Jul  5 20:38:44 2002//Tavr-libc-1_0_5-release
+/ChangeLog/1.293.2.89/Sun Dec 19 21:30:38 2004//Tavr-libc-1_0_5-release
+/ChangeLog-2002/1.1/Tue Jan 14 16:10:17 2003//Tavr-libc-1_0_5-release
+/ChangeLog-2003/1.1.2.1/Tue Mar  9 01:44:04 2004//Tavr-libc-1_0_5-release
+/INSTALL/1.1/Fri Jul  5 20:38:44 2002//Tavr-libc-1_0_5-release
+/LICENSE/1.1/Fri Jul  5 20:38:44 2002//Tavr-libc-1_0_5-release
+/Makefile.am/1.7.2.3/Mon Nov 15 23:28:42 2004//Tavr-libc-1_0_5-release
+/NEWS/1.17.2.31/Sun Dec 19 21:26:08 2004//Tavr-libc-1_0_5-release
+/README/1.2.2.1/Fri Apr 23 21:50:00 2004//Tavr-libc-1_0_5-release
+/avr-libc.spec.in/1.7.2.4/Wed Nov 12 04:14:43 2003//Tavr-libc-1_0_5-release
+/config-ml.in/1.1.2.1/Tue Jun  8 23:23:17 2004//Tavr-libc-1_0_5-release
+/config.sub/1.1/Fri Jul  5 20:38:44 2002//Tavr-libc-1_0_5-release
+/configure.in/1.81.2.38/Sun Dec 19 21:41:02 2004//Tavr-libc-1_0_5-release
+/doconf/1.2/Sat Aug 16 06:21:32 2003//Tavr-libc-1_0_5-release
+/dodist/1.1/Fri Jul  5 20:38:44 2002//Tavr-libc-1_0_5-release
+/domake/1.2/Fri Aug  9 20:15:02 2002//Tavr-libc-1_0_5-release
+/reconf/1.4.2.2/Fri Sep 17 18:36:07 2004//Tavr-libc-1_0_5-release
+D/common////
+D/crt1////
+D/devtools////
+D/doc////
+D/include////
+D/libc////
+D/libm////

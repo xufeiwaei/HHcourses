@@ -1,0 +1,208 @@
+   1               		.file	"primes.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  11               		.text
+  12               	.Ltext0:
+  89               	.global	is_prime
+  91               	is_prime:
+   1:primes.c      **** #include "TinyTimber.h"
+   2:primes.c      **** #include "lcd.h"
+   3:primes.c      **** #include "primes.h"
+   4:primes.c      **** #include "blinker.h"
+   5:primes.c      **** #include <math.h>
+   6:primes.c      **** 
+   7:primes.c      **** int is_prime(int i)
+   8:primes.c      **** {
+  92               	64,16;;",128,0,0,0
+  96 0002 DF93      	.global	is_prime
+  98               	is_prime:
+   9:primes.c      **** ath.h>
+  10:primes.c      **** 
+  11:primes.c      **** int is_prime(int i)
+ 100               	62,0,0,0
+ 103 0008 9105      	.global	is_prime
+  12:primes.c      ****  <math.h>
+ 105               	riod:(0,1),64,16;;",128,0,0,0
+ 109 0010 01F0      	.global	is_prime
+  13:primes.c      **** de "blinker.h"
+  14:primes.c      **** #include <math.h>
+  15:primes.c      **** 
+ 110               	32,16;segment:(0,1),48,16;period:(0,1),64,16;;",128,0,0,0
+ 114 0016 77FD      	.global	is_prime
+ 116 001a 982F      	is_prime:
+ 118 0020 0E94 0000 	.LM0:
+ 119 0024 20E0      	.LFBB1:
+ 120 0026 30E0      		push r28
+ 121 0028 40E8      		push r29
+ 122 002a 5FE3      	/* prologue: function */
+ 123 002c 0E94 0000 	/* frame size = 0 */
+ 124 0030 0E94 0000 		movw r28,r24
+ 126 0036 22E0      	.LM1:
+ 127 0038 30E0      		cpi r24,2
+ 128 003a 00C0      		cpc r25,__zero_reg__
+ 129               		brlo .L2
+  16:primes.c      ****  "blinker.h"
+  17:primes.c      **** #include <math.h>
+  18:primes.c      **** 
+ 130               	8
+ 131               		push r29
+ 132 003c CE01      	/* prologue: function */
+ 133 003e B901      	/* frame size = 0 */
+ 134 0040 0E94 0000 		movw r28,r24
+ 136 0046 01F0      	.LM1:
+ 137               		cpi r24,2
+ 138               		cpc r25,__zero_reg__
+ 139 0048 2F5F      		brlo .L2
+ 141               	.LM2:
+ 142 004c 2E17      		cpi r24,2
+ 143 004e 3F07      		cpc r25,__zero_reg__
+ 144 0050 04F0      		breq .L3
+ 146               	.LM3:
+ 147 0054 20E0      		movw r22,r28
+ 148 0056 30E0      		clr r24
+ 149 0058 00C0      		sbrc r23,7
+ 150               		com r24
+ 151 005a 21E0      		mov r25,r24
+ 152 005c 30E0      		call __floatsisf
+ 153               		call sqrt
+  19:primes.c      ****  "blinker.h"
+  20:primes.c      **** #include <math.h>
+  21:primes.c      **** 
+  22:primes.c      **** int is_prime(int i)
+  23:primes.c      **** {
+ 154               	eg__
+ 155               		breq .L3
+ 157               	.LM3:
+ 158 0060 DF91      		movw r22,r28
+ 159 0062 CF91      		clr r24
+ 160 0064 0895      		sbrc r23,7
+ 161               		com r24
+ 162               		mov r25,r24
+ 163               		call __floatsisf
+ 164               		call sqrt
+ 165               		ldi r18,lo8(0x3f800000)
+ 166               		ldi r19,hi8(0x3f800000)
+ 167               		ldi r20,hlo8(0x3f800000)
+ 168               		ldi r21,hhi8(0x3f800000)
+ 169               		call __addsf3
+ 170               		call __fixsfsi
+ 171               		movw r30,r22
+ 172               		ldi r18,lo8(2)
+  24:primes.c      **** ath.h>
+  25:primes.c      **** 
+  26:primes.c      **** int is_prime(int i)
+  27:primes.c      **** {
+ 173               	8(0x3f800000)
+ 174               		ldi r20,hlo8(0x3f800000)
+ 175               		ldi r21,hhi8(0x3f800000)
+ 176 0066 CF92      		call __addsf3
+ 177 0068 DF92      		call __fixsfsi
+ 178 006a EF92      		movw r30,r22
+ 179 006c FF92      		ldi r18,lo8(2)
+ 180 006e 0F93      		ldi r19,hi8(2)
+ 181 0070 1F93      		rjmp .L4
+ 182 0072 CF93      	.L5:
+ 184               	.LM4:
+ 185               		movw r24,r28
+ 186 0076 EC01      		movw r22,r18
+ 187 0078 8B01      		call __divmodhi4
+ 188 007a 00C0      		or r24,r25
+ 189               		breq .L2
+  28:primes.c      **** ath.h>
+  29:primes.c      **** 
+  30:primes.c      **** int is_prime(int i)
+  31:primes.c      **** {
+  32:primes.c      **** 	int n;
+ 190               		rjmp .L4
+ 191               	.L5:
+ 193 007e 0F3F      	.LM4:
+ 194 0080 1807      		movw r24,r28
+ 195 0082 01F4      		movw r22,r18
+ 196 0084 00E0      		call __divmodhi4
+ 197 0086 10E0      		or r24,r25
+ 198 0088 00C0      		breq .L2
+  33:primes.c      **** nt is_prime(int i)
+ 200               	8,.LM4-.LFBB1
+ 201               	.LM4:
+ 202 008a 0F5F      		movw r24,r28
+ 203 008c 1F4F      		movw r22,r18
+ 204               		call __divmodhi4
+ 205               		or r24,r25
+ 206               		breq .L2
+ 208 0090 0E94 0000 	.LM5:
+ 209 0094 892B      		subi r18,lo8(-(1))
+ 210 0096 01F0      		sbci r19,hi8(-(1))
+  34:primes.c      ****  <math.h>
+  35:primes.c      **** 
+ 211               	call __divmodhi4
+ 212               		or r24,r25
+ 213 0098 A801      		breq .L2
+ 215 009c 70E0      	.LM5:
+ 216 009e 8C81      		subi r18,lo8(-(1))
+ 217 00a0 9D81      		sbci r19,hi8(-(1))
+ 218 00a2 0E94 0000 	.L4:
+  36:primes.c      ****  "blinker.h"
+  37:primes.c      **** #include <math.h>
+  38:primes.c      **** 
+ 219               	_divmodhi4
+ 220               		or r24,r25
+ 221 00a6 0F5F      		breq .L2
+ 223 00aa 6801      	.LM5:
+ 224 00ac 80E0      		subi r18,lo8(-(1))
+ 225 00ae E82E      		sbci r19,hi8(-(1))
+ 226 00b0 80E0      	.L4:
+ 227 00b2 F82E      		cp r18,r30
+ 228 00b4 8E01      		cpc r19,r31
+ 229 00b6 20E0      		brlt .L5
+ 230 00b8 30E0      		rjmp .L3
+ 231 00ba 40E0      	.L2:
+ 232 00bc 50E0      		ldi r18,lo8(0)
+ 233 00be 65E3      		ldi r19,hi8(0)
+ 234 00c0 7CE0      		rjmp .L6
+ 235 00c2 80E0      	.L3:
+ 236 00c4 90E0      		ldi r18,lo8(1)
+ 237 00c6 0E94 0000 		ldi r19,hi8(1)
+ 238               	.L6:
+  39:primes.c      ****  "blinker.h"
+ 239               	
+ 240               		rjmp .L3
+ 241 00ca DF91      	.L2:
+ 242 00cc CF91      		ldi r18,lo8(0)
+ 243 00ce 1F91      		ldi r19,hi8(0)
+ 244 00d0 0F91      		rjmp .L6
+ 245 00d2 FF90      	.L3:
+ 246 00d4 EF90      		ldi r18,lo8(1)
+ 247 00d6 DF90      		ldi r19,hi8(1)
+ 248 00d8 CF90      	.L6:
+ 250               	.LM6:
+ 251               		movw r24,r18
+ 252               	/* epilogue start */
+ 253               		pop r29
+DEFINED SYMBOLS
+                            *ABS*:00000000 primes.c
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccmqwE0e.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccmqwE0e.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccmqwE0e.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccmqwE0e.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccmqwE0e.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccmqwE0e.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccmqwE0e.s:91     .text:00000000 is_prime
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccmqwE0e.s:172    .text:00000066 primes
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
+__floatsisf
+sqrt
+__addsf3
+__fixsfsi
+__divmodhi4
+writeInt
+sync
+async

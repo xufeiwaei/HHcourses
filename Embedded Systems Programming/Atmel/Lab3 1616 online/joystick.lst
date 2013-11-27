@@ -1,0 +1,71 @@
+   1               		.file	"joystick.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  11               		.text
+  12               	.Ltext0:
+  84               	.global	detect
+  86               	detect:
+   1:joystick.c    **** #include "TinyTimber.h"
+   2:joystick.c    **** #include "joystick.h"
+   3:joystick.c    **** #include <avr/io.h>
+   4:joystick.c    **** 
+   5:joystick.c    **** 
+   6:joystick.c    **** int detect(Joystick *self,int sig)
+   7:joystick.c    **** {
+  87               	
+  89               	.LM1:
+  90               		sbis 35-32,7
+  91               		rjmp .L2
+   8:joystick.c    **** int sig)
+  92               	sbis 35-32,7
+  93               		rjmp .L2
+  95 0002 00C0      	.LM2:
+   9:joystick.c    **** lf,int sig)
+  10:joystick.c    **** {
+  96               	10,.LM2-.LFBB1
+  97               	.LM2:
+  98 0004 81E0      		ldi r24,lo8(1)
+  99 0006 8093 EF00 		sts 239,r24
+  11:joystick.c    **** int sig)
+ 100               	o8(1)
+ 101               		sts 239,r24
+ 103 000e 0895      	.LM3:
+ 104               		sts 254,__zero_reg__
+  12:joystick.c    **** lf,int sig)
+  13:joystick.c    **** {
+  14:joystick.c    **** 	if(PINB&(1<<7))
+  15:joystick.c    **** 	{
+ 105               	54,__zero_reg__
+ 106               		ret
+ 107 0010 1092 EF00 	.L2:
+  16:joystick.c    **** <<7))
+ 108               	g__
+ 109               		ret
+ 110 0014 81E0      	.L2:
+  17:joystick.c    **** B&(1<<7))
+  18:joystick.c    **** 	{
+ 112               	,.LM4-.LFBB1
+ 113               	.LM4:
+ 114 001a 0895      		sts 239,__zero_reg__
+ 116               	.LM5:
+ 117               		ldi r24,lo8(1)
+ 118               		sts 254,r24
+DEFINED SYMBOLS
+                            *ABS*:00000000 joystick.c
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cc39Qm0f.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cc39Qm0f.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cc39Qm0f.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cc39Qm0f.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cc39Qm0f.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cc39Qm0f.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cc39Qm0f.s:86     .text:00000000 detect
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss

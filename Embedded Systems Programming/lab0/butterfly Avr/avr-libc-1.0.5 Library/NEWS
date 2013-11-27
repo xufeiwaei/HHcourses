@@ -1,0 +1,262 @@
+*** Changes in avr-libc-1.0.5:
+
+* Bugs fixed:
+
+  [no-id] Fix pow(N,0) yielding 0.5 instead of 1.0.
+  [no-id] strtod returned 0.0 when parsing a number with a partial
+          exponent (e. g. "1.234e+"); this also affects scanf as it
+          uses strtod for parsing floating point numbers
+  [#2924] strtod returns incorrect endptr
+  [#7667] float exception leaves R1 undefined
+  [#8633] The PSTR() macro doesn't work with C++.
+  [#9013] Macroses as a program block.
+  [#9348] asin (acos) & atan problem (64K boundary)
+  [#9514] missing stdint.h.
+  [#9669] Incorrect example for strings in flash.
+          The FAQ entry did not extract the pointers from a ROM table
+          using memcpy_P() but used the ROM table directly.  This works
+          only incidentally for compile-time constant indexes since the
+          compiler would then insert the appropriate ROM address.
+  [#9704] suggested putc() behavior breaks binary transfer (doc fix)
+  [#10068] vfscanf fails to properly process multiple floating point
+           numbers.
+  [#10078] strsep() should not be pure
+  [#10420] sscanf(), If there is a decimal number followed by the
+           character '_' in the buffer, you can't get the the number.
+  [#10423] atof is not declared in stdlib.h
+  [#10450] missing __volatile__ in CRC functions core
+
+* Other changes:
+
+  + <stdint.h> is now prepared for the changed -mint8 behaviour of the
+    next GCC release where [u]int32_t will be possible even with -mint8.
+
+  + doc/examples/demo/demo.c can now handle the ATmega8 and ATmega32
+    MCU types.
+
+  + doc/examples/twitest/twitest.c can now run off the default 1 MHz
+    RC oscillator (albeit at reduced TWI speed only).
+
+  + According to C99, <stdint.h> is now used to declare exact-width
+    integer types.  <inttypes.h> includes that header, but is meant to
+    extend it.  For just the exact-width integer types only, use <stdint.h>.
+
+*** Changes in avr-libc-1.0.4:
+
+* Extend pgmspace API.
+
+The pgmspace API has had the following macros added to allow accessing of
+unsigned 32-bit values:
+
+  pgm_read_dword_near
+  pgm_read_dword_far
+  pgm_read_dword
+
+* Documentation additions and updates.
+
+See ChangeLog for details.
+
+* Bugs fixed:
+
+  [no-id] Fix TICIE1 value in usb header files.
+  [no-id] Fix bug introduced in fix for bug #7802 (missing parens).
+  [#8452] some SFR and bit names in iom169.h are incorrect
+          NOTE: Where possible, the old names are retained to avoid breaking
+          existing code, but the OCR1A and OCR1B names where just plain wrong
+          so they have been changed and the incorrect names (OCRA1 and OCRB1) 
+          are undefined.
+  [#8391] Fuse mask in boot.h wrong?
+          NOTE: boot_lock_bits_set() was broken. Please see the new
+          documentation for examples of how the new version works.
+  [#8119] _wdt_write macro in wdt.h doesn't work with ATmega169
+  [#8649] sfr_defs.h: missed _SFR_BYTE() in bit_is_set/clear
+
+*** Changes in avr-libc-1.0.3:
+
+* Extend eeprom API.
+
+New macro:
+  eeprom_busy_wait
+
+* Bugs fixed:
+
+  [#2143] malloc() routines chunk smaller than requested
+  [#2233] Documentation issues with inline asm
+  [#5454] Inline functions results in undefined reference when optimize level 0
+          is used.
+  [#7469] "Problem" by using the library function "boot_lock_bits_set"
+  [#7556] printf and friends improperly handle non-null terminated strings when
+          a %s argument has a precision.
+  [#7802] vfscanf problem with unsigned long (patch #2554)
+  [#7989] dtostrf() destroys string pointer registers?
+
+* Other changes:
+
+  + dtostrf() now uses movw where possible
+  + minor documentation updates
+  + <avr/timer.h> is deprecated
+
+
+*** Changes in avr-libc-1.0.2:
+
+* Extend crc16 API.
+
+New functions:
+  _crc_xmodem_update
+  _crc_ccitt_update
+
+* Pin names for ports are now consistent for all devices.
+
+Previously, some devices defined Pxn and others defined PORTxn for pin n of
+port x. Both names are now available for all devices. Mega162 users should
+note that this redefines PE0 and PE1 to be pins 0 and 1 of Port E (see fix for
+bug #5799 below).
+
+* Extend stdio API.
+
+New functions:
+  vsprintf
+  vsprintf_P
+  vsnprintf
+  vsnprintf_P
+
+*** Changes in avr-libc-1.0.1:
+
+* Fix bug #5799.
+
+If you are using the mega162, note that the PE0 and PE1 bit names have changed
+to UPE0 and UPE1 for the UCSR0A and UCSR1A registers respectively. This is a
+namespace clash with other devices which define PE0 and PE1 as bits 0 and 1 of
+port E.
+
+* Extend stdio API.
+
+New functions:
+  vfprintf_P
+  vfscnaf_P
+
+*** Changes in avr-libc-1.0:
+
+* Move source to cvs repositiory at http://savannah.gnu.org/projects/avr-libc
+
+Anonymous cvs access to the source is now available. There is also a mailing
+list set up for discussion of development of avr-libc.
+
+* License changes.
+
+All the files in the project now are covered by a modified BSD license. This
+allows royalty free use of the library in commerical products. All of the
+public domain files in the project have been switched to the new license and
+copyright given to the contributors of the files.
+
+There were some files taken from GNU GPL'd projects which were removed from
+avr-libc to simplify the licensing. The removed files only supplied alternate
+implementations, so nothing was lost by their removal.
+
+* Requires latest binutils and gcc
+
+Marek did some fairly major work with binutils and gcc to make adding support
+for new devices easier. His changes in those tools required changes to
+avr-libc which make it incompatible with older versions of binutils and gcc.
+Gcc versions >= 3.3 and binutils versions >= 2.13 are required.
+
+* New malloc implementation.
+
+Joerg Wunsch has supplied an improved malloc implementation which is less
+prone to fragmentation.
+
+* Documentation!
+
+Joerg Wunsch and Ted Roth and have been working on using the doxygen program to
+embed documentation comments into source code. Additionally, Harald Kipp's
+inline asm cookbook and Rich Neswold's Avr Tools document have been merged into
+the user manual. The goal is to have a single place for all the documentation
+a user would need to get started developing for AVR microcontrollers using
+the GNU development tool chain.
+
+The latest documentation is available online at
+  http://www.freesoftware.fsf.org/avr-libc/
+
+* I/O registers accessible directly in C expressions
+
+You can now do this in your code:
+  PORTA |= 0x02;
+
+See the "Special Function Registers" documentation for details. This method is
+preferred over the use of the deprecated inp(), inb(), inw(), outp(), outb()
+and outw() functions.
+
+* New devices supported
+
+mega128
+mega169
+mega16
+mega32
+mega64 [untested]
+mega8515 [untested]
+mega8535 [untested]
+tiny26
+76c711
+43usb320
+43usb355
+86rf401
+
+* Improved trigonometrical functions:
+
+Reiner Patommel provided complete rewrites for asin(), atan() and atan2()
+that feature a better (for some argument ranges even much better)
+accuracy than the previous versions.  Note that since acos() uses asin(),
+it also benefits from this.
+
+* Incompatibilities with previous version.
+
+The arguments for outb()/outw() have been reversed.
+  (value,port) -> (port,value)
+
+* New pgmspace.h API.
+
+Changed function names and added new functions to read the Program Space
+FLASH. Added new functions to read 16-bit (word) values. The new API should
+also clear up problems with reading data from devices with > 64K of FLASH.
+
+The API now includes:
+pgm_read_byte       (maps to the *_near function below)
+pgm_read_word       (maps to the *_near function below)
+pgm_read_byte_near
+pgm_read_word_near
+pgm_read_byte_far
+pgm_read_word_far
+
+
+* New bootloader support API.
+
+#include <avr/boot.h>
+
+This provides bootloader support functions to those processors that have
+builtin bootloader support.
+
+* inb / outb / inw / outw / cbi / sbi macros are deprecated.
+
+* New string functions and optimized string functions.
+
+strlcpy   (optimized)
+strlcat   (optimized)
+strsep    (new)
+strtok_r  (new)
+strlcat_P (new)
+strlcpy_P (new)
+strncat_P (new)
+
+Contributed by Reiner Patommel with some work on strlcpy, strlcat by
+Eric Weddington.
+
+* New eeprom functions by Artur Lipowski <LAL@pro.onet.pl>
+
+eeprom_write_word
+eeprom_write_block
+
+
+*** Changes up to avr-libc-20020203:
+
+See the ChangeLog file up to 2002-02-03 for details.
+

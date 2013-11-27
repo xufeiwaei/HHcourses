@@ -1,0 +1,8 @@
+<choice nrOfChoices = "3" ><question text = "What animal lives in the sea?"/><answer text = "human"/><answer text = "dog"/><answer text = "fish"/></choice>
+<correct text = "fish"/>
+<choice nrOfChoices = "3" ><question text = "What animal barks?"/><answer text = "human"/><answer text = "dog"/><answer text = "fish"/></choice>
+<correct text = "dog"/>
+<choice nrOfChoices = "3" ><question text = "What animal laughs?"/><answer text = "human"/><answer text = "dog"/><answer text ="fish"/></choice>
+<correct text = "human"/>
+<choice nrOfChoices = "3" ><question text = "30*3="/><answer text = "100"/><answer text = "90"/><answer text ="99"/></choice>
+<correct text = "90"/>

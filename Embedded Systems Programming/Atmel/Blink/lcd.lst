@@ -1,0 +1,796 @@
+   1               		.file	"lcd.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  11               		.text
+  12               	.Ltext0:
+  84               	.global	writeDigit
+  86               	writeDigit:
+   1:lcd.c         **** #include "TinyTimber.h"
+   2:lcd.c         **** #include "lcd.h"
+   3:lcd.c         **** #include <avr/io.h>
+   4:lcd.c         **** 
+   5:lcd.c         **** #define clrscr {LCDDR0&=0x66;LCDDR1&=0x66;LCDDR2&=0x66;LCDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=
+   6:lcd.c         **** 
+   7:lcd.c         **** static int seg[]={0x1551,0x8110,0x11e1,0x11b1,0x05b0,0x14b1,0x14f1,0x1110,0x15f1,0x15b1};
+   8:lcd.c         **** 
+   9:lcd.c         **** int  writeDigit(LCD *self, int digitPos)
+  10:lcd.c         **** {
+  87               	/
+  88               		movw r30,r22
+  90               	.LM1:
+  91               		movw r24,r22
+  92 0000 FB01      		ldi r22,lo8(10)
+  11:lcd.c         **** 51,0x8110,0x11e1,0x11b1,0x05b0,0x14b1,0x14f1,0x1110,0x15f1,0x15b1};
+  93               	23,hi8(10)
+  94               		call __divmodhi4
+  95 0002 CB01      		cpi r24,2
+  96 0004 6AE0      		cpc r25,__zero_reg__
+  97 0006 70E0      		brne .+2
+  98 0008 0E94 0000 		rjmp .L5
+  99 000c 8230      		cpi r24,3
+ 100 000e 9105      		cpc r25,__zero_reg__
+ 101 0010 01F4      		brge .L9
+ 102 0012 00C0      		sbiw r24,0
+ 103 0014 8330      		breq .L3
+ 104 0016 9105      		sbiw r24,1
+ 105 0018 04F4      		breq .+2
+ 106 001a 0097      		rjmp .L11
+ 107 001c 01F0      		rjmp .L12
+ 108 001e 0197      	.L9:
+ 109 0020 01F0      		cpi r24,4
+ 110 0022 00C0      		cpc r25,__zero_reg__
+ 111 0024 00C0      		brne .+2
+ 112               		rjmp .L7
+ 113 0026 8430      		cpi r24,4
+ 114 0028 9105      		cpc r25,__zero_reg__
+ 115 002a 01F4      		brge .+2
+ 116 002c 00C0      		rjmp .L6
+ 117 002e 8430      		sbiw r24,5
+ 118 0030 9105      		breq .+2
+ 119 0032 04F4      		rjmp .L11
+ 120 0034 00C0      		rjmp .L13
+ 121 0036 0597      	.L3:
+ 123 003a 00C0      	.LM2:
+ 124 003c 00C0      		lds r20,236
+ 125               		movw r24,r30
+  12:lcd.c         **** R16=0x00;LCDDR17=0x00;}
+  13:lcd.c         **** 
+  14:lcd.c         **** static int seg[]={0x1551,0x8110,0x11e1,0x11b1,0x05b0,0x14b1,0x14f1,0x1110,0x15f1,0x15b1};
+  15:lcd.c         **** 
+ 126               	
+ 127               		call __divmodhi4
+ 128 003e 4091 EC00 		movw r30,r22
+ 129 0042 CF01      		lsl r30
+ 130 0044 6AE0      		rol r31
+ 131 0046 70E0      		subi r30,lo8(-(seg))
+ 132 0048 0E94 0000 		sbci r31,hi8(-(seg))
+ 133 004c FB01      		ld r18,Z
+ 134 004e EE0F      		ldd r19,Z+1
+ 135 0050 FF1F      		mov r24,r19
+ 136 0052 E050      		swap r24
+ 137 0054 F040      		andi r24,lo8(15)
+ 138 0056 2081      		andi r20,lo8(-16)
+ 139 0058 3181      		or r20,r24
+ 140 005a 832F      		sts 236,r20
+ 142 005e 8F70      	.LM3:
+ 143 0060 407F      		lds r20,241
+ 144 0062 482B      		mov r24,r19
+ 145 0064 4093 EC00 		clr r25
+  16:lcd.c         **** 6=0x00;LCDDR17=0x00;}
+ 146               	5
+ 147               		andi r24,lo8(15)
+ 148 0068 4091 F100 		andi r20,lo8(-16)
+ 149 006c 832F      		or r24,r20
+ 150 006e 9927      		sts 241,r24
+ 152 0072 9A95      	.LM4:
+ 153 0074 8F70      		lds r20,246
+ 154 0076 407F      		movw r24,r18
+ 155 0078 842B      		ldi r30,4
+ 156 007a 8093 F100 	1:	asr r25
+  17:lcd.c         **** ;LCDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x
+ 157               	ec r30
+ 158               		brne 1b
+ 159 007e 4091 F600 		andi r24,lo8(15)
+ 160 0082 C901      		andi r20,lo8(-16)
+ 161 0084 E4E0      		or r24,r20
+ 162 0086 9595      		sts 246,r24
+ 164 008a EA95      	.LM5:
+ 165 008c 01F4      		lds r24,251
+ 166 008e 8F70      		andi r18,lo8(15)
+ 167 0090 407F      		andi r24,lo8(-16)
+ 168 0092 842B      		or r18,r24
+ 169 0094 8093 F600 		sts 251,r18
+  18:lcd.c         **** ;LCDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x
+ 170               	stabn	68,0,23,.LM6-.LFBB1
+ 171               	.LM6:
+ 172 0098 8091 FB00 		lds r18,236
+ 173 009c 2F70      		movw r24,r30
+ 174 009e 807F      		ldi r22,lo8(10)
+ 175 00a0 282B      		ldi r23,hi8(10)
+ 176 00a2 2093 FB00 		call __divmodhi4
+ 177 00a6 0895      		movw r30,r22
+ 178               		lsl r30
+  19:lcd.c         **** ;LCDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x
+  20:lcd.c         **** 
+  21:lcd.c         **** static int seg[]={0x1551,0x8110,0x11e1,0x11b1,0x05b0,0x14b1,0x14f1,0x1110,0x15f1,0x15b1};
+  22:lcd.c         **** 
+  23:lcd.c         **** int  writeDigit(LCD *self, int digitPos)
+ 179               		subi r30,lo8(-(seg))
+ 180               		sbci r31,hi8(-(seg))
+ 181 00a8 2091 EC00 		ld r20,Z
+ 182 00ac CF01      		ldd r21,Z+1
+ 183 00ae 6AE0      		mov r24,r21
+ 184 00b0 70E0      		clr r25
+ 185 00b2 0E94 0000 		sbrc r24,7
+ 186 00b6 FB01      		dec r25
+ 187 00b8 EE0F      		andi r24,lo8(-16)
+ 188 00ba FF1F      		andi r18,lo8(15)
+ 189 00bc E050      		or r24,r18
+ 190 00be F040      		sts 236,r24
+ 192 00c2 5181      	.LM7:
+ 193 00c4 852F      		lds r18,241
+ 194 00c6 9927      		movw r24,r20
+ 195 00c8 87FD      		ldi r19,4
+ 196 00ca 9A95      	1:	asr r25
+ 197 00cc 807F      		ror r24
+ 198 00ce 2F70      		dec r19
+ 199 00d0 822B      		brne 1b
+ 200 00d2 8093 EC00 		andi r24,lo8(-16)
+  24:lcd.c         **** x1551,0x8110,0x11e1,0x11b1,0x05b0,0x14b1,0x14f1,0x1110,0x15f1,0x15b1};
+ 201               	r24,r18
+ 202               		sts 241,r24
+ 204 00da CA01      	.LM8:
+ 205 00dc 34E0      		lds r24,246
+ 206 00de 9595      		mov r25,r20
+ 207 00e0 8795      		andi r25,lo8(-16)
+ 208 00e2 3A95      		andi r24,lo8(15)
+ 209 00e4 01F4      		or r25,r24
+ 210 00e6 807F      		sts 246,r25
+ 212 00ea 822B      	.LM9:
+ 213 00ec 8093 F100 		lds r24,251
+  25:lcd.c         **** R16=0x00;LCDDR17=0x00;}
+ 214               		lsl r20
+ 215               		rol r21
+ 216 00f0 8091 F600 		dec r27
+ 217 00f4 942F      		brne 1b
+ 218 00f6 907F      		andi r24,lo8(15)
+ 219 00f8 8F70      		or r24,r20
+ 220 00fa 982B      		sts 251,r24
+ 221 00fc 9093 F600 		ret
+  26:lcd.c         **** ;LCDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x
+ 222               	tabn	68,0,31,.LM10-.LFBB1
+ 223               	.LM10:
+ 224 0100 8091 FB00 		lds r20,237
+ 225 0104 B4E0      		movw r24,r30
+ 226 0106 440F      		ldi r22,lo8(10)
+ 227 0108 551F      		ldi r23,hi8(10)
+ 228 010a BA95      		call __divmodhi4
+ 229 010c 01F4      		movw r30,r22
+ 230 010e 8F70      		lsl r30
+ 231 0110 842B      		rol r31
+ 232 0112 8093 FB00 		subi r30,lo8(-(seg))
+ 233 0116 0895      		sbci r31,hi8(-(seg))
+ 234               		ld r18,Z
+  27:lcd.c         **** ;LCDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x
+  28:lcd.c         **** 
+  29:lcd.c         **** static int seg[]={0x1551,0x8110,0x11e1,0x11b1,0x05b0,0x14b1,0x14f1,0x1110,0x15f1,0x15b1};
+  30:lcd.c         **** 
+  31:lcd.c         **** int  writeDigit(LCD *self, int digitPos)
+ 235               		mov r24,r19
+ 236               		swap r24
+ 237 0118 4091 ED00 		andi r24,lo8(15)
+ 238 011c CF01      		andi r20,lo8(-16)
+ 239 011e 6AE0      		or r20,r24
+ 240 0120 70E0      		sts 237,r20
+ 242 0126 FB01      	.LM11:
+ 243 0128 EE0F      		lds r20,242
+ 244 012a FF1F      		mov r24,r19
+ 245 012c E050      		clr r25
+ 246 012e F040      		sbrc r24,7
+ 247 0130 2081      		dec r25
+ 248 0132 3181      		andi r24,lo8(15)
+ 249 0134 832F      		andi r20,lo8(-16)
+ 250 0136 8295      		or r24,r20
+ 251 0138 8F70      		sts 242,r24
+ 253 013c 482B      	.LM12:
+ 254 013e 4093 ED00 		lds r20,247
+  32:lcd.c         **** x1551,0x8110,0x11e1,0x11b1,0x05b0,0x14b1,0x14f1,0x1110,0x15f1,0x15b1};
+ 255               	30,4
+ 256               	1:	asr r25
+ 257 0142 4091 F200 		ror r24
+ 258 0146 832F      		dec r30
+ 259 0148 9927      		brne 1b
+ 260 014a 87FD      		andi r24,lo8(15)
+ 261 014c 9A95      		andi r20,lo8(-16)
+ 262 014e 8F70      		or r24,r20
+ 263 0150 407F      		sts 247,r24
+ 265 0154 8093 F200 	.LM13:
+  33:lcd.c         **** R16=0x00;LCDDR17=0x00;}
+ 266               	2
+ 267               		andi r18,lo8(15)
+ 268 0158 4091 F700 		andi r24,lo8(-16)
+ 269 015c C901      		or r18,r24
+ 270 015e E4E0      		sts 252,r18
+ 271 0160 9595      		ret
+ 272 0162 8795      	.L6:
+ 274 0166 01F4      	.LM14:
+ 275 0168 8F70      		lds r18,237
+ 276 016a 407F      		movw r24,r30
+ 277 016c 842B      		ldi r22,lo8(10)
+ 278 016e 8093 F700 		ldi r23,hi8(10)
+  34:lcd.c         **** ;LCDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x
+ 279               	dhi4
+ 280               		movw r30,r22
+ 281 0172 8091 FC00 		lsl r30
+ 282 0176 2F70      		rol r31
+ 283 0178 807F      		subi r30,lo8(-(seg))
+ 284 017a 282B      		sbci r31,hi8(-(seg))
+ 285 017c 2093 FC00 		ld r20,Z
+ 286 0180 0895      		ldd r21,Z+1
+ 287               		mov r24,r21
+  35:lcd.c         **** ;LCDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x
+  36:lcd.c         **** 
+  37:lcd.c         **** static int seg[]={0x1551,0x8110,0x11e1,0x11b1,0x05b0,0x14b1,0x14f1,0x1110,0x15f1,0x15b1};
+  38:lcd.c         **** 
+  39:lcd.c         **** int  writeDigit(LCD *self, int digitPos)
+ 288               		sbrc r24,7
+ 289               		dec r25
+ 290 0182 2091 ED00 		andi r24,lo8(-16)
+ 291 0186 CF01      		andi r18,lo8(15)
+ 292 0188 6AE0      		or r24,r18
+ 293 018a 70E0      		sts 237,r24
+ 295 0190 FB01      	.LM15:
+ 296 0192 EE0F      		lds r18,242
+ 297 0194 FF1F      		movw r24,r20
+ 298 0196 E050      		ldi r19,4
+ 299 0198 F040      	1:	asr r25
+ 300 019a 4081      		ror r24
+ 301 019c 5181      		dec r19
+ 302 019e 852F      		brne 1b
+ 303 01a0 9927      		andi r24,lo8(-16)
+ 304 01a2 87FD      		andi r18,lo8(15)
+ 305 01a4 9A95      		or r24,r18
+ 306 01a6 807F      		sts 242,r24
+ 308 01aa 822B      	.LM16:
+ 309 01ac 8093 ED00 		lds r24,247
+  40:lcd.c         **** x1551,0x8110,0x11e1,0x11b1,0x05b0,0x14b1,0x14f1,0x1110,0x15f1,0x15b1};
+ 310               	,lo8(-16)
+ 311               		andi r24,lo8(15)
+ 312 01b0 2091 F200 		or r25,r24
+ 313 01b4 CA01      		sts 247,r25
+ 315 01b8 9595      	.LM17:
+ 316 01ba 8795      		lds r24,252
+ 317 01bc 3A95      		ldi r27,4
+ 318 01be 01F4      	1:	lsl r20
+ 319 01c0 807F      		rol r21
+ 320 01c2 2F70      		dec r27
+ 321 01c4 822B      		brne 1b
+ 322 01c6 8093 F200 		andi r24,lo8(15)
+  41:lcd.c         **** R16=0x00;LCDDR17=0x00;}
+ 323               	sts 252,r24
+ 324               		ret
+ 325 01ca 8091 F700 	.L7:
+ 327 01d0 907F      	.LM18:
+ 328 01d2 8F70      		lds r20,238
+ 329 01d4 982B      		movw r24,r30
+ 330 01d6 9093 F700 		ldi r22,lo8(10)
+  42:lcd.c         **** ;LCDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x
+ 331               	,hi8(10)
+ 332               		call __divmodhi4
+ 333 01da 8091 FC00 		movw r30,r22
+ 334 01de B4E0      		lsl r30
+ 335 01e0 440F      		rol r31
+ 336 01e2 551F      		subi r30,lo8(-(seg))
+ 337 01e4 BA95      		sbci r31,hi8(-(seg))
+ 338 01e6 01F4      		ld r18,Z
+ 339 01e8 8F70      		ldd r19,Z+1
+ 340 01ea 842B      		mov r24,r19
+ 341 01ec 8093 FC00 		swap r24
+ 342 01f0 0895      		andi r24,lo8(15)
+ 343               		andi r20,lo8(-16)
+  43:lcd.c         **** ;LCDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x
+  44:lcd.c         **** 
+  45:lcd.c         **** static int seg[]={0x1551,0x8110,0x11e1,0x11b1,0x05b0,0x14b1,0x14f1,0x1110,0x15f1,0x15b1};
+  46:lcd.c         **** 
+  47:lcd.c         **** int  writeDigit(LCD *self, int digitPos)
+ 344               	sts 238,r20
+ 346 01f2 4091 EE00 	.LM19:
+ 347 01f6 CF01      		lds r20,243
+ 348 01f8 6AE0      		mov r24,r19
+ 349 01fa 70E0      		clr r25
+ 350 01fc 0E94 0000 		sbrc r24,7
+ 351 0200 FB01      		dec r25
+ 352 0202 EE0F      		andi r24,lo8(15)
+ 353 0204 FF1F      		andi r20,lo8(-16)
+ 354 0206 E050      		or r24,r20
+ 355 0208 F040      		sts 243,r24
+ 357 020c 3181      	.LM20:
+ 358 020e 832F      		lds r20,248
+ 359 0210 8295      		movw r24,r18
+ 360 0212 8F70      		ldi r30,4
+ 361 0214 407F      	1:	asr r25
+ 362 0216 482B      		ror r24
+ 363 0218 4093 EE00 		dec r30
+  48:lcd.c         **** x1551,0x8110,0x11e1,0x11b1,0x05b0,0x14b1,0x14f1,0x1110,0x15f1,0x15b1};
+ 364               	o8(15)
+ 365               		andi r20,lo8(-16)
+ 366 021c 4091 F300 		or r24,r20
+ 367 0220 832F      		sts 248,r24
+ 369 0224 87FD      	.LM21:
+ 370 0226 9A95      		lds r24,253
+ 371 0228 8F70      		andi r18,lo8(15)
+ 372 022a 407F      		andi r24,lo8(-16)
+ 373 022c 842B      		or r18,r24
+ 374 022e 8093 F300 		sts 253,r18
+  49:lcd.c         **** R16=0x00;LCDDR17=0x00;}
+ 376               	.LM22:
+ 377 0232 4091 F800 		lds r18,238
+ 378 0236 C901      		movw r24,r30
+ 379 0238 E4E0      		ldi r22,lo8(10)
+ 380 023a 9595      		ldi r23,hi8(10)
+ 381 023c 8795      		call __divmodhi4
+ 382 023e EA95      		movw r30,r22
+ 383 0240 01F4      		lsl r30
+ 384 0242 8F70      		rol r31
+ 385 0244 407F      		subi r30,lo8(-(seg))
+ 386 0246 842B      		sbci r31,hi8(-(seg))
+ 387 0248 8093 F800 		ld r20,Z
+  50:lcd.c         **** ;LCDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x
+ 388               		mov r24,r21
+ 389               		clr r25
+ 390 024c 8091 FD00 		sbrc r24,7
+ 391 0250 2F70      		dec r25
+ 392 0252 807F      		andi r24,lo8(-16)
+ 393 0254 282B      		andi r18,lo8(15)
+ 394 0256 2093 FD00 		or r24,r18
+ 395 025a 0895      		sts 238,r24
+  51:lcd.c         **** ;LCDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x
+  52:lcd.c         **** 
+  53:lcd.c         **** static int seg[]={0x1551,0x8110,0x11e1,0x11b1,0x05b0,0x14b1,0x14f1,0x1110,0x15f1,0x15b1};
+  54:lcd.c         **** 
+  55:lcd.c         **** int  writeDigit(LCD *self, int digitPos)
+ 397               	ds r18,243
+ 398               		movw r24,r20
+ 399 025c 2091 EE00 		ldi r19,4
+ 400 0260 CF01      	1:	asr r25
+ 401 0262 6AE0      		ror r24
+ 402 0264 70E0      		dec r19
+ 403 0266 0E94 0000 		brne 1b
+ 404 026a FB01      		andi r24,lo8(-16)
+ 405 026c EE0F      		andi r18,lo8(15)
+ 406 026e FF1F      		or r24,r18
+ 407 0270 E050      		sts 243,r24
+ 409 0274 4081      	.LM24:
+ 410 0276 5181      		lds r24,248
+ 411 0278 852F      		mov r25,r20
+ 412 027a 9927      		andi r25,lo8(-16)
+ 413 027c 87FD      		andi r24,lo8(15)
+ 414 027e 9A95      		or r25,r24
+ 415 0280 807F      		sts 248,r25
+ 417 0284 822B      	.LM25:
+ 418 0286 8093 EE00 		lds r24,253
+  56:lcd.c         **** x1551,0x8110,0x11e1,0x11b1,0x05b0,0x14b1,0x14f1,0x1110,0x15f1,0x15b1};
+ 419               		rol r21
+ 420               		dec r25
+ 421 028a 2091 F300 		brne 1b
+ 422 028e CA01      		andi r24,lo8(15)
+ 423 0290 34E0      		or r24,r20
+ 424 0292 9595      		sts 253,r24
+ 425 0294 8795      	.L11:
+ 427 0298 01F4      	.LM26:
+ 428 029a 807F      		ret
+ 430 029e 822B      	.Lscope1:
+  57:lcd.c         **** R16=0x00;LCDDR17=0x00;}
+ 432               	:P(0,16)",64,0,0,10
+ 433               	.global	writeInt
+ 435 02a8 942F      	writeInt:
+ 437 02ac 8F70      	.LM27:
+ 438 02ae 982B      	.LFBB2:
+ 439 02b0 9093 F800 		push r10
+  58:lcd.c         **** ;LCDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x
+ 440               	1
+ 441               		push r13
+ 442 02b4 8091 FD00 		push r14
+ 443 02b8 94E0      		push r15
+ 444 02ba 440F      		push r16
+ 445 02bc 551F      		push r17
+ 446 02be 9A95      		push r29
+ 447 02c0 01F4      		push r28
+ 448 02c2 8F70      		rcall .
+ 449 02c4 842B      		rcall .
+ 450 02c6 8093 FD00 		rcall .
+ 451               		in r28,__SP_L__
+  59:lcd.c         **** ;LCDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x
+  60:lcd.c         **** 
+  61:lcd.c         **** static int seg[]={0x1551,0x8110,0x11e1,0x11b1,0x05b0,0x14b1,0x14f1,0x1110,0x15f1,0x15b1};
+  62:lcd.c         **** 
+  63:lcd.c         **** int  writeDigit(LCD *self, int digitPos)
+ 452               	_H__
+ 453               	/* prologue: function */
+ 454 02ca 0895      	/* frame size = 6 */
+ 455               		movw r10,r24
+ 456               		mov r17,r22
+ 457               		mov r20,r23
+ 459               	.LM28:
+ 460               		lds r24,236
+ 461               		andi r24,lo8(102)
+  64:lcd.c         **** x1551,0x8110,0x11e1,0x11b1,0x05b0,0x14b1,0x14f1,0x1110,0x15f1,0x15b1};
+  65:lcd.c         **** 
+  66:lcd.c         **** int  writeDigit(LCD *self, int digitPos)
+  67:lcd.c         **** {
+ 462               	24
+ 463               		lds r24,237
+ 464               		andi r24,lo8(102)
+ 465 02cc AF92      		sts 237,r24
+ 466 02ce BF92      		lds r24,238
+ 467 02d0 DF92      		andi r24,lo8(102)
+ 468 02d2 EF92      		sts 238,r24
+ 469 02d4 FF92      		sts 241,__zero_reg__
+ 470 02d6 0F93      		sts 242,__zero_reg__
+ 471 02d8 1F93      		sts 243,__zero_reg__
+ 472 02da DF93      		sts 246,__zero_reg__
+ 473 02dc CF93      		sts 247,__zero_reg__
+ 474 02de 00D0      		sts 248,__zero_reg__
+ 475 02e0 00D0      		sts 251,__zero_reg__
+ 476 02e2 00D0      		sts 252,__zero_reg__
+ 477 02e4 CDB7      		sts 253,__zero_reg__
+ 478 02e6 DEB7      		mov r18,r22
+ 479               		mov r19,r23
+ 480               		movw r24,r18
+ 481 02e8 5C01      		ldi r16,lo8(1)
+ 482 02ea 162F      		rjmp .L15
+ 483 02ec 472F      	.L16:
+  68:lcd.c         **** 51,0x8110,0x11e1,0x11b1,0x05b0,0x14b1,0x14f1,0x1110,0x15f1,0x15b1};
+  69:lcd.c         **** 
+  70:lcd.c         **** int  writeDigit(LCD *self, int digitPos)
+  71:lcd.c         **** {
+ 484               	.LFBB2
+ 485               	.LM29:
+ 486 02ee 8091 EC00 		subi r16,lo8(-(1))
+ 487 02f2 8676      	.L15:
+ 488 02f4 8093 EC00 		ldi r22,lo8(10)
+ 489 02f8 8091 ED00 		ldi r23,hi8(10)
+ 490 02fc 8676      		call __divmodhi4
+ 491 02fe 8093 ED00 		movw r24,r22
+ 492 0302 8091 EE00 		cp r22,__zero_reg__
+ 493 0306 8676      		cpc r23,__zero_reg__
+ 494 0308 8093 EE00 		brne .L16
+ 496 0310 1092 F200 	.LM30:
+ 497 0314 1092 F300 		cpi r16,lo8(7)
+ 498 0318 1092 F600 		brlo .L17
+ 499 031c 1092 F700 		ldi r16,lo8(6)
+ 500 0320 1092 F800 	.L17:
+ 501 0324 1092 FB00 		mov r19,r16
+ 502 0328 1092 FC00 		ldi r18,lo8(5)
+ 504 0330 262F      	.LM31:
+ 505 0332 372F      		movw r14,r28
+ 506 0334 C901      		sec
+ 507 0336 01E0      		adc r14,__zero_reg__
+ 508 0338 00C0      		adc r15,__zero_reg__
+ 509               		rjmp .L18
+  72:lcd.c         **** 51,0x8110,0x11e1,0x11b1,0x05b0,0x14b1,0x14f1,0x1110,0x15f1,0x15b1};
+  73:lcd.c         **** 
+ 510               	30,r18
+ 511               		adc r31,__zero_reg__
+ 512 033a 0F5F      		mov r24,r17
+ 513               		mov r25,r20
+ 514 033c 6AE0      		ldi r22,lo8(10)
+ 515 033e 70E0      		ldi r23,hi8(10)
+ 516 0340 0E94 0000 		call __divmodhi4
+ 517 0344 CB01      		st Z,r24
+ 519 0348 7105      	.LM32:
+ 520 034a 01F4      		mov r24,r17
+  74:lcd.c         **** 6=0x00;LCDDR17=0x00;}
+ 521               	0
+ 522               		ldi r22,lo8(10)
+ 523 034c 0730      		ldi r23,hi8(10)
+ 524 034e 00F0      		call __divmodhi4
+ 525 0350 06E0      		mov r17,r22
+ 526               		mov r20,r23
+ 528 0354 25E0      	.LM33:
+  75:lcd.c         **** ;LCDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x
+  76:lcd.c         **** 
+  77:lcd.c         **** static int seg[]={0x1551,0x8110,0x11e1,0x11b1,0x05b0,0x14b1,0x14f1,0x1110,0x15f1,0x15b1};
+  78:lcd.c         **** 
+ 529               	8,lo8(-(-1))
+ 530               		subi r19,lo8(-(-1))
+ 531 0356 7E01      	.L18:
+ 533 035a E11C      	.LM34:
+ 534 035c F11C      		tst r19
+ 535 035e 00C0      		brne .L19
+ 536               		ldi r17,lo8(5)
+ 538 0362 E20F      	.LM35:
+ 539 0364 F11D      		movw r14,r28
+ 540 0366 812F      		sec
+ 541 0368 942F      		adc r14,__zero_reg__
+ 542 036a 6AE0      		adc r15,__zero_reg__
+ 543 036c 70E0      		ldi r27,lo8(10)
+ 544 036e 0E94 0000 		mov r13,r27
+ 545 0372 8083      		rjmp .L20
+  79:lcd.c         **** 6=0x00;LCDDR17=0x00;}
+ 546               	7
+ 547               		ldi r25,lo8(0)
+ 548 0374 812F      		movw r30,r14
+ 549 0376 942F      		add r30,r24
+ 550 0378 6AE0      		adc r31,r25
+ 551 037a 70E0      		ld r22,Z
+ 552 037c 0E94 0000 		mul r22,r13
+ 553 0380 162F      		movw r22,r0
+ 554 0382 472F      		clr r1
+  80:lcd.c         **** ;LCDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x
+ 555               	r24
+ 556               		adc r23,r25
+ 557 0384 2150      		movw r24,r10
+ 558 0386 3150      		call writeDigit
+ 560               	.LM36:
+ 561               		subi r17,lo8(-(-1))
+ 562 0388 3323      		subi r16,lo8(-(-1))
+ 563 038a 01F4      	.L20:
+  81:lcd.c         **** ;LCDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x
+  82:lcd.c         **** 
+  83:lcd.c         **** static int seg[]={0x1551,0x8110,0x11e1,0x11b1,0x05b0,0x14b1,0x14f1,0x1110,0x15f1,0x15b1};
+  84:lcd.c         **** 
+  85:lcd.c         **** int  writeDigit(LCD *self, int digitPos)
+ 565               	t r16
+ 566               		brne .L21
+ 567 038e 7E01      	/* epilogue start */
+ 569 0392 E11C      	.LM38:
+ 570 0394 F11C      		adiw r28,6
+ 571 0396 BAE0      		in __tmp_reg__,__SREG__
+ 572 0398 DB2E      		cli
+ 573 039a 00C0      		out __SP_H__,r29
+ 574               		out __SREG__,__tmp_reg__
+ 575 039c 812F      		out __SP_L__,r28
+ 576 039e 90E0      		pop r28
+ 577 03a0 F701      		pop r29
+ 578 03a2 E80F      		pop r17
+ 579 03a4 F91F      		pop r16
+ 580 03a6 6081      		pop r15
+ 581 03a8 6D9D      		pop r14
+ 582 03aa B001      		pop r13
+ 583 03ac 1124      		pop r11
+ 584 03ae 680F      		pop r10
+ 585 03b0 791F      		ret
+  86:lcd.c         **** x1551,0x8110,0x11e1,0x11b1,0x05b0,0x14b1,0x14f1,0x1110,0x15f1,0x15b1};
+ 588               	0,0,18
+ 593               	.Lscope2:
+ 597               	.global	segmentOn
+  87:lcd.c         **** R16=0x00;LCDDR17=0x00;}
+  88:lcd.c         **** 
+ 598               	4,0,0,16
+ 602 03c4 F894      	.Lscope2:
+ 606 03cc CF91      	.global	segmentOn
+ 608 03d0 1F91      	segmentOn:
+ 610 03d4 FF90      	.LM39:
+ 611 03d6 EF90      	.LFBB3:
+ 612 03d8 DF90      	/* prologue: function */
+ 613 03da BF90      	/* frame size = 0 */
+ 615 03de 0895      	.LM40:
+ 616               		cpi r22,5
+ 617               		cpc r23,__zero_reg__
+ 618               		breq .L29
+ 619               		cpi r22,6
+ 620               		cpc r23,__zero_reg__
+ 621               		brge .L34
+ 622               		cpi r22,2
+ 623               		cpc r23,__zero_reg__
+ 624               		breq .L26
+ 625               		cpi r22,3
+ 626               		cpc r23,__zero_reg__
+ 627               		brge .L35
+ 628               		cpi r22,1
+ 629               		cpc r23,__zero_reg__
+  89:lcd.c         **** CDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x00
+  90:lcd.c         **** 
+  91:lcd.c         **** static int seg[]={0x1551,0x8110,0x11e1,0x11b1,0x05b0,0x14b1,0x14f1,0x1110,0x15f1,0x15b1};
+  92:lcd.c         **** 
+ 630               	BB3
+ 631               	.LM40:
+ 632               		cpi r22,5
+ 633               		cpc r23,__zero_reg__
+ 634               		breq .L29
+  93:lcd.c         **** 6=0x00;LCDDR17=0x00;}
+ 635               	,22
+ 636               	.global	segmentOn
+ 638 03e2 7105      	segmentOn:
+ 640 03e6 6630      	.LM39:
+ 641 03e8 7105      	.LFBB3:
+ 642 03ea 04F4      	/* prologue: function */
+ 643 03ec 6230      	/* frame size = 0 */
+ 645 03f0 01F0      	.LM40:
+ 646 03f2 6330      		cpi r22,5
+ 647 03f4 7105      		cpc r23,__zero_reg__
+ 648 03f6 04F4      		breq .L29
+ 649 03f8 6130      		cpi r22,6
+ 650 03fa 7105      		cpc r23,__zero_reg__
+ 651 03fc 01F0      		brge .L34
+ 652 03fe 00C0      		cpi r22,2
+ 653 0400 00C0      		cpc r23,__zero_reg__
+ 654               		breq .L26
+ 655 0402 6330      		cpi r22,3
+ 656 0404 7105      		cpc r23,__zero_reg__
+ 657 0406 01F0      		brge .L35
+ 658 0408 6430      		cpi r22,1
+ 659 040a 7105      		cpc r23,__zero_reg__
+ 660 040c 01F4      		breq .+2
+ 661 040e 00C0      		rjmp .L38
+ 662               		rjmp .L41
+ 663 0410 6830      	.L35:
+ 664 0412 7105      		cpi r22,3
+ 665 0414 01F0      		cpc r23,__zero_reg__
+ 666 0416 6930      		breq .L27
+ 667 0418 7105      		cpi r22,4
+ 668 041a 04F4      		cpc r23,__zero_reg__
+ 669 041c 6730      		brne .L38
+ 670 041e 7105      		rjmp .L42
+ 671 0420 01F4      	.L34:
+ 672 0422 00C0      		cpi r22,8
+ 673               		cpc r23,__zero_reg__
+ 674 0424 6930      		breq .L31
+ 675 0426 7105      		cpi r22,9
+ 676 0428 01F0      		cpc r23,__zero_reg__
+ 677 042a 6A30      		brge .L36
+ 678 042c 7105      		cpi r22,7
+ 679 042e 01F4      		cpc r23,__zero_reg__
+ 680 0430 00C0      		brne .L38
+ 681               		rjmp .L31
+  94:lcd.c         **** ;LCDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x
+  95:lcd.c         **** 
+ 682               	22,4
+ 683               		cpc r23,__zero_reg__
+ 684 0432 8091 EC00 		brne .L38
+ 685 0436 8460      		rjmp .L42
+ 686 0438 00C0      	.L34:
+ 687               		cpi r22,8
+  96:lcd.c         **** CDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x00
+ 688               	ro_reg__
+ 689               		brge .L35
+ 690 043a 8091 EC00 		cpi r22,1
+ 691 043e 8064      		cpc r23,__zero_reg__
+ 692               		breq .+2
+ 693 0440 8093 EC00 		rjmp .L38
+ 694 0444 0895      		rjmp .L41
+ 695               	.L35:
+  97:lcd.c         **** ;LCDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x
+ 696               	_
+ 697               		breq .L29
+ 698 0446 81E0      		cpi r22,6
+ 699 0448 8093 EF00 		cpc r23,__zero_reg__
+ 700 044c 0895      		brge .L34
+ 701               		cpi r22,2
+  98:lcd.c         **** ;LCDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x
+ 702               	:
+ 704 044e 8091 ED00 	.LM39:
+ 705 0452 8260      	.LFBB3:
+ 706 0454 00C0      	/* prologue: function */
+ 707               	/* frame size = 0 */
+  99:lcd.c         **** ;LCDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x
+ 708               	1)",36,0,0,segmentOn
+ 711 045a 8062      	.global	segmentOn
+ 713 045c 8093 ED00 	segmentOn:
+ 715               	.LM39:
+ 100:lcd.c         **** ;LCDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x
+ 101:lcd.c         **** 
+ 716               	224,0,0,.Lscope2-.LFBB2
+ 717               	.Lscope2:
+ 721               	.global	segmentOn
+ 102:lcd.c         **** CDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x00
+ 722               	4,0,0,16
+ 726 0470 8093 EE00 	.Lscope2:
+ 103:lcd.c         **** ;LCDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x
+ 729               	0,1
+ 104:lcd.c         **** ;LCDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x
+ 105:lcd.c         **** 
+ 735               	et
+ 743               	.Lscope2:
+ 106:lcd.c         **** CDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x00
+ 107:lcd.c         **** 
+ 108:lcd.c         **** static int seg[]={0x1551,0x8110,0x11e1,0x11b1,0x05b0,0x14b1,0x14f1,0x1110,0x15f1,0x15b1};
+ 109:lcd.c         **** 
+ 746               	0,1
+ 110:lcd.c         **** 6=0x00;LCDDR17=0x00;}
+ 751               	r14
+ 752               		pop r13
+ 753 0482 6530      		pop r11
+ 754 0484 7105      		pop r10
+ 755 0486 01F0      		ret
+ 763 0496 7105      	.Lscope2:
+ 767 049e 01F4      	.global	segmentOn
+ 769               	segmentOn:
+ 771 04a4 7105      	.LM39:
+ 772 04a6 01F0      	.LFBB3:
+ 773 04a8 6430      	/* prologue: function */
+ 774 04aa 7105      	/* frame size = 0 */
+ 776 04ae 00C0      	.LM40:
+ 777               		cpi r22,5
+ 778 04b0 6830      		cpc r23,__zero_reg__
+ 779 04b2 7105      		breq .L29
+ 780 04b4 01F0      		cpi r22,6
+ 781 04b6 6930      		cpc r23,__zero_reg__
+ 782 04b8 7105      		brge .L34
+ 783 04ba 04F4      		cpi r22,2
+ 784 04bc 6730      		cpc r23,__zero_reg__
+ 785 04be 7105      		breq .L26
+ 786 04c0 01F4      		cpi r22,3
+ 787 04c2 00C0      		cpc r23,__zero_reg__
+ 788               		brge .L35
+ 789 04c4 6930      		cpi r22,1
+ 790 04c6 7105      		cpc r23,__zero_reg__
+ 791 04c8 01F0      		breq .+2
+ 792 04ca 6A30      		rjmp .L38
+ 793 04cc 7105      		rjmp .L41
+ 794 04ce 01F4      	.L35:
+ 795 04d0 00C0      		cpi r22,3
+ 796               		cpc r23,__zero_reg__
+ 111:lcd.c         **** ;LCDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x
+ 112:lcd.c         **** 
+ 797               	zero_reg__
+ 798               		brge .L34
+ 799 04d2 8091 EC00 		cpi r22,2
+ 800 04d6 8B7F      		cpc r23,__zero_reg__
+ 801 04d8 00C0      		breq .L26
+ 802               		cpi r22,3
+ 113:lcd.c         **** CDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x00
+ 803               	* prologue: function */
+ 804               	/* frame size = 0 */
+ 806 04de 8F7B      	.LM40:
+ 807               		cpi r22,5
+ 808 04e0 8093 EC00 		cpc r23,__zero_reg__
+ 809 04e4 0895      		breq .L29
+ 810               		cpi r22,6
+ 114:lcd.c         **** ;LCDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x
+ 811               	segmentOn
+ 813 04e6 1092 EF00 	segmentOn:
+ 815               	.LM39:
+ 115:lcd.c         **** ;LCDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x
+ 816               	224,0,0,.Lscope2-.LFBB2
+ 817               	.Lscope2:
+ 821               	.global	segmentOn
+ 116:lcd.c         **** ;LCDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x
+ 822               	4,0,0,16
+ 826               	.Lscope2:
+ 117:lcd.c         **** ;LCDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x
+ 118:lcd.c         **** 
+ 830               	stabs	"n:r(0,11)",64,0,0,16
+ 834               	.Lscope2:
+ 119:lcd.c         **** CDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x00
+ 835               	riteInt, .-writeInt
+ 120:lcd.c         **** ;LCDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x
+ 842               	et
+ 121:lcd.c         **** ;LCDDR5=0x00;LCDDR6=0x00;LCDDR7=0x00;LCDDR10=0x00;LCDDR11=0x00;LCDDR12=0x00;LCDDR15=0x00;LCDDR16=0x
+ 122:lcd.c         **** 
+ 848               	pop r17
+ 849               		pop r16
+ 850 051c 0895      		pop r15
+ 851               		pop r14
+ 852               		pop r13
+ 853               		pop r11
+ 854               		pop r10
+ 855               		ret
+ 863 000c F114      	.Lscope2:
+ 867               	.global	segmentOn
+ 869               	segmentOn:
+DEFINED SYMBOLS
+                            *ABS*:00000000 lcd.c
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cciwxsgk.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cciwxsgk.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cciwxsgk.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cciwxsgk.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cciwxsgk.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cciwxsgk.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cciwxsgk.s:86     .text:00000000 writeDigit
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cciwxsgk.s:856    .data:00000000 seg
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cciwxsgk.s:461    .text:000002cc writeInt
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cciwxsgk.s:629    .text:000003e0 segmentOn
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cciwxsgk.s:745    .text:00000482 segmentOff
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
+__divmodhi4

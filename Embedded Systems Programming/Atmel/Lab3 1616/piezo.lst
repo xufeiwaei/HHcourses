@@ -1,0 +1,67 @@
+   1               		.file	"piezo.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  11               		.text
+  12               	.Ltext0:
+  84               	.global	PiezoOn
+  86               	PiezoOn:
+   1:piezo.c       **** #include "TinyTimber.h"
+   2:piezo.c       **** #include "piezo.h"
+   3:piezo.c       **** #include <avr/io.h>
+   4:piezo.c       **** 
+   5:piezo.c       **** int  PiezoOn(Piezo *self, int nothing)
+   6:piezo.c       **** {
+  87               	
+  89               	.LM1:
+  90               		cbi 37-32,5
+  91               	/* epilogue start */
+   7:piezo.c       **** ing)
+  92               	-32,5
+  93               	/* epilogue start */
+  95               	.LM2:
+   8:piezo.c       **** othing)
+  96               	68,0,8,.LM2-.LFBB1
+  97               	.LM2:
+  98 0002 0895      		ret
+ 100               	.Lscope1:
+ 104               	.global	PiezoOff
+ 106               	PiezoOff:
+   9:piezo.c       **** othing)
+  10:piezo.c       **** {
+  11:piezo.c       **** 	PORTB&=~(1<<5);
+  12:piezo.c       **** }
+ 107               	ction
+ 108               	PiezoOff:
+ 110               	.LM3:
+ 111               	.LFBB2:
+  13:piezo.c       **** );
+ 112               	LM3:
+ 113               	.LFBB2:
+ 114 0004 2D9A      	/* prologue: function */
+ 115               	/* frame size = 0 */
+  14:piezo.c       **** <<5);
+ 116               	ize = 0 */
+ 118 0006 0895      	.LM4:
+ 119               		sbi 37-32,5
+ 120               	/* epilogue start */
+ 122               	.LM5:
+DEFINED SYMBOLS
+                            *ABS*:00000000 piezo.c
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cctJ3Jpe.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cctJ3Jpe.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cctJ3Jpe.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cctJ3Jpe.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cctJ3Jpe.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cctJ3Jpe.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cctJ3Jpe.s:86     .text:00000000 PiezoOn
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/cctJ3Jpe.s:106    .text:00000004 PiezoOff
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss

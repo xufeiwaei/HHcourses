@@ -1,0 +1,280 @@
+   1               		.file	"blinker.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  11               		.text
+  12               	.Ltext0:
+  87               	.global	setPeriod
+  89               	setPeriod:
+   1:blinker.c     **** #include "TinyTimber.h"
+   2:blinker.c     **** #include "lcd.h"
+   3:blinker.c     **** #include "blinker.h"
+   4:blinker.c     **** 
+   5:blinker.c     **** char flag_blinking;
+   6:blinker.c     **** 
+   7:blinker.c     **** int Blinking(Blinker *self, int nothing)
+   8:blinker.c     **** {
+   9:blinker.c     **** 	if (flag_blinking)
+  10:blinker.c     **** 	{
+  11:blinker.c     **** 		AFTER(MSEC(setPeriod(self,0)),self,Blinking,1-nothing);
+  12:blinker.c     **** 		if(nothing)
+  13:blinker.c     **** 		{
+  14:blinker.c     **** 			ASYNC(self->lcd,segmentOff,self->segment);
+  15:blinker.c     **** 		}
+  16:blinker.c     **** 		else
+  17:blinker.c     **** 		{
+  18:blinker.c     **** 			ASYNC(self->lcd,segmentOn,self->segment);
+  19:blinker.c     **** 		}
+  20:blinker.c     **** 	}
+  21:blinker.c     **** 	
+  22:blinker.c     **** }
+  23:blinker.c     **** 
+  24:blinker.c     **** int startBlinking(Blinker *self, int nothing)
+  25:blinker.c     **** {
+  26:blinker.c     **** 	flag_blinking=1;
+  27:blinker.c     **** 	ASYNC(self,Blinking,0);
+  28:blinker.c     **** }
+  29:blinker.c     **** 
+  30:blinker.c     **** 
+  31:blinker.c     **** int stopBlinking(Blinker *self, int nothing)
+  32:blinker.c     **** {
+  33:blinker.c     **** 	flag_blinking=0;
+  34:blinker.c     **** 	ASYNC(self,Blinking,0);
+  35:blinker.c     **** }
+  36:blinker.c     **** 
+  37:blinker.c     **** 
+  38:blinker.c     **** int setPeriod(Blinker *self, int period)
+  39:blinker.c     **** {
+  90               	ent:(0,1),48,16;period:(0,1),64,16;;",128,0,0,0
+  95               	.global	setPeriod
+  97 0000 FC01      	setPeriod:
+  99 0004 9185      	.LM0:
+ 100 0006 62E0      	.LFBB1:
+ 101 0008 70E0      	/* prologue: function */
+ 102 000a 0E94 0000 	/* frame size = 0 */
+ 104               	.LM1:
+  40:blinker.c     **** {
+  41:blinker.c     **** 	return self->period/2;
+ 105               	ldd r24,Z+8
+ 106               		ldd r25,Z+9
+ 107 0010 0895      		ldi r22,lo8(2)
+ 108               		ldi r23,hi8(2)
+ 109               		call __divmodhi4
+ 110               		movw r24,r22
+ 111               	/* epilogue start */
+ 113               	.LM2:
+ 114               		ret
+ 116               	.Lscope1:
+ 120 0014 DF92      	.global	stopBlinking
+ 122 0018 FF92      	stopBlinking:
+ 124 001c 1F93      	.LM3:
+ 125               	.LFBB2:
+ 126               		push r12
+ 127               		push r13
+ 128               		push r14
+ 129 001e 1092 0000 		push r15
+ 130               		push r16
+ 131               		push r17
+ 132 0022 CC24      	/* prologue: function */
+ 133 0024 DD24      	/* frame size = 0 */
+ 135 0028 E22E      	.LM4:
+ 136 002a 20E0      		sts flag_blinking,__zero_reg__
+ 138 002e 8C01      	.LM5:
+ 139 0030 20E0      		clr r12
+ 140 0032 30E0      		clr r13
+ 141 0034 40E0      		ldi r18,lo8(gs(Blinking))
+ 142 0036 50E0      		mov r14,r18
+ 143 0038 60E0      		ldi r18,hi8(gs(Blinking))
+ 144 003a 70E0      		mov r15,r18
+ 145 003c 80E0      		movw r16,r24
+ 146 003e 90E0      		ldi r18,lo8(0)
+ 147 0040 0E94 0000 		ldi r19,hi8(0)
+ 148               		ldi r20,hlo8(0)
+ 149               		ldi r21,hhi8(0)
+ 150               		ldi r22,lo8(0)
+ 151 0044 1F91      		ldi r23,hi8(0)
+ 152 0046 0F91      		ldi r24,hlo8(0)
+ 153 0048 FF90      		ldi r25,hhi8(0)
+ 154 004a EF90      		call async
+ 155 004c DF90      	/* epilogue start */
+ 157 0050 0895      	.LM6:
+ 158               		pop r17
+ 159               		pop r16
+ 160               		pop r15
+ 161               		pop r14
+ 162               		pop r13
+ 163               		pop r12
+ 164               		ret
+ 166               	.Lscope2:
+ 170 0054 DF92      	.global	startBlinking
+ 172 0058 FF92      	startBlinking:
+ 174 005c 1F93      	.LM7:
+ 175               	.LFBB3:
+ 176               		push r12
+ 177               		push r13
+ 178               		push r14
+ 179 005e 21E0      		push r15
+ 180 0060 2093 0000 		push r16
+ 181               		push r17
+ 182               	/* prologue: function */
+ 183 0064 CC24      	/* frame size = 0 */
+ 185 0068 30E0      	.LM8:
+ 186 006a E32E      		ldi r18,lo8(1)
+ 187 006c 30E0      		sts flag_blinking,r18
+ 189 0070 8C01      	.LM9:
+ 190 0072 20E0      		clr r12
+ 191 0074 30E0      		clr r13
+ 192 0076 40E0      		ldi r19,lo8(gs(Blinking))
+ 193 0078 50E0      		mov r14,r19
+ 194 007a 60E0      		ldi r19,hi8(gs(Blinking))
+ 195 007c 70E0      		mov r15,r19
+ 196 007e 80E0      		movw r16,r24
+ 197 0080 90E0      		ldi r18,lo8(0)
+ 198 0082 0E94 0000 		ldi r19,hi8(0)
+ 199               		ldi r20,hlo8(0)
+ 200               		ldi r21,hhi8(0)
+ 201               		ldi r22,lo8(0)
+ 202 0086 1F91      		ldi r23,hi8(0)
+ 203 0088 0F91      		ldi r24,hlo8(0)
+ 204 008a FF90      		ldi r25,hhi8(0)
+ 205 008c EF90      		call async
+ 206 008e DF90      	/* epilogue start */
+ 208 0092 0895      	.LM10:
+ 209               		pop r17
+ 210               		pop r16
+ 211               		pop r15
+ 212               		pop r14
+ 213               		pop r13
+ 214               		pop r12
+ 215               		ret
+ 217               	.Lscope3:
+ 221 0096 BF92      	.global	Blinking
+ 223 009a DF92      	Blinking:
+ 225 009e FF92      	.LM11:
+ 226 00a0 0F93      	.LFBB4:
+ 227 00a2 1F93      		push r10
+ 228 00a4 CF93      		push r11
+ 229 00a6 DF93      		push r12
+ 230               		push r13
+ 231               		push r14
+ 232 00a8 EC01      		push r15
+ 233 00aa 5B01      		push r16
+ 234               		push r17
+ 235               		push r28
+ 236 00ac 8091 0000 		push r29
+ 237 00b0 8823      	/* prologue: function */
+ 238 00b2 01F4      	/* frame size = 0 */
+ 239 00b4 00C0      		movw r28,r24
+ 240               		movw r10,r22
+ 242 00b6 01E0      	.LM12:
+ 243 00b8 10E0      		lds r24,flag_blinking
+ 244 00ba 061B      		tst r24
+ 245 00bc 170B      		brne .+2
+ 246 00be 8885      		rjmp .L11
+ 248 00c2 62E0      	.LM13:
+ 249 00c4 70E0      		ldi r16,lo8(1)
+ 250 00c6 0E94 0000 		ldi r17,hi8(1)
+ 251 00ca 8827      		sub r16,r22
+ 252 00cc 77FD      		sbc r17,r23
+ 253 00ce 8095      		ldd r24,Y+8
+ 254 00d0 982F      		ldd r25,Y+9
+ 255 00d2 2DE7      		ldi r22,lo8(2)
+ 256 00d4 30E0      		ldi r23,hi8(2)
+ 257 00d6 40E0      		call __divmodhi4
+ 258 00d8 50E0      		clr r24
+ 259 00da 0E94 0000 		sbrc r23,7
+ 260 00de 24E0      		com r24
+ 261 00e0 30E0      		mov r25,r24
+ 262 00e2 40E0      		ldi r18,lo8(125)
+ 263 00e4 50E0      		ldi r19,hi8(125)
+ 264 00e6 0E94 0000 		ldi r20,hlo8(125)
+ 265 00ea CA01      		ldi r21,hhi8(125)
+ 266 00ec B901      		call __mulsi3
+ 267 00ee 6801      		ldi r18,lo8(4)
+ 268 00f0 E0E0      		ldi r19,hi8(4)
+ 269 00f2 EE2E      		ldi r20,hlo8(4)
+ 270 00f4 E0E0      		ldi r21,hhi8(4)
+ 271 00f6 FE2E      		call __divmodsi4
+ 272 00f8 8E01      		movw r24,r20
+ 273 00fa 20E0      		movw r22,r18
+ 274 00fc 30E0      		movw r12,r16
+ 275 00fe 40E0      		ldi r30,lo8(gs(Blinking))
+ 276 0100 50E0      		mov r14,r30
+ 277 0102 0E94 0000 		ldi r30,hi8(gs(Blinking))
+ 278 0106 CE80      		mov r15,r30
+ 279 0108 DF80      		movw r16,r28
+ 280 010a 0C81      		ldi r18,lo8(0)
+ 281 010c 1D81      		ldi r19,hi8(0)
+ 282               		ldi r20,hlo8(0)
+ 283               		ldi r21,hhi8(0)
+ 284 010e AB28      		call async
+ 285 0110 01F0      		ldd r12,Y+6
+ 286               		ldd r13,Y+7
+ 287               		ldd r16,Y+4
+ 288 0112 50E0      		ldd r17,Y+5
+ 290 0116 50E0      	.LM14:
+ 291 0118 F52E      		or r10,r11
+ 292 011a 00C0      		breq .L9
+ 294               	.LM15:
+ 295               		ldi r21,lo8(gs(segmentOff))
+ 296 011c 40E0      		mov r14,r21
+ 297 011e E42E      		ldi r21,hi8(gs(segmentOff))
+ 298 0120 40E0      		mov r15,r21
+ 299 0122 F42E      		rjmp .L12
+ 300               	.L9:
+ 302 0126 30E0      	.LM16:
+ 303 0128 40E0      		ldi r20,lo8(gs(segmentOn))
+ 304 012a 50E0      		mov r14,r20
+ 305 012c 60E0      		ldi r20,hi8(gs(segmentOn))
+ 306 012e 70E0      		mov r15,r20
+ 307 0130 80E0      	.L12:
+ 308 0132 90E0      		ldi r18,lo8(0)
+ 309 0134 0E94 0000 		ldi r19,hi8(0)
+ 310               		ldi r20,hlo8(0)
+ 311               		ldi r21,hhi8(0)
+ 312               		ldi r22,lo8(0)
+ 313               		ldi r23,hi8(0)
+ 314 0138 DF91      		ldi r24,hlo8(0)
+ 315 013a CF91      		ldi r25,hhi8(0)
+ 316 013c 1F91      		call async
+ 317 013e 0F91      	.L11:
+ 318 0140 FF90      	/* epilogue start */
+ 320 0144 DF90      	.LM17:
+ 321 0146 CF90      		pop r29
+ 322 0148 BF90      		pop r28
+ 323 014a AF90      		pop r17
+ 324 014c 0895      		pop r16
+ 325               		pop r15
+ 326               		pop r14
+ 327               		pop r13
+ 328               		pop r12
+ 329               		pop r11
+ 330               		pop r10
+DEFINED SYMBOLS
+                            *ABS*:00000000 blinker.c
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccSAoQ3j.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccSAoQ3j.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccSAoQ3j.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccSAoQ3j.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccSAoQ3j.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccSAoQ3j.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccSAoQ3j.s:89     .text:00000000 setPeriod
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccSAoQ3j.s:115    .text:00000012 stopBlinking
+                            *COM*:00000001 flag_blinking
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccSAoQ3j.s:216    .text:00000094 Blinking
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccSAoQ3j.s:165    .text:00000052 startBlinking
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
+__divmodhi4
+async
+__mulsi3
+__divmodsi4
+segmentOff
+segmentOn

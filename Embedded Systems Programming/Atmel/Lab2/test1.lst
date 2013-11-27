@@ -1,0 +1,1924 @@
+   1               		.file	"test1.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  11               		.text
+  12               	.Ltext0:
+  75               		.data
+  78               	seg:
+  79 0000 5115      		.word	5457
+  80 0002 1081      		.word	-32496
+  81 0004 E111      		.word	4577
+  82 0006 B111      		.word	4529
+  83 0008 B005      		.word	1456
+  84 000a B114      		.word	5297
+  85 000c F114      		.word	5361
+  86 000e 1011      		.word	4368
+  87 0010 F115      		.word	5617
+  88 0012 B115      		.word	5553
+  89               	.global	m
+  90               	.global	m
+  91               		.section .bss
+  94               	m:
+  95 0000 0000 0000 		.skip 4,0
+  96               		.text
+  98               	.global	delay
+ 100               	delay:
+   1:test1.c       **** #include "tinythreads.h"
+   2:test1.c       **** #include <avr/io.h>
+   3:test1.c       **** #include <math.h>
+   4:test1.c       **** #include <avr/interrupt.h>
+   5:test1.c       **** 
+   6:test1.c       **** #define blink_off LCDDR8=0x00
+   7:test1.c       **** #define blink_on  LCDDR8=0x01
+   8:test1.c       **** 
+   9:test1.c       **** #define beep_on PORTB |=1<<5
+  10:test1.c       **** #define beep_off PORTB &=(~(1<<5))
+  11:test1.c       **** 
+  12:test1.c       **** //ex4
+  13:test1.c       **** int pp;
+  14:test1.c       **** 
+  15:test1.c       **** 
+  16:test1.c       **** static int seg[]={0x1551,0x8110,0x11e1,0x11b1,0x05b0,0x14b1,0x14f1,0x1110,0x15f1,0x15b1};
+  17:test1.c       **** 
+  18:test1.c       **** mutex m = MUTEX_INIT;
+  19:test1.c       **** 
+  20:test1.c       **** void delay(void)
+  21:test1.c       **** {
+ 101               	rologue: function */
+ 102               	/* frame size = 0 */
+ 104 0000 DF93      	.LM1:
+ 105 0002 CF93      		ldi r30,lo8(70)
+ 106 0004 CDB7      		ldi r31,hi8(70)
+ 107 0006 DEB7      		st Z,__zero_reg__
+ 109               	.LM2:
+  22:test1.c       **** define blink_on  LCDDR8=0x01
+ 110               	lo8(68)
+ 111               		ldi r31,hi8(68)
+ 112 0008 E6E4      		ldi r24,lo8(2)
+ 113 000a F0E0      		st Z,r24
+ 114 000c 1082      	.L2:
+  23:test1.c       **** #include "tinythreads.h"
+ 115               	bn	68,0,24,.LM3-.LFBB1
+ 116               	.LM3:
+ 117 000e E4E4      		ldi r30,lo8(70)
+ 118 0010 F0E0      		ldi r31,hi8(70)
+ 119 0012 82E0      		ld r24,Z
+ 120 0014 8083      		cpi r24,lo8(-80)
+ 121               		brne .L2
+  24:test1.c       **** #include "tinythreads.h"
+ 122               		68,0,25,.LM4-.LFBB1
+ 123               	.LM4:
+ 124 0016 E6E4      		ldi r30,lo8(68)
+ 125 0018 F0E0      		ldi r31,hi8(68)
+ 126 001a 8081      		st Z,__zero_reg__
+ 127 001c 803B      	/* epilogue start */
+  25:test1.c       **** #include "tinythreads.h"
+ 129               	pop r28
+ 130               		pop r29
+ 131 0020 E4E4      		ret
+ 133 0024 1082      	.Lscope1:
+  26:test1.c       **** #include "tinythreads.h"
+ 135               	l	delay_long
+ 137 0026 CF91      	delay_long:
+ 139 002a 0895      	.LM6:
+ 140               	.LFBB2:
+ 141               		push r29
+ 142               		push r28
+ 143               		push __tmp_reg__
+ 144               		in r28,__SP_L__
+ 145               		in r29,__SP_H__
+  27:test1.c       **** #include "tinythreads.h"
+  28:test1.c       **** #include <avr/io.h>
+  29:test1.c       **** #include <math.h>
+ 146               	: function */
+ 147               	/* frame size = 1 */
+ 149 002c DF93      	.LM7:
+ 150 002e CF93      		std Y+1,__zero_reg__
+ 151 0030 0F92      		rjmp .L5
+ 152 0032 CDB7      	.L7:
+ 154               	.LM8:
+ 155               		ldi r30,lo8(70)
+  30:test1.c       **** #include "tinythreads.h"
+  31:test1.c       **** #include <avr/io.h>
+ 156               	i8(70)
+ 157               		st Z,__zero_reg__
+ 159 0038 00C0      	.LM9:
+ 160               		ldi r30,lo8(68)
+  32:test1.c       **** #include "tinythreads.h"
+  33:test1.c       **** #include <avr/io.h>
+ 161               	r31,hi8(68)
+ 162               		ldi r24,lo8(5)
+ 163 003a E6E4      		st Z,r24
+ 164 003c F0E0      	.L6:
+  34:test1.c       **** #include "tinythreads.h"
+ 166               	:
+ 167               		ldi r30,lo8(70)
+ 168 0040 E4E4      		ldi r31,hi8(70)
+ 169 0042 F0E0      		ld r24,Z
+ 170 0044 85E0      		cpi r24,lo8(-55)
+ 171 0046 8083      		brlo .L6
+  35:test1.c       **** #include "tinythreads.h"
+ 173               		ldi r30,lo8(68)
+ 174               		ldi r31,hi8(68)
+ 175 0048 E6E4      		st Z,__zero_reg__
+ 177 004c 8081      	.LM12:
+ 178 004e 893C      		ldd r24,Y+1
+ 179 0050 00F0      		subi r24,lo8(-(1))
+  36:test1.c       **** #include "tinythreads.h"
+ 180               	1,r24
+ 181               	.L5:
+ 182 0052 E4E4      		ldd r24,Y+1
+ 183 0054 F0E0      		cpi r24,lo8(25)
+ 184 0056 1082      		brlo .L7
+ 185               	/* epilogue start */
+ 187 0058 8981      	.LM13:
+ 188 005a 8F5F      		pop __tmp_reg__
+ 189 005c 8983      		pop r28
+ 190               		pop r29
+ 191 005e 8981      		ret
+  37:test1.c       **** #include "tinythreads.h"
+  38:test1.c       **** #include <avr/io.h>
+ 195               	,.Lscope2-.LFBB2
+ 196               	.Lscope2:
+ 200 006a 0895      	.global	writeChar
+ 202               	writeChar:
+ 204               	.LM14:
+ 205               	.LFBB3:
+ 206               		push r29
+ 207               		push r28
+ 208               		rcall .
+ 209               		rcall .
+ 210               		push __tmp_reg__
+ 211               		in r28,__SP_L__
+  39:test1.c       **** #include "tinythreads.h"
+  40:test1.c       **** #include <avr/io.h>
+  41:test1.c       **** #include <math.h>
+  42:test1.c       **** #include <avr/interrupt.h>
+  43:test1.c       **** 
+ 212               	/* prologue: function */
+ 213               	/* frame size = 5 */
+ 214               		std Y+1,r24
+ 215 006c DF93      		std Y+3,r23
+ 216 006e CF93      		std Y+2,r22
+ 218 0072 00D0      	.LM15:
+ 219 0074 0F92      		ldd r24,Y+1
+ 220 0076 CDB7      		cpi r24,lo8(48)
+ 221 0078 DEB7      		brsh .+2
+ 222               		rjmp .L18
+ 223               		ldd r24,Y+1
+ 224 007a 8983      		cpi r24,lo8(58)
+ 225 007c 7B83      		brlo .+2
+ 226 007e 6A83      		rjmp .L18
+  44:test1.c       **** #include "tinythreads.h"
+ 227               	,.LM16-.LFBB3
+ 228               	.LM16:
+ 229 0080 8981      		ldd r24,Y+2
+ 230 0082 8033      		ldd r25,Y+3
+ 231 0084 00F4      		std Y+5,r25
+ 232 0086 00C0      		std Y+4,r24
+ 233 0088 8981      		ldd r24,Y+4
+ 234 008a 8A33      		ldd r25,Y+5
+ 235 008c 00F0      		cpi r24,2
+ 236 008e 00C0      		cpc r25,__zero_reg__
+  45:test1.c       **** #include "tinythreads.h"
+  46:test1.c       **** #include <avr/io.h>
+ 237               		rjmp .L13
+ 238               		ldd r24,Y+4
+ 239 0090 8A81      		ldd r25,Y+5
+ 240 0092 9B81      		cpi r24,3
+ 241 0094 9D83      		cpc r25,__zero_reg__
+ 242 0096 8C83      		brge .L17
+ 243 0098 8C81      		ldd r24,Y+4
+ 244 009a 9D81      		ldd r25,Y+5
+ 245 009c 8230      		sbiw r24,0
+ 246 009e 9105      		breq .L11
+ 247 00a0 01F4      		ldd r24,Y+4
+ 248 00a2 00C0      		ldd r25,Y+5
+ 249 00a4 8C81      		cpi r24,1
+ 250 00a6 9D81      		cpc r25,__zero_reg__
+ 251 00a8 8330      		brne .+2
+ 252 00aa 9105      		rjmp .L12
+ 253 00ac 04F4      		rjmp .L18
+ 254 00ae 8C81      	.L17:
+ 255 00b0 9D81      		ldd r24,Y+4
+ 256 00b2 0097      		ldd r25,Y+5
+ 257 00b4 01F0      		cpi r24,4
+ 258 00b6 8C81      		cpc r25,__zero_reg__
+ 259 00b8 9D81      		brne .+2
+ 260 00ba 8130      		rjmp .L15
+ 261 00bc 9105      		ldd r24,Y+4
+ 262 00be 01F4      		ldd r25,Y+5
+ 263 00c0 00C0      		cpi r24,4
+ 264 00c2 00C0      		cpc r25,__zero_reg__
+ 265               		brge .+2
+ 266 00c4 8C81      		rjmp .L14
+ 267 00c6 9D81      		ldd r24,Y+4
+ 268 00c8 8430      		ldd r25,Y+5
+ 269 00ca 9105      		cpi r24,5
+ 270 00cc 01F4      		cpc r25,__zero_reg__
+ 271 00ce 00C0      		brne .+2
+ 272 00d0 8C81      		rjmp .L16
+ 273 00d2 9D81      		rjmp .L18
+ 274 00d4 8430      	.L11:
+ 276 00d8 04F4      	.LM17:
+ 277 00da 00C0      		ldi r26,lo8(236)
+ 278 00dc 8C81      		ldi r27,hi8(236)
+ 279 00de 9D81      		ldi r30,lo8(236)
+ 280 00e0 8530      		ldi r31,hi8(236)
+ 281 00e2 9105      		ld r24,Z
+ 282 00e4 01F4      		mov r18,r24
+ 283 00e6 00C0      		andi r18,lo8(-16)
+ 284 00e8 00C0      		ldd r24,Y+1
+ 285               		mov r24,r24
+  47:test1.c       **** #include "tinythreads.h"
+  48:test1.c       **** #include <avr/io.h>
+  49:test1.c       **** #include <math.h>
+  50:test1.c       **** #include <avr/interrupt.h>
+ 286               	ovw r30,r24
+ 287               		subi r30,lo8(-(seg))
+ 288 00ea ACEE      		sbci r31,hi8(-(seg))
+ 289 00ec B0E0      		ld r24,Z
+ 290 00ee ECEE      		ldd r25,Z+1
+ 291 00f0 F0E0      		mov r24,r25
+ 292 00f2 8081      		clr r25
+ 293 00f4 282F      		swap r24
+ 294 00f6 207F      		andi r24,0x0f
+ 295 00f8 8981      		or r24,r18
+ 296 00fa 882F      		st X,r24
+ 298 00fe C097      	.LM18:
+ 299 0100 880F      		ldi r26,lo8(241)
+ 300 0102 991F      		ldi r27,hi8(241)
+ 301 0104 FC01      		ldi r30,lo8(241)
+ 302 0106 E050      		ldi r31,hi8(241)
+ 303 0108 F040      		ld r24,Z
+ 304 010a 8081      		mov r18,r24
+ 305 010c 9181      		andi r18,lo8(-16)
+ 306 010e 892F      		ldd r24,Y+1
+ 307 0110 9927      		mov r24,r24
+ 308 0112 8295      		ldi r25,lo8(0)
+ 309 0114 8F70      		sbiw r24,48
+ 310 0116 822B      		lsl r24
+ 311 0118 8C93      		rol r25
+  51:test1.c       **** #include "tinythreads.h"
+ 312               	8(-(seg))
+ 313               		sbci r31,hi8(-(seg))
+ 314 011a A1EF      		ld r24,Z
+ 315 011c B0E0      		ldd r25,Z+1
+ 316 011e E1EF      		mov r24,r25
+ 317 0120 F0E0      		lsl r25
+ 318 0122 8081      		sbc r25,r25
+ 319 0124 282F      		andi r24,lo8(15)
+ 320 0126 207F      		or r24,r18
+ 321 0128 8981      		st X,r24
+ 323 012c 90E0      	.LM19:
+ 324 012e C097      		ldi r26,lo8(246)
+ 325 0130 880F      		ldi r27,hi8(246)
+ 326 0132 991F      		ldi r30,lo8(246)
+ 327 0134 FC01      		ldi r31,hi8(246)
+ 328 0136 E050      		ld r24,Z
+ 329 0138 F040      		mov r18,r24
+ 330 013a 8081      		andi r18,lo8(-16)
+ 331 013c 9181      		ldd r24,Y+1
+ 332 013e 892F      		mov r24,r24
+ 333 0140 990F      		ldi r25,lo8(0)
+ 334 0142 990B      		sbiw r24,48
+ 335 0144 8F70      		lsl r24
+ 336 0146 822B      		rol r25
+ 337 0148 8C93      		movw r30,r24
+  52:test1.c       **** #include "tinythreads.h"
+ 338               	i r31,hi8(-(seg))
+ 339               		ld r24,Z
+ 340 014a A6EF      		ldd r25,Z+1
+ 341 014c B0E0      		asr r25
+ 342 014e E6EF      		ror r24
+ 343 0150 F0E0      		asr r25
+ 344 0152 8081      		ror r24
+ 345 0154 282F      		asr r25
+ 346 0156 207F      		ror r24
+ 347 0158 8981      		asr r25
+ 348 015a 882F      		ror r24
+ 349 015c 90E0      		andi r24,lo8(15)
+ 350 015e C097      		or r24,r18
+ 351 0160 880F      		st X,r24
+ 353 0164 FC01      	.LM20:
+ 354 0166 E050      		ldi r26,lo8(251)
+ 355 0168 F040      		ldi r27,hi8(251)
+ 356 016a 8081      		ldi r30,lo8(251)
+ 357 016c 9181      		ldi r31,hi8(251)
+ 358 016e 9595      		ld r24,Z
+ 359 0170 8795      		mov r18,r24
+ 360 0172 9595      		andi r18,lo8(-16)
+ 361 0174 8795      		ldd r24,Y+1
+ 362 0176 9595      		mov r24,r24
+ 363 0178 8795      		ldi r25,lo8(0)
+ 364 017a 9595      		sbiw r24,48
+ 365 017c 8795      		lsl r24
+ 366 017e 8F70      		rol r25
+ 367 0180 822B      		movw r30,r24
+ 368 0182 8C93      		subi r30,lo8(-(seg))
+  53:test1.c       **** #include "tinythreads.h"
+ 369               	
+ 370               		ldd r25,Z+1
+ 371 0184 ABEF      		andi r24,lo8(15)
+ 372 0186 B0E0      		or r24,r18
+ 373 0188 EBEF      		st X,r24
+ 374 018a F0E0      		rjmp .L18
+ 375 018c 8081      	.L12:
+ 377 0190 207F      	.LM21:
+ 378 0192 8981      		ldi r26,lo8(236)
+ 379 0194 882F      		ldi r27,hi8(236)
+ 380 0196 90E0      		ldi r30,lo8(236)
+ 381 0198 C097      		ldi r31,hi8(236)
+ 382 019a 880F      		ld r24,Z
+ 383 019c 991F      		mov r18,r24
+ 384 019e FC01      		andi r18,lo8(15)
+ 385 01a0 E050      		ldd r24,Y+1
+ 386 01a2 F040      		mov r24,r24
+ 387 01a4 8081      		ldi r25,lo8(0)
+ 388 01a6 9181      		sbiw r24,48
+ 389 01a8 8F70      		lsl r24
+ 390 01aa 822B      		rol r25
+ 391 01ac 8C93      		movw r30,r24
+ 392 01ae 00C0      		subi r30,lo8(-(seg))
+ 393               		sbci r31,hi8(-(seg))
+  54:test1.c       **** #include "tinythreads.h"
+  55:test1.c       **** #include <avr/io.h>
+  56:test1.c       **** #include <math.h>
+  57:test1.c       **** #include <avr/interrupt.h>
+  58:test1.c       **** 
+ 394               	ldi r24,0x10
+ 395               		muls r25,r24
+ 396 01b0 ACEE      		mov r24,r1
+ 397 01b2 B0E0      		sbc r25,r25
+ 398 01b4 ECEE      		clr __zero_reg__
+ 399 01b6 F0E0      		swap r24
+ 400 01b8 8081      		swap r25
+ 401 01ba 282F      		andi r25,0xf0
+ 402 01bc 2F70      		eor r25,r24
+ 403 01be 8981      		andi r24,0xf0
+ 404 01c0 882F      		eor r25,r24
+ 405 01c2 90E0      		or r24,r18
+ 406 01c4 C097      		st X,r24
+ 408 01c8 991F      	.LM22:
+ 409 01ca FC01      		ldi r26,lo8(241)
+ 410 01cc E050      		ldi r27,hi8(241)
+ 411 01ce F040      		ldi r30,lo8(241)
+ 412 01d0 8081      		ldi r31,hi8(241)
+ 413 01d2 9181      		ld r24,Z
+ 414 01d4 80E1      		mov r18,r24
+ 415 01d6 9802      		andi r18,lo8(15)
+ 416 01d8 812D      		ldd r24,Y+1
+ 417 01da 990B      		mov r24,r24
+ 418 01dc 1124      		ldi r25,lo8(0)
+ 419 01de 8295      		sbiw r24,48
+ 420 01e0 9295      		lsl r24
+ 421 01e2 907F      		rol r25
+ 422 01e4 9827      		movw r30,r24
+ 423 01e6 807F      		subi r30,lo8(-(seg))
+ 424 01e8 9827      		sbci r31,hi8(-(seg))
+ 425 01ea 822B      		ld r24,Z
+ 426 01ec 8C93      		ldd r25,Z+1
+  59:test1.c       **** #include "tinythreads.h"
+ 427               	5
+ 428               		swap r24
+ 429 01ee A1EF      		swap r25
+ 430 01f0 B0E0      		andi r25,0xf0
+ 431 01f2 E1EF      		eor r25,r24
+ 432 01f4 F0E0      		andi r24,0xf0
+ 433 01f6 8081      		eor r25,r24
+ 434 01f8 282F      		or r24,r18
+ 435 01fa 2F70      		st X,r24
+ 437 01fe 882F      	.LM23:
+ 438 0200 90E0      		ldi r26,lo8(246)
+ 439 0202 C097      		ldi r27,hi8(246)
+ 440 0204 880F      		ldi r30,lo8(246)
+ 441 0206 991F      		ldi r31,hi8(246)
+ 442 0208 FC01      		ld r24,Z
+ 443 020a E050      		mov r18,r24
+ 444 020c F040      		andi r18,lo8(15)
+ 445 020e 8081      		ldd r24,Y+1
+ 446 0210 9181      		mov r24,r24
+ 447 0212 892F      		ldi r25,lo8(0)
+ 448 0214 990F      		sbiw r24,48
+ 449 0216 990B      		lsl r24
+ 450 0218 8295      		rol r25
+ 451 021a 9295      		movw r30,r24
+ 452 021c 907F      		subi r30,lo8(-(seg))
+ 453 021e 9827      		sbci r31,hi8(-(seg))
+ 454 0220 807F      		ld r24,Z
+ 455 0222 9827      		ldd r25,Z+1
+ 456 0224 822B      		andi r24,lo8(-16)
+ 457 0226 8C93      		or r24,r18
+  60:test1.c       **** #include "tinythreads.h"
+ 458               	-.LFBB3
+ 459               	.LM24:
+ 460 0228 A6EF      		ldi r26,lo8(251)
+ 461 022a B0E0      		ldi r27,hi8(251)
+ 462 022c E6EF      		ldi r30,lo8(251)
+ 463 022e F0E0      		ldi r31,hi8(251)
+ 464 0230 8081      		ld r24,Z
+ 465 0232 282F      		mov r18,r24
+ 466 0234 2F70      		andi r18,lo8(15)
+ 467 0236 8981      		ldd r24,Y+1
+ 468 0238 882F      		mov r24,r24
+ 469 023a 90E0      		ldi r25,lo8(0)
+ 470 023c C097      		sbiw r24,48
+ 471 023e 880F      		lsl r24
+ 472 0240 991F      		rol r25
+ 473 0242 FC01      		movw r30,r24
+ 474 0244 E050      		subi r30,lo8(-(seg))
+ 475 0246 F040      		sbci r31,hi8(-(seg))
+ 476 0248 8081      		ld r24,Z
+ 477 024a 9181      		ldd r25,Z+1
+ 478 024c 807F      		swap r24
+ 479 024e 822B      		swap r25
+ 480 0250 8C93      		andi r25,0xf0
+  61:test1.c       **** #include "tinythreads.h"
+ 481               	0xf0
+ 482               		eor r25,r24
+ 483 0252 ABEF      		or r24,r18
+ 484 0254 B0E0      		st X,r24
+ 485 0256 EBEF      		rjmp .L18
+ 486 0258 F0E0      	.L13:
+ 488 025c 282F      	.LM25:
+ 489 025e 2F70      		ldi r26,lo8(237)
+ 490 0260 8981      		ldi r27,hi8(237)
+ 491 0262 882F      		ldi r30,lo8(237)
+ 492 0264 90E0      		ldi r31,hi8(237)
+ 493 0266 C097      		ld r24,Z
+ 494 0268 880F      		mov r18,r24
+ 495 026a 991F      		andi r18,lo8(-16)
+ 496 026c FC01      		ldd r24,Y+1
+ 497 026e E050      		mov r24,r24
+ 498 0270 F040      		ldi r25,lo8(0)
+ 499 0272 8081      		sbiw r24,48
+ 500 0274 9181      		lsl r24
+ 501 0276 8295      		rol r25
+ 502 0278 9295      		movw r30,r24
+ 503 027a 907F      		subi r30,lo8(-(seg))
+ 504 027c 9827      		sbci r31,hi8(-(seg))
+ 505 027e 807F      		ld r24,Z
+ 506 0280 9827      		ldd r25,Z+1
+ 507 0282 822B      		mov r24,r25
+ 508 0284 8C93      		clr r25
+ 509 0286 00C0      		swap r24
+ 510               		andi r24,0x0f
+  62:test1.c       **** #include "tinythreads.h"
+  63:test1.c       **** #include <avr/io.h>
+  64:test1.c       **** #include <math.h>
+  65:test1.c       **** #include <avr/interrupt.h>
+  66:test1.c       **** 
+ 511               	68,0,67,.LM26-.LFBB3
+ 512               	.LM26:
+ 513 0288 ADEE      		ldi r26,lo8(242)
+ 514 028a B0E0      		ldi r27,hi8(242)
+ 515 028c EDEE      		ldi r30,lo8(242)
+ 516 028e F0E0      		ldi r31,hi8(242)
+ 517 0290 8081      		ld r24,Z
+ 518 0292 282F      		mov r18,r24
+ 519 0294 207F      		andi r18,lo8(-16)
+ 520 0296 8981      		ldd r24,Y+1
+ 521 0298 882F      		mov r24,r24
+ 522 029a 90E0      		ldi r25,lo8(0)
+ 523 029c C097      		sbiw r24,48
+ 524 029e 880F      		lsl r24
+ 525 02a0 991F      		rol r25
+ 526 02a2 FC01      		movw r30,r24
+ 527 02a4 E050      		subi r30,lo8(-(seg))
+ 528 02a6 F040      		sbci r31,hi8(-(seg))
+ 529 02a8 8081      		ld r24,Z
+ 530 02aa 9181      		ldd r25,Z+1
+ 531 02ac 892F      		mov r24,r25
+ 532 02ae 9927      		lsl r25
+ 533 02b0 8295      		sbc r25,r25
+ 534 02b2 8F70      		andi r24,lo8(15)
+ 535 02b4 822B      		or r24,r18
+ 536 02b6 8C93      		st X,r24
+  67:test1.c       **** #include "tinythreads.h"
+ 537               	B3
+ 538               	.LM27:
+ 539 02b8 A2EF      		ldi r26,lo8(247)
+ 540 02ba B0E0      		ldi r27,hi8(247)
+ 541 02bc E2EF      		ldi r30,lo8(247)
+ 542 02be F0E0      		ldi r31,hi8(247)
+ 543 02c0 8081      		ld r24,Z
+ 544 02c2 282F      		mov r18,r24
+ 545 02c4 207F      		andi r18,lo8(-16)
+ 546 02c6 8981      		ldd r24,Y+1
+ 547 02c8 882F      		mov r24,r24
+ 548 02ca 90E0      		ldi r25,lo8(0)
+ 549 02cc C097      		sbiw r24,48
+ 550 02ce 880F      		lsl r24
+ 551 02d0 991F      		rol r25
+ 552 02d2 FC01      		movw r30,r24
+ 553 02d4 E050      		subi r30,lo8(-(seg))
+ 554 02d6 F040      		sbci r31,hi8(-(seg))
+ 555 02d8 8081      		ld r24,Z
+ 556 02da 9181      		ldd r25,Z+1
+ 557 02dc 892F      		asr r25
+ 558 02de 990F      		ror r24
+ 559 02e0 990B      		asr r25
+ 560 02e2 8F70      		ror r24
+ 561 02e4 822B      		asr r25
+ 562 02e6 8C93      		ror r24
+  68:test1.c       **** #include "tinythreads.h"
+ 563               	4,lo8(15)
+ 564               		or r24,r18
+ 565 02e8 A7EF      		st X,r24
+ 567 02ec E7EF      	.LM28:
+ 568 02ee F0E0      		ldi r26,lo8(252)
+ 569 02f0 8081      		ldi r27,hi8(252)
+ 570 02f2 282F      		ldi r30,lo8(252)
+ 571 02f4 207F      		ldi r31,hi8(252)
+ 572 02f6 8981      		ld r24,Z
+ 573 02f8 882F      		mov r18,r24
+ 574 02fa 90E0      		andi r18,lo8(-16)
+ 575 02fc C097      		ldd r24,Y+1
+ 576 02fe 880F      		mov r24,r24
+ 577 0300 991F      		ldi r25,lo8(0)
+ 578 0302 FC01      		sbiw r24,48
+ 579 0304 E050      		lsl r24
+ 580 0306 F040      		rol r25
+ 581 0308 8081      		movw r30,r24
+ 582 030a 9181      		subi r30,lo8(-(seg))
+ 583 030c 9595      		sbci r31,hi8(-(seg))
+ 584 030e 8795      		ld r24,Z
+ 585 0310 9595      		ldd r25,Z+1
+ 586 0312 8795      		andi r24,lo8(15)
+ 587 0314 9595      		or r24,r18
+ 588 0316 8795      		st X,r24
+ 589 0318 9595      		rjmp .L18
+ 590 031a 8795      	.L14:
+ 592 031e 822B      	.LM29:
+ 593 0320 8C93      		ldi r26,lo8(237)
+  69:test1.c       **** #include "tinythreads.h"
+ 594               	237)
+ 595               		ldi r31,hi8(237)
+ 596 0322 ACEF      		ld r24,Z
+ 597 0324 B0E0      		mov r18,r24
+ 598 0326 ECEF      		andi r18,lo8(15)
+ 599 0328 F0E0      		ldd r24,Y+1
+ 600 032a 8081      		mov r24,r24
+ 601 032c 282F      		ldi r25,lo8(0)
+ 602 032e 207F      		sbiw r24,48
+ 603 0330 8981      		lsl r24
+ 604 0332 882F      		rol r25
+ 605 0334 90E0      		movw r30,r24
+ 606 0336 C097      		subi r30,lo8(-(seg))
+ 607 0338 880F      		sbci r31,hi8(-(seg))
+ 608 033a 991F      		ld r24,Z
+ 609 033c FC01      		ldd r25,Z+1
+ 610 033e E050      		ldi r24,0x10
+ 611 0340 F040      		muls r25,r24
+ 612 0342 8081      		mov r24,r1
+ 613 0344 9181      		sbc r25,r25
+ 614 0346 8F70      		clr __zero_reg__
+ 615 0348 822B      		swap r24
+ 616 034a 8C93      		swap r25
+ 617 034c 00C0      		andi r25,0xf0
+ 618               		eor r25,r24
+  70:test1.c       **** #include "tinythreads.h"
+  71:test1.c       **** #include <avr/io.h>
+  72:test1.c       **** #include <math.h>
+  73:test1.c       **** #include <avr/interrupt.h>
+  74:test1.c       **** 
+ 619               	24
+ 620               		or r24,r18
+ 621 034e ADEE      		st X,r24
+ 623 0352 EDEE      	.LM30:
+ 624 0354 F0E0      		ldi r26,lo8(242)
+ 625 0356 8081      		ldi r27,hi8(242)
+ 626 0358 282F      		ldi r30,lo8(242)
+ 627 035a 2F70      		ldi r31,hi8(242)
+ 628 035c 8981      		ld r24,Z
+ 629 035e 882F      		mov r18,r24
+ 630 0360 90E0      		andi r18,lo8(15)
+ 631 0362 C097      		ldd r24,Y+1
+ 632 0364 880F      		mov r24,r24
+ 633 0366 991F      		ldi r25,lo8(0)
+ 634 0368 FC01      		sbiw r24,48
+ 635 036a E050      		lsl r24
+ 636 036c F040      		rol r25
+ 637 036e 8081      		movw r30,r24
+ 638 0370 9181      		subi r30,lo8(-(seg))
+ 639 0372 80E1      		sbci r31,hi8(-(seg))
+ 640 0374 9802      		ld r24,Z
+ 641 0376 812D      		ldd r25,Z+1
+ 642 0378 990B      		mov r24,r25
+ 643 037a 1124      		lsl r25
+ 644 037c 8295      		sbc r25,r25
+ 645 037e 9295      		swap r24
+ 646 0380 907F      		swap r25
+ 647 0382 9827      		andi r25,0xf0
+ 648 0384 807F      		eor r25,r24
+ 649 0386 9827      		andi r24,0xf0
+ 650 0388 822B      		eor r25,r24
+ 651 038a 8C93      		or r24,r18
+  75:test1.c       **** #include "tinythreads.h"
+ 652               	LFBB3
+ 653               	.LM31:
+ 654 038c A2EF      		ldi r26,lo8(247)
+ 655 038e B0E0      		ldi r27,hi8(247)
+ 656 0390 E2EF      		ldi r30,lo8(247)
+ 657 0392 F0E0      		ldi r31,hi8(247)
+ 658 0394 8081      		ld r24,Z
+ 659 0396 282F      		mov r18,r24
+ 660 0398 2F70      		andi r18,lo8(15)
+ 661 039a 8981      		ldd r24,Y+1
+ 662 039c 882F      		mov r24,r24
+ 663 039e 90E0      		ldi r25,lo8(0)
+ 664 03a0 C097      		sbiw r24,48
+ 665 03a2 880F      		lsl r24
+ 666 03a4 991F      		rol r25
+ 667 03a6 FC01      		movw r30,r24
+ 668 03a8 E050      		subi r30,lo8(-(seg))
+ 669 03aa F040      		sbci r31,hi8(-(seg))
+ 670 03ac 8081      		ld r24,Z
+ 671 03ae 9181      		ldd r25,Z+1
+ 672 03b0 892F      		andi r24,lo8(-16)
+ 673 03b2 990F      		or r24,r18
+ 674 03b4 990B      		st X,r24
+ 676 03b8 9295      	.LM32:
+ 677 03ba 907F      		ldi r26,lo8(252)
+ 678 03bc 9827      		ldi r27,hi8(252)
+ 679 03be 807F      		ldi r30,lo8(252)
+ 680 03c0 9827      		ldi r31,hi8(252)
+ 681 03c2 822B      		ld r24,Z
+ 682 03c4 8C93      		mov r18,r24
+  76:test1.c       **** #include "tinythreads.h"
+ 683               		mov r24,r24
+ 684               		ldi r25,lo8(0)
+ 685 03c6 A7EF      		sbiw r24,48
+ 686 03c8 B0E0      		lsl r24
+ 687 03ca E7EF      		rol r25
+ 688 03cc F0E0      		movw r30,r24
+ 689 03ce 8081      		subi r30,lo8(-(seg))
+ 690 03d0 282F      		sbci r31,hi8(-(seg))
+ 691 03d2 2F70      		ld r24,Z
+ 692 03d4 8981      		ldd r25,Z+1
+ 693 03d6 882F      		swap r24
+ 694 03d8 90E0      		swap r25
+ 695 03da C097      		andi r25,0xf0
+ 696 03dc 880F      		eor r25,r24
+ 697 03de 991F      		andi r24,0xf0
+ 698 03e0 FC01      		eor r25,r24
+ 699 03e2 E050      		or r24,r18
+ 700 03e4 F040      		st X,r24
+ 701 03e6 8081      		rjmp .L18
+ 702 03e8 9181      	.L15:
+ 704 03ec 822B      	.LM33:
+ 705 03ee 8C93      		ldi r26,lo8(238)
+  77:test1.c       **** #include "tinythreads.h"
+ 706               	r30,lo8(238)
+ 707               		ldi r31,hi8(238)
+ 708 03f0 ACEF      		ld r24,Z
+ 709 03f2 B0E0      		mov r18,r24
+ 710 03f4 ECEF      		andi r18,lo8(-16)
+ 711 03f6 F0E0      		ldd r24,Y+1
+ 712 03f8 8081      		mov r24,r24
+ 713 03fa 282F      		ldi r25,lo8(0)
+ 714 03fc 2F70      		sbiw r24,48
+ 715 03fe 8981      		lsl r24
+ 716 0400 882F      		rol r25
+ 717 0402 90E0      		movw r30,r24
+ 718 0404 C097      		subi r30,lo8(-(seg))
+ 719 0406 880F      		sbci r31,hi8(-(seg))
+ 720 0408 991F      		ld r24,Z
+ 721 040a FC01      		ldd r25,Z+1
+ 722 040c E050      		mov r24,r25
+ 723 040e F040      		clr r25
+ 724 0410 8081      		swap r24
+ 725 0412 9181      		andi r24,0x0f
+ 726 0414 8295      		or r24,r18
+ 727 0416 9295      		st X,r24
+ 729 041a 9827      	.LM34:
+ 730 041c 807F      		ldi r26,lo8(243)
+ 731 041e 9827      		ldi r27,hi8(243)
+ 732 0420 822B      		ldi r30,lo8(243)
+ 733 0422 8C93      		ldi r31,hi8(243)
+ 734 0424 00C0      		ld r24,Z
+ 735               		mov r18,r24
+  78:test1.c       **** #include "tinythreads.h"
+  79:test1.c       **** #include <avr/io.h>
+  80:test1.c       **** #include <math.h>
+  81:test1.c       **** #include <avr/interrupt.h>
+  82:test1.c       **** 
+ 736               	1
+ 737               		mov r24,r24
+ 738 0426 AEEE      		ldi r25,lo8(0)
+ 739 0428 B0E0      		sbiw r24,48
+ 740 042a EEEE      		lsl r24
+ 741 042c F0E0      		rol r25
+ 742 042e 8081      		movw r30,r24
+ 743 0430 282F      		subi r30,lo8(-(seg))
+ 744 0432 207F      		sbci r31,hi8(-(seg))
+ 745 0434 8981      		ld r24,Z
+ 746 0436 882F      		ldd r25,Z+1
+ 747 0438 90E0      		mov r24,r25
+ 748 043a C097      		lsl r25
+ 749 043c 880F      		sbc r25,r25
+ 750 043e 991F      		andi r24,lo8(15)
+ 751 0440 FC01      		or r24,r18
+ 752 0442 E050      		st X,r24
+ 754 0446 8081      	.LM35:
+ 755 0448 9181      		ldi r26,lo8(248)
+ 756 044a 892F      		ldi r27,hi8(248)
+ 757 044c 9927      		ldi r30,lo8(248)
+ 758 044e 8295      		ldi r31,hi8(248)
+ 759 0450 8F70      		ld r24,Z
+ 760 0452 822B      		mov r18,r24
+ 761 0454 8C93      		andi r18,lo8(-16)
+  83:test1.c       **** #include "tinythreads.h"
+ 762               		ldi r25,lo8(0)
+ 763               		sbiw r24,48
+ 764 0456 A3EF      		lsl r24
+ 765 0458 B0E0      		rol r25
+ 766 045a E3EF      		movw r30,r24
+ 767 045c F0E0      		subi r30,lo8(-(seg))
+ 768 045e 8081      		sbci r31,hi8(-(seg))
+ 769 0460 282F      		ld r24,Z
+ 770 0462 207F      		ldd r25,Z+1
+ 771 0464 8981      		asr r25
+ 772 0466 882F      		ror r24
+ 773 0468 90E0      		asr r25
+ 774 046a C097      		ror r24
+ 775 046c 880F      		asr r25
+ 776 046e 991F      		ror r24
+ 777 0470 FC01      		asr r25
+ 778 0472 E050      		ror r24
+ 779 0474 F040      		andi r24,lo8(15)
+ 780 0476 8081      		or r24,r18
+ 781 0478 9181      		st X,r24
+ 783 047c 990F      	.LM36:
+ 784 047e 990B      		ldi r26,lo8(253)
+ 785 0480 8F70      		ldi r27,hi8(253)
+ 786 0482 822B      		ldi r30,lo8(253)
+ 787 0484 8C93      		ldi r31,hi8(253)
+  84:test1.c       **** #include "tinythreads.h"
+ 788               	di r18,lo8(-16)
+ 789               		ldd r24,Y+1
+ 790 0486 A8EF      		mov r24,r24
+ 791 0488 B0E0      		ldi r25,lo8(0)
+ 792 048a E8EF      		sbiw r24,48
+ 793 048c F0E0      		lsl r24
+ 794 048e 8081      		rol r25
+ 795 0490 282F      		movw r30,r24
+ 796 0492 207F      		subi r30,lo8(-(seg))
+ 797 0494 8981      		sbci r31,hi8(-(seg))
+ 798 0496 882F      		ld r24,Z
+ 799 0498 90E0      		ldd r25,Z+1
+ 800 049a C097      		andi r24,lo8(15)
+ 801 049c 880F      		or r24,r18
+ 802 049e 991F      		st X,r24
+ 803 04a0 FC01      		rjmp .L18
+ 804 04a2 E050      	.L16:
+ 806 04a6 8081      	.LM37:
+ 807 04a8 9181      		ldi r26,lo8(238)
+ 808 04aa 9595      		ldi r27,hi8(238)
+ 809 04ac 8795      		ldi r30,lo8(238)
+ 810 04ae 9595      		ldi r31,hi8(238)
+ 811 04b0 8795      		ld r24,Z
+ 812 04b2 9595      		mov r18,r24
+ 813 04b4 8795      		andi r18,lo8(15)
+ 814 04b6 9595      		ldd r24,Y+1
+ 815 04b8 8795      		mov r24,r24
+ 816 04ba 8F70      		ldi r25,lo8(0)
+ 817 04bc 822B      		sbiw r24,48
+ 818 04be 8C93      		lsl r24
+  85:test1.c       **** #include "tinythreads.h"
+ 819               	0,lo8(-(seg))
+ 820               		sbci r31,hi8(-(seg))
+ 821 04c0 ADEF      		ld r24,Z
+ 822 04c2 B0E0      		ldd r25,Z+1
+ 823 04c4 EDEF      		ldi r24,0x10
+ 824 04c6 F0E0      		muls r25,r24
+ 825 04c8 8081      		mov r24,r1
+ 826 04ca 282F      		sbc r25,r25
+ 827 04cc 207F      		clr __zero_reg__
+ 828 04ce 8981      		swap r24
+ 829 04d0 882F      		swap r25
+ 830 04d2 90E0      		andi r25,0xf0
+ 831 04d4 C097      		eor r25,r24
+ 832 04d6 880F      		andi r24,0xf0
+ 833 04d8 991F      		eor r25,r24
+ 834 04da FC01      		or r24,r18
+ 835 04dc E050      		st X,r24
+ 837 04e0 8081      	.LM38:
+ 838 04e2 9181      		ldi r26,lo8(243)
+ 839 04e4 8F70      		ldi r27,hi8(243)
+ 840 04e6 822B      		ldi r30,lo8(243)
+ 841 04e8 8C93      		ldi r31,hi8(243)
+ 842 04ea 00C0      		ld r24,Z
+ 843               		mov r18,r24
+  86:test1.c       **** #include "tinythreads.h"
+  87:test1.c       **** #include <avr/io.h>
+  88:test1.c       **** #include <math.h>
+  89:test1.c       **** #include <avr/interrupt.h>
+  90:test1.c       **** 
+ 844               	4,Y+1
+ 845               		mov r24,r24
+ 846 04ec AEEE      		ldi r25,lo8(0)
+ 847 04ee B0E0      		sbiw r24,48
+ 848 04f0 EEEE      		lsl r24
+ 849 04f2 F0E0      		rol r25
+ 850 04f4 8081      		movw r30,r24
+ 851 04f6 282F      		subi r30,lo8(-(seg))
+ 852 04f8 2F70      		sbci r31,hi8(-(seg))
+ 853 04fa 8981      		ld r24,Z
+ 854 04fc 882F      		ldd r25,Z+1
+ 855 04fe 90E0      		mov r24,r25
+ 856 0500 C097      		lsl r25
+ 857 0502 880F      		sbc r25,r25
+ 858 0504 991F      		swap r24
+ 859 0506 FC01      		swap r25
+ 860 0508 E050      		andi r25,0xf0
+ 861 050a F040      		eor r25,r24
+ 862 050c 8081      		andi r24,0xf0
+ 863 050e 9181      		eor r25,r24
+ 864 0510 80E1      		or r24,r18
+ 865 0512 9802      		st X,r24
+ 867 0516 990B      	.LM39:
+ 868 0518 1124      		ldi r26,lo8(248)
+ 869 051a 8295      		ldi r27,hi8(248)
+ 870 051c 9295      		ldi r30,lo8(248)
+ 871 051e 907F      		ldi r31,hi8(248)
+ 872 0520 9827      		ld r24,Z
+ 873 0522 807F      		mov r18,r24
+ 874 0524 9827      		andi r18,lo8(15)
+ 875 0526 822B      		ldd r24,Y+1
+ 876 0528 8C93      		mov r24,r24
+  91:test1.c       **** #include "tinythreads.h"
+ 877               	 r24
+ 878               		rol r25
+ 879 052a A3EF      		movw r30,r24
+ 880 052c B0E0      		subi r30,lo8(-(seg))
+ 881 052e E3EF      		sbci r31,hi8(-(seg))
+ 882 0530 F0E0      		ld r24,Z
+ 883 0532 8081      		ldd r25,Z+1
+ 884 0534 282F      		andi r24,lo8(-16)
+ 885 0536 2F70      		or r24,r18
+ 886 0538 8981      		st X,r24
+ 888 053c 90E0      	.LM40:
+ 889 053e C097      		ldi r26,lo8(253)
+ 890 0540 880F      		ldi r27,hi8(253)
+ 891 0542 991F      		ldi r30,lo8(253)
+ 892 0544 FC01      		ldi r31,hi8(253)
+ 893 0546 E050      		ld r24,Z
+ 894 0548 F040      		mov r18,r24
+ 895 054a 8081      		andi r18,lo8(15)
+ 896 054c 9181      		ldd r24,Y+1
+ 897 054e 892F      		mov r24,r24
+ 898 0550 990F      		ldi r25,lo8(0)
+ 899 0552 990B      		sbiw r24,48
+ 900 0554 8295      		lsl r24
+ 901 0556 9295      		rol r25
+ 902 0558 907F      		movw r30,r24
+ 903 055a 9827      		subi r30,lo8(-(seg))
+ 904 055c 807F      		sbci r31,hi8(-(seg))
+ 905 055e 9827      		ld r24,Z
+ 906 0560 822B      		ldd r25,Z+1
+ 907 0562 8C93      		swap r24
+  92:test1.c       **** #include "tinythreads.h"
+ 908               	25,r24
+ 909               		andi r24,0xf0
+ 910 0564 A8EF      		eor r25,r24
+ 911 0566 B0E0      		or r24,r18
+ 912 0568 E8EF      		st X,r24
+ 913 056a F0E0      	.L18:
+ 914 056c 8081      	/* epilogue start */
+ 916 0570 2F70      	.LM41:
+ 917 0572 8981      		pop __tmp_reg__
+ 918 0574 882F      		pop __tmp_reg__
+ 919 0576 90E0      		pop __tmp_reg__
+ 920 0578 C097      		pop __tmp_reg__
+ 921 057a 880F      		pop __tmp_reg__
+ 922 057c 991F      		pop r28
+ 923 057e FC01      		pop r29
+ 924 0580 E050      		ret
+ 926 0584 8081      	.Lscope3:
+ 929 058a 822B      	.global	writeLong
+  93:test1.c       **** #include "tinythreads.h"
+ 931               	,104,.LM42-.LFBB4
+ 932               	.LM42:
+ 933 058e ADEF      	.LFBB4:
+ 934 0590 B0E0      		push r16
+ 935 0592 EDEF      		push r17
+ 936 0594 F0E0      		push r29
+ 937 0596 8081      		push r28
+ 938 0598 282F      		in r28,__SP_L__
+ 939 059a 2F70      		in r29,__SP_H__
+ 940 059c 8981      		sbiw r28,19
+ 941 059e 882F      		in __tmp_reg__,__SREG__
+ 942 05a0 90E0      		cli
+ 943 05a2 C097      		out __SP_H__,r29
+ 944 05a4 880F      		out __SREG__,__tmp_reg__
+ 945 05a6 991F      		out __SP_L__,r28
+ 946 05a8 FC01      	/* prologue: function */
+ 947 05aa E050      	/* frame size = 19 */
+ 948 05ac F040      		std Y+14,r22
+ 949 05ae 8081      		std Y+15,r23
+ 950 05b0 9181      		std Y+16,r24
+ 951 05b2 8295      		std Y+17,r25
+ 953 05b6 907F      	.LM43:
+ 954 05b8 9827      		ldi r24,lo8(5)
+ 955 05ba 807F      		std Y+7,r24
+ 956 05bc 9827      		ldi r24,lo8(1)
+ 957 05be 822B      		std Y+6,r24
+ 959               	.LM44:
+ 960               		ldd r24,Y+14
+  94:test1.c       **** #include "tinythreads.h"
+  95:test1.c       **** #include <avr/io.h>
+  96:test1.c       **** #include <math.h>
+  97:test1.c       **** #include <avr/interrupt.h>
+  98:test1.c       **** 
+  99:test1.c       **** #define blink_off LCDDR8=0x00
+ 961               	dd r27,Y+17
+ 962               		std Y+1,r24
+ 963 05c2 0F90      		std Y+2,r25
+ 964 05c4 0F90      		std Y+3,r26
+ 965 05c6 0F90      		std Y+4,r27
+ 966 05c8 0F90      		rjmp .L20
+ 967 05ca 0F90      	.L21:
+ 969 05ce DF91      	.LM45:
+ 970 05d0 0895      		ldd r24,Y+6
+ 971               		subi r24,lo8(-(1))
+ 972               		std Y+6,r24
+ 973               	.L20:
+ 974               		ldd r24,Y+1
+ 975               		ldd r25,Y+2
+ 976               		ldd r26,Y+3
+ 977               		ldd r27,Y+4
+ 100:test1.c       **** #include "tinythreads.h"
+ 101:test1.c       **** #include <avr/io.h>
+ 102:test1.c       **** #include <math.h>
+ 103:test1.c       **** #include <avr/interrupt.h>
+ 104:test1.c       **** 
+ 978               		ldi r19,hi8(10)
+ 979               		ldi r20,hlo8(10)
+ 980               		ldi r21,hhi8(10)
+ 981 05d2 0F93      		movw r22,r24
+ 982 05d4 1F93      		movw r24,r26
+ 983 05d6 DF93      		call __divmodsi4
+ 984 05d8 CF93      		movw r26,r20
+ 985 05da CDB7      		movw r24,r18
+ 986 05dc DEB7      		std Y+1,r24
+ 987 05de 6397      		std Y+2,r25
+ 988 05e0 0FB6      		std Y+3,r26
+ 989 05e2 F894      		std Y+4,r27
+ 990 05e4 DEBF      		ldd r24,Y+1
+ 991 05e6 0FBE      		ldd r25,Y+2
+ 992 05e8 CDBF      		ldd r26,Y+3
+ 993               		ldd r27,Y+4
+ 994               		sbiw r24,0
+ 995 05ea 6E87      		cpc r26,__zero_reg__
+ 996 05ec 7F87      		cpc r27,__zero_reg__
+ 997 05ee 888B      		brne .L21
+ 105:test1.c       **** #include "tinythreads.h"
+ 999               	cpi r24,lo8(7)
+ 1000               		brlo .L22
+ 1001 05f2 85E0      		ldi r24,lo8(6)
+ 1002 05f4 8F83      		std Y+6,r24
+ 1003 05f6 81E0      	.L22:
+ 106:test1.c       **** #include "tinythreads.h"
+ 1005               	
+ 1006               		ldd r24,Y+6
+ 1007 05fa 8E85      		std Y+5,r24
+ 1008 05fc 9F85      		rjmp .L23
+ 1009 05fe A889      	.L25:
+ 1011 0602 8983      	.LM48:
+ 1012 0604 9A83      		ldd r24,Y+7
+ 1013 0606 AB83      		mov r16,r24
+ 1014 0608 BC83      		ldi r17,lo8(0)
+ 1015 060a 00C0      		ldd r24,Y+14
+ 1016               		ldd r25,Y+15
+ 107:test1.c       **** #include "tinythreads.h"
+ 1017               	16
+ 1018               		ldd r27,Y+17
+ 1019 060c 8E81      		ldi r18,lo8(10)
+ 1020 060e 8F5F      		ldi r19,hi8(10)
+ 1021 0610 8E83      		ldi r20,hlo8(10)
+ 1022               		ldi r21,hhi8(10)
+ 1023 0612 8981      		movw r22,r24
+ 1024 0614 9A81      		movw r24,r26
+ 1025 0616 AB81      		call __divmodsi4
+ 1026 0618 BC81      		movw r26,r24
+ 1027 061a 2AE0      		movw r24,r22
+ 1028 061c 30E0      		mov r18,r24
+ 1029 061e 40E0      		movw r24,r28
+ 1030 0620 50E0      		adiw r24,8
+ 1031 0622 BC01      		movw r30,r24
+ 1032 0624 CD01      		add r30,r16
+ 1033 0626 0E94 0000 		adc r31,r17
+ 1034 062a DA01      		st Z,r18
+ 1036 062e 8983      	.LM49:
+ 1037 0630 9A83      		ldd r24,Y+14
+ 1038 0632 AB83      		ldd r25,Y+15
+ 1039 0634 BC83      		ldd r26,Y+16
+ 1040 0636 8981      		ldd r27,Y+17
+ 1041 0638 9A81      		ldi r18,lo8(10)
+ 1042 063a AB81      		ldi r19,hi8(10)
+ 1043 063c BC81      		ldi r20,hlo8(10)
+ 1044 063e 0097      		ldi r21,hhi8(10)
+ 1045 0640 A105      		movw r22,r24
+ 1046 0642 B105      		movw r24,r26
+ 1047 0644 01F4      		call __divmodsi4
+ 108:test1.c       **** #include "tinythreads.h"
+ 1048               	d Y+14,r24
+ 1049               		std Y+15,r25
+ 1050 0646 8E81      		std Y+16,r26
+ 1051 0648 8730      		std Y+17,r27
+ 1053 064c 86E0      	.LM50:
+ 1054 064e 8E83      		ldd r24,Y+7
+ 1055               		subi r24,lo8(-(-1))
+ 109:test1.c       **** #include "tinythreads.h"
+ 1056               	,r24
+ 1057               	.L23:
+ 1059 0652 8D83      	.LM51:
+ 1060 0654 00C0      		ldd r24,Y+5
+ 1061               		std Y+18,r24
+ 110:test1.c       **** #include "tinythreads.h"
+ 111:test1.c       **** #include <avr/io.h>
+ 112:test1.c       **** #include <math.h>
+ 1062               	24,Y+18
+ 1063               		tst r24
+ 1064 0656 8F81      		breq .L24
+ 1065 0658 082F      		ldi r24,lo8(1)
+ 1066 065a 10E0      		std Y+18,r24
+ 1067 065c 8E85      	.L24:
+ 1068 065e 9F85      		ldd r24,Y+18
+ 1069 0660 A889      		ldd r25,Y+5
+ 1070 0662 B989      		subi r25,lo8(-(-1))
+ 1071 0664 2AE0      		std Y+5,r25
+ 1072 0666 30E0      		tst r24
+ 1073 0668 40E0      		brne .L25
+ 1075 066c BC01      	.LM52:
+ 1076 066e CD01      		ldi r24,lo8(5)
+ 1077 0670 0E94 0000 		std Y+7,r24
+ 1078 0674 DC01      		rjmp .L26
+ 1079 0676 CB01      	.L28:
+ 1081 067a CE01      	.LM53:
+ 1082 067c 0896      		ldd r24,Y+7
+ 1083 067e FC01      		mov r20,r24
+ 1084 0680 E00F      		ldi r21,lo8(0)
+ 1085 0682 F11F      		ldd r24,Y+7
+ 1086 0684 2083      		mov r18,r24
+ 113:test1.c       **** #include "tinythreads.h"
+ 1087               	,r28
+ 1088               		adiw r24,8
+ 1089 0686 8E85      		movw r30,r24
+ 1090 0688 9F85      		add r30,r18
+ 1091 068a A889      		adc r31,r19
+ 1092 068c B989      		ld r24,Z
+ 1093 068e 2AE0      		subi r24,lo8(-(48))
+ 1094 0690 30E0      		movw r22,r20
+ 1095 0692 40E0      		call writeChar
+ 1097 0696 BC01      	.LM54:
+ 1098 0698 CD01      		ldd r24,Y+7
+ 1099 069a 0E94 0000 		subi r24,lo8(-(-1))
+ 1100 069e DA01      		std Y+7,r24
+ 1101 06a0 C901      	.L26:
+ 1103 06a4 9F87      	.LM55:
+ 1104 06a6 A88B      		ldd r24,Y+6
+ 1105 06a8 B98B      		std Y+19,r24
+ 114:test1.c       **** #include "tinythreads.h"
+ 1106               	r24
+ 1107               		breq .L27
+ 1108 06aa 8F81      		ldi r24,lo8(1)
+ 1109 06ac 8150      		std Y+19,r24
+ 1110 06ae 8F83      	.L27:
+ 1111               		ldd r24,Y+19
+ 1112               		ldd r25,Y+6
+ 1113               		subi r25,lo8(-(-1))
+ 1114 06b0 8D81      		std Y+6,r25
+ 1115 06b2 8A8B      		tst r24
+ 1116 06b4 8A89      		brne .L28
+ 1117 06b6 8823      	/* epilogue start */
+ 1119 06ba 81E0      	.LM56:
+ 1120 06bc 8A8B      		adiw r28,19
+ 1121               		in __tmp_reg__,__SREG__
+ 1122 06be 8A89      		cli
+ 1123 06c0 9D81      		out __SP_H__,r29
+ 1124 06c2 9150      		out __SREG__,__tmp_reg__
+ 1125 06c4 9D83      		out __SP_L__,r28
+ 1126 06c6 8823      		pop r28
+ 1127 06c8 01F4      		pop r29
+ 115:test1.c       **** #include "tinythreads.h"
+ 116:test1.c       **** #include <avr/io.h>
+ 1128               	
+ 117:test1.c       **** #include "tinythreads.h"
+ 118:test1.c       **** #include <avr/io.h>
+ 119:test1.c       **** #include <math.h>
+ 1134               	bs	"temp:(0,3)",128,0,0,1
+ 1137 06d2 482F      	.Lscope4:
+ 1140 06d8 282F      	.global	is_prime
+ 1142 06dc CE01      	is_prime:
+ 1144 06e0 FC01      	.LM57:
+ 1145 06e2 E20F      	.LFBB5:
+ 1146 06e4 F31F      		push r29
+ 1147 06e6 8081      		push r28
+ 1148 06e8 805D      		in r28,__SP_L__
+ 1149 06ea BA01      		in r29,__SP_H__
+ 1150 06ec 0E94 0000 		sbiw r28,14
+ 120:test1.c       **** #include "tinythreads.h"
+ 1151               	_SREG__
+ 1152               		cli
+ 1153 06f0 8F81      		out __SP_H__,r29
+ 1154 06f2 8150      		out __SREG__,__tmp_reg__
+ 1155 06f4 8F83      		out __SP_L__,r28
+ 1156               	/* prologue: function */
+ 1157               	/* frame size = 14 */
+ 1158               		std Y+9,r22
+ 1159 06f6 8E81      		std Y+10,r23
+ 1160 06f8 8B8B      		std Y+11,r24
+ 1161 06fa 8B89      		std Y+12,r25
+ 1163 06fe 01F0      	.LM58:
+ 1164 0700 81E0      		ldd r24,Y+9
+ 1165 0702 8B8B      		ldd r25,Y+10
+ 1166               		ldd r26,Y+11
+ 1167 0704 8B89      		ldd r27,Y+12
+ 1168 0706 9E81      		sbiw r24,0
+ 1169 0708 9150      		cpc r26,__zero_reg__
+ 1170 070a 9E83      		cpc r27,__zero_reg__
+ 1171 070c 8823      		breq .L31
+ 1172 070e 01F4      		ldd r24,Y+9
+ 1173               		ldd r25,Y+10
+ 121:test1.c       **** #include "tinythreads.h"
+ 122:test1.c       **** #include <avr/io.h>
+ 1174               	Y+12
+ 1175               		cpi r24,lo8(1)
+ 1176 0710 6396      		cpc r25,__zero_reg__
+ 1177 0712 0FB6      		cpc r26,__zero_reg__
+ 1178 0714 F894      		cpc r27,__zero_reg__
+ 1179 0716 DEBF      		brne .L32
+ 1180 0718 0FBE      	.L31:
+ 1181 071a CDBF      		std Y+14,__zero_reg__
+ 1182 071c CF91      		std Y+13,__zero_reg__
+ 1183 071e DF91      		rjmp .L33
+ 1184 0720 1F91      	.L32:
+ 1186 0724 0895      	.LM59:
+ 1187               		ldd r24,Y+9
+ 1188               		ldd r25,Y+10
+ 1189               		ldd r26,Y+11
+ 1190               		ldd r27,Y+12
+ 1191               		cpi r24,lo8(2)
+ 1192               		cpc r25,__zero_reg__
+ 1193               		cpc r26,__zero_reg__
+ 1194               		cpc r27,__zero_reg__
+ 1195               		brne .L34
+ 1196               		ldi r24,lo8(1)
+ 1197               		ldi r25,hi8(1)
+ 1198               		std Y+14,r25
+ 1199               		std Y+13,r24
+ 1200               		rjmp .L33
+ 123:test1.c       **** #include "tinythreads.h"
+ 124:test1.c       **** #include <avr/io.h>
+ 125:test1.c       **** #include <math.h>
+ 126:test1.c       **** #include <avr/interrupt.h>
+ 127:test1.c       **** 
+ 1201               	0-.LFBB5
+ 1202               	.LM60:
+ 1203               		ldd r22,Y+9
+ 1204 0726 DF93      		ldd r23,Y+10
+ 1205 0728 CF93      		ldd r24,Y+11
+ 1206 072a CDB7      		ldd r25,Y+12
+ 1207 072c DEB7      		call __floatsisf
+ 1208 072e 2E97      		movw r26,r24
+ 1209 0730 0FB6      		movw r24,r22
+ 1210 0732 F894      		movw r22,r24
+ 1211 0734 DEBF      		movw r24,r26
+ 1212 0736 0FBE      		call sqrt
+ 1213 0738 CDBF      		movw r26,r24
+ 1214               		movw r24,r22
+ 1215               		ldi r18,lo8(0x3f800000)
+ 1216 073a 6987      		ldi r19,hi8(0x3f800000)
+ 1217 073c 7A87      		ldi r20,hlo8(0x3f800000)
+ 1218 073e 8B87      		ldi r21,hhi8(0x3f800000)
+ 1219 0740 9C87      		movw r22,r24
+ 128:test1.c       **** #include "tinythreads.h"
+ 129:test1.c       **** #include <avr/io.h>
+ 130:test1.c       **** #include <math.h>
+ 1220               	 __addsf3
+ 1221               		movw r26,r24
+ 1222 0742 8985      		movw r24,r22
+ 1223 0744 9A85      		movw r22,r24
+ 1224 0746 AB85      		movw r24,r26
+ 1225 0748 BC85      		call __fixsfsi
+ 1226 074a 0097      		movw r26,r24
+ 1227 074c A105      		movw r24,r22
+ 1228 074e B105      		std Y+1,r24
+ 1229 0750 01F0      		std Y+2,r25
+ 1230 0752 8985      		std Y+3,r26
+ 1231 0754 9A85      		std Y+4,r27
+ 1233 0758 BC85      	.LM61:
+ 1234 075a 8130      		ldi r24,lo8(2)
+ 1235 075c 9105      		ldi r25,hi8(2)
+ 1236 075e A105      		ldi r26,hlo8(2)
+ 1237 0760 B105      		ldi r27,hhi8(2)
+ 1238 0762 01F4      		std Y+5,r24
+ 1239               		std Y+6,r25
+ 1240 0764 1E86      		std Y+7,r26
+ 1241 0766 1D86      		std Y+8,r27
+ 1242 0768 00C0      		rjmp .L35
+ 1243               	.L37:
+ 131:test1.c       **** #include "tinythreads.h"
+ 1244               	LFBB5
+ 1245               	.LM62:
+ 1246 076a 8985      		ldd r24,Y+9
+ 1247 076c 9A85      		ldd r25,Y+10
+ 1248 076e AB85      		ldd r26,Y+11
+ 1249 0770 BC85      		ldd r27,Y+12
+ 1250 0772 8230      		ldd r18,Y+5
+ 1251 0774 9105      		ldd r19,Y+6
+ 1252 0776 A105      		ldd r20,Y+7
+ 1253 0778 B105      		ldd r21,Y+8
+ 1254 077a 01F4      		movw r22,r24
+ 1255 077c 81E0      		movw r24,r26
+ 1256 077e 90E0      		call __divmodsi4
+ 1257 0780 9E87      		movw r26,r24
+ 1258 0782 8D87      		movw r24,r22
+ 1259 0784 00C0      		sbiw r24,0
+ 1260               		cpc r26,__zero_reg__
+ 132:test1.c       **** #include "tinythreads.h"
+ 133:test1.c       **** #include <avr/io.h>
+ 134:test1.c       **** #include <math.h>
+ 1261               	eg__
+ 1262               		brne .L36
+ 1263 0786 6985      		std Y+14,__zero_reg__
+ 1264 0788 7A85      		std Y+13,__zero_reg__
+ 1265 078a 8B85      		rjmp .L33
+ 1266 078c 9C85      	.L36:
+ 1268 0792 DC01      	.LM63:
+ 1269 0794 CB01      		ldd r24,Y+5
+ 1270 0796 BC01      		ldd r25,Y+6
+ 1271 0798 CD01      		ldd r26,Y+7
+ 1272 079a 0E94 0000 		ldd r27,Y+8
+ 1273 079e DC01      		adiw r24,1
+ 1274 07a0 CB01      		adc r26,__zero_reg__
+ 1275 07a2 20E0      		adc r27,__zero_reg__
+ 1276 07a4 30E0      		std Y+5,r24
+ 1277 07a6 40E8      		std Y+6,r25
+ 1278 07a8 5FE3      		std Y+7,r26
+ 1279 07aa BC01      		std Y+8,r27
+ 1280 07ac CD01      	.L35:
+ 1281 07ae 0E94 0000 		ldd r18,Y+5
+ 1282 07b2 DC01      		ldd r19,Y+6
+ 1283 07b4 CB01      		ldd r20,Y+7
+ 1284 07b6 BC01      		ldd r21,Y+8
+ 1285 07b8 CD01      		ldd r24,Y+1
+ 1286 07ba 0E94 0000 		ldd r25,Y+2
+ 1287 07be DC01      		ldd r26,Y+3
+ 1288 07c0 CB01      		ldd r27,Y+4
+ 1289 07c2 8983      		cp r18,r24
+ 1290 07c4 9A83      		cpc r19,r25
+ 1291 07c6 AB83      		cpc r20,r26
+ 1292 07c8 BC83      		cpc r21,r27
+ 135:test1.c       **** #include "tinythreads.h"
+ 1293               	4-.LFBB5
+ 1294               	.LM64:
+ 1295 07ca 82E0      		ldi r24,lo8(1)
+ 1296 07cc 90E0      		ldi r25,hi8(1)
+ 1297 07ce A0E0      		std Y+14,r25
+ 1298 07d0 B0E0      		std Y+13,r24
+ 1299 07d2 8D83      	.L33:
+ 1300 07d4 9E83      		ldd r24,Y+13
+ 1301 07d6 AF83      		ldd r25,Y+14
+ 1302 07d8 B887      	/* epilogue start */
+ 1304               	.LM65:
+ 136:test1.c       **** #include "tinythreads.h"
+ 137:test1.c       **** #include <avr/io.h>
+ 1305               	
+ 1306               		in __tmp_reg__,__SREG__
+ 1307 07dc 8985      		cli
+ 1308 07de 9A85      		out __SP_H__,r29
+ 1309 07e0 AB85      		out __SREG__,__tmp_reg__
+ 1310 07e2 BC85      		out __SP_L__,r28
+ 1311 07e4 2D81      		pop r28
+ 1312 07e6 3E81      		pop r29
+ 1313 07e8 4F81      		ret
+ 1319 07f6 CB01      	.Lscope5:
+ 1323 07fe 01F4      	.global	printAt
+ 1325 0802 1D86      	printAt:
+ 1327               	.LM66:
+ 1328               	.LFBB6:
+ 1329               		push r16
+ 1330 0806 8D81      		push r17
+ 1331 0808 9E81      		push r29
+ 1332 080a AF81      		push r28
+ 1333 080c B885      		in r28,__SP_L__
+ 1334 080e 0196      		in r29,__SP_H__
+ 1335 0810 A11D      		sbiw r28,8
+ 1336 0812 B11D      		in __tmp_reg__,__SREG__
+ 1337 0814 8D83      		cli
+ 1338 0816 9E83      		out __SP_H__,r29
+ 1339 0818 AF83      		out __SREG__,__tmp_reg__
+ 1340 081a B887      		out __SP_L__,r28
+ 1341               	/* prologue: function */
+ 1342 081c 2D81      	/* frame size = 8 */
+ 1343 081e 3E81      		std Y+3,r22
+ 1344 0820 4F81      		std Y+4,r23
+ 1345 0822 5885      		std Y+5,r24
+ 1346 0824 8981      		std Y+6,r25
+ 1347 0826 9A81      		std Y+8,r21
+ 1348 0828 AB81      		std Y+7,r20
+ 1350 082c 2817      	.LM67:
+ 1351 082e 3907      		ldi r24,lo8(m)
+ 1352 0830 4A07      		ldi r25,hi8(m)
+ 1353 0832 5B07      		call lock
+ 138:test1.c       **** #include "tinythreads.h"
+ 139:test1.c       **** #include <avr/io.h>
+ 1355               		sts pp,r24
+ 1357 0836 81E0      	.LM69:
+ 1358 0838 90E0      		lds r16,pp
+ 1359 083a 9E87      		lds r17,(pp)+1
+ 1360 083c 8D87      		ldd r24,Y+3
+ 1361               		ldd r25,Y+4
+ 1362 083e 8D85      		ldd r26,Y+5
+ 1363 0840 9E85      		ldd r27,Y+6
+ 1364               		ldi r18,lo8(100)
+ 140:test1.c       **** #include "tinythreads.h"
+ 141:test1.c       **** #include <avr/io.h>
+ 1365               	i8(100)
+ 1366               		ldi r20,hlo8(100)
+ 1367 0842 2E96      		ldi r21,hhi8(100)
+ 1368 0844 0FB6      		movw r22,r24
+ 1369 0846 F894      		movw r24,r26
+ 1370 0848 DEBF      		call __divmodsi4
+ 1371 084a 0FBE      		movw r26,r24
+ 1372 084c CDBF      		movw r24,r22
+ 1373 084e CF91      		ldi r18,lo8(10)
+ 1374 0850 DF91      		ldi r19,hi8(10)
+ 1375 0852 0895      		ldi r20,hlo8(10)
+ 1376               		ldi r21,hhi8(10)
+ 1377               		movw r22,r24
+ 1378               		movw r24,r26
+ 1379               		call __divmodsi4
+ 1380               		movw r26,r20
+ 1381               		movw r24,r18
+ 1382               		subi r24,lo8(-(48))
+ 1383               		movw r22,r16
+ 1384               		call writeChar
+ 1386               	.LM70:
+ 1387               		std Y+2,__zero_reg__
+ 142:test1.c       **** #include "tinythreads.h"
+ 143:test1.c       **** #include <avr/io.h>
+ 144:test1.c       **** #include <math.h>
+ 145:test1.c       **** #include <avr/interrupt.h>
+ 146:test1.c       **** 
+ 1388               	rjmp .L40
+ 1389               	.L41:
+ 1390               		ldd r24,Y+1
+ 1391 0854 0F93      		ldd r25,Y+2
+ 1392 0856 1F93      		adiw r24,1
+ 1393 0858 DF93      		std Y+2,r25
+ 1394 085a CF93      		std Y+1,r24
+ 1395 085c CDB7      	.L40:
+ 1396 085e DEB7      		ldd r24,Y+1
+ 1397 0860 2897      		ldd r25,Y+2
+ 1398 0862 0FB6      		ldi r18,hi8(1000)
+ 1399 0864 F894      		cpi r24,lo8(1000)
+ 1400 0866 DEBF      		cpc r25,r18
+ 1401 0868 0FBE      		brlt .L41
+ 1403               	.LM71:
+ 1404               		lds r24,pp
+ 1405 086c 6B83      		lds r25,(pp)+1
+ 1406 086e 7C83      		adiw r24,1
+ 1407 0870 8D83      		sts (pp)+1,r25
+ 1408 0872 9E83      		sts pp,r24
+ 1410 0876 4F83      	.LM72:
+ 147:test1.c       **** #include "tinythreads.h"
+ 148:test1.c       **** #include <avr/io.h>
+ 149:test1.c       **** #include <math.h>
+ 150:test1.c       **** #include <avr/interrupt.h>
+ 1411               	p)+1
+ 1412               		ldd r24,Y+3
+ 1413 0878 80E0      		ldd r25,Y+4
+ 1414 087a 90E0      		ldd r26,Y+5
+ 1415 087c 0E94 0000 		ldd r27,Y+6
+ 151:test1.c       **** #include "tinythreads.h"
+ 1416               	r18,lo8(10)
+ 1417               		ldi r19,hi8(10)
+ 1418 0880 8F81      		ldi r20,hlo8(10)
+ 1419 0882 9885      		ldi r21,hhi8(10)
+ 1420 0884 9093 0000 		movw r22,r24
+ 1421 0888 8093 0000 		movw r24,r26
+ 152:test1.c       **** #include "tinythreads.h"
+ 153:test1.c       **** #include <avr/io.h>
+ 154:test1.c       **** #include <math.h>
+ 1422               	__divmodsi4
+ 1423               		movw r26,r24
+ 1424 088c 0091 0000 		movw r24,r22
+ 1425 0890 1091 0000 		subi r24,lo8(-(48))
+ 1426 0894 8B81      		movw r22,r16
+ 1427 0896 9C81      		call writeChar
+ 1429 089a BE81      	.LM73:
+ 1430 089c 24E6      		ldi r24,lo8(m)
+ 1431 089e 30E0      		ldi r25,hi8(m)
+ 1432 08a0 40E0      		call unlock
+ 1433 08a2 50E0      	/* epilogue start */
+ 1435 08a6 CD01      	.LM74:
+ 1436 08a8 0E94 0000 		adiw r28,8
+ 1437 08ac DC01      		in __tmp_reg__,__SREG__
+ 1438 08ae CB01      		cli
+ 1439 08b0 2AE0      		out __SP_H__,r29
+ 1440 08b2 30E0      		out __SREG__,__tmp_reg__
+ 1441 08b4 40E0      		out __SP_L__,r28
+ 1442 08b6 50E0      		pop r28
+ 1443 08b8 BC01      		pop r29
+ 1444 08ba CD01      		pop r17
+ 1445 08bc 0E94 0000 		pop r16
+ 1446 08c0 DA01      		ret
+ 155:test1.c       **** #include "tinythreads.h"
+ 156:test1.c       **** #include <avr/io.h>
+ 157:test1.c       **** #include <math.h>
+ 1451               	mes:F(0,15)",36,0,0,computePrimes
+ 1453 08cc 1A82      	.global	computePrimes
+ 1455 08d0 00C0      	computePrimes:
+ 1457 08d2 8981      	.LM75:
+ 1458 08d4 9A81      	.LFBB7:
+ 1459 08d6 0196      		push r29
+ 1460 08d8 9A83      		push r28
+ 1461 08da 8983      		rcall .
+ 1462               		rcall .
+ 1463 08dc 8981      		rcall .
+ 1464 08de 9A81      		in r28,__SP_L__
+ 1465 08e0 23E0      		in r29,__SP_H__
+ 1466 08e2 883E      	/* prologue: function */
+ 1467 08e4 9207      	/* frame size = 6 */
+ 1468 08e6 04F0      		std Y+6,r25
+ 158:test1.c       **** #include "tinythreads.h"
+ 159:test1.c       **** #include <avr/io.h>
+ 1469               	bn	68,0,175,.LM76-.LFBB7
+ 1470               	.LM76:
+ 1471 08e8 8091 0000 		ldi r24,lo8(1)
+ 1472 08ec 9091 0000 		ldi r25,hi8(1)
+ 1473 08f0 0196      		ldi r26,hlo8(1)
+ 1474 08f2 9093 0000 		ldi r27,hhi8(1)
+ 1475 08f6 8093 0000 		std Y+1,r24
+ 160:test1.c       **** #include "tinythreads.h"
+ 161:test1.c       **** #include <avr/io.h>
+ 1476               	2,r25
+ 1477               		std Y+3,r26
+ 1478 08fa 0091 0000 		std Y+4,r27
+ 1479 08fe 1091 0000 	.L45:
+ 1481 0904 9C81      	.LM77:
+ 1482 0906 AD81      		ldd r24,Y+1
+ 1483 0908 BE81      		ldd r25,Y+2
+ 1484 090a 2AE0      		ldd r26,Y+3
+ 1485 090c 30E0      		ldd r27,Y+4
+ 1486 090e 40E0      		movw r22,r24
+ 1487 0910 50E0      		movw r24,r26
+ 1488 0912 BC01      		call is_prime
+ 1489 0914 CD01      		sbiw r24,0
+ 1490 0916 0E94 0000 		breq .L44
+ 1492 091c CB01      	.LM78:
+ 1493 091e 805D      		ldd r18,Y+5
+ 1494 0920 B801      		ldd r19,Y+6
+ 1495 0922 0E94 0000 		ldd r24,Y+1
+ 162:test1.c       **** #include "tinythreads.h"
+ 163:test1.c       **** #include <avr/io.h>
+ 164:test1.c       **** #include <math.h>
+ 1496               	6,Y+3
+ 1497               		ldd r27,Y+4
+ 1498 0926 80E0      		movw r20,r18
+ 1499 0928 90E0      		movw r22,r24
+ 1500 092a 0E94 0000 		movw r24,r26
+ 1501               		call printAt
+ 165:test1.c       **** #include "tinythreads.h"
+ 1503               	.LM79:
+ 1504 092e 2896      		ldd r24,Y+1
+ 1505 0930 0FB6      		ldd r25,Y+2
+ 1506 0932 F894      		ldd r26,Y+3
+ 1507 0934 DEBF      		ldd r27,Y+4
+ 1508 0936 0FBE      		adiw r24,1
+ 1509 0938 CDBF      		adc r26,__zero_reg__
+ 1510 093a CF91      		adc r27,__zero_reg__
+ 1511 093c DF91      		std Y+1,r24
+ 1512 093e 1F91      		std Y+2,r25
+ 1513 0940 0F91      		std Y+3,r26
+ 1514 0942 0895      		std Y+4,r27
+ 1515               		rjmp .L45
+ 1520               	.Lscope7:
+ 1522               	.global	primes
+ 1524               	primes:
+ 166:test1.c       **** #include "tinythreads.h"
+ 167:test1.c       **** #include <avr/io.h>
+ 168:test1.c       **** #include <math.h>
+ 169:test1.c       **** #include <avr/interrupt.h>
+ 170:test1.c       **** 
+ 171:test1.c       **** #define blink_off LCDDR8=0x00
+ 1525               	.LFBB8
+ 1526               	.LM80:
+ 1527               	.LFBB8:
+ 1528 0944 DF93      		push r29
+ 1529 0946 CF93      		push r28
+ 1530 0948 00D0      		rcall .
+ 1531 094a 00D0      		rcall .
+ 1532 094c 00D0      		in r28,__SP_L__
+ 1533 094e CDB7      		in r29,__SP_H__
+ 1534 0950 DEB7      	/* prologue: function */
+ 1535               	/* frame size = 4 */
+ 1537 0952 9E83      	.LM81:
+ 1538 0954 8D83      		ldi r24,lo8(1)
+ 172:test1.c       **** #include "tinythreads.h"
+ 173:test1.c       **** #include <avr/io.h>
+ 174:test1.c       **** #include <math.h>
+ 175:test1.c       **** #include <avr/interrupt.h>
+ 1539               	)
+ 1540               		ldi r26,hlo8(1)
+ 1541 0956 81E0      		ldi r27,hhi8(1)
+ 1542 0958 90E0      		std Y+1,r24
+ 1543 095a A0E0      		std Y+2,r25
+ 1544 095c B0E0      		std Y+3,r26
+ 1545 095e 8983      		std Y+4,r27
+ 1546 0960 9A83      		rjmp .L48
+ 1547 0962 AB83      	.L49:
+ 1549               	.LM82:
+ 176:test1.c       **** #include "tinythreads.h"
+ 177:test1.c       **** #include <avr/io.h>
+ 1550               	1
+ 1551               		ldd r25,Y+2
+ 1552 0966 8981      		ldd r26,Y+3
+ 1553 0968 9A81      		ldd r27,Y+4
+ 1554 096a AB81      		adiw r24,1
+ 1555 096c BC81      		adc r26,__zero_reg__
+ 1556 096e BC01      		adc r27,__zero_reg__
+ 1557 0970 CD01      		std Y+1,r24
+ 1558 0972 0E94 0000 		std Y+2,r25
+ 1559 0976 0097      		std Y+3,r26
+ 1560 0978 01F0      		std Y+4,r27
+ 178:test1.c       **** #include "tinythreads.h"
+ 179:test1.c       **** #include <avr/io.h>
+ 1561               	r24,Y+1
+ 1562               		ldd r25,Y+2
+ 1563 097a 2D81      		ldd r26,Y+3
+ 1564 097c 3E81      		ldd r27,Y+4
+ 1565 097e 8981      		movw r22,r24
+ 1566 0980 9A81      		movw r24,r26
+ 1567 0982 AB81      		call is_prime
+ 1568 0984 BC81      		sbiw r24,0
+ 1569 0986 A901      		breq .L49
+ 1571 098a CD01      	.LM83:
+ 1572 098c 0E94 0000 		ldd r24,Y+1
+ 1573               		ldd r25,Y+2
+ 1574               		ldd r26,Y+3
+ 1575               		ldd r27,Y+4
+ 1576 0990 8981      		movw r22,r24
+ 1577 0992 9A81      		movw r24,r26
+ 1578 0994 AB81      		call writeLong
+ 1580 0998 0196      	.LM84:
+ 1581 099a A11D      		ldd r24,Y+1
+ 1582 099c B11D      		ldd r25,Y+2
+ 1583 099e 8983      		ldd r26,Y+3
+ 1584 09a0 9A83      		ldd r27,Y+4
+ 1585 09a2 AB83      		adiw r24,1
+ 1586 09a4 BC83      		adc r26,__zero_reg__
+ 1587 09a6 00C0      		adc r27,__zero_reg__
+ 1588               		std Y+1,r24
+ 1589               		std Y+2,r25
+ 1590               		std Y+3,r26
+ 1591               		std Y+4,r27
+ 1592               		rjmp .L48
+ 180:test1.c       **** #include "tinythreads.h"
+ 181:test1.c       **** #include <avr/io.h>
+ 182:test1.c       **** #include <math.h>
+ 183:test1.c       **** #include <avr/interrupt.h>
+ 184:test1.c       **** 
+ 185:test1.c       **** #define blink_off LCDDR8=0x00
+ 186:test1.c       **** #define blink_on  LCDDR8=0x01
+ 187:test1.c       **** 
+ 188:test1.c       **** #define beep_on PORTB |=1<<5
+ 189:test1.c       **** #define beep_off PORTB &=(~(1<<5))
+ 190:test1.c       **** 
+ 191:test1.c       **** //ex4
+ 192:test1.c       **** int pp;
+ 1597               		adc r27,__zero_reg__
+ 1598               		std Y+1,r24
+ 1599               		std Y+2,r25
+ 1600 09a8 DF93      		std Y+3,r26
+ 1601 09aa CF93      		std Y+4,r27
+ 1602 09ac 00D0      		rjmp .L48
+ 1607               	.Lscope8:
+ 193:test1.c       **** #include "tinythreads.h"
+ 1608               	zero_reg__
+ 1609               		std Y+1,r24
+ 1610 09b4 81E0      		std Y+2,r25
+ 1611 09b6 90E0      		std Y+3,r26
+ 1612 09b8 A0E0      		std Y+4,r27
+ 1613 09ba B0E0      		rjmp .L48
+ 1618 09c4 00C0      	.Lscope8:
+ 194:test1.c       **** #include "tinythreads.h"
+ 195:test1.c       **** #include <avr/io.h>
+ 196:test1.c       **** #include <math.h>
+ 1620               	std Y+3,r26
+ 1621               		std Y+4,r27
+ 1622 09c6 8981      		rjmp .L48
+ 1627 09d0 A11D      	.Lscope8:
+ 1629 09d4 8983      	.global	blink
+ 1631 09d8 AB83      	blink:
+ 1633               	.LM85:
+ 1634 09dc 8981      	.LFBB9:
+ 1635 09de 9A81      		push r29
+ 1636 09e0 AB81      		push r28
+ 1637 09e2 BC81      		in r28,__SP_L__
+ 1638 09e4 BC01      		in r29,__SP_H__
+ 1639 09e6 CD01      	/* prologue: function */
+ 1640 09e8 0E94 0000 	/* frame size = 0 */
+ 1642 09ee 01F0      	.LM86:
+ 197:test1.c       **** #include "tinythreads.h"
+ 1643               	
+ 1645 09f0 8981      	.LM85:
+ 1646 09f2 9A81      	.LFBB9:
+ 1647 09f4 AB81      		push r29
+ 1648 09f6 BC81      		push r28
+ 1649 09f8 BC01      		in r28,__SP_L__
+ 1650 09fa CD01      		in r29,__SP_H__
+ 1651 09fc 0E94 0000 	/* prologue: function */
+ 198:test1.c       **** #include "tinythreads.h"
+ 1652               	5)",36,0,0,blink
+ 1653               	.global	blink
+ 1655 0a02 9A81      	blink:
+ 1657 0a06 BC81      	.LM85:
+ 1658 0a08 0196      	.LFBB9:
+ 1659 0a0a A11D      		push r29
+ 1660 0a0c B11D      		push r28
+ 1661 0a0e 8983      		in r28,__SP_L__
+ 1662 0a10 9A83      		in r29,__SP_H__
+ 1663 0a12 AB83      	/* prologue: function */
+ 1664 0a14 BC83      	/* frame size = 0 */
+ 1666               	.LM86:
+ 1667               		ldi r30,lo8(129)
+ 1668               		ldi r31,hi8(129)
+ 1669               		ldi r24,lo8(4)
+ 1670               		st Z,r24
+ 1671               	.L53:
+ 1673               	.LM87:
+ 1674               		ldi r30,lo8(132)
+ 199:test1.c       **** #include "tinythreads.h"
+ 200:test1.c       **** #include <avr/io.h>
+ 201:test1.c       **** #include <math.h>
+ 202:test1.c       **** #include <avr/interrupt.h>
+ 203:test1.c       **** 
+ 204:test1.c       **** #define blink_off LCDDR8=0x00
+ 1675               	me size = 0 */
+ 1677               	.LM86:
+ 1678 0a18 DF93      		ldi r30,lo8(129)
+ 1679 0a1a CF93      		ldi r31,hi8(129)
+ 1680 0a1c CDB7      		ldi r24,lo8(4)
+ 1681 0a1e DEB7      		st Z,r24
+ 1682               	.L53:
+ 205:test1.c       **** #include "tinythreads.h"
+ 1684               	rologue: function */
+ 1685               	/* frame size = 0 */
+ 1687 0a22 F0E0      	.LM86:
+ 1688 0a24 84E0      		ldi r30,lo8(129)
+ 1689 0a26 8083      		ldi r31,hi8(129)
+ 1690               		ldi r24,lo8(4)
+ 206:test1.c       **** #include "tinythreads.h"
+ 207:test1.c       **** #include <avr/io.h>
+ 208:test1.c       **** #include <math.h>
+ 1691               	
+ 1692               		push r28
+ 1693 0a28 E4E8      		in r28,__SP_L__
+ 1694 0a2a F0E0      		in r29,__SP_H__
+ 1695 0a2c 8081      	/* prologue: function */
+ 1696 0a2e 9181      	/* frame size = 0 */
+ 1698 0a32 8930      	.LM86:
+ 1699 0a34 9207      		ldi r30,lo8(129)
+ 1700 0a36 00F0      		ldi r31,hi8(129)
+ 209:test1.c       **** #include "tinythreads.h"
+ 1701               	.LFBB9:
+ 1702               		push r29
+ 1703 0a38 E4EF      		push r28
+ 1704 0a3a F0E0      		in r28,__SP_L__
+ 1705 0a3c 1082      		in r29,__SP_H__
+ 1706               	/* prologue: function */
+ 210:test1.c       **** #include "tinythreads.h"
+ 211:test1.c       **** #include <avr/io.h>
+ 1707               	5)",36,0,0,blink
+ 1708               	.global	blink
+ 1710 0a40 F0E0      	blink:
+ 1712 0a44 9181      	.LM85:
+ 1713 0a46 2AE7      	.LFBB9:
+ 1714 0a48 8231      		push r29
+ 1715 0a4a 9207      		push r28
+ 1716 0a4c 00F0      		in r28,__SP_L__
+ 212:test1.c       **** #include "tinythreads.h"
+ 1717               	scope8-.LFBB8
+ 1718               	.Lscope8:
+ 1720 0a50 F0E0      	.global	blink
+ 1722 0a54 8083      	blink:
+ 213:test1.c       **** #include "tinythreads.h"
+ 1723               	s, .-primes
+ 1727 0a5a 1182      	.Lscope8:
+ 1729 0a5e 00C0      	.global	blink
+ 1731               	blink:
+ 1733               	.LM85:
+ 1734               	.LFBB9:
+ 1735               		push r29
+ 214:test1.c       **** #include "tinythreads.h"
+ 215:test1.c       **** #include <avr/io.h>
+ 216:test1.c       **** #include <math.h>
+ 217:test1.c       **** #include <avr/interrupt.h>
+ 218:test1.c       **** 
+ 219:test1.c       **** #define blink_off LCDDR8=0x00
+ 220:test1.c       **** #define blink_on  LCDDR8=0x01
+ 221:test1.c       **** 
+ 222:test1.c       **** #define beep_on PORTB |=1<<5
+ 223:test1.c       **** #define beep_off PORTB &=(~(1<<5))
+ 224:test1.c       **** 
+ 1736               	BB8-.LFBB8
+ 1738               	.Lscope8:
+ 1740 0a62 CF93      	.global	blink
+ 1742 0a66 DEB7      	blink:
+ 1744               	.LM85:
+ 225:test1.c       **** #include "tinythreads.h"
+ 1745               	
+ 1748 0a6a B0E0      	.Lscope8:
+ 1750 0a6e F0E0      	.global	blink
+ 1752 0a72 8068      	blink:
+ 226:test1.c       **** #include "tinythreads.h"
+ 1754               	28,0,0,1
+ 1757 0a78 F0E0      	.Lscope8:
+ 227:test1.c       **** #include "tinythreads.h"
+ 1759               	std Y+3,r26
+ 1760               		std Y+4,r27
+ 1761 0a7c E9EF      		rjmp .L48
+ 228:test1.c       **** #include "tinythreads.h"
+ 229:test1.c       **** #include <avr/io.h>
+ 230:test1.c       **** #include <math.h>
+ 231:test1.c       **** #include <avr/interrupt.h>
+ 1766               		adc r27,__zero_reg__
+ 1767               		std Y+1,r24
+ 1768 0a84 E3E2      		std Y+2,r25
+ 1769 0a86 F0E0      		std Y+3,r26
+ 1770 0a88 8081      		std Y+4,r27
+ 1771 0a8a 8823      		rjmp .L48
+ 232:test1.c       **** #include "tinythreads.h"
+ 1773               	.LM84:
+ 1774               		ldd r24,Y+1
+ 1775 0a8e EFEE      		ldd r25,Y+2
+ 1776 0a90 F0E0      		ldd r26,Y+3
+ 1777 0a92 81E0      		ldd r27,Y+4
+ 1778 0a94 8083      		adiw r24,1
+ 233:test1.c       **** #include "tinythreads.h"
+ 1779               	LFBB8
+ 1780               	.LM83:
+ 1781 0a96 E9EF      		ldd r24,Y+1
+ 1782 0a98 F0E0      		ldd r25,Y+2
+ 1783 0a9a 1082      		ldd r26,Y+3
+ 1784               		ldd r27,Y+4
+ 234:test1.c       **** #include "tinythreads.h"
+ 1785               	+4,r27
+ 1786               	.L48:
+ 1787 0a9c E3E2      		ldd r24,Y+1
+ 1788 0a9e F0E0      		ldd r25,Y+2
+ 1789 0aa0 8081      		ldd r26,Y+3
+ 1790 0aa2 8823      		ldd r27,Y+4
+ 1791 0aa4 04F4      		movw r22,r24
+ 235:test1.c       **** #include "tinythreads.h"
+ 1792               	dd r24,Y+1
+ 1793               		ldd r25,Y+2
+ 1794 0aa6 EFEE      		ldd r26,Y+3
+ 1795 0aa8 F0E0      		ldd r27,Y+4
+ 1796 0aaa 1082      		adiw r24,1
+ 236:test1.c       **** #include "tinythreads.h"
+ 1797               	r26,__zero_reg__
+ 1798               		adc r27,__zero_reg__
+ 1799 0aac E9EF      		std Y+1,r24
+ 1800 0aae F0E0      		std Y+2,r25
+ 1801 0ab0 81E0      		std Y+3,r26
+ 1802 0ab2 8083      		std Y+4,r27
+ 1803 0ab4 00C0      	.L48:
+ 1804               		ldd r24,Y+1
+ 1805               		ldd r25,Y+2
+ 1806               		ldd r26,Y+3
+ 1807               		ldd r27,Y+4
+ 1808               		movw r22,r24
+ 1809               		movw r24,r26
+ 237:test1.c       **** #include "tinythreads.h"
+ 238:test1.c       **** #include <avr/io.h>
+ 239:test1.c       **** #include <math.h>
+ 240:test1.c       **** #include <avr/interrupt.h>
+ 241:test1.c       **** 
+ 242:test1.c       **** #define blink_off LCDDR8=0x00
+ 243:test1.c       **** #define blink_on  LCDDR8=0x01
+ 244:test1.c       **** 
+ 245:test1.c       **** #define beep_on PORTB |=1<<5
+ 246:test1.c       **** #define beep_off PORTB &=(~(1<<5))
+ 247:test1.c       **** 
+ 1810               	 r25,Y+2
+ 1811               		ldd r26,Y+3
+ 1812               		ldd r27,Y+4
+ 1813 0ab6 DF93      		adiw r24,1
+ 1814 0ab8 CF93      		adc r26,__zero_reg__
+ 1815 0aba CDB7      		adc r27,__zero_reg__
+ 1816 0abc DEB7      		std Y+1,r24
+ 1817               		std Y+2,r25
+ 1818               		std Y+3,r26
+ 248:test1.c       **** #include "tinythreads.h"
+ 249:test1.c       **** #include <avr/io.h>
+ 250:test1.c       **** #include <math.h>
+ 1819               	r27
+ 1820               	.L48:
+ 1821 0abe E1E6      		ldd r24,Y+1
+ 1822 0ac0 F0E0      		ldd r25,Y+2
+ 1823 0ac2 80E8      		ldd r26,Y+3
+ 1824 0ac4 8083      		ldd r27,Y+4
+ 251:test1.c       **** #include "tinythreads.h"
+ 1825               	LFBB8
+ 1826               	.LM82:
+ 1827 0ac6 E1E6      		ldd r24,Y+1
+ 1828 0ac8 F0E0      		ldd r25,Y+2
+ 1829 0aca 1082      		ldd r26,Y+3
+ 252:test1.c       **** #include "tinythreads.h"
+ 253:test1.c       **** #include <avr/io.h>
+ 254:test1.c       **** #include <math.h>
+ 255:test1.c       **** #include <avr/interrupt.h>
+ 256:test1.c       **** 
+ 257:test1.c       **** #define blink_off LCDDR8=0x00
+ 258:test1.c       **** #define blink_on  LCDDR8=0x01
+ 259:test1.c       **** 
+ 260:test1.c       **** #define beep_on PORTB |=1<<5
+ 261:test1.c       **** #define beep_off PORTB &=(~(1<<5))
+ 1830               	r27,Y+4
+ 1831               		adiw r24,1
+ 1832 0acc 80E0      		adc r26,__zero_reg__
+ 1833 0ace 90E0      		adc r27,__zero_reg__
+ 1834 0ad0 60E0      		std Y+1,r24
+ 1835 0ad2 70E0      		std Y+2,r25
+ 1836 0ad4 0E94 0000 		std Y+3,r26
+ 262:test1.c       **** #include "tinythreads.h"
+ 1837               	4,r27
+ 1838               	.L48:
+ 1839 0ad8 80E0      		ldd r24,Y+1
+ 1840 0ada 90E0      		ldd r25,Y+2
+ 1841 0adc 60E0      		ldd r26,Y+3
+ 1842 0ade 70E0      		ldd r27,Y+4
+ 1843 0ae0 0E94 0000 		movw r22,r24
+ 263:test1.c       **** #include "tinythreads.h"
+ 1844               	dd r24,Y+1
+ 1845               		ldd r25,Y+2
+ 1846 0ae4 0E94 0000 		ldd r26,Y+3
+ 1847               		ldd r27,Y+4
+ 1848               		adiw r24,1
+ 1849               		adc r26,__zero_reg__
+ 1850               		adc r27,__zero_reg__
+ 1851 0ae8 80E0      		std Y+1,r24
+ 1852 0aea 90E0      		std Y+2,r25
+ 1853               		std Y+3,r26
+ 1854               		std Y+4,r27
+ 1855               	.L48:
+ 264:test1.c       **** #include "tinythreads.h"
+ 265:test1.c       **** #include <avr/io.h>
+ 1856               	
+ 1857               		ldd r25,Y+2
+ 1858 0aec CF91      		ldd r26,Y+3
+ 1859 0aee DF91      		ldd r27,Y+4
+ 1860 0af0 0895      		movw r22,r24
+ 1861               		movw r24,r26
+ 1862               		call is_prime
+ 1863               		sbiw r24,0
+ 1864               		breq .L49
+ 1866               	.LM83:
+ 1867               		ldd r24,Y+1
+ 1868               		ldd r25,Y+2
+DEFINED SYMBOLS
+                            *ABS*:00000000 test1.c
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccfbHztG.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccfbHztG.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccfbHztG.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccfbHztG.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccfbHztG.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccfbHztG.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccfbHztG.s:78     .data:00000000 seg
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccfbHztG.s:94     .bss:00000000 m
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccfbHztG.s:100    .text:00000000 delay
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccfbHztG.s:145    .text:0000002c delay_long
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccfbHztG.s:211    .text:0000006c writeChar
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccfbHztG.s:977    .text:000005d2 writeLong
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccfbHztG.s:1200   .text:00000726 is_prime
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccfbHztG.s:1387   .text:00000854 printAt
+                            *COM*:00000002 pp
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccfbHztG.s:1524   .text:00000944 computePrimes
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccfbHztG.s:1596   .text:000009a8 primes
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccfbHztG.s:1674   .text:00000a18 blink
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccfbHztG.s:1735   .text:00000a60 button
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccfbHztG.s:1809   .text:00000ab6 main
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
+__divmodsi4
+__floatsisf
+sqrt
+__addsf3
+__fixsfsi
+lock
+unlock
+spawn

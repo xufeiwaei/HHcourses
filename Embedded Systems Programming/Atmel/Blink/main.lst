@@ -1,0 +1,83 @@
+   1               		.file	"main.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  11               		.text
+  12               	.Ltext0:
+  85               	.global	main
+  87               	main:
+   1:main.c        **** #include "TinyTimber.h"
+   2:main.c        **** #include "lcd.h"
+   3:main.c        **** #include "blinker.h"
+   4:main.c        **** 
+   5:main.c        **** LCD lcd = initLCD();
+   6:main.c        **** Blinker blinker = initBlinker(&lcd,1000,3);
+   7:main.c        **** 
+   8:main.c        **** int main()
+   9:main.c        **** {
+  89               	.LM1:
+  90               		ldi r24,lo8(-73)
+  91               		sts 229,r24
+  92               		ldi r24,lo8(16)
+  10:main.c        **** 	CONFLCD;
+  93               	24,lo8(-73)
+  94               		sts 229,r24
+  95 0000 87EB      		ldi r24,lo8(16)
+  96 0002 8093 E500 		sts 230,r24
+  97 0006 80E1      		ldi r24,lo8(15)
+  98 0008 8093 E600 		sts 231,r24
+  99 000c 8FE0      		ldi r24,lo8(-128)
+ 100 000e 8093 E700 		sts 228,r24
+ 102 0014 8093 E400 	.LM2:
+  11:main.c        **** 	return TINYTIMBER(&blinker,startblink,0);
+ 103               	
+ 105 0018 40E0      	.LM2:
+ 106 001a 50E0      		ldi r20,lo8(0)
+ 107 001c 60E0      		ldi r21,hi8(0)
+ 108 001e 70E0      		ldi r22,lo8(gs(startblink))
+ 109 0020 80E0      		ldi r23,hi8(gs(startblink))
+ 110 0022 90E0      		ldi r24,lo8(blinker)
+ 111 0024 0E94 0000 		ldi r25,hi8(blinker)
+ 112               		call tinytimber
+  12:main.c        **** }...
+ 113               	8(blinker)
+ 114               		call tinytimber
+ 115 0028 0895      	/* epilogue start */
+ 117               	.LM3:
+ 118               		ret
+ 120               	.Lscope1:
+ 121               	.global	lcd
+ 122               	.global	lcd
+ 123               		.section .bss
+ 126               	lcd:
+ 127               		.skip 4,0
+ 128               	.global	blinker
+ 129               		.data
+ 132 0004 0000      	blinker:
+ 133 0006 E803      		.word	0
+ 134 0008 0300      		.word	0
+ 135               		.word	lcd
+ 136               		.word	1000
+ 137               		.word	3
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccbimhuz.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccbimhuz.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccbimhuz.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccbimhuz.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccbimhuz.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccbimhuz.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccbimhuz.s:87     .text:00000000 main
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccbimhuz.s:129    .data:00000000 blinker
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccbimhuz.s:123    .bss:00000000 lcd
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
+startblink
+tinytimber

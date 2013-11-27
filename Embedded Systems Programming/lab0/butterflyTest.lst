@@ -1,0 +1,83 @@
+   1               		.file	"butterflyTest.c"
+   2               		.arch atmega169
+   3               	__SREG__ = 0x3f
+   4               	__SP_H__ = 0x3e
+   5               	__SP_L__ = 0x3d
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  11               		.text
+  12               	.Ltext0:
+  68               	.global	main
+  70               	main:
+   1:butterflyTest.c **** #include<avr/io.h>
+   2:butterflyTest.c **** int main() {
+  72               	.LM0:
+  73               	/* prologue: frame size=0 */
+  74               	/* prologue end (size=0) */
+   3:butterflyTest.c ****   LCDCRA  = 0x80;
+  76               	.LM1:
+  77 0000 80E8      		ldi r24,lo8(-128)
+  78 0002 8093 E400 		sts 228,r24
+   4:butterflyTest.c ****   LCDCRB  = 0xb7;
+  80               	.LM2:
+  81 0006 87EB      		ldi r24,lo8(-73)
+  82 0008 8093 E500 		sts 229,r24
+   5:butterflyTest.c ****   
+   6:butterflyTest.c ****   LCDDR0  = 0x11;
+  84               	.LM3:
+  85 000c 21E1      		ldi r18,lo8(17)
+  86 000e 2093 EC00 		sts 236,r18
+   7:butterflyTest.c ****   LCDDR5  = 0x88;
+  88               	.LM4:
+  89 0012 98E8      		ldi r25,lo8(-120)
+  90 0014 9093 F100 		sts 241,r25
+   8:butterflyTest.c ****   LCDDR15 = 0x33;
+  92               	.LM5:
+  93 0018 83E3      		ldi r24,lo8(51)
+  94 001a 8093 FB00 		sts 251,r24
+   9:butterflyTest.c **** 
+  10:butterflyTest.c **** 
+  11:butterflyTest.c ****   LCDDR1  = 0x11;
+  96               	.LM6:
+  97 001e 2093 ED00 		sts 237,r18
+  12:butterflyTest.c ****   LCDDR6  = 0x88;
+  99               	.LM7:
+ 100 0022 9093 F200 		sts 242,r25
+  13:butterflyTest.c ****   LCDDR16 = 0x33;
+ 102               	.LM8:
+ 103 0026 8093 FC00 		sts 252,r24
+  14:butterflyTest.c **** 
+  15:butterflyTest.c ****   LCDDR2  = 0x11;
+ 105               	.LM9:
+ 106 002a 2093 EE00 		sts 238,r18
+  16:butterflyTest.c ****   LCDDR7  = 0x88;
+ 108               	.LM10:
+ 109 002e 9093 F300 		sts 243,r25
+  17:butterflyTest.c ****   LCDDR17 = 0x33;
+ 111               	.LM11:
+ 112 0032 8093 FD00 		sts 253,r24
+  18:butterflyTest.c **** }
+ 114               	.LM12:
+ 115 0036 80E0      		ldi r24,lo8(0)
+ 116 0038 90E0      		ldi r25,hi8(0)
+ 117               	/* epilogue: frame size=0 */
+ 118 003a 0895      		ret
+ 119               	/* epilogue end (size=1) */
+ 120               	/* function main size 30 (29) */
+ 122               	.Lscope0:
+ 124               	.Letext0:
+ 125               	/* File "butterflyTest.c": code   30 = 0x001e (  29), prologues   0, epilogues   1 */
+DEFINED SYMBOLS
+                            *ABS*:00000000 butterflyTest.c
+/var/folders/3d/yk797r0s1r73bp9yglz7mn3c0000gn/T//ccwkNhXJ.s:3      *ABS*:0000003f __SREG__
+/var/folders/3d/yk797r0s1r73bp9yglz7mn3c0000gn/T//ccwkNhXJ.s:4      *ABS*:0000003e __SP_H__
+/var/folders/3d/yk797r0s1r73bp9yglz7mn3c0000gn/T//ccwkNhXJ.s:5      *ABS*:0000003d __SP_L__
+/var/folders/3d/yk797r0s1r73bp9yglz7mn3c0000gn/T//ccwkNhXJ.s:6      *ABS*:00000000 __tmp_reg__
+/var/folders/3d/yk797r0s1r73bp9yglz7mn3c0000gn/T//ccwkNhXJ.s:7      *ABS*:00000001 __zero_reg__
+/var/folders/3d/yk797r0s1r73bp9yglz7mn3c0000gn/T//ccwkNhXJ.s:70     .text:00000000 main
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss

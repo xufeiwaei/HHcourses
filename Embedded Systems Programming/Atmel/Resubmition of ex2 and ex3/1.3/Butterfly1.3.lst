@@ -1,0 +1,189 @@
+   1               		.file	"Butterfly1.3.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  11               		.text
+  12               	.Ltext0:
+  71               	.global	lcd_int
+  73               	lcd_int:
+   1:H:\Lab1\1.3\Butterfly1.3.c **** #include <avr/io.h>
+   2:H:\Lab1\1.3\Butterfly1.3.c **** 
+   3:H:\Lab1\1.3\Butterfly1.3.c **** void lcd_int(void)
+   4:H:\Lab1\1.3\Butterfly1.3.c **** {
+  74               	e size = 0 */
+  76               	.LM1:
+  77               		ldi r24,lo8(-128)
+  78               		sts 228,r24
+   5:H:\Lab1\1.3\Butterfly1.3.c **** 	LCDCRA  = 0x80;
+  80               	lcd_int:
+  82 0002 8093 E400 	.LM0:
+   6:H:\Lab1\1.3\Butterfly1.3.c **** 	LCDCRB  = 0xb7;
+  83               	tended:(0,11),16,8;;",128,0,0,0
+  87               	.global	lcd_int
+   7:H:\Lab1\1.3\Butterfly1.3.c **** }
+  88               	0,0,0
+  93               	.global	lcd_int
+  95               	lcd_int:
+   8:H:\Lab1\1.3\Butterfly1.3.c **** 
+   9:H:\Lab1\1.3\Butterfly1.3.c **** 
+  10:H:\Lab1\1.3\Butterfly1.3.c **** void disp_on(void)
+  11:H:\Lab1\1.3\Butterfly1.3.c **** {
+  97               	,8,8;extended:(0,11),16,8;;",128,0,0,0
+ 101               	.global	lcd_int
+  12:H:\Lab1\1.3\Butterfly1.3.c **** 	
+  13:H:\Lab1\1.3\Butterfly1.3.c **** 
+  14:H:\Lab1\1.3\Butterfly1.3.c **** 	LCDDR3=0x01;
+ 102               	0,0,0
+  15:H:\Lab1\1.3\Butterfly1.3.c **** 	LCDDR13=0x00;
+ 106               	/winavr-20080610/lib/gcc/../../avr/include/avr/fuse.h",130,0,0,0
+  16:H:\Lab1\1.3\Butterfly1.3.c **** }
+ 110               	/winavr-20080610/lib/gcc/../../avr/include/avr/fuse.h",130,0,0,0
+ 115               	.global	lcd_int
+ 117               	lcd_int:
+  17:H:\Lab1\1.3\Butterfly1.3.c **** 
+  18:H:\Lab1\1.3\Butterfly1.3.c **** void disp_off(void)
+  19:H:\Lab1\1.3\Butterfly1.3.c **** {
+ 119               	,8,8;extended:(0,11),16,8;;",128,0,0,0
+ 123               	.global	lcd_int
+  20:H:\Lab1\1.3\Butterfly1.3.c **** 	
+  21:H:\Lab1\1.3\Butterfly1.3.c **** 	LCDDR3=0x00;
+ 124               	0,0,0
+  22:H:\Lab1\1.3\Butterfly1.3.c **** 	LCDDR13=0x01;
+ 127               	2,0,0,0
+  23:H:\Lab1\1.3\Butterfly1.3.c **** 	
+  24:H:\Lab1\1.3\Butterfly1.3.c **** }
+ 132               	/winavr-20080610/lib/gcc/../../avr/include/avr/fuse.h",130,0,0,0
+ 137               	.global	lcd_int
+ 139               	lcd_int:
+  25:H:\Lab1\1.3\Butterfly1.3.c **** 
+  26:H:\Lab1\1.3\Butterfly1.3.c **** 
+  27:H:\Lab1\1.3\Butterfly1.3.c **** 
+  28:H:\Lab1\1.3\Butterfly1.3.c **** void button(void)
+  29:H:\Lab1\1.3\Butterfly1.3.c **** {
+ 141               	,8,8;extended:(0,11),16,8;;",128,0,0,0
+ 145               	.global	lcd_int
+  30:H:\Lab1\1.3\Butterfly1.3.c **** 	PORTB |=1<<7;
+ 146               	0,0,0
+ 151               	.global	lcd_int
+ 153 0028 1092 EF00 	lcd_int:
+ 155               	.LM0:
+ 156 002c 81E0      	.LFBB1:
+ 157               	/* prologue: function */
+ 158 002e 8093 F900 	/* frame size = 0 */
+ 160               	.LM1:
+ 161               		ldi r24,lo8(-128)
+  31:H:\Lab1\1.3\Butterfly1.3.c **** 	disp_off();
+  32:H:\Lab1\1.3\Butterfly1.3.c **** 	while(1)
+  33:H:\Lab1\1.3\Butterfly1.3.c **** 	{
+  34:H:\Lab1\1.3\Butterfly1.3.c **** 		while((PINB&(1<<7)));
+ 162               	obal	lcd_int
+ 164 0032 1F99      	lcd_int:
+ 166               	.LM0:
+ 167               	.LFBB1:
+ 168               	/* prologue: function */
+ 169               	/* frame size = 0 */
+ 171               	.LM1:
+ 172               		ldi r24,lo8(-128)
+ 173 003a 1092 F900 		sts 228,r24
+ 175               	.LM2:
+ 176               		ldi r24,lo8(-73)
+  35:H:\Lab1\1.3\Butterfly1.3.c **** 		disp_on();
+  36:H:\Lab1\1.3\Butterfly1.3.c **** 		while(!(PINB&(1<<7)));
+ 177               	.LFBB1
+ 178               	.LM0:
+ 179 003e 1F9B      	.LFBB1:
+ 180 0040 00C0      	/* prologue: function */
+ 181               	/* frame size = 0 */
+ 183               	.LM1:
+ 184               		ldi r24,lo8(-128)
+ 185 0042 1092 EF00 		sts 228,r24
+ 187               	.LM2:
+ 188               		ldi r24,lo8(-73)
+ 189               		sts 229,r24
+ 190               	/* epilogue start */
+ 192               	.LM3:
+ 193               		ret
+  37:H:\Lab1\1.3\Butterfly1.3.c **** 		disp_off();
+  38:H:\Lab1\1.3\Butterfly1.3.c **** 	}
+  39:H:\Lab1\1.3\Butterfly1.3.c **** }
+  40:H:\Lab1\1.3\Butterfly1.3.c **** 
+  41:H:\Lab1\1.3\Butterfly1.3.c **** 
+  42:H:\Lab1\1.3\Butterfly1.3.c **** 
+  43:H:\Lab1\1.3\Butterfly1.3.c **** int main(void)
+  44:H:\Lab1\1.3\Butterfly1.3.c **** {
+ 195               	 r24,lo8(-128)
+ 196               		sts 228,r24
+ 198               	.LM2:
+ 199               		ldi r24,lo8(-73)
+  45:H:\Lab1\1.3\Butterfly1.3.c **** 	CLKPR=0x80;
+ 200               	.LFBB1
+ 201               	.LM0:
+ 202 0048 80E8      	.LFBB1:
+ 203 004a 8093 6100 	/* prologue: function */
+  46:H:\Lab1\1.3\Butterfly1.3.c **** 	CLKPR=0x00;
+ 204               	tabn	162,0,0,0
+ 207               	.global	lcd_int
+ 209               	lcd_int:
+ 211 0052 8093 E400 	.LM0:
+ 212               	.LFBB1:
+ 213               	/* prologue: function */
+ 214 0056 87EB      	/* frame size = 0 */
+ 216               	.LM1:
+ 217               		ldi r24,lo8(-128)
+ 218               		sts 228,r24
+ 220               	.LM2:
+ 221               		ldi r24,lo8(-73)
+ 222 005c 2F9A      		sts 229,r24
+ 223               	/* epilogue start */
+ 225               	.LM3:
+ 226               		ret
+ 228               	.Lscope1:
+ 230 0062 81E0      	.global	disp_on
+ 232 0064 8093 F900 	disp_on:
+ 234               	.LM4:
+ 235               	.LFBB2:
+ 236               	/* prologue: function */
+ 237               	/* frame size = 0 */
+ 239 006a 00C0      	.LM5:
+ 240               		ldi r24,lo8(1)
+ 241               		sts 239,r24
+ 243               	.LM6:
+ 244 006c 8093 EF00 		sts 249,__zero_reg__
+ 245               	/* epilogue start */
+ 247 0070 1092 F900 	.LM7:
+ 248               		ret
+ 250               	.Lscope2:
+ 252               	.global	disp_off
+ 254 0076 00C0      	disp_off:
+ 256               	.LM8:
+ 257               	.LFBB3:
+ 258               	/* prologue: function */
+ 259 0078 1092 EF00 	/* frame size = 0 */
+ 261               	.LM9:
+ 262               		sts 239,__zero_reg__
+ 264               	.LM10:
+ 265               		ldi r24,lo8(1)
+ 266               		sts 249,r24
+ 267               	/* epilogue start */
+DEFINED SYMBOLS
+                            *ABS*:00000000 Butterfly1.3.c
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccIRurdX.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccIRurdX.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccIRurdX.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccIRurdX.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccIRurdX.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccIRurdX.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccIRurdX.s:73     .text:00000000 lcd_int
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccIRurdX.s:96     .text:0000000e disp_on
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccIRurdX.s:118    .text:0000001a disp_off
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccIRurdX.s:140    .text:00000026 button
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccIRurdX.s:194    .text:00000048 main
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss

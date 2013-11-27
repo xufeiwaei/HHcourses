@@ -1,0 +1,857 @@
+Archive member included because of file (symbol)
+
+d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3.o)
+                              primes.o (__addsf3)
+d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o)
+                              d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3.o) (__addsf3x)
+d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixsfsi.o)
+                              primes.o (__fixsfsi)
+d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixunssfsi.o)
+                              d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixsfsi.o) (__fixunssfsi)
+d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(floatsisf.o)
+                              primes.o (__floatsisf)
+d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_inf.o)
+                              d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o) (__fp_inf)
+d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_nan.o)
+                              d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o) (__fp_nan)
+d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_pscA.o)
+                              d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o) (__fp_pscA)
+d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_pscB.o)
+                              d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o) (__fp_pscB)
+d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_round.o)
+                              d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3.o) (__fp_round)
+d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_split3.o)
+                              d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o) (__fp_split3)
+d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_zero.o)
+                              d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o) (__fp_zero)
+d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(sqrt.o)
+                              primes.o (sqrt)
+d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_mpack.o)
+                              d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(sqrt.o) (__fp_mpack)
+d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_norm2.o)
+                              d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(sqrt.o) (__fp_norm2)
+d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mulsi3.o)
+                              blinker.o (__mulsi3)
+d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+                              lcd.o (__divmodhi4)
+d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodsi4.o)
+                              blinker.o (__divmodsi4)
+d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+                              d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o (exit)
+d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+                              main.o (__do_copy_data)
+d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+                              main.o (__do_clear_bss)
+d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
+                              d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o) (__udivmodhi4)
+d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodsi4.o)
+                              d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodsi4.o) (__udivmodsi4)
+d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(setjmp.o)
+                              TinyTimber.o (setjmp)
+
+Allocating common symbols
+Common symbol       size              file
+
+otable              0x24              TinyTimber.o
+threads             0x74              TinyTimber.o
+mtable              0x24              TinyTimber.o
+flag_blinking       0x1               blinker.o
+flag_play           0x1               tone.o
+thread0             0x1d              TinyTimber.o
+messages            0xf0              TinyTimber.o
+stacks              0x180             TinyTimber.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+text             0x00000000         0x00020000         xr
+data             0x00800060         0x0000ffa0         rw !x
+eeprom           0x00810000         0x00010000         rw !x
+fuse             0x00820000         0x00000400         rw !x
+lock             0x00830000         0x00000400         rw !x
+signature        0x00840000         0x00000400         rw !x
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+Address of section .data set to 0x800100
+LOAD d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+LOAD main.o
+LOAD TinyTimber.o
+LOAD lcd.o
+LOAD primes.o
+LOAD blinker.o
+LOAD piezo.o
+LOAD joystick.o
+LOAD tone.o
+LOAD melody.o
+LOAD d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a
+LOAD d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
+LOAD d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a
+LOAD d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
+
+.hash
+ *(.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rel.init
+ *(.rel.init)
+
+.rela.init
+ *(.rela.init)
+
+.rel.text
+ *(.rel.text)
+ *(.rel.text.*)
+ *(.rel.gnu.linkonce.t*)
+
+.rela.text
+ *(.rela.text)
+ *(.rela.text.*)
+ *(.rela.gnu.linkonce.t*)
+
+.rel.fini
+ *(.rel.fini)
+
+.rela.fini
+ *(.rela.fini)
+
+.rel.rodata
+ *(.rel.rodata)
+ *(.rel.rodata.*)
+ *(.rel.gnu.linkonce.r*)
+
+.rela.rodata
+ *(.rela.rodata)
+ *(.rela.rodata.*)
+ *(.rela.gnu.linkonce.r*)
+
+.rel.data
+ *(.rel.data)
+ *(.rel.data.*)
+ *(.rel.gnu.linkonce.d*)
+
+.rela.data
+ *(.rela.data)
+ *(.rela.data.*)
+ *(.rela.gnu.linkonce.d*)
+
+.rel.ctors
+ *(.rel.ctors)
+
+.rela.ctors
+ *(.rela.ctors)
+
+.rel.dtors
+ *(.rel.dtors)
+
+.rela.dtors
+ *(.rela.dtors)
+
+.rel.got
+ *(.rel.got)
+
+.rela.got
+ *(.rela.got)
+
+.rel.bss
+ *(.rel.bss)
+
+.rela.bss
+ *(.rela.bss)
+
+.rel.plt
+ *(.rel.plt)
+
+.rela.plt
+ *(.rela.plt)
+
+.text           0x00000000     0x2d96
+ *(.vectors)
+ .vectors       0x00000000       0x5c d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+                0x00000000                __vectors
+                0x00000000                __vector_default
+ *(.vectors)
+ *(.progmem.gcc*)
+ *(.progmem*)
+                0x0000005c                . = ALIGN (0x2)
+                0x0000005c                __trampolines_start = .
+ *(.trampolines)
+ .trampolines   0x0000005c        0x0 linker stubs
+ *(.trampolines*)
+                0x0000005c                __trampolines_end = .
+ *(.jumptables)
+ *(.jumptables*)
+ *(.lowtext)
+ *(.lowtext*)
+                0x0000005c                __ctors_start = .
+ *(.ctors)
+                0x0000005c                __ctors_end = .
+                0x0000005c                __dtors_start = .
+ *(.dtors)
+                0x0000005c                __dtors_end = .
+ SORT(*)(.ctors)
+ SORT(*)(.dtors)
+ *(.init0)
+ .init0         0x0000005c        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+                0x0000005c                __init
+ *(.init0)
+ *(.init1)
+ *(.init1)
+ *(.init2)
+ .init2         0x0000005c        0xc d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+ *(.init2)
+ *(.init3)
+ *(.init3)
+ *(.init4)
+ .init4         0x00000068       0x16 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+                0x00000068                __do_copy_data
+ .init4         0x0000007e       0x10 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+                0x0000007e                __do_clear_bss
+ *(.init4)
+ *(.init5)
+ *(.init5)
+ *(.init6)
+ *(.init6)
+ *(.init7)
+ *(.init7)
+ *(.init8)
+ *(.init8)
+ *(.init9)
+ .init9         0x0000008e        0x8 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+ *(.init9)
+ *(.text)
+ .text          0x00000096        0x4 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+                0x00000096                __bad_interrupt
+                0x00000096                __vector_6
+                0x00000096                __vector_8
+ .text          0x0000009a       0xa2 main.o
+                0x000000fc                startup
+                0x000000d4                main
+                0x0000009a                transfer_duration
+ .text          0x0000013c     0x1b7a TinyTimber.o
+                0x00001a52                async
+                0x00000940                __vector_22
+                0x00000366                ABORT
+                0x000017ba                __vector_1
+                0x00000440                T_RESET
+                0x000004ca                CURRENT_OFFSET
+                0x000011c4                __vector_12
+                0x0000013c                DUMP
+                0x0000015c                DUMPC
+                0x00001606                __vector_3
+                0x000007be                tinytimber
+                0x0000129e                __vector_11
+                0x000010ea                __vector_13
+                0x00000d82                __vector_17
+                0x00000bce                __vector_19
+                0x000007f8                __vector_7
+                0x000001d2                enqueueByBaseline
+                0x00000482                T_SAMPLE
+                0x00001894                sync
+                0x00001452                __vector_5
+                0x0000029c                pop
+                0x0000015e                enqueueByDeadline
+                0x0000152c                __vector_4
+                0x0000015a                DUMP_INIT
+                0x000002b0                __vector_9
+                0x000016e0                __vector_2
+                0x00000a1a                __vector_21
+                0x00000f36                __vector_15
+                0x0000014a                DUMPH
+                0x00000246                dequeue
+                0x0000057a                install
+                0x00000274                insert
+                0x00001010                __vector_14
+                0x00001378                __vector_10
+                0x00000e5c                __vector_16
+                0x00000ca8                __vector_18
+                0x00000288                push
+                0x00000af4                __vector_20
+ .text          0x00001cb6      0x7ae lcd.o
+                0x00001cb6                writeDigit
+                0x000023c8                segmentOff
+                0x00001f82                writeInt
+                0x00002326                segmentOn
+ .text          0x00002464       0xd8 primes.o
+                0x00002464                is_prime
+                0x000024ca                primes
+ .text          0x0000253c      0x160 blinker.o
+                0x000025d0                Blinking
+                0x0000258e                startBlinking
+                0x0000253c                setPeriod
+                0x0000254e                stopBlinking
+ .text          0x0000269c        0x8 piezo.o
+                0x0000269c                PiezoOn
+                0x000026a0                PiezoOff
+ .text          0x000026a4       0x1c joystick.o
+                0x000026a4                detect
+ .text          0x000026c0      0x102 tone.o
+                0x00002710                playing
+                0x000026ce                start_playing
+                0x000026c6                setFrequency
+                0x000026c0                stop_playing
+ .text          0x000027c2      0x152 melody.o
+                0x000027c2                stop_playing_melody
+                0x000027c4                start_playing_melody
+ .text          0x00002914        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3.o)
+ .text          0x00002914        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o)
+ .text          0x00002914        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixsfsi.o)
+ .text          0x00002914        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixunssfsi.o)
+ .text          0x00002914        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(floatsisf.o)
+ .text          0x00002914        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_inf.o)
+ .text          0x00002914        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_nan.o)
+ .text          0x00002914        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_pscA.o)
+ .text          0x00002914        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_pscB.o)
+ .text          0x00002914        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_round.o)
+ .text          0x00002914        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_split3.o)
+ .text          0x00002914        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_zero.o)
+ .text          0x00002914        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(sqrt.o)
+ .text          0x00002914        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_mpack.o)
+ .text          0x00002914        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_norm2.o)
+ .text          0x00002914        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mulsi3.o)
+ .text          0x00002914        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+ .text          0x00002914        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodsi4.o)
+ .text          0x00002914        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .text          0x00002914        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .text          0x00002914        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+ .text          0x00002914        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
+ .text          0x00002914        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodsi4.o)
+ .text          0x00002914        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(setjmp.o)
+                0x00002914                . = ALIGN (0x2)
+ *(.text.*)
+ .text.avr-libc.fplib
+                0x00002914        0xa d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3.o)
+                0x00002914                __subsf3
+                0x00002916                __addsf3
+ .text.avr-libc.fplib
+                0x0000291e       0xc0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o)
+                0x00002938                __addsf3x
+ .text.avr-libc.fplib
+                0x000029de        0xa d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixsfsi.o)
+                0x000029de                __fixsfsi
+ .text.avr-libc.fplib
+                0x000029e8       0x58 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixunssfsi.o)
+                0x000029e8                __fixunssfsi
+ .text.avr-libc.fplib
+                0x00002a40       0x7a d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(floatsisf.o)
+                0x00002a44                __floatsisf
+                0x00002a40                __floatunsisf
+ .text.avr-libc.fplib
+                0x00002aba        0xc d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_inf.o)
+                0x00002aba                __fp_inf
+ .text.avr-libc.fplib
+                0x00002ac6        0x6 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_nan.o)
+                0x00002ac6                __fp_nan
+ .text.avr-libc.fplib
+                0x00002acc        0xe d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_pscA.o)
+                0x00002acc                __fp_pscA
+ .text.avr-libc.fplib
+                0x00002ada        0xe d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_pscB.o)
+                0x00002ada                __fp_pscB
+ .text.avr-libc.fplib
+                0x00002ae8       0x22 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_round.o)
+                0x00002ae8                __fp_round
+ .text.avr-libc.fplib
+                0x00002b0a       0x44 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_split3.o)
+                0x00002b0a                __fp_split3
+                0x00002b1a                __fp_splitA
+ .text.avr-libc.fplib
+                0x00002b4e        0xe d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_zero.o)
+                0x00002b4e                __fp_zero
+                0x00002b50                __fp_szero
+ .text.avr-libc.fplib
+                0x00002b5c       0x84 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(sqrt.o)
+                0x00002b64                sqrt
+ .text.avr-libc.fplib
+                0x00002be0       0x1c d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_mpack.o)
+                0x00002be4                __fp_mpack_finite
+                0x00002be0                __fp_mpack
+ .text.avr-libc.fplib
+                0x00002bfc        0xe d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_norm2.o)
+                0x00002bfc                __fp_norm2
+ .text.libgcc   0x00002c0a       0x3e d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mulsi3.o)
+                0x00002c0a                __mulsi3
+ .text.libgcc   0x00002c48       0x26 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+                0x00002c48                __divmodhi4
+                0x00002c48                _div
+ .text.libgcc   0x00002c6e       0x36 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodsi4.o)
+                0x00002c6e                __divmodsi4
+ .text.libgcc   0x00002ca4        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .text.libgcc   0x00002ca4        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc   0x00002ca4        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc   0x00002ca4       0x28 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
+                0x00002ca4                __udivmodhi4
+ .text.libgcc   0x00002ccc       0x44 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodsi4.o)
+                0x00002ccc                __udivmodsi4
+ .text.avr-libc
+                0x00002d10       0x82 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(setjmp.o)
+                0x00002d50                longjmp
+                0x00002d10                setjmp
+                0x00002d92                . = ALIGN (0x2)
+ *(.fini9)
+ .fini9         0x00002d92        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+                0x00002d92                exit
+                0x00002d92                _exit
+ *(.fini9)
+ *(.fini8)
+ *(.fini8)
+ *(.fini7)
+ *(.fini7)
+ *(.fini6)
+ *(.fini6)
+ *(.fini5)
+ *(.fini5)
+ *(.fini4)
+ *(.fini4)
+ *(.fini3)
+ *(.fini3)
+ *(.fini2)
+ *(.fini2)
+ *(.fini1)
+ *(.fini1)
+ *(.fini0)
+ .fini0         0x00002d92        0x4 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ *(.fini0)
+                0x00002d96                _etext = .
+
+.data           0x00800100       0x8e load address 0x00002d96
+                0x00800100                PROVIDE (__data_start, .)
+ *(.data)
+ .data          0x00800100        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+ .data          0x00800100       0x3c main.o
+                0x00800124                tone
+                0x00800100                array_tones
+                0x00800112                array_durations
+                0x00800136                app
+                0x0080012c                scale
+ .data          0x0080013c       0x3d TinyTimber.o
+                0x00800173                threadPool
+                0x00800177                current
+                0x00800171                msgPool
+                0x00800175                activeStack
+                0x00800160                hex
+ .data          0x00800179       0x14 lcd.o
+ .data          0x0080018d        0x0 primes.o
+ .data          0x0080018d        0x0 blinker.o
+ .data          0x0080018d        0x0 piezo.o
+ .data          0x0080018d        0x0 joystick.o
+ .data          0x0080018d        0x0 tone.o
+ .data          0x0080018d        0x0 melody.o
+ .data          0x0080018d        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3.o)
+ .data          0x0080018d        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o)
+ .data          0x0080018d        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixsfsi.o)
+ .data          0x0080018d        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixunssfsi.o)
+ .data          0x0080018d        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(floatsisf.o)
+ .data          0x0080018d        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_inf.o)
+ .data          0x0080018d        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_nan.o)
+ .data          0x0080018d        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_pscA.o)
+ .data          0x0080018d        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_pscB.o)
+ .data          0x0080018d        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_round.o)
+ .data          0x0080018d        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_split3.o)
+ .data          0x0080018d        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_zero.o)
+ .data          0x0080018d        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(sqrt.o)
+ .data          0x0080018d        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_mpack.o)
+ .data          0x0080018d        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_norm2.o)
+ .data          0x0080018d        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mulsi3.o)
+ .data          0x0080018d        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+ .data          0x0080018d        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodsi4.o)
+ .data          0x0080018d        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .data          0x0080018d        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .data          0x0080018d        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+ .data          0x0080018d        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
+ .data          0x0080018d        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodsi4.o)
+ .data          0x0080018d        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(setjmp.o)
+ *(.data*)
+ *(.rodata)
+ *(.rodata*)
+ *(.gnu.linkonce.d*)
+                0x0080018e                . = ALIGN (0x2)
+ *fill*         0x0080018d        0x1 00
+                0x0080018e                _edata = .
+                0x0080018e                PROVIDE (__data_end, .)
+
+.bss            0x0080018e      0x359
+                0x0080018e                PROVIDE (__bss_start, .)
+ *(.bss)
+ .bss           0x0080018e        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+ .bss           0x0080018e        0x4 main.o
+                0x0080018e                piezo
+ .bss           0x00800192        0xa TinyTimber.o
+                0x00800192                msgQ
+                0x00800196                timestamp
+                0x0080019a                overflows
+                0x00800194                timerQ
+ .bss           0x0080019c        0x0 lcd.o
+ .bss           0x0080019c        0x0 primes.o
+ .bss           0x0080019c        0x0 blinker.o
+ .bss           0x0080019c        0x0 piezo.o
+ .bss           0x0080019c        0x0 joystick.o
+ .bss           0x0080019c        0x0 tone.o
+ .bss           0x0080019c        0x0 melody.o
+ .bss           0x0080019c        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3.o)
+ .bss           0x0080019c        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o)
+ .bss           0x0080019c        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixsfsi.o)
+ .bss           0x0080019c        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixunssfsi.o)
+ .bss           0x0080019c        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(floatsisf.o)
+ .bss           0x0080019c        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_inf.o)
+ .bss           0x0080019c        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_nan.o)
+ .bss           0x0080019c        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_pscA.o)
+ .bss           0x0080019c        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_pscB.o)
+ .bss           0x0080019c        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_round.o)
+ .bss           0x0080019c        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_split3.o)
+ .bss           0x0080019c        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_zero.o)
+ .bss           0x0080019c        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(sqrt.o)
+ .bss           0x0080019c        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_mpack.o)
+ .bss           0x0080019c        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_norm2.o)
+ .bss           0x0080019c        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mulsi3.o)
+ .bss           0x0080019c        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+ .bss           0x0080019c        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodsi4.o)
+ .bss           0x0080019c        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .bss           0x0080019c        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .bss           0x0080019c        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+ .bss           0x0080019c        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
+ .bss           0x0080019c        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodsi4.o)
+ .bss           0x0080019c        0x0 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(setjmp.o)
+ *(.bss*)
+ *(COMMON)
+ COMMON         0x0080019c      0x349 TinyTimber.o
+                0x0080019c                otable
+                0x008001c0                threads
+                0x00800234                mtable
+                0x00800258                thread0
+                0x00800275                messages
+                0x00800365                stacks
+ COMMON         0x008004e5        0x1 blinker.o
+                0x008004e5                flag_blinking
+ COMMON         0x008004e6        0x1 tone.o
+                0x008004e6                flag_play
+                0x008004e7                PROVIDE (__bss_end, .)
+                0x00002d96                __data_load_start = LOADADDR (.data)
+                0x00002e24                __data_load_end = (__data_load_start + SIZEOF (.data))
+
+.noinit         0x008004e7        0x0
+                0x008004e7                PROVIDE (__noinit_start, .)
+ *(.noinit*)
+                0x008004e7                PROVIDE (__noinit_end, .)
+                0x008004e7                _end = .
+                0x008004e7                PROVIDE (__heap_start, .)
+
+.eeprom         0x00810000        0x0
+ *(.eeprom*)
+                0x00810000                __eeprom_end = .
+
+.fuse
+ *(.fuse)
+ *(.lfuse)
+ *(.hfuse)
+ *(.efuse)
+
+.lock
+ *(.lock*)
+
+.signature
+ *(.signature*)
+
+.stab           0x00000000     0x2cd0
+ *(.stab)
+ .stab          0x00000000      0x51c main.o
+ .stab          0x0000051c     0x1374 TinyTimber.o
+                               0x1584 (size before relaxing)
+ .stab          0x00001890      0x6a8 lcd.o
+                                0x8b8 (size before relaxing)
+ .stab          0x00001f38      0x288 primes.o
+                                0x4b0 (size before relaxing)
+ .stab          0x000021c0      0x2c4 blinker.o
+                                0x4ec (size before relaxing)
+ .stab          0x00002484      0x1bc piezo.o
+                                0x3e4 (size before relaxing)
+ .stab          0x00002640      0x1bc joystick.o
+                                0x3cc (size before relaxing)
+ .stab          0x000027fc      0x294 tone.o
+                                0x4d4 (size before relaxing)
+ .stab          0x00002a90      0x240 melody.o
+                                0x498 (size before relaxing)
+
+.stabstr        0x00000000     0x1733
+ *(.stabstr)
+ .stabstr       0x00000000     0x1733 main.o
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment
+ *(.comment)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges
+ *(.debug_aranges)
+
+.debug_pubnames
+ *(.debug_pubnames)
+
+.debug_info
+ *(.debug_info)
+ *(.gnu.linkonce.wi.*)
+
+.debug_abbrev
+ *(.debug_abbrev)
+
+.debug_line
+ *(.debug_line)
+
+.debug_frame
+ *(.debug_frame)
+
+.debug_str
+ *(.debug_str)
+
+.debug_loc
+ *(.debug_loc)
+
+.debug_macinfo
+ *(.debug_macinfo)
+OUTPUT(main.elf elf32-avr)
+LOAD linker stubs
+
+Cross Reference Table
+
+Symbol                                            File
+ABORT                                             TinyTimber.o
+Blinking                                          blinker.o
+CURRENT_OFFSET                                    TinyTimber.o
+DUMP                                              TinyTimber.o
+DUMPC                                             TinyTimber.o
+DUMPH                                             TinyTimber.o
+DUMP_INIT                                         TinyTimber.o
+PiezoOff                                          piezo.o
+                                                  tone.o
+PiezoOn                                           piezo.o
+                                                  tone.o
+T_RESET                                           TinyTimber.o
+T_SAMPLE                                          TinyTimber.o
+__addsf3                                          d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3.o)
+                                                  primes.o
+__addsf3x                                         d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o)
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3.o)
+__bad_interrupt                                   d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+__bss_end                                         d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+__bss_start                                       d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+__data_end                                        d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+__data_load_start                                 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+__data_start                                      d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+__divmodhi4                                       d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+                                                  tone.o
+                                                  blinker.o
+                                                  primes.o
+                                                  lcd.o
+__divmodsi4                                       d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodsi4.o)
+                                                  blinker.o
+__do_clear_bss                                    d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+                                                  tone.o
+                                                  blinker.o
+                                                  TinyTimber.o
+                                                  main.o
+__do_copy_data                                    d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+                                                  lcd.o
+                                                  TinyTimber.o
+                                                  main.o
+__fixsfsi                                         d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixsfsi.o)
+                                                  primes.o
+__fixunssfsi                                      d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixunssfsi.o)
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixsfsi.o)
+__floatsisf                                       d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(floatsisf.o)
+                                                  primes.o
+__floatunsisf                                     d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(floatsisf.o)
+__fp_inf                                          d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_inf.o)
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o)
+__fp_mpack                                        d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_mpack.o)
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(sqrt.o)
+__fp_mpack_finite                                 d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_mpack.o)
+__fp_nan                                          d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_nan.o)
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(sqrt.o)
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o)
+__fp_norm2                                        d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_norm2.o)
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(sqrt.o)
+__fp_pscA                                         d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_pscA.o)
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o)
+__fp_pscB                                         d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_pscB.o)
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o)
+__fp_round                                        d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_round.o)
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3.o)
+__fp_split3                                       d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_split3.o)
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o)
+__fp_splitA                                       d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_split3.o)
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(sqrt.o)
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixunssfsi.o)
+__fp_szero                                        d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_zero.o)
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixsfsi.o)
+__fp_zero                                         d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fp_zero.o)
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(fixunssfsi.o)
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3x.o)
+__heap_end                                        d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+__init                                            d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+__mulsi3                                          d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mulsi3.o)
+                                                  melody.o
+                                                  blinker.o
+__stack                                           d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+__subsf3                                          d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(addsf3.o)
+__udivmodhi4                                      d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+__udivmodsi4                                      d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodsi4.o)
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodsi4.o)
+__vector_1                                        TinyTimber.o
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+__vector_10                                       TinyTimber.o
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+__vector_11                                       TinyTimber.o
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+__vector_12                                       TinyTimber.o
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+__vector_13                                       TinyTimber.o
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+__vector_14                                       TinyTimber.o
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+__vector_15                                       TinyTimber.o
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+__vector_16                                       TinyTimber.o
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+__vector_17                                       TinyTimber.o
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+__vector_18                                       TinyTimber.o
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+__vector_19                                       TinyTimber.o
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+__vector_2                                        TinyTimber.o
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+__vector_20                                       TinyTimber.o
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+__vector_21                                       TinyTimber.o
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+__vector_22                                       TinyTimber.o
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+__vector_3                                        TinyTimber.o
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+__vector_4                                        TinyTimber.o
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+__vector_5                                        TinyTimber.o
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+__vector_6                                        d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+__vector_7                                        TinyTimber.o
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+__vector_8                                        d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+__vector_9                                        TinyTimber.o
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+__vector_default                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+__vectors                                         d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+_div                                              d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+_exit                                             d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+activeStack                                       TinyTimber.o
+app                                               main.o
+array_durations                                   main.o
+array_tones                                       main.o
+async                                             TinyTimber.o
+                                                  melody.o
+                                                  tone.o
+                                                  blinker.o
+                                                  primes.o
+                                                  main.o
+current                                           TinyTimber.o
+dequeue                                           TinyTimber.o
+detect                                            joystick.o
+enqueueByBaseline                                 TinyTimber.o
+enqueueByDeadline                                 TinyTimber.o
+exit                                              d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+flag_blinking                                     blinker.o
+flag_play                                         tone.o
+hex                                               TinyTimber.o
+insert                                            TinyTimber.o
+install                                           TinyTimber.o
+is_prime                                          primes.o
+longjmp                                           d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(setjmp.o)
+                                                  TinyTimber.o
+main                                              main.o
+                                                  d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm169.o
+messages                                          TinyTimber.o
+msgPool                                           TinyTimber.o
+msgQ                                              TinyTimber.o
+mtable                                            TinyTimber.o
+otable                                            TinyTimber.o
+overflows                                         TinyTimber.o
+piezo                                             main.o
+playing                                           tone.o
+pop                                               TinyTimber.o
+primes                                            primes.o
+push                                              TinyTimber.o
+scale                                             main.o
+segmentOff                                        lcd.o
+                                                  blinker.o
+segmentOn                                         lcd.o
+                                                  blinker.o
+setFrequency                                      tone.o
+                                                  melody.o
+setPeriod                                         blinker.o
+setjmp                                            d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(setjmp.o)
+                                                  TinyTimber.o
+sqrt                                              d:/program files/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a(sqrt.o)
+                                                  primes.o
+stacks                                            TinyTimber.o
+startBlinking                                     blinker.o
+start_playing                                     tone.o
+                                                  melody.o
+start_playing_melody                              melody.o
+                                                  main.o
+startup                                           main.o
+stopBlinking                                      blinker.o
+stop_playing                                      tone.o
+                                                  melody.o
+stop_playing_melody                               melody.o
+sync                                              TinyTimber.o
+                                                  primes.o
+thread0                                           TinyTimber.o
+threadPool                                        TinyTimber.o
+threads                                           TinyTimber.o
+timerQ                                            TinyTimber.o
+timestamp                                         TinyTimber.o
+tinytimber                                        TinyTimber.o
+                                                  main.o
+tone                                              main.o
+transfer_duration                                 main.o
+writeDigit                                        lcd.o
+writeInt                                          lcd.o
+                                                  primes.o

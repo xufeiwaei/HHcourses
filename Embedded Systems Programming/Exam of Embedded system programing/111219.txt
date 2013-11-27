@@ -1,0 +1,131 @@
+1.
+void startConversionAtChannel(int channelNr){
+    ADC_CONTROL_REG = channelNr<<8|0x0041;
+}
+
+2. 
+main: 
+    int *sv, *pv;
+    while(1){
+	if(TEMP_READY){
+	   printf("%s%d", "Temperature", TEMP_VALUE);
+	   temperatureConvert(TEMP_VALUE, sv);
+	   writeToSwitch(*sv);
+	}
+	if(PRESSURE_READY){
+          printf("%s%d", "Pressure", PRESSURE_VALUE);	
+	  preassureConvert(PRESSURE_VALUE, pv);
+	  writeToPump(*pv);
+	}
+}	
+
+This simulates concurrent waiting for input from two sources. In case
+the convert- functions are time demanding they would to include code
+for trying readings. This would simulate concurrent
+execution. Moreover, in case no new values are available the program
+is running anyway polling the status registers.
+
+3. 
+void lock(mutex *m) {
+  Thread t; 
+  DISABLE();
+  if (m->locked){
+    enqueue(current, &(m->waitQ));
+     t = dequeue(&readyQ);
+    ENABLE();
+    dispatch(t);
+  }
+  else{
+    m->locked = 1;
+    ENABLE();
+  }
+}
+
+void unlock(mutex *m) {
+  DISABLE();
+  if (m->waitQ) enqueue(dequeue(&(m->waitQ)),&readyQ);
+  else m->locked = 0;
+  ENABLE();
+}
+
+4.
+typedef struct{
+   Object super;
+   unsigned int * port;
+} Port;
+
+#define initPort(p) {initObject(),p}
+
+int set(Port *self, unsigned int mask){
+   *(self->port) = *(self->port) | mask;
+}
+int clear(Port *self, unsigned int mask){
+   *(self->port) = *(self->port) & ~mask;
+}
+int toggle(Port *self, int bitNr){
+   *(self->port) = *(self->port) ^ 1<<bitNr    
+}
+
+5.
+In the .h file:
+typedef struct {
+  Object super;
+  Beeper * beeper;
+  unsigned char running;
+  unsigned char sec;
+} Clock;
+
+#define initClock(b) {initObject(),b,0,0}
+
+int startClock(Clock *self, int nothing);
+int stopClock(Clock *self, int nothing);
+
+In the .c file:
+
+int tick(Clock *self, int x){
+  if(self->running){
+    WITHIN(SEC(1),MSEC(10),self,tick,0);    
+    self->sec++;
+    if(self->sec == 60){
+      self->sec=0;
+      SYNC(self->beeper,setPW,MINUTE_PW);
+      ASYNC(self->beeper,turnon,MINUTE_DURATION);
+    }
+    else{
+      SYNC(self->beeper,setPW,SECOND_PW);
+      ASYNC(self->beeper,turnon,SECOND_DURATION);
+    }
+  }
+}
+
+int startClock(Clock *self, int x){
+  self->running = 1;
+  tick(self,0);
+}
+
+int stopClock(Clock *self, int x){
+  self->running = 0;
+}
+
+6.a.
+In order to keep the UI responsive. Otherwise the main thread that takes care of handling user events will be engaged in the time consuming task until completion and during this time it will not be able to respond to other user events.
+
+6.b.
+Services should be chosen for background tasks that do not need a user interface. A worker thread should be used if the computation is part of what the Activity has to do.
+
+6.c
+The Activity has to use the method startService and use the Intent that tells Android what service to start to pass data.
+Here is an intent to tell Android to use the service in AService:
+     Intent intent = new Intent(this, AService.class)
+Here is how to add data to it:
+    intent.putExtra("number",3)
+Here is how to start the service:
+    startService(intent)
+In the class AService we have to override the definition of the method
+    int onStartCommand(Intent intent, int flags, int startId) 
+And there we can grab the data from the intent passed as an argument:
+        Integer.parseInt(intent.getExtras().getString("number"));
+
+
+    
+

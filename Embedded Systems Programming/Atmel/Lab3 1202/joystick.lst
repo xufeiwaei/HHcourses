@@ -1,0 +1,67 @@
+   1               		.file	"joystick.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   9               		.text
+  10               	.Ltext0:
+  82               	.global	detect
+  84               	detect:
+   1:joystick.c    **** #include "TinyTimber.h"
+   2:joystick.c    **** #include "joystick.h"
+   3:joystick.c    **** #include <avr/io.h>
+   4:joystick.c    **** 
+   5:joystick.c    **** 
+   6:joystick.c    **** int detect(Joystick *self,int sig)
+   7:joystick.c    **** {
+  85               	*/
+  87               	.LM1:
+  88               		sbis 35-32,7
+  89               		rjmp .L2
+   8:joystick.c    **** int sig)
+  90               	sbis 35-32,7
+  91               		rjmp .L2
+  93 0002 00C0      	.LM2:
+   9:joystick.c    **** lf,int sig)
+  10:joystick.c    **** {
+  94               	10,.LM2-.LFBB1
+  95               	.LM2:
+  96 0004 81E0      		ldi r24,lo8(1)
+  97 0006 8093 EF00 		sts 239,r24
+  11:joystick.c    **** int sig)
+  98               	o8(1)
+  99               		sts 239,r24
+ 101 000e 0895      	.LM3:
+ 102               		sts 254,__zero_reg__
+  12:joystick.c    **** lf,int sig)
+  13:joystick.c    **** {
+  14:joystick.c    **** 	if(PINB&(1<<7))
+  15:joystick.c    **** 	{
+ 103               	54,__zero_reg__
+ 104               		ret
+ 105 0010 1092 EF00 	.L2:
+  16:joystick.c    **** <<7))
+ 106               	g__
+ 107               		ret
+ 108 0014 81E0      	.L2:
+  17:joystick.c    **** B&(1<<7))
+  18:joystick.c    **** 	{
+ 110               	,.LM4-.LFBB1
+ 111               	.LM4:
+ 112 001a 0895      		sts 239,__zero_reg__
+ 114               	.LM5:
+ 115               		ldi r24,lo8(1)
+ 116               		sts 254,r24
+DEFINED SYMBOLS
+                            *ABS*:00000000 joystick.c
+C:\Users\sungao\AppData\Local\Temp/cc6DSYUu.s:2      *ABS*:0000003f __SREG__
+C:\Users\sungao\AppData\Local\Temp/cc6DSYUu.s:3      *ABS*:0000003e __SP_H__
+C:\Users\sungao\AppData\Local\Temp/cc6DSYUu.s:4      *ABS*:0000003d __SP_L__
+C:\Users\sungao\AppData\Local\Temp/cc6DSYUu.s:5      *ABS*:00000034 __CCP__
+C:\Users\sungao\AppData\Local\Temp/cc6DSYUu.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\sungao\AppData\Local\Temp/cc6DSYUu.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\sungao\AppData\Local\Temp/cc6DSYUu.s:84     .text:00000000 detect
+
+NO UNDEFINED SYMBOLS

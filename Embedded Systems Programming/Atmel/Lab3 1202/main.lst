@@ -1,0 +1,272 @@
+   1               		.file	"main.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   9               		.text
+  10               	.Ltext0:
+  87               	.global	transfer_duration
+  89               	transfer_duration:
+   1:main.c        **** #include "TinyTimber.h"
+   2:main.c        **** #include "piezo.h"
+   3:main.c        **** #include "tone.h"
+   4:main.c        **** #include "melody.h"
+   5:main.c        **** #include <avr/io.h>
+   6:main.c        **** 
+   7:main.c        **** 
+   8:main.c        **** #define c 523
+   9:main.c        **** #define d 587
+  10:main.c        **** #define e 659
+  11:main.c        **** #define f 698
+  12:main.c        **** #define g 784
+  13:main.c        **** #define a 880
+  14:main.c        **** #define b 988
+  15:main.c        **** #define h 1047
+  16:main.c        **** 
+  17:main.c        **** 
+  18:main.c        **** 
+  19:main.c        **** int array_tones[]={c,d,e,f,g,a,b,h,0};
+  20:main.c        **** int array_durations[]={100,100,100,100,100,100,100,100,0};
+  21:main.c        **** 
+  22:main.c        **** void transfer_duration()
+  23:main.c        **** {
+  90               	6)=(0,17)=s6super:(1,1),0,32;melody:(0,18)=*(9,1),32,16;;",128,0,0,0
+  92               	.global	transfer_duration
+  94               	transfer_duration:
+  96               	.LM0:
+  97 0000 E0E0      	.LFBB1:
+  98 0002 F0E0      	/* prologue: function */
+  99 0004 00C0      	/* frame size = 0 */
+  24:main.c        **** 100,100,100,100,100,0};
+  25:main.c        **** 
+  26:main.c        **** void transfer_duration()
+  27:main.c        **** {
+ 101               	uration
+ 102               	.global	transfer_duration
+ 104 0008 7F4F      	transfer_duration:
+ 106 000a 8191      	.LM0:
+ 107 000c 9191      	.LFBB1:
+ 108 000e 892B      	/* prologue: function */
+ 109 0010 01F4      	/* frame size = 0 */
+ 111 0014 F0E0      	.LM1:
+ 112 0016 41E0      		ldi r30,lo8(array_durations)
+ 113 0018 50E0      		ldi r31,hi8(array_durations)
+ 114 001a 00C0      		rjmp .L2
+ 115               	.L3:
+  28:main.c        **** 100,100,100,100,100,0};
+  29:main.c        **** 
+  30:main.c        **** void transfer_duration()
+ 116               	n:
+ 118 001c 8281      	.LM0:
+ 119 001e 9381      	.LFBB1:
+ 120 0020 2081      	/* prologue: function */
+ 121 0022 3181      	/* frame size = 0 */
+ 123 0026 931F      	.LM1:
+ 124 0028 9383      		ldi r30,lo8(array_durations)
+ 125 002a 8283      		ldi r31,hi8(array_durations)
+ 126               		rjmp .L2
+ 127               	.L3:
+ 129 002e 5F4F      	.LM2:
+ 130 0030 3296      		subi r22,lo8(-(1))
+ 131               		sbci r23,hi8(-(1))
+ 132 0032 4617      	.L2:
+ 133 0034 5707      		ld r24,Z+
+ 134 0036 04F0      		ld r25,Z+
+ 135               		or r24,r25
+  31:main.c        **** 00,100,100,100,100,100,0};
+  32:main.c        **** 
+ 136               	M1:
+ 137               		ldi r30,lo8(array_durations)
+ 138 0038 0895      		ldi r31,hi8(array_durations)
+ 139               		rjmp .L2
+ 140               	.L3:
+ 142               	.LM2:
+ 143               		subi r22,lo8(-(1))
+ 144               		sbci r23,hi8(-(1))
+ 145               	.L2:
+ 146               		ld r24,Z+
+ 147               		ld r25,Z+
+ 148               		or r24,r25
+ 149               		brne .L3
+  33:main.c        **** ray_durations[]={100,100,100,100,100,100,100,100,0};
+  34:main.c        **** 
+  35:main.c        **** void transfer_duration()
+  36:main.c        **** {
+  37:main.c        **** 	int *p;
+  38:main.c        **** 	int n,i;
+  39:main.c        **** 	p=array_durations;
+  40:main.c        **** 	while(*(p++)!=0) n++;
+  41:main.c        **** 	for(i=1;i<n;i++)
+  42:main.c        **** 	{
+  43:main.c        **** 		array_durations[i]=array_durations[i-1]+array_durations[i];
+  44:main.c        **** 	}
+  45:main.c        **** }
+  46:main.c        **** 
+  47:main.c        **** 
+  48:main.c        **** 
+  49:main.c        **** typedef struct{
+  50:main.c        ****   Object super;
+  51:main.c        ****   Melody *melody;
+  52:main.c        **** } APP;
+  53:main.c        **** 
+  54:main.c        **** #define initAPP(t) {initObject(),t}
+  55:main.c        **** 
+  56:main.c        **** Piezo piezo = initPiezo();
+  57:main.c        **** Tone tone = initTone(&piezo,0);
+  58:main.c        **** Melody scale = initMelody(&tone,array_tones,array_durations);
+  59:main.c        **** APP app = initAPP(&scale);
+  60:main.c        **** 
+  61:main.c        **** 
+  62:main.c        **** int startup(APP * self, int x){
+  63:main.c        ****   /*AFTER(MSEC(800),self->tone,stop_playing,0);
+  64:main.c        ****   AFTER(MSEC(700),self->tone,setFrequency,1047);
+  65:main.c        ****   AFTER(MSEC(600),self->tone,setFrequency,988);
+  66:main.c        ****   AFTER(MSEC(500),self->tone,setFrequency,880);
+  67:main.c        ****   AFTER(MSEC(400),self->tone,setFrequency,784);
+ 150               	0,lo8(array_durations)
+ 151               		ldi r31,hi8(array_durations)
+ 152               		rjmp .L2
+ 153               	.L3:
+  68:main.c        **** e,setFrequency,784);
+ 155               	1
+ 156               	.LM0:
+ 157 003a 259A      	.LFBB1:
+  69:main.c        **** e,setFrequency,784);
+  70:main.c        ****   AFTER(MSEC(300),self->tone,setFrequency,698);
+ 158               	9,1),32,16;;",128,0,0,0
+ 160 003c 8091 0000 	.global	transfer_duration
+ 162 0044 9093 0000 	transfer_duration:
+  71:main.c        **** ,setFrequency,698);
+  72:main.c        ****   AFTER(MSEC(200),self->tone,setFrequency,659);
+ 164               	melody:(0,18)=*(9,1),32,16;;",128,0,0,0
+ 166 004c 0E94 0000 	.global	transfer_duration
+  73:main.c        **** setFrequency,659);
+  74:main.c        ****   AFTER(MSEC(100),self->tone,setFrequency,587);
+  75:main.c        ****   ASYNC(self->tone,start_playing,0);*/
+ 167               	),64,16;;",128,0,0,0
+ 171 0054 60E0      	.global	transfer_duration
+ 173 0058 40E0      	transfer_duration:
+ 175 005c 0E94 0000 	.LM0:
+ 176               	.LFBB1:
+  76:main.c        **** rt_playing,0);*/
+ 177               	9,1),32,16;;",128,0,0,0
+ 179 0060 0895      	.global	transfer_duration
+ 181               	transfer_duration:
+ 183               	.LM0:
+ 184               	.LFBB1:
+ 185               	/* prologue: function */
+ 186               	/* frame size = 0 */
+ 188               	.LM1:
+ 189               		ldi r30,lo8(array_durations)
+ 190               		ldi r31,hi8(array_durations)
+ 191 0062 CF92      		rjmp .L2
+ 192 0064 DF92      	.L3:
+ 194 0068 FF92      	.LM2:
+ 195 006a 0F93      		subi r22,lo8(-(1))
+ 196 006c 1F93      		sbci r23,hi8(-(1))
+ 197               	.L2:
+ 198               		ld r24,Z+
+ 199               		ld r25,Z+
+ 200               		or r24,r25
+ 201 006e FC01      		brne .L3
+ 202 0070 0481      		ldi r30,lo8(array_durations)
+ 203 0072 1581      		ldi r31,hi8(array_durations)
+ 204 0074 60E0      		ldi r20,lo8(1)
+ 205 0076 70E0      		ldi r21,hi8(1)
+ 206 0078 80E0      		rjmp .L4
+ 207 007a 90E0      	.L5:
+ 209 007e 30E0      	.LM3:
+ 210 0080 40E0      		ldd r24,Z+2
+ 211 0082 50E0      		ldd r25,Z+3
+ 212 0084 E0E0      		ld r18,Z
+ 213 0086 EE2E      		ldd r19,Z+1
+ 214 0088 E0E0      		add r24,r18
+ 215 008a FE2E      		adc r25,r19
+ 216 008c CC24      		std Z+3,r25
+ 217 008e DD24      		std Z+2,r24
+ 219               	.LM4:
+ 220               		subi r20,lo8(-(1))
+ 221               		sbci r21,hi8(-(1))
+ 222 0094 1F91      		adiw r30,2
+ 223 0096 0F91      	.L4:
+ 224 0098 FF90      		cp r20,r22
+ 225 009a EF90      		cpc r21,r23
+ 226 009c DF90      		brlt .L5
+ 227 009e CF90      	/* epilogue start */
+ 229               	.LM5:
+ 230               		ret
+ 237 0002 4B02      	.Lscope1:
+ 239 0006 BA02      	.global	main
+ 241 000a 7003      	main:
+ 243 000e 1704      	.LM6:
+ 244 0010 0000      	.LFBB2:
+ 245               	/* prologue: function */
+ 246               	/* frame size = 0 */
+ 248               	.LM7:
+ 249 0012 6400      		sbi 36-32,5
+ 251 0016 6400      	.LM8:
+ 252 0018 6400      		lds r24,array_tones
+ 253 001a 6400      		lds r25,(array_tones)+1
+ 254 001c 6400      		sts (tone+6)+1,r25
+ 255 001e 6400      		sts tone+6,r24
+ 257 0022 0000      	.LM9:
+ 258               		call transfer_duration
+ 260               	.LM10:
+ 261               		ldi r24,lo8(app)
+ 262               		ldi r25,hi8(app)
+ 263               		ldi r22,lo8(gs(startup))
+ 264 0000 0000 0000 		ldi r23,hi8(gs(startup))
+ 265               		ldi r20,lo8(0)
+ 266               		ldi r21,hi8(0)
+ 267               		call tinytimber
+ 268               	/* epilogue start */
+ 270 0024 0000      	.LM11:
+ 271 0026 0000      		ret
+ 273 002a 0000      	.Lscope2:
+ 277               	.global	startup
+ 279 002e 0000      	startup:
+ 281 0032 0000      	.LM12:
+ 282 0034 0000      	.LFBB3:
+ 283               		push r12
+ 284               		push r13
+ 285               		push r14
+ 286               		push r15
+ 287 0036 0000      		push r16
+ 288 0038 0000      		push r17
+ 289 003a 0000      	/* prologue: function */
+ 290               	/* frame size = 0 */
+ 292               	.LM13:
+ 293               		movw r30,r24
+ 294               		ldd r16,Z+4
+ 295               		ldd r17,Z+5
+ 296               		ldi r22,lo8(0)
+ 297               		ldi r23,hi8(0)
+ 298               		ldi r24,hlo8(0)
+ 299               		ldi r25,hhi8(0)
+ 300               		ldi r18,lo8(0)
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\sungao\AppData\Local\Temp/ccG6Ed1V.s:2      *ABS*:0000003f __SREG__
+C:\Users\sungao\AppData\Local\Temp/ccG6Ed1V.s:3      *ABS*:0000003e __SP_H__
+C:\Users\sungao\AppData\Local\Temp/ccG6Ed1V.s:4      *ABS*:0000003d __SP_L__
+C:\Users\sungao\AppData\Local\Temp/ccG6Ed1V.s:5      *ABS*:00000034 __CCP__
+C:\Users\sungao\AppData\Local\Temp/ccG6Ed1V.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\sungao\AppData\Local\Temp/ccG6Ed1V.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\sungao\AppData\Local\Temp/ccG6Ed1V.s:89     .text:00000000 transfer_duration
+C:\Users\sungao\AppData\Local\Temp/ccG6Ed1V.s:248    .data:00000012 array_durations
+C:\Users\sungao\AppData\Local\Temp/ccG6Ed1V.s:149    .text:0000003a main
+C:\Users\sungao\AppData\Local\Temp/ccG6Ed1V.s:235    .data:00000000 array_tones
+C:\Users\sungao\AppData\Local\Temp/ccG6Ed1V.s:269    .data:00000024 tone
+C:\Users\sungao\AppData\Local\Temp/ccG6Ed1V.s:286    .data:00000036 app
+C:\Users\sungao\AppData\Local\Temp/ccG6Ed1V.s:187    .text:00000062 startup
+C:\Users\sungao\AppData\Local\Temp/ccG6Ed1V.s:263    .bss:00000000 piezo
+C:\Users\sungao\AppData\Local\Temp/ccG6Ed1V.s:277    .data:0000002c scale
+
+UNDEFINED SYMBOLS
+tinytimber
+start_playing_melody
+async
+__do_copy_data
+__do_clear_bss

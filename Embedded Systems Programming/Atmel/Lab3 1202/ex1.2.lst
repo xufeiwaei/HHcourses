@@ -1,0 +1,80 @@
+   1               		.file	"ex1.2.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  11               		.text
+  12               	.Ltext0:
+  85               	.global	main
+  87               	main:
+   1:ex1.2.c       **** #include "TinyTimber.h"
+   2:ex1.2.c       **** #include "lcd.h"
+   3:ex1.2.c       **** #include "primes.h"
+   4:ex1.2.c       **** 
+   5:ex1.2.c       **** LCD lcdDriver = initLCD();
+   6:ex1.2.c       **** PrimeCalculator primeCalc = initPrimeCalculator(&lcdDriver);
+   7:ex1.2.c       **** 
+   8:ex1.2.c       **** int main(){
+  89               	.LM1:
+  90               		ldi r24,lo8(-73)
+  91               		sts 229,r24
+  92               		ldi r24,lo8(16)
+   9:ex1.2.c       ****   CONFLCD;
+  93               	,lo8(-73)
+  94               		sts 229,r24
+  95 0000 87EB      		ldi r24,lo8(16)
+  96 0002 8093 E500 		sts 230,r24
+  97 0006 80E1      		ldi r24,lo8(15)
+  98 0008 8093 E600 		sts 231,r24
+  99 000c 8FE0      		ldi r24,lo8(-128)
+ 100 000e 8093 E700 		sts 228,r24
+ 102 0014 8093 E400 	.LM2:
+  10:ex1.2.c       ****   return TINYTIMBER(&primeCalc,primes,0);
+ 104               	.LM2:
+ 105 0018 40E0      		ldi r20,lo8(0)
+ 106 001a 50E0      		ldi r21,hi8(0)
+ 107 001c 60E0      		ldi r22,lo8(gs(primes))
+ 108 001e 70E0      		ldi r23,hi8(gs(primes))
+ 109 0020 80E0      		ldi r24,lo8(primeCalc)
+ 110 0022 90E0      		ldi r25,hi8(primeCalc)
+ 111 0024 0E94 0000 		call tinytimber
+ 112               	/* epilogue start */
+  11:ex1.2.c       **** }...
+ 113               	ber
+ 114               	/* epilogue start */
+ 116               	.LM3:
+ 117               		ret
+ 119               	.Lscope1:
+ 120               	.global	lcdDriver
+ 121               	.global	lcdDriver
+ 122               		.section .bss
+ 125               	lcdDriver:
+ 126               		.skip 4,0
+ 127               	.global	primeCalc
+ 128               		.data
+ 131 0002 0000      	primeCalc:
+ 132 0004 0000      		.word	0
+ 133               		.word	0
+ 134               		.word	lcdDriver
+ 137               		.text
+DEFINED SYMBOLS
+                            *ABS*:00000000 ex1.2.c
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccOIqLal.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccOIqLal.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccOIqLal.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccOIqLal.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccOIqLal.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccOIqLal.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccOIqLal.s:87     .text:00000000 main
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccOIqLal.s:129    .data:00000000 primeCalc
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccOIqLal.s:123    .bss:00000000 lcdDriver
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
+primes
+tinytimber

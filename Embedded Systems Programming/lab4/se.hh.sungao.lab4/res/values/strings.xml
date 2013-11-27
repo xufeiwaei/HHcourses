@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Mentometer</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_answer_question">Question:</string>
+    <string name="title_activity_get_answer">GetAnswer</string>
+    <string name="title_activity_conclusion">Conclusion</string>
+
+</resources>

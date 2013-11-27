@@ -1,0 +1,600 @@
+Archive member included because of file (symbol)
+
+c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_mulsi3.o)
+                              blinker.o (__mulsi3)
+c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_divmodhi4.o)
+                              lcd.o (__divmodhi4)
+c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_divmodsi4.o)
+                              blinker.o (__divmodsi4)
+c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_exit.o)
+                              c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o (exit)
+c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_copy_data.o)
+                              main.o (__do_copy_data)
+c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_clear_bss.o)
+                              main.o (__do_clear_bss)
+c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_udivmodhi4.o)
+                              c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_divmodhi4.o) (__udivmodhi4)
+c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_udivmodsi4.o)
+                              c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_divmodsi4.o) (__udivmodsi4)
+c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5\libc.a(setjmp.o)
+                              TinyTimber.o (setjmp)
+
+Allocating common symbols
+Common symbol       size              file
+
+otable              0x24              TinyTimber.o
+threads             0x74              TinyTimber.o
+mtable              0x24              TinyTimber.o
+thread0             0x1d              TinyTimber.o
+messages            0xf0              TinyTimber.o
+stacks              0x180             TinyTimber.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+text             0x00000000         0x00020000         xr
+data             0x00800060         0x0000ffa0         rw !x
+eeprom           0x00810000         0x00010000         rw !x
+fuse             0x00820000         0x00000400         rw !x
+lock             0x00830000         0x00000400         rw !x
+signature        0x00840000         0x00000400         rw !x
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+Address of section .data set to 0x800100
+LOAD c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+LOAD main.o
+LOAD TinyTimber.o
+LOAD lcd.o
+LOAD blinker.o
+LOAD c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5\libm.a
+LOAD c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a
+LOAD c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5\libc.a
+LOAD c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a
+
+.hash
+ *(.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rel.init
+ *(.rel.init)
+
+.rela.init
+ *(.rela.init)
+
+.rel.text
+ *(.rel.text)
+ *(.rel.text.*)
+ *(.rel.gnu.linkonce.t*)
+
+.rela.text
+ *(.rela.text)
+ *(.rela.text.*)
+ *(.rela.gnu.linkonce.t*)
+
+.rel.fini
+ *(.rel.fini)
+
+.rela.fini
+ *(.rela.fini)
+
+.rel.rodata
+ *(.rel.rodata)
+ *(.rel.rodata.*)
+ *(.rel.gnu.linkonce.r*)
+
+.rela.rodata
+ *(.rela.rodata)
+ *(.rela.rodata.*)
+ *(.rela.gnu.linkonce.r*)
+
+.rel.data
+ *(.rel.data)
+ *(.rel.data.*)
+ *(.rel.gnu.linkonce.d*)
+
+.rela.data
+ *(.rela.data)
+ *(.rela.data.*)
+ *(.rela.gnu.linkonce.d*)
+
+.rel.ctors
+ *(.rel.ctors)
+
+.rela.ctors
+ *(.rela.ctors)
+
+.rel.dtors
+ *(.rel.dtors)
+
+.rela.dtors
+ *(.rela.dtors)
+
+.rel.got
+ *(.rel.got)
+
+.rela.got
+ *(.rela.got)
+
+.rel.bss
+ *(.rel.bss)
+
+.rela.bss
+ *(.rela.bss)
+
+.rel.plt
+ *(.rel.plt)
+
+.rela.plt
+ *(.rela.plt)
+
+.text           0x00000000     0x24fc
+ *(.vectors)
+ .vectors       0x00000000       0x5c c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+                0x00000000                __vectors
+                0x00000000                __vector_default
+ *(.vectors)
+ *(.progmem.gcc*)
+ *(.progmem*)
+                0x0000005c                . = ALIGN (0x2)
+                0x0000005c                __trampolines_start = .
+ *(.trampolines)
+ .trampolines   0x0000005c        0x0 linker stubs
+ *(.trampolines*)
+                0x0000005c                __trampolines_end = .
+ *(.jumptables)
+ *(.jumptables*)
+ *(.lowtext)
+ *(.lowtext*)
+                0x0000005c                __ctors_start = .
+ *(.ctors)
+                0x0000005c                __ctors_end = .
+                0x0000005c                __dtors_start = .
+ *(.dtors)
+                0x0000005c                __dtors_end = .
+ SORT(*)(.ctors)
+ SORT(*)(.dtors)
+ *(.init0)
+ .init0         0x0000005c        0x0 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+                0x0000005c                __init
+ *(.init0)
+ *(.init1)
+ *(.init1)
+ *(.init2)
+ .init2         0x0000005c        0xc c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+ *(.init2)
+ *(.init3)
+ *(.init3)
+ *(.init4)
+ .init4         0x00000068       0x16 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_copy_data.o)
+                0x00000068                __do_copy_data
+ .init4         0x0000007e       0x10 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_clear_bss.o)
+                0x0000007e                __do_clear_bss
+ *(.init4)
+ *(.init5)
+ *(.init5)
+ *(.init6)
+ *(.init6)
+ *(.init7)
+ *(.init7)
+ *(.init8)
+ *(.init8)
+ *(.init9)
+ .init9         0x0000008e        0x8 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+ *(.init9)
+ *(.text)
+ .text          0x00000096        0x4 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+                0x00000096                __bad_interrupt
+                0x00000096                __vector_6
+                0x00000096                __vector_8
+ .text          0x0000009a       0x2a main.o
+                0x0000009a                main
+ .text          0x000000c4     0x1ca6 TinyTimber.o
+                0x00001a76                async
+                0x0000094a                __vector_22
+                0x000002ee                ABORT
+                0x000017c4                __vector_1
+                0x000003c8                T_RESET
+                0x00000452                CURRENT_OFFSET
+                0x000011ce                __vector_12
+                0x000000c4                DUMP
+                0x000000e4                DUMPC
+                0x00001610                __vector_3
+                0x00000746                tinytimber
+                0x000012a8                __vector_11
+                0x000010f4                __vector_13
+                0x00000d8c                __vector_17
+                0x00000bd8                __vector_19
+                0x00000780                __vector_7
+                0x0000015a                enqueueByBaseline
+                0x0000040a                T_SAMPLE
+                0x0000189e                sync
+                0x0000145c                __vector_5
+                0x00000224                pop
+                0x000000e6                enqueueByDeadline
+                0x00001536                __vector_4
+                0x000000e2                DUMP_INIT
+                0x00000238                __vector_9
+                0x000016ea                __vector_2
+                0x00000a24                __vector_21
+                0x00000f40                __vector_15
+                0x000000d2                DUMPH
+                0x000001ce                dequeue
+                0x00000502                install
+                0x000001fc                insert
+                0x0000101a                __vector_14
+                0x00001382                __vector_10
+                0x00000e66                __vector_16
+                0x00000cb2                __vector_18
+                0x00000210                push
+                0x00000afe                __vector_20
+ .text          0x00001d6a      0x51e lcd.o
+                0x00001d6a                writeDigit
+                0x000021ec                segmentOff
+                0x00002036                writeInt
+                0x0000214a                segmentOn
+ .text          0x00002288       0xe8 blinker.o
+                0x000022c4                blink
+                0x00002288                startblink
+ .text          0x00002370        0x0 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_mulsi3.o)
+ .text          0x00002370        0x0 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_divmodhi4.o)
+ .text          0x00002370        0x0 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_divmodsi4.o)
+ .text          0x00002370        0x0 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_exit.o)
+ .text          0x00002370        0x0 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_copy_data.o)
+ .text          0x00002370        0x0 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_clear_bss.o)
+ .text          0x00002370        0x0 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_udivmodhi4.o)
+ .text          0x00002370        0x0 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_udivmodsi4.o)
+ .text          0x00002370       0x82 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5\libc.a(setjmp.o)
+                0x000023b0                longjmp
+                0x00002370                setjmp
+                0x000023f2                . = ALIGN (0x2)
+ *(.text.*)
+ .text.libgcc   0x000023f2       0x3e c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_mulsi3.o)
+                0x000023f2                __mulsi3
+ .text.libgcc   0x00002430       0x26 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_divmodhi4.o)
+                0x00002430                __divmodhi4
+                0x00002430                _div
+ .text.libgcc   0x00002456       0x36 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_divmodsi4.o)
+                0x00002456                __divmodsi4
+ .text.libgcc   0x0000248c        0x0 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_exit.o)
+ .text.libgcc   0x0000248c        0x0 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc   0x0000248c        0x0 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc   0x0000248c       0x28 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_udivmodhi4.o)
+                0x0000248c                __udivmodhi4
+ .text.libgcc   0x000024b4       0x44 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_udivmodsi4.o)
+                0x000024b4                __udivmodsi4
+                0x000024f8                . = ALIGN (0x2)
+ *(.fini9)
+ .fini9         0x000024f8        0x0 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_exit.o)
+                0x000024f8                exit
+                0x000024f8                _exit
+ *(.fini9)
+ *(.fini8)
+ *(.fini8)
+ *(.fini7)
+ *(.fini7)
+ *(.fini6)
+ *(.fini6)
+ *(.fini5)
+ *(.fini5)
+ *(.fini4)
+ *(.fini4)
+ *(.fini3)
+ *(.fini3)
+ *(.fini2)
+ *(.fini2)
+ *(.fini1)
+ *(.fini1)
+ *(.fini0)
+ .fini0         0x000024f8        0x4 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_exit.o)
+ *(.fini0)
+                0x000024fc                _etext = .
+
+.data           0x00800100       0x5c load address 0x000024fc
+                0x00800100                PROVIDE (__data_start, .)
+ *(.data)
+ .data          0x00800100        0x0 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+ .data          0x00800100        0xa main.o
+                0x00800100                blinker
+ .data          0x0080010a       0x3d TinyTimber.o
+                0x00800141                threadPool
+                0x00800145                current
+                0x0080013f                msgPool
+                0x00800143                activeStack
+                0x0080012e                hex
+ .data          0x00800147       0x14 lcd.o
+ .data          0x0080015b        0x0 blinker.o
+ .data          0x0080015b        0x0 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_mulsi3.o)
+ .data          0x0080015b        0x0 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_divmodhi4.o)
+ .data          0x0080015b        0x0 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_divmodsi4.o)
+ .data          0x0080015b        0x0 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_exit.o)
+ .data          0x0080015b        0x0 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_copy_data.o)
+ .data          0x0080015b        0x0 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_clear_bss.o)
+ .data          0x0080015b        0x0 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_udivmodhi4.o)
+ .data          0x0080015b        0x0 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_udivmodsi4.o)
+ .data          0x0080015b        0x0 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5\libc.a(setjmp.o)
+ *(.data*)
+ *(.rodata)
+ *(.rodata*)
+ *(.gnu.linkonce.d*)
+                0x0080015c                . = ALIGN (0x2)
+ *fill*         0x0080015b        0x1 00
+                0x0080015c                _edata = .
+                0x0080015c                PROVIDE (__data_end, .)
+
+.bss            0x0080015c      0x357 load address 0x00002558
+                0x0080015c                PROVIDE (__bss_start, .)
+ *(.bss)
+ .bss           0x0080015c        0x0 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+ .bss           0x0080015c        0x4 main.o
+                0x0080015c                lcd
+ .bss           0x00800160        0xa TinyTimber.o
+                0x00800160                msgQ
+                0x00800164                timestamp
+                0x00800168                overflows
+                0x00800162                timerQ
+ .bss           0x0080016a        0x0 lcd.o
+ .bss           0x0080016a        0x0 blinker.o
+ .bss           0x0080016a        0x0 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_mulsi3.o)
+ .bss           0x0080016a        0x0 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_divmodhi4.o)
+ .bss           0x0080016a        0x0 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_divmodsi4.o)
+ .bss           0x0080016a        0x0 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_exit.o)
+ .bss           0x0080016a        0x0 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_copy_data.o)
+ .bss           0x0080016a        0x0 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_clear_bss.o)
+ .bss           0x0080016a        0x0 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_udivmodhi4.o)
+ .bss           0x0080016a        0x0 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_udivmodsi4.o)
+ .bss           0x0080016a        0x0 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5\libc.a(setjmp.o)
+ *(.bss*)
+ *(COMMON)
+ COMMON         0x0080016a      0x349 TinyTimber.o
+                0x0080016a                otable
+                0x0080018e                threads
+                0x00800202                mtable
+                0x00800226                thread0
+                0x00800243                messages
+                0x00800333                stacks
+                0x008004b3                PROVIDE (__bss_end, .)
+                0x000024fc                __data_load_start = LOADADDR (.data)
+                0x00002558                __data_load_end = (__data_load_start + SIZEOF (.data))
+
+.noinit         0x008004b3        0x0
+                0x008004b3                PROVIDE (__noinit_start, .)
+ *(.noinit*)
+                0x008004b3                PROVIDE (__noinit_end, .)
+                0x008004b3                _end = .
+                0x008004b3                PROVIDE (__heap_start, .)
+
+.eeprom         0x00810000        0x0
+ *(.eeprom*)
+                0x00810000                __eeprom_end = .
+
+.fuse
+ *(.fuse)
+ *(.lfuse)
+ *(.hfuse)
+ *(.efuse)
+
+.lock
+ *(.lock*)
+
+.signature
+ *(.signature*)
+
+.stab           0x00000000     0x1fc8
+ *(.stab)
+ .stab          0x00000000      0x3cc main.o
+ .stab          0x000003cc     0x1530 TinyTimber.o
+                               0x1740 (size before relaxing)
+ .stab          0x000018fc      0x4e0 lcd.o
+                                0x708 (size before relaxing)
+ .stab          0x00001ddc      0x1ec blinker.o
+                                0x42c (size before relaxing)
+
+.stabstr        0x00000000     0x1261
+ *(.stabstr)
+ .stabstr       0x00000000     0x1261 main.o
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment
+ *(.comment)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges
+ *(.debug_aranges)
+
+.debug_pubnames
+ *(.debug_pubnames)
+
+.debug_info
+ *(.debug_info)
+ *(.gnu.linkonce.wi.*)
+
+.debug_abbrev
+ *(.debug_abbrev)
+
+.debug_line
+ *(.debug_line)
+
+.debug_frame
+ *(.debug_frame)
+
+.debug_str
+ *(.debug_str)
+
+.debug_loc
+ *(.debug_loc)
+
+.debug_macinfo
+ *(.debug_macinfo)
+OUTPUT(main.elf elf32-avr)
+LOAD linker stubs
+
+Cross Reference Table
+
+Symbol                                            File
+ABORT                                             TinyTimber.o
+CURRENT_OFFSET                                    TinyTimber.o
+DUMP                                              TinyTimber.o
+DUMPC                                             TinyTimber.o
+DUMPH                                             TinyTimber.o
+DUMP_INIT                                         TinyTimber.o
+T_RESET                                           TinyTimber.o
+T_SAMPLE                                          TinyTimber.o
+__bad_interrupt                                   c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+__bss_end                                         c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_clear_bss.o)
+__bss_start                                       c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_clear_bss.o)
+__data_end                                        c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_copy_data.o)
+__data_load_start                                 c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_copy_data.o)
+__data_start                                      c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_copy_data.o)
+__divmodhi4                                       c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_divmodhi4.o)
+                                                  lcd.o
+__divmodsi4                                       c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_divmodsi4.o)
+                                                  blinker.o
+__do_clear_bss                                    c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_clear_bss.o)
+                                                  blinker.o
+                                                  lcd.o
+                                                  TinyTimber.o
+                                                  main.o
+__do_copy_data                                    c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_copy_data.o)
+                                                  blinker.o
+                                                  lcd.o
+                                                  TinyTimber.o
+                                                  main.o
+__heap_end                                        c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+__init                                            c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+__mulsi3                                          c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_mulsi3.o)
+                                                  blinker.o
+__stack                                           c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+__udivmodhi4                                      c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_udivmodhi4.o)
+                                                  c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_divmodhi4.o)
+__udivmodsi4                                      c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_udivmodsi4.o)
+                                                  c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_divmodsi4.o)
+__vector_1                                        TinyTimber.o
+                                                  c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+__vector_10                                       TinyTimber.o
+                                                  c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+__vector_11                                       TinyTimber.o
+                                                  c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+__vector_12                                       TinyTimber.o
+                                                  c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+__vector_13                                       TinyTimber.o
+                                                  c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+__vector_14                                       TinyTimber.o
+                                                  c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+__vector_15                                       TinyTimber.o
+                                                  c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+__vector_16                                       TinyTimber.o
+                                                  c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+__vector_17                                       TinyTimber.o
+                                                  c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+__vector_18                                       TinyTimber.o
+                                                  c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+__vector_19                                       TinyTimber.o
+                                                  c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+__vector_2                                        TinyTimber.o
+                                                  c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+__vector_20                                       TinyTimber.o
+                                                  c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+__vector_21                                       TinyTimber.o
+                                                  c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+__vector_22                                       TinyTimber.o
+                                                  c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+__vector_3                                        TinyTimber.o
+                                                  c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+__vector_4                                        TinyTimber.o
+                                                  c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+__vector_5                                        TinyTimber.o
+                                                  c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+__vector_6                                        c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+__vector_7                                        TinyTimber.o
+                                                  c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+__vector_8                                        c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+__vector_9                                        TinyTimber.o
+                                                  c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+__vector_default                                  c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+__vectors                                         c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+_div                                              c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_divmodhi4.o)
+_exit                                             c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_exit.o)
+activeStack                                       TinyTimber.o
+async                                             TinyTimber.o
+                                                  blinker.o
+blink                                             blinker.o
+blinker                                           main.o
+current                                           TinyTimber.o
+dequeue                                           TinyTimber.o
+enqueueByBaseline                                 TinyTimber.o
+enqueueByDeadline                                 TinyTimber.o
+exit                                              c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/avr5\libgcc.a(_exit.o)
+                                                  c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+hex                                               TinyTimber.o
+insert                                            TinyTimber.o
+install                                           TinyTimber.o
+lcd                                               main.o
+longjmp                                           c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5\libc.a(setjmp.o)
+                                                  TinyTimber.o
+main                                              main.o
+                                                  c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5/crtm169.o
+messages                                          TinyTimber.o
+msgPool                                           TinyTimber.o
+msgQ                                              TinyTimber.o
+mtable                                            TinyTimber.o
+otable                                            TinyTimber.o
+overflows                                         TinyTimber.o
+pop                                               TinyTimber.o
+push                                              TinyTimber.o
+segmentOff                                        lcd.o
+                                                  blinker.o
+segmentOn                                         lcd.o
+                                                  blinker.o
+setjmp                                            c:/winavr-20080610/bin/../lib/gcc/avr/4.3.0/../../../../avr/lib/avr5\libc.a(setjmp.o)
+                                                  TinyTimber.o
+stacks                                            TinyTimber.o
+startblink                                        blinker.o
+                                                  main.o
+sync                                              TinyTimber.o
+thread0                                           TinyTimber.o
+threadPool                                        TinyTimber.o
+threads                                           TinyTimber.o
+timerQ                                            TinyTimber.o
+timestamp                                         TinyTimber.o
+tinytimber                                        TinyTimber.o
+                                                  main.o
+writeDigit                                        lcd.o
+writeInt                                          lcd.o

@@ -1,0 +1,4939 @@
+   1               		.file	"TinyTimber.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  11               		.text
+  12               	.Ltext0:
+  88               	.global	DUMP
+  90               	DUMP:
+   1:TinyTimber.c  **** // The Timber compiler <timber-lang.org>
+   2:TinyTimber.c  **** // 
+   3:TinyTimber.c  **** // Copyright 2008-2012 Johan Nordlander <nordland@csee.ltu.se>
+   4:TinyTimber.c  **** // All rights reserved.
+   5:TinyTimber.c  **** // 
+   6:TinyTimber.c  **** // Redistribution and use in source and binary forms, with or without
+   7:TinyTimber.c  **** // modification, are permitted provided that the following conditions
+   8:TinyTimber.c  **** // are met:
+   9:TinyTimber.c  **** // 
+  10:TinyTimber.c  **** // 1. Redistributions of source code must retain the above copyright
+  11:TinyTimber.c  **** //    notice, this list of conditions and the following disclaimer.
+  12:TinyTimber.c  **** // 
+  13:TinyTimber.c  **** // 2. Redistributions in binary form must reproduce the above copyright
+  14:TinyTimber.c  **** //    notice, this list of conditions and the following disclaimer in the
+  15:TinyTimber.c  **** //    documentation and/or other materials provided with the distribution.
+  16:TinyTimber.c  **** // 
+  17:TinyTimber.c  **** // 3. Neither the names of the copyright holder and any identified
+  18:TinyTimber.c  **** //    contributors, nor the names of their affiliations, may be used to 
+  19:TinyTimber.c  **** //    endorse or promote products derived from this software without 
+  20:TinyTimber.c  **** //    specific prior written permission.
+  21:TinyTimber.c  **** // 
+  22:TinyTimber.c  **** // THIS SOFTWARE IS PROVIDED BY THE CONTRIBUTORS ``AS IS'' AND ANY EXPRESS
+  23:TinyTimber.c  **** // OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  24:TinyTimber.c  **** // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  25:TinyTimber.c  **** // DISCLAIMED.  IN NO EVENT SHALL THE AUTHORS OR CONTRIBUTORS BE LIABLE FOR
+  26:TinyTimber.c  **** // ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+  27:TinyTimber.c  **** // DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+  28:TinyTimber.c  **** // OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+  29:TinyTimber.c  **** // HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+  30:TinyTimber.c  **** // STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+  31:TinyTimber.c  **** // ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  32:TinyTimber.c  **** // POSSIBILITY OF SUCH DAMAGE.
+  33:TinyTimber.c  **** 
+  34:TinyTimber.c  **** /*
+  35:TinyTimber.c  ****  * 
+  36:TinyTimber.c  ****  * TinyTimber.c
+  37:TinyTimber.c  ****  *
+  38:TinyTimber.c  ****  */
+  39:TinyTimber.c  **** 
+  40:TinyTimber.c  **** #include "TinyTimber.h"
+  41:TinyTimber.c  **** 
+  42:TinyTimber.c  **** void DUMPC(char);
+  43:TinyTimber.c  **** 
+  44:TinyTimber.c  **** void DUMP(char *s) {
+  91               	68,0,44,.LM0-.LFBB1
+  92               	.LM0:
+  93               	.LFBB1:
+  94               	/* prologue: function */
+  95               	/* frame size = 0 */
+  96 0000 FC01      		movw r30,r24
+  97 0002 00C0      		rjmp .L2
+  98               	.L3:
+  45:TinyTimber.c  **** = "0123456789ABCDEF";
+  46:TinyTimber.c  **** 
+  99               	68,0,46,.LM1-.LFBB1
+ 100               	.LM1:
+ 101 0004 3196      		adiw r30,1
+ 102               	.L2:
+ 104               	.LM2:
+ 105 0006 8081      		ld r24,Z
+ 106 0008 8823      		tst r24
+ 107 000a 01F4      		brne .L3
+ 108               	/* epilogue start */
+  47:TinyTimber.c  **** id DUMPH(unsigned int val) {
+ 109               	,0,47,.LM3-.LFBB1
+ 110               	.LM3:
+ 111 000c 0895      		ret
+ 113               	.Lscope1:
+ 116               	.global	DUMPH
+ 118               	DUMPH:
+  48:TinyTimber.c  ****    char buf[8];
+  49:TinyTimber.c  ****     int i = 0;
+  50:TinyTimber.c  ****     do {
+  51:TinyTimber.c  ****         buf[i++] = hex[val & 0x0F];
+ 119               	,0,51,.LM4-.LFBB2
+ 120               	.LM4:
+ 121               	.LFBB2:
+ 122               	/* prologue: function */
+ 123               	/* frame size = 0 */
+ 124               	.L6:
+  52:TinyTimber.c  ****     val = val >> 4;
+  53:TinyTimber.c  ****     } while (val);
+  54:TinyTimber.c  ****     while (i)
+  55:TinyTimber.c  ****         DUMPC(buf[--i]);
+  56:TinyTimber.c  **** }
+ 125               	n	68,0,56,.LM5-.LFBB2
+ 126               	.LM5:
+ 127 000e 24E0      		ldi r18,4
+ 128 0010 9695      	1:	lsr r25
+ 129 0012 8795      		ror r24
+ 130 0014 2A95      		dec r18
+ 131 0016 01F4      		brne 1b
+  57:TinyTimber.c  ****  defined(__AVR_ATmega169__) || defined(__AVR_ATmega169P__) // AVR ATmega169 Butterfly dependencies
+ 132               		68,0,57,.LM6-.LFBB2
+ 133               	.LM6:
+ 134 0018 0097      		sbiw r24,0
+ 135 001a 01F4      		brne .L6
+ 136               	/* epilogue start */
+  58:TinyTimber.c  **** #include <setjmp.h>
+  59:TinyTimber.c  **** #include <avr/io.h>
+  60:TinyTimber.c  **** #include <avr/interrupt.h>
+ 137               	bn	68,0,60,.LM7-.LFBB2
+ 138               	.LM7:
+ 139 001c 0895      		ret
+ 141               	.Lscope2:
+ 143               	.global	DUMP_INIT
+ 145               	DUMP_INIT:
+  61:TinyTimber.c  **** define STACKSIZE       96
+  62:TinyTimber.c  **** #define NMSGS           15
+  63:TinyTimber.c  **** #define NTHREADS        4
+  64:TinyTimber.c  **** 
+  65:TinyTimber.c  **** #define STATUS()        (SREG & 0x80)
+  66:TinyTimber.c  **** #define DISABLE(s)      { s = STATUS(); cli(); }
+  67:TinyTimber.c  **** #define ENABLE(s)       if (s) sei();
+  68:TinyTimber.c  **** #define SLEEP()         { SMCR = 0x01; __asm__ __volatile__ ("sleep" ::); }
+  69:TinyTimber.c  **** #define PANIC()         { LCDDR0 = 0xFF; LCDDR1 = 0xFF; LCDDR2 = 0xFF; while (1) SLEEP(); }
+  70:TinyTimber.c  ****                         // Light up the display...
+  71:TinyTimber.c  **** #define SETSTACK(buf,a) { *((unsigned int *)(buf)+8) = (unsigned int)(a) + STACKSIZE - 4; \
+  72:TinyTimber.c  ****                           *((unsigned int *)(buf)+9) = (unsigned int)(a) + STACKSIZE - 4; }
+  73:TinyTimber.c  **** #define SETPC(buf, a)   *((unsigned int *)((unsigned char *)(buf) + 21)) = (unsigned int)(a)
+  74:TinyTimber.c  **** 
+  75:TinyTimber.c  **** #define TIMER_INIT()    { CLKPR = 0x80; CLKPR = 0x00; \
+  76:TinyTimber.c  ****                           TCNT1 = 0x0000; TCCR1B = 0x04; TIMSK1 = 0x01; }
+  77:TinyTimber.c  ****                         // No system clock prescaling
+  78:TinyTimber.c  ****                         // Normal mode, clk/256 prescaling, enable timer overflow interrupts
+  79:TinyTimber.c  **** #define TIMER_OCLR()    // No timer overflow interrupt clear necessary
+  80:TinyTimber.c  **** #define TIMER_CCLR()    // No timer compare interrupt clear necessary
+  81:TinyTimber.c  **** #define TIMERGET(x)     (x) = ((Time)overflows << 16) | (unsigned int)TCNT1; \
+  82:TinyTimber.c  ****                         if (TIFR1 & 0x01) (x) = ((Time)(overflows+1) << 16) | (unsigned int)TCNT1;
+  83:TinyTimber.c  **** #define TIMERSET(x)     { if ((x) && (HIGH16((x)->baseline) == overflows)) { \
+  84:TinyTimber.c  ****                              OCR1A = MAX(LOW16((x)->baseline), (unsigned int)TCNT1+1); \
+  85:TinyTimber.c  ****                              TIMSK1 |= 0x02; \
+  86:TinyTimber.c  ****                           } else \
+  87:TinyTimber.c  ****                              TIMSK1 &= ~0x02; \
+  88:TinyTimber.c  ****                         }
+  89:TinyTimber.c  **** #define HIGH16(x)       (int)((x) >> 16)
+  90:TinyTimber.c  **** #define LOW16(x)        (unsigned int)((x) & 0xffff)
+  91:TinyTimber.c  **** #define MAX(a,b)        ( (a)-(b) <= 0 ? (b) : (a) )
+  92:TinyTimber.c  **** #define INFINITY        0x7fffffffL
+  93:TinyTimber.c  **** #define INF(a)          ( (a)==0 ? INFINITY : (a) )
+  94:TinyTimber.c  **** 
+  95:TinyTimber.c  **** void DUMP_INIT() {
+  96:TinyTimber.c  **** 
+  97:TinyTimber.c  **** }
+  98:TinyTimber.c  **** 
+  99:TinyTimber.c  **** void DUMPC(char c) {
+ 100:TinyTimber.c  ****     
+ 101:TinyTimber.c  **** }
+ 102:TinyTimber.c  **** 
+ 103:TinyTimber.c  **** #elif defined(__AVR_ATmega32__)    // AVR ATmega32 dependencies -------------------------------
+ 104:TinyTimber.c  **** 
+ 146               	8,0,104,.LM8-.LFBB3
+ 147               	.LM8:
+ 148               	.LFBB3:
+ 149               	/* prologue: function */
+ 150               	/* frame size = 0 */
+ 151               	/* epilogue start */
+ 105:TinyTimber.c  **** lude <avr/interrupt.h>
+ 106:TinyTimber.c  **** 
+ 152               	n	68,0,106,.LM9-.LFBB3
+ 153               	.LM9:
+ 154 001e 0895      		ret
+ 156               	.Lscope3:
+ 159               	.global	DUMPC
+ 161               	DUMPC:
+ 107:TinyTimber.c  **** efine STACKSIZE       130
+ 108:TinyTimber.c  **** #define NMSGS           20
+ 162               	,0,108,.LM10-.LFBB4
+ 163               	.LM10:
+ 164               	.LFBB4:
+ 165               	/* prologue: function */
+ 166               	/* frame size = 0 */
+ 167               	/* epilogue start */
+ 109:TinyTimber.c  **** efine NTHREADS        5
+ 110:TinyTimber.c  **** 
+ 168               	n	68,0,110,.LM11-.LFBB4
+ 169               	.LM11:
+ 170 0020 0895      		ret
+ 172               	.Lscope4:
+ 176               	.global	enqueueByDeadline
+ 178               	enqueueByDeadline:
+ 111:TinyTimber.c  **** efine STATUS()        (SREG & 0x80)
+ 112:TinyTimber.c  **** #define DISABLE(s)      { s = STATUS(); cli(); }
+ 113:TinyTimber.c  **** #define ENABLE(s)       if (s) sei();
+ 114:TinyTimber.c  **** #define SLEEP()         { MCUCR = 0x80; __asm__ __volatile__ ("sleep" ::); }
+ 115:TinyTimber.c  **** #define PANIC()         { while (1) SLEEP(); }
+ 116:TinyTimber.c  **** 
+ 117:TinyTimber.c  **** #define SETSTACK(buf,a) { *((unsigned int *)(buf)+8) = (unsigned int)(a) + STACKSIZE - 4; \
+ 118:TinyTimber.c  ****                           *((unsigned int *)(buf)+9) = (unsigned int)(a) + STACKSIZE - 4; }
+ 119:TinyTimber.c  **** #define SETPC(buf, a)   *((unsigned int *)((unsigned char *)(buf) + 21)) = (unsigned int)(a)
+ 120:TinyTimber.c  **** 
+ 121:TinyTimber.c  **** #define TIMER_INIT()    { TCNT1 = 0x0000; TCCR1B = 0x02; TIMSK = 0x04; }
+ 122:TinyTimber.c  ****                         // Normal mode, clk/8 prescaling, enable timer overflow interrupts
+ 123:TinyTimber.c  **** #define TIMER_OCLR()    // No timer overflow interrupt clear necessary
+ 124:TinyTimber.c  **** #define TIMER_CCLR()    // No timer compare interrupt clear necessary
+ 125:TinyTimber.c  **** #define TIMERGET(x)     (x) = ((Time)overflows << 16) | (unsigned int)TCNT1; \
+ 126:TinyTimber.c  ****                         if (TIFR & 0x04) (x) = ((Time)(overflows+1) << 16) | (unsigned int)TCNT1;
+ 127:TinyTimber.c  **** #define TIMERSET(x)     { if ((x) && (HIGH16((x)->baseline) == overflows)) { \
+ 128:TinyTimber.c  ****                              OCR1A = MAX(LOW16((x)->baseline), (unsigned int)TCNT1+1); \
+ 129:TinyTimber.c  ****                              TIMSK |= 0x10; \
+ 130:TinyTimber.c  ****                           } else \
+ 131:TinyTimber.c  ****                              TIMSK &= ~0x10; \
+ 132:TinyTimber.c  ****                         }
+ 133:TinyTimber.c  **** #define HIGH16(x)       (int)((x) >> 16)
+ 134:TinyTimber.c  **** #define LOW16(x)        (unsigned int)((x) & 0xffff)
+ 135:TinyTimber.c  **** #define MAX(a,b)        ( (a)-(b) <= 0 ? (b) : (a) )
+ 136:TinyTimber.c  **** #define INFINITY        0x7fffffffL
+ 137:TinyTimber.c  **** #define INF(a)          ( (a)==0 ? INFINITY : (a) )
+ 138:TinyTimber.c  **** 
+ 139:TinyTimber.c  **** void DUMP_INIT() {
+ 140:TinyTimber.c  **** 
+ 141:TinyTimber.c  **** }
+ 142:TinyTimber.c  **** 
+ 143:TinyTimber.c  **** void DUMPC(char c) {
+ 144:TinyTimber.c  ****     
+ 145:TinyTimber.c  **** }
+ 146:TinyTimber.c  **** 
+ 147:TinyTimber.c  **** #elif defined(__HCS12__)    // Freescale HCS112 dependencies -----------------------------
+ 148:TinyTimber.c  **** 
+ 149:TinyTimber.c  **** #include <setjmp.h>
+ 150:TinyTimber.c  **** #include <machine/hcs12/ect.h>
+ 151:TinyTimber.c  ****                         
+ 152:TinyTimber.c  **** #define ECT             ((Ect *) 0x0040)
+ 153:TinyTimber.c  ****                         
+ 154:TinyTimber.c  **** #define STACKSIZE       1000
+ 155:TinyTimber.c  **** #define NMSGS           30
+ 156:TinyTimber.c  **** #define NTHREADS        4
+ 157:TinyTimber.c  **** 
+ 158:TinyTimber.c  **** void sei( void )        { __asm( " sei" );	}
+ 159:TinyTimber.c  **** void cli( void )        { __asm( " cli" ); }
+ 160:TinyTimber.c  **** char ccr( void )        { __asm( " tfr ccr,b" ); }
+ 161:TinyTimber.c  **** 
+ 162:TinyTimber.c  **** #define STATUS()        (!(ccr() & 0x10))
+ 163:TinyTimber.c  **** #define DISABLE(s)      { s = STATUS(); sei(); }
+ 164:TinyTimber.c  **** #define ENABLE(s)	    { if (s) cli(); }
+ 165:TinyTimber.c  **** #define SLEEP()         { __asm(" wai"); }
+ 166:TinyTimber.c  **** 
+ 167:TinyTimber.c  **** 
+ 168:TinyTimber.c  **** #define PANIC()         { DUMP("PANIC!!!"); while (1) SLEEP(); }
+ 169:TinyTimber.c  **** 
+ 170:TinyTimber.c  **** #define SETSTACK(buf,a) { *((unsigned short int *)(buf)) = (unsigned short int)(a) + STACKSIZE - 4;
+ 171:TinyTimber.c  ****                           *((unsigned short int *)((unsigned char *)(buf) + 5 )) = \
+ 172:TinyTimber.c  ****                           (unsigned short int)(a) + STACKSIZE - 4; }
+ 173:TinyTimber.c  **** #ifdef __LARGE
+ 174:TinyTimber.c  **** #define SETPC(buf, a)   { *((unsigned short int *)(buf) + 1) = (unsigned short int)(a); \
+ 175:TinyTimber.c  **** 			              *((unsigned char *)(buf) + 4) = (unsigned char)(0x30);}
+ 176:TinyTimber.c  **** #else
+ 177:TinyTimber.c  **** #define SETPC(buf, a)   *((unsigned short int *)(buf) + 1) = (unsigned short int)(a)
+ 178:TinyTimber.c  **** #endif
+ 179:TinyTimber.c  **** 
+ 180:TinyTimber.c  **** #define TIMER_INIT()    { ECT->tscr1 = 0x80; ECT->tscr2 = 0x84; ECT->tios = 0x01; } 
+ 181:TinyTimber.c  ****                         // tcsr1 = 0x80: timer enable, 
+ 182:TinyTimber.c  **** 			// tcsr2 = 0x84: enable timer overflow interrupt, clk/16 prescaling
+ 183:TinyTimber.c  ****                         //         1/(24 000 000 / 16) = 2/3 us period, 65535*2/3 us = 2/3*65.53 ms
+ 184:TinyTimber.c  **** 			// tios =  0x01: enable output compare on timer channel 0
+ 185:TinyTimber.c  **** 
+ 186:TinyTimber.c  **** #define TIMER_OCLR()    { ECT->tflg2 = 0x80; }  // Timer overflow interrupt clear
+ 187:TinyTimber.c  **** 
+ 188:TinyTimber.c  **** #define TIMER_CCLR()    { ECT->tflg1 = 0x01; }  // Timer compare interrupt clear
+ 189:TinyTimber.c  **** 
+ 190:TinyTimber.c  **** #define TIMERGET(x)	{ \
+ 191:TinyTimber.c  **** 			    *((short int *)(&(x))) = ECT->tflg2 & 0x80 ? overflows+1 : overflows; \
+ 192:TinyTimber.c  ****                             *(((short int *)&(x))+1) = ECT->tcnt; \
+ 193:TinyTimber.c  ****                             if (ECT->tflg2 & 0x80) { \
+ 194:TinyTimber.c  ****                                 *((short int *)(&(x))) = overflows+1; \
+ 195:TinyTimber.c  ****                                 *(((short int *)&(x))+1) = ECT->tcnt; \
+ 196:TinyTimber.c  ****                             } \
+ 197:TinyTimber.c  ****                         }
+ 198:TinyTimber.c  **** 				
+ 199:TinyTimber.c  **** #define TIMERSET(x)     { if ((x) && (HIGH16((x)->baseline) == overflows)) { \
+ 200:TinyTimber.c  ****                             unsigned int low16 = LOW16((x)->baseline); \
+ 201:TinyTimber.c  ****                             unsigned int tcnt1 = ECT->tcnt+4; \
+ 202:TinyTimber.c  ****                             if ((low16 < tcnt1) || (ECT->tflg2 & 0x80)) low16 = tcnt1; \
+ 203:TinyTimber.c  ****                             ECT->tc0 = low16; \
+ 204:TinyTimber.c  ****                             ECT->tier |= 0x1; \
+ 205:TinyTimber.c  ****                           } else \
+ 206:TinyTimber.c  ****                             ECT->tier &= ~0x1; \
+ 207:TinyTimber.c  ****                         }
+ 208:TinyTimber.c  ****                         
+ 209:TinyTimber.c  **** #define HIGH16(x)       *((short int*)&(x))
+ 210:TinyTimber.c  **** #define LOW16(x)        ((short int)x & 0xffff )
+ 211:TinyTimber.c  **** #define MAX(a,b)        ( (a)-(b) <= 0 ? (b) : (a) )
+ 212:TinyTimber.c  **** #define INFINITY        0x7fffffffL
+ 213:TinyTimber.c  **** #define INF(a)          ( (a)==0 ? INFINITY : (a) )
+ 214:TinyTimber.c  **** 
+ 215:TinyTimber.c  **** #include <machine/hcs12.h>
+ 216:TinyTimber.c  **** #include <machine/hcs12/sci.h>
+ 217:TinyTimber.c  **** 
+ 218:TinyTimber.c  **** #define	SCI_PORT	((volatile SCI*)SCI0BD)
+ 219:TinyTimber.c  **** 
+ 220:TinyTimber.c  **** void DUMP_INIT() {
+ 221:TinyTimber.c  ****     SCI_PORT->scicr2 = 0;
+ 222:TinyTimber.c  ****     SCI_PORT->scibd = 156;                // BAUD rate 9600 at 24 MHz
+ 223:TinyTimber.c  ****     SCI_PORT->scicr2 = TE;                // Enable transmitt
+ 224:TinyTimber.c  **** }
+ 225:TinyTimber.c  **** 
+ 226:TinyTimber.c  **** void DUMPC(char c) {
+ 227:TinyTimber.c  ****     /* output character to SCI0 */
+ 228:TinyTimber.c  ****     while ((SCI_PORT->scisr1 & TDRE) == 0)
+ 229:TinyTimber.c  ****         ; /* spin for TDRE==1 */
+ 230:TinyTimber.c  ****     SCI_PORT->scidrl = (unsigned char)c;
+ 231:TinyTimber.c  **** }
+ 232:TinyTimber.c  **** 
+ 233:TinyTimber.c  **** 
+ 234:TinyTimber.c  **** #endif  // Target dependencies ---------------------------------------------------------------
+ 235:TinyTimber.c  **** 
+ 236:TinyTimber.c  **** 
+ 237:TinyTimber.c  **** typedef struct thread_block *Thread;
+ 238:TinyTimber.c  **** 
+ 239:TinyTimber.c  **** #define INSTALLED_TAG (Thread)1
+ 240:TinyTimber.c  **** 
+ 241:TinyTimber.c  **** struct msg_block {
+ 242:TinyTimber.c  ****     Msg next;                // for use in linked lists
+ 243:TinyTimber.c  ****     Time baseline;           // event time reference point
+ 244:TinyTimber.c  ****     Time deadline;           // absolute deadline (=priority)
+ 245:TinyTimber.c  ****     Object *to;              // receiving object
+ 246:TinyTimber.c  ****     Method method;           // code to run
+ 247:TinyTimber.c  ****     int arg;                 // argument to the above
+ 248:TinyTimber.c  **** };
+ 249:TinyTimber.c  **** 
+ 250:TinyTimber.c  **** struct thread_block {
+ 251:TinyTimber.c  ****     Thread next;             // for use in linked lists
+ 252:TinyTimber.c  ****     Msg msg;                 // message under execution
+ 253:TinyTimber.c  ****     Object *waitsFor;        // deadlock detection link
+ 254:TinyTimber.c  ****     jmp_buf context;         // machine state
+ 255:TinyTimber.c  **** };
+ 256:TinyTimber.c  **** 
+ 257:TinyTimber.c  **** struct stack {
+ 258:TinyTimber.c  ****     unsigned char stack[STACKSIZE];
+ 259:TinyTimber.c  **** };
+ 260:TinyTimber.c  **** 
+ 261:TinyTimber.c  **** struct msg_block    messages[NMSGS];
+ 262:TinyTimber.c  **** struct thread_block threads[NTHREADS];
+ 263:TinyTimber.c  **** struct stack        stacks[NTHREADS];
+ 264:TinyTimber.c  **** 
+ 265:TinyTimber.c  **** struct thread_block thread0;
+ 266:TinyTimber.c  **** 
+ 267:TinyTimber.c  **** Msg msgPool         = messages;
+ 268:TinyTimber.c  **** Msg msgQ            = NULL;
+ 269:TinyTimber.c  **** Msg timerQ          = NULL;
+ 270:TinyTimber.c  **** Time timestamp      = 0;
+ 271:TinyTimber.c  **** int overflows       = 0;
+ 272:TinyTimber.c  **** 
+ 273:TinyTimber.c  **** Thread threadPool   = threads;
+ 274:TinyTimber.c  **** Thread activeStack  = &thread0;
+ 275:TinyTimber.c  **** Thread current      = &thread0;
+ 276:TinyTimber.c  **** 
+ 277:TinyTimber.c  **** Method  mtable[N_VECTORS];
+ 278:TinyTimber.c  **** Object *otable[N_VECTORS];
+ 279:TinyTimber.c  **** 
+ 280:TinyTimber.c  **** static void schedule(void);
+ 281:TinyTimber.c  **** 
+ 282:TinyTimber.c  **** #if defined(__AVR_ATmega169__) || defined(__AVR_ATmega169P__) // AVR ATmega169 Butterfly dependenci
+ 283:TinyTimber.c  **** 
+ 284:TinyTimber.c  **** 
+ 285:TinyTimber.c  **** #define TIMER_COMPARE_INTERRUPT  ISR(TIMER1_COMPA_vect)
+ 286:TinyTimber.c  **** #define TIMER_OVERFLOW_INTERRUPT ISR(TIMER1_OVF_vect)
+ 287:TinyTimber.c  **** 
+ 288:TinyTimber.c  **** #define IRQ(n,v) ISR(v) { TIMERGET(timestamp); if (mtable[n]) mtable[n](otable[n],n); schedule(); }
+ 289:TinyTimber.c  **** 
+ 290:TinyTimber.c  **** IRQ(IRQ_INT0,            INT0_vect);
+ 291:TinyTimber.c  **** IRQ(IRQ_PCINT0,          PCINT0_vect);
+ 292:TinyTimber.c  **** IRQ(IRQ_PCINT1,          PCINT1_vect);
+ 293:TinyTimber.c  **** IRQ(IRQ_TIMER2_COMP,     TIMER2_COMP_vect);
+ 294:TinyTimber.c  **** IRQ(IRQ_TIMER2_OVF,      TIMER2_OVF_vect);
+ 295:TinyTimber.c  **** IRQ(IRQ_TIMER0_COMP,     TIMER0_COMP_vect);
+ 296:TinyTimber.c  **** IRQ(IRQ_TIMER0_OVF,      TIMER0_OVF_vect);
+ 297:TinyTimber.c  **** IRQ(IRQ_SPI_STC,         SPI_STC_vect);
+ 298:TinyTimber.c  **** IRQ(IRQ_USART0_RX,       USART0_RX_vect);
+ 299:TinyTimber.c  **** IRQ(IRQ_USART0_UDRE,     USART0_UDRE_vect);
+ 300:TinyTimber.c  **** IRQ(IRQ_USART0_TX,       USART0_TX_vect);
+ 301:TinyTimber.c  **** IRQ(IRQ_USI_START,       USI_START_vect);
+ 302:TinyTimber.c  **** IRQ(IRQ_USI_OVERFLOW,    USI_OVERFLOW_vect);
+ 303:TinyTimber.c  **** IRQ(IRQ_ANALOG_COMP,     ANALOG_COMP_vect);
+ 304:TinyTimber.c  **** IRQ(IRQ_ADC,             ADC_vect);
+ 305:TinyTimber.c  **** IRQ(IRQ_EE_READY,        EE_READY_vect);
+ 306:TinyTimber.c  **** IRQ(IRQ_SPM_READY,       SPM_READY_vect);
+ 307:TinyTimber.c  **** IRQ(IRQ_LCD,             LCD_vect);
+ 308:TinyTimber.c  **** 
+ 309:TinyTimber.c  **** 
+ 310:TinyTimber.c  **** #elif defined(__AVR_ATmega32__)    // AVR ATmega32 dependencies -------------------------------
+ 311:TinyTimber.c  **** 
+ 312:TinyTimber.c  **** 
+ 313:TinyTimber.c  **** #define TIMER_COMPARE_INTERRUPT  ISR(TIMER1_COMPA_vect)
+ 314:TinyTimber.c  **** #define TIMER_OVERFLOW_INTERRUPT ISR(TIMER1_OVF_vect)
+ 315:TinyTimber.c  **** 
+ 316:TinyTimber.c  **** #define IRQ(n,v) ISR(v) { TIMERGET(timestamp); if (mtable[n]) mtable[n](otable[n],n); schedule(); }
+ 317:TinyTimber.c  **** 
+ 318:TinyTimber.c  **** IRQ(IRQ_INT0,            INT0_vect);
+ 319:TinyTimber.c  **** IRQ(IRQ_INT1,            INT1_vect);
+ 320:TinyTimber.c  **** IRQ(IRQ_INT2,            INT2_vect);
+ 321:TinyTimber.c  **** IRQ(IRQ_TIMER2_COMP,     TIMER2_COMP_vect);
+ 322:TinyTimber.c  **** IRQ(IRQ_TIMER2_OVF,      TIMER2_OVF_vect);
+ 323:TinyTimber.c  **** IRQ(IRQ_TIMER0_COMP,     TIMER0_COMP_vect);
+ 324:TinyTimber.c  **** IRQ(IRQ_TIMER0_OVF,      TIMER0_OVF_vect);
+ 325:TinyTimber.c  **** IRQ(IRQ_SPI_STC,         SPI_STC_vect);
+ 326:TinyTimber.c  **** IRQ(IRQ_USART_RXC,       USART_RXC_vect);
+ 327:TinyTimber.c  **** IRQ(IRQ_USART_UDRE,      USART_UDRE_vect);
+ 328:TinyTimber.c  **** IRQ(IRQ_USART_TXC,       USART_TXC_vect);
+ 329:TinyTimber.c  **** IRQ(IRQ_ADC,             ADC_vect);
+ 330:TinyTimber.c  **** IRQ(IRQ_EE_RDY,          EE_RDY_vect);
+ 331:TinyTimber.c  **** IRQ(IRQ_ANA_COMP,        ANA_COMP_vect);
+ 332:TinyTimber.c  **** IRQ(IRQ_TWI,             TWI_vect);
+ 333:TinyTimber.c  **** IRQ(IRQ_SPM_RDY,         SPM_RDY_vect);
+ 334:TinyTimber.c  **** 
+ 335:TinyTimber.c  **** 
+ 336:TinyTimber.c  **** #elif defined(__HCS12__)   // Freescale HCS12 dependencies -------------------------------
+ 337:TinyTimber.c  **** 
+ 338:TinyTimber.c  **** #define IRQ(n,v) __interrupt void v (void) { \
+ 339:TinyTimber.c  ****         char status; DISABLE(status); TIMERGET(timestamp); \
+ 340:TinyTimber.c  ****         if (mtable[n]) mtable[n](otable[n],n); \
+ 341:TinyTimber.c  ****         schedule(); ENABLE(status); \
+ 342:TinyTimber.c  **** }
+ 343:TinyTimber.c  **** 
+ 344:TinyTimber.c  **** IRQ(IRQ_PWMEShutdown,    vect_PWMEShutdown);
+ 345:TinyTimber.c  **** IRQ(IRQ_PortPInt,        vect_PortPInt);
+ 346:TinyTimber.c  **** 
+ 347:TinyTimber.c  **** IRQ(IRQ_MSCAN4Tx,        vect_MSCAN4Tx);
+ 348:TinyTimber.c  **** IRQ(IRQ_MSCAN4Rx,        vect_MSCAN4Rx);
+ 349:TinyTimber.c  **** IRQ(IRQ_MSCAN4Errs,      vect_MSCAN4Errs);
+ 350:TinyTimber.c  **** IRQ(IRQ_MSCAN4WakeUp,    vect_MSCAN4WakeUp);
+ 351:TinyTimber.c  **** 
+ 352:TinyTimber.c  **** IRQ(IRQ_BFGen,           vect_BFGen);
+ 353:TinyTimber.c  **** IRQ(IRQ_BFSync,          vect_BFSync);
+ 354:TinyTimber.c  **** IRQ(IRQ_BFRec,           vect_BFRec);
+ 355:TinyTimber.c  **** IRQ(IRQ_BFRx,            vect_BFRx);
+ 356:TinyTimber.c  **** IRQ(IRQ_MSCAN1Tx,        vect_MSCAN1Tx);
+ 357:TinyTimber.c  **** IRQ(IRQ_MSCAN1Rx,        vect_MSCAN1Rx);
+ 358:TinyTimber.c  **** IRQ(IRQ_MSCAN1Errs,      vect_MSCAN1Errs);
+ 359:TinyTimber.c  **** IRQ(IRQ_MSCAN1WakeUp,    vect_MSCAN1WakeUp);
+ 360:TinyTimber.c  **** 
+ 361:TinyTimber.c  **** IRQ(IRQ_MSCAN0Tx,        vect_MSCAN0Tx);
+ 362:TinyTimber.c  **** IRQ(IRQ_MSCAN0Rx,        vect_MSCAN0Rx);
+ 363:TinyTimber.c  **** IRQ(IRQ_MSCAN0Errs,      vect_MSCAN0Errs);
+ 364:TinyTimber.c  **** IRQ(IRQ_MSCAN0WakeUp,    vect_MSCAN0WakeUp);
+ 365:TinyTimber.c  **** IRQ(IRQ_Flash,           vect_Flash);
+ 366:TinyTimber.c  **** IRQ(IRQ_EEPROM,          vect_EEPROM);
+ 367:TinyTimber.c  **** IRQ(IRQ_SPI1,            vect_SPI1);
+ 368:TinyTimber.c  **** 
+ 369:TinyTimber.c  **** IRQ(IRQ_IICBus,          vect_IICBus);
+ 370:TinyTimber.c  **** IRQ(IRQ_DLC,             vect_DLC);
+ 371:TinyTimber.c  **** IRQ(IRQ_SCMEVect,        vect_SCMEVect);
+ 372:TinyTimber.c  **** IRQ(IRQ_CRGLock,         vect_CRGLock);
+ 373:TinyTimber.c  **** IRQ(IRQ_PACCBOv,         vect_PACCBOv);
+ 374:TinyTimber.c  **** IRQ(IRQ_ModDnCtr,        vect_ModDnCtr);
+ 375:TinyTimber.c  **** IRQ(IRQ_PortHInt,        vect_PortHInt);
+ 376:TinyTimber.c  **** IRQ(IRQ_PortJInt,        vect_PortJInt);
+ 377:TinyTimber.c  **** 
+ 378:TinyTimber.c  **** IRQ(IRQ_ATD1,            vect_ATD1);
+ 379:TinyTimber.c  **** IRQ(IRQ_ATD0,            vect_ATD0);
+ 380:TinyTimber.c  **** IRQ(IRQ_VSCI1,           vect_VSCI1);
+ 381:TinyTimber.c  **** IRQ(IRQ_VSCI0,           vect_VSCI0);
+ 382:TinyTimber.c  **** IRQ(IRQ_SPI0,            vect_SPI0);
+ 383:TinyTimber.c  **** IRQ(IRQ_PACCAEdge,       vect_PACCAEdge);
+ 384:TinyTimber.c  **** IRQ(IRQ_PACCAOv,         vect_PACCAOv);
+ 385:TinyTimber.c  **** 
+ 386:TinyTimber.c  **** IRQ(IRQ_TimerCh7,        vect_TimerCh7);
+ 387:TinyTimber.c  **** IRQ(IRQ_TimerCh6,        vect_TimerCh6);
+ 388:TinyTimber.c  **** IRQ(IRQ_TimerCh5,        vect_TimerCh5);
+ 389:TinyTimber.c  **** IRQ(IRQ_TimerCh4,        vect_TimerCh4);
+ 390:TinyTimber.c  **** IRQ(IRQ_TimerCh3,        vect_TimerCh3);
+ 391:TinyTimber.c  **** IRQ(IRQ_TimerCh2,        vect_TimerCh2);
+ 392:TinyTimber.c  **** IRQ(IRQ_TimerCh1,        vect_TimerCh1);
+ 393:TinyTimber.c  **** 
+ 394:TinyTimber.c  **** IRQ(IRQ_RTI,             vect_RTI);
+ 395:TinyTimber.c  **** IRQ(IRQ_IRQ,             vect_IRQ);
+ 396:TinyTimber.c  **** IRQ(IRQ_XIRQ,            vect_XIRQ);
+ 397:TinyTimber.c  **** 
+ 398:TinyTimber.c  **** __interrupt void reserved_TimerCh0( void );
+ 399:TinyTimber.c  **** __interrupt void reserved_TimerOv( void );
+ 400:TinyTimber.c  **** 
+ 401:TinyTimber.c  **** #define TIMER_COMPARE_INTERRUPT __interrupt void reserved_TimerCh0( void ) 
+ 402:TinyTimber.c  **** #define TIMER_OVERFLOW_INTERRUPT __interrupt void reserved_TimerOv( void )
+ 403:TinyTimber.c  **** 
+ 404:TinyTimber.c  **** #define reserved            ((Method)0xFFFF)
+ 405:TinyTimber.c  **** 
+ 406:TinyTimber.c  **** #define reserved_SWI        reserved
+ 407:TinyTimber.c  **** #define reserved_Illop      reserved
+ 408:TinyTimber.c  **** #define reserved_COPFail    reserved
+ 409:TinyTimber.c  **** #define reserved_ClockFail  reserved
+ 410:TinyTimber.c  **** 
+ 411:TinyTimber.c  **** typedef void (*Handler)(void);
+ 412:TinyTimber.c  **** 
+ 413:TinyTimber.c  **** #pragma	DATA vectors
+ 414:TinyTimber.c  **** __interrupt Handler irqvecs[] = {
+ 415:TinyTimber.c  **** 	vect_PWMEShutdown,      // FF8C
+ 416:TinyTimber.c  **** 	vect_PortPInt,          // FF8E
+ 417:TinyTimber.c  **** 
+ 418:TinyTimber.c  **** 	vect_MSCAN4Tx,          // FF90
+ 419:TinyTimber.c  **** 	vect_MSCAN4Rx,          // FF92
+ 420:TinyTimber.c  **** 	vect_MSCAN4Errs,        // FF94
+ 421:TinyTimber.c  **** 	vect_MSCAN4WakeUp,      // FF96
+ 422:TinyTimber.c  **** 	reserved,               // FF98
+ 423:TinyTimber.c  **** 	reserved,               // FF9A
+ 424:TinyTimber.c  **** 	reserved,               // FF9C
+ 425:TinyTimber.c  **** 	reserved,               // FF9E
+ 426:TinyTimber.c  **** 
+ 427:TinyTimber.c  **** 	vect_BFGen,             // FFA0
+ 428:TinyTimber.c  **** 	vect_BFSync,            // FFA2
+ 429:TinyTimber.c  **** 	vect_BFRec,             // FFA4
+ 430:TinyTimber.c  **** 	vect_BFRx,              // FFA6
+ 431:TinyTimber.c  **** 	vect_MSCAN1Tx,          // FFA8
+ 432:TinyTimber.c  **** 	vect_MSCAN1Rx,          // FFAA
+ 433:TinyTimber.c  **** 	vect_MSCAN1Errs,        // FFAC
+ 434:TinyTimber.c  **** 	vect_MSCAN1WakeUp,      // FFAE
+ 435:TinyTimber.c  **** 
+ 436:TinyTimber.c  **** 	vect_MSCAN0Tx,          // FFB0
+ 437:TinyTimber.c  **** 	vect_MSCAN0Rx,          // FFB2
+ 438:TinyTimber.c  **** 	vect_MSCAN0Errs,        // FFB4
+ 439:TinyTimber.c  **** 	vect_MSCAN0WakeUp,      // FFB6
+ 440:TinyTimber.c  **** 	vect_Flash,             // FFB8
+ 441:TinyTimber.c  **** 	vect_EEPROM,            // FFBA
+ 442:TinyTimber.c  **** 	reserved,               // FFBC
+ 443:TinyTimber.c  **** 	vect_SPI1,              // FFBE
+ 444:TinyTimber.c  **** 
+ 445:TinyTimber.c  **** 	vect_IICBus,            // FFC0
+ 446:TinyTimber.c  **** 	vect_DLC,               // FFC2
+ 447:TinyTimber.c  **** 	vect_SCMEVect,          // FFC4
+ 448:TinyTimber.c  **** 	vect_CRGLock,           // FFC6
+ 449:TinyTimber.c  **** 	vect_PACCBOv,           // FFC8
+ 450:TinyTimber.c  **** 	vect_ModDnCtr,          // FFCA
+ 451:TinyTimber.c  **** 	vect_PortHInt,          // FFCC
+ 452:TinyTimber.c  **** 	vect_PortJInt,          // FFCE
+ 453:TinyTimber.c  **** 
+ 454:TinyTimber.c  **** 	vect_ATD1,              // FFD0
+ 455:TinyTimber.c  **** 	vect_ATD0,              // FFD2
+ 456:TinyTimber.c  **** 	vect_VSCI1,             // FFD4
+ 457:TinyTimber.c  **** 	vect_VSCI0,             // FFD6
+ 458:TinyTimber.c  **** 	vect_SPI0,              // FFD8
+ 459:TinyTimber.c  **** 	vect_PACCAEdge,         // FFDA
+ 460:TinyTimber.c  **** 	vect_PACCAOv,           // FFDC
+ 461:TinyTimber.c  **** 	reserved_TimerOv,       // FFDE
+ 462:TinyTimber.c  **** 
+ 463:TinyTimber.c  **** 	vect_TimerCh7,          // FFE0
+ 464:TinyTimber.c  **** 	vect_TimerCh6,          // FFE2
+ 465:TinyTimber.c  **** 	vect_TimerCh5,          // FFE4
+ 466:TinyTimber.c  **** 	vect_TimerCh4,          // FFE6
+ 467:TinyTimber.c  **** 	vect_TimerCh3,          // FFE8
+ 468:TinyTimber.c  **** 	vect_TimerCh2,          // FFEA
+ 469:TinyTimber.c  **** 	vect_TimerCh1,          // FFEC
+ 470:TinyTimber.c  **** 	reserved_TimerCh0,      // FFEE
+ 471:TinyTimber.c  **** 
+ 472:TinyTimber.c  **** 	vect_RTI,               // FFF0
+ 473:TinyTimber.c  **** 	vect_IRQ,               // FFF2
+ 474:TinyTimber.c  **** 	vect_XIRQ,              // FFF4
+ 475:TinyTimber.c  **** 	reserved_SWI,           // FFF6
+ 476:TinyTimber.c  **** 	reserved_Illop,         // FFF8
+ 477:TinyTimber.c  **** 	reserved_COPFail,       // FFFA
+ 478:TinyTimber.c  **** 	reserved_ClockFail      // FFFC
+ 479:TinyTimber.c  **** 	// reset vector handled by generic startup code
+ 480:TinyTimber.c  **** };
+ 481:TinyTimber.c  **** #pragma	DATA default
+ 482:TinyTimber.c  **** 
+ 483:TinyTimber.c  **** #endif
+ 484:TinyTimber.c  **** 
+ 485:TinyTimber.c  **** /* queue manager */
+ 486:TinyTimber.c  **** void enqueueByDeadline(Msg p, Msg *queue) {
+ 487:TinyTimber.c  ****     Msg prev = NULL, q = *queue;
+ 488:TinyTimber.c  ****     while (q && (q->deadline <= p->deadline)) {
+ 489:TinyTimber.c  ****         prev = q;
+ 490:TinyTimber.c  ****         q = q->next;
+ 491:TinyTimber.c  ****     }
+ 492:TinyTimber.c  ****     p->next = q;
+ 493:TinyTimber.c  ****     if (prev == NULL)
+ 494:TinyTimber.c  ****         *queue = p;
+ 495:TinyTimber.c  ****     else
+ 496:TinyTimber.c  ****         prev->next = p;
+ 497:TinyTimber.c  **** }
+ 179               	0,497,.LM12-.LFBB5
+ 180               	.LM12:
+ 181               	.LFBB5:
+ 182 0022 CF92      		push r12
+ 183 0024 DF92      		push r13
+ 184 0026 EF92      		push r14
+ 185 0028 FF92      		push r15
+ 186 002a 0F93      		push r16
+ 187 002c 1F93      		push r17
+ 188 002e CF93      		push r28
+ 189 0030 DF93      		push r29
+ 190               	/* prologue: function */
+ 191               	/* frame size = 0 */
+ 192 0032 8C01      		movw r16,r24
+ 498:TinyTimber.c  **** e) {
+ 193               	98,.LM13-.LFBB5
+ 194               	.LM13:
+ 195 0034 DB01      		movw r26,r22
+ 196 0036 ED91      		ld r30,X+
+ 197 0038 FC91      		ld r31,X
+ 198 003a C0E0      		ldi r28,lo8(0)
+ 199 003c D0E0      		ldi r29,hi8(0)
+ 200 003e 00C0      		rjmp .L14
+ 201               	.L16:
+ 499:TinyTimber.c  ****    Msg prev = NULL, q = *queue;
+ 500:TinyTimber.c  ****     while (q && (q->baseline <= p->baseline )) {
+ 501:TinyTimber.c  ****         prev = q;
+ 202               	8,0,501,.LM14-.LFBB5
+ 203               	.LM14:
+ 204 0040 EF01      		movw r28,r30
+ 205 0042 8081      		ld r24,Z
+ 206 0044 9181      		ldd r25,Z+1
+ 207 0046 9C01      		movw r18,r24
+ 208 0048 F901      		movw r30,r18
+ 209               	.L14:
+ 211               	.LM15:
+ 212 004a 3097      		sbiw r30,0
+ 213 004c 01F0      		breq .L15
+ 214 004e 2681      		ldd r18,Z+6
+ 215 0050 3781      		ldd r19,Z+7
+ 216 0052 4085      		ldd r20,Z+8
+ 217 0054 5185      		ldd r21,Z+9
+ 218 0056 D801      		movw r26,r16
+ 219 0058 1696      		adiw r26,6
+ 220 005a CD90      		ld r12,X+
+ 221 005c DD90      		ld r13,X+
+ 222 005e ED90      		ld r14,X+
+ 223 0060 FC90      		ld r15,X
+ 224 0062 1997      		sbiw r26,6+3
+ 225 0064 C216      		cp r12,r18
+ 226 0066 D306      		cpc r13,r19
+ 227 0068 E406      		cpc r14,r20
+ 228 006a F506      		cpc r15,r21
+ 229 006c 04F4      		brge .L16
+ 230               	.L15:
+ 502:TinyTimber.c  ****      q = q->next;
+ 503:TinyTimber.c  ****     }
+ 231               	
+ 232               	.LM16:
+ 233 006e D801      		movw r26,r16
+ 234 0070 ED93      		st X+,r30
+ 235 0072 FC93      		st X,r31
+ 504:TinyTimber.c  ****   p->next = q;
+ 236               	abn	68,0,504,.LM17-.LFBB5
+ 237               	.LM17:
+ 238 0074 2097      		sbiw r28,0
+ 239 0076 01F4      		brne .L17
+ 505:TinyTimber.c  ****    if (prev == NULL)
+ 240               	abn	68,0,505,.LM18-.LFBB5
+ 241               	.LM18:
+ 242 0078 FB01      		movw r30,r22
+ 243 007a 1183      		std Z+1,r17
+ 244 007c 0083      		st Z,r16
+ 245 007e 00C0      		rjmp .L19
+ 246               	.L17:
+ 506:TinyTimber.c  ****        *queue = p;
+ 507:TinyTimber.c  ****     else
+ 247               		68,0,507,.LM19-.LFBB5
+ 248               	.LM19:
+ 249 0080 1983      		std Y+1,r17
+ 250 0082 0883      		st Y,r16
+ 251               	.L19:
+ 252               	/* epilogue start */
+ 508:TinyTimber.c  ****       prev->next = p;
+ 253               	n	68,0,508,.LM20-.LFBB5
+ 254               	.LM20:
+ 255 0084 DF91      		pop r29
+ 256 0086 CF91      		pop r28
+ 257 0088 1F91      		pop r17
+ 258 008a 0F91      		pop r16
+ 259 008c FF90      		pop r15
+ 260 008e EF90      		pop r14
+ 261 0090 DF90      		pop r13
+ 262 0092 CF90      		pop r12
+ 263 0094 0895      		ret
+ 269               	.Lscope5:
+ 273               	.global	enqueueByBaseline
+ 275               	enqueueByBaseline:
+ 509:TinyTimber.c  **** 
+ 510:TinyTimber.c  **** 
+ 276               	.LFBB6
+ 277               	.LM21:
+ 278               	.LFBB6:
+ 279 0096 CF92      		push r12
+ 280 0098 DF92      		push r13
+ 281 009a EF92      		push r14
+ 282 009c FF92      		push r15
+ 283 009e 0F93      		push r16
+ 284 00a0 1F93      		push r17
+ 285 00a2 CF93      		push r28
+ 286 00a4 DF93      		push r29
+ 287               	/* prologue: function */
+ 288               	/* frame size = 0 */
+ 289 00a6 8C01      		movw r16,r24
+ 511:TinyTimber.c  **** sg dequeue(Msg *queue) {
+ 290               	11,.LM22-.LFBB6
+ 291               	.LM22:
+ 292 00a8 DB01      		movw r26,r22
+ 293 00aa ED91      		ld r30,X+
+ 294 00ac FC91      		ld r31,X
+ 295 00ae C0E0      		ldi r28,lo8(0)
+ 296 00b0 D0E0      		ldi r29,hi8(0)
+ 297 00b2 00C0      		rjmp .L21
+ 298               	.L23:
+ 512:TinyTimber.c  ****    Msg m = *queue;
+ 513:TinyTimber.c  ****     if (m)
+ 514:TinyTimber.c  ****         *queue = m->next;
+ 299               	8,0,514,.LM23-.LFBB6
+ 300               	.LM23:
+ 301 00b4 EF01      		movw r28,r30
+ 302 00b6 8081      		ld r24,Z
+ 303 00b8 9181      		ldd r25,Z+1
+ 304 00ba 9C01      		movw r18,r24
+ 305 00bc F901      		movw r30,r18
+ 306               	.L21:
+ 308               	.LM24:
+ 309 00be 3097      		sbiw r30,0
+ 310 00c0 01F0      		breq .L22
+ 311 00c2 2281      		ldd r18,Z+2
+ 312 00c4 3381      		ldd r19,Z+3
+ 313 00c6 4481      		ldd r20,Z+4
+ 314 00c8 5581      		ldd r21,Z+5
+ 315 00ca D801      		movw r26,r16
+ 316 00cc 1296      		adiw r26,2
+ 317 00ce CD90      		ld r12,X+
+ 318 00d0 DD90      		ld r13,X+
+ 319 00d2 ED90      		ld r14,X+
+ 320 00d4 FC90      		ld r15,X
+ 321 00d6 1597      		sbiw r26,2+3
+ 322 00d8 C216      		cp r12,r18
+ 323 00da D306      		cpc r13,r19
+ 324 00dc E406      		cpc r14,r20
+ 325 00de F506      		cpc r15,r21
+ 326 00e0 04F4      		brge .L23
+ 327               	.L22:
+ 515:TinyTimber.c  ****  else
+ 516:TinyTimber.c  ****         PANIC();  // Empty queue, kernel panic!!!
+ 328               	
+ 329               	.LM25:
+ 330 00e2 D801      		movw r26,r16
+ 331 00e4 ED93      		st X+,r30
+ 332 00e6 FC93      		st X,r31
+ 517:TinyTimber.c  ****   return m;
+ 333               	abn	68,0,517,.LM26-.LFBB6
+ 334               	.LM26:
+ 335 00e8 2097      		sbiw r28,0
+ 336 00ea 01F4      		brne .L24
+ 518:TinyTimber.c  **** 
+ 337               	abn	68,0,518,.LM27-.LFBB6
+ 338               	.LM27:
+ 339 00ec FB01      		movw r30,r22
+ 340 00ee 1183      		std Z+1,r17
+ 341 00f0 0083      		st Z,r16
+ 342 00f2 00C0      		rjmp .L26
+ 343               	.L24:
+ 519:TinyTimber.c  **** 
+ 520:TinyTimber.c  **** void insert(Msg m, Msg *queue) {
+ 344               		68,0,520,.LM28-.LFBB6
+ 345               	.LM28:
+ 346 00f4 1983      		std Y+1,r17
+ 347 00f6 0883      		st Y,r16
+ 348               	.L26:
+ 349               	/* epilogue start */
+ 521:TinyTimber.c  ****    m->next = *queue;
+ 350               	n	68,0,521,.LM29-.LFBB6
+ 351               	.LM29:
+ 352 00f8 DF91      		pop r29
+ 353 00fa CF91      		pop r28
+ 354 00fc 1F91      		pop r17
+ 355 00fe 0F91      		pop r16
+ 356 0100 FF90      		pop r15
+ 357 0102 EF90      		pop r14
+ 358 0104 DF90      		pop r13
+ 359 0106 CF90      		pop r12
+ 360 0108 0895      		ret
+ 366               	.Lscope6:
+ 369               	.global	dequeue
+ 371               	dequeue:
+ 522:TinyTimber.c  ****    *queue = m;
+ 523:TinyTimber.c  **** }
+ 372               	-.LFBB7
+ 373               	.LM30:
+ 374               	.LFBB7:
+ 375               	/* prologue: function */
+ 376               	/* frame size = 0 */
+ 377 010a DC01      		movw r26,r24
+ 524:TinyTimber.c  **** oid push(Thread t, Thread *stack) {
+ 378               	n	68,0,524,.LM31-.LFBB7
+ 379               	.LM31:
+ 380 010c ED91      		ld r30,X+
+ 381 010e FC91      		ld r31,X
+ 382 0110 1197      		sbiw r26,1
+ 525:TinyTimber.c  ****    t->next = *stack;
+ 383               	bn	68,0,525,.LM32-.LFBB7
+ 384               	.LM32:
+ 385 0112 3097      		sbiw r30,0
+ 386 0114 01F0      		breq .L28
+ 526:TinyTimber.c  ****    *stack = t;
+ 387               	abn	68,0,526,.LM33-.LFBB7
+ 388               	.LM33:
+ 389 0116 8081      		ld r24,Z
+ 390 0118 9181      		ldd r25,Z+1
+ 391 011a 8D93      		st X+,r24
+ 392 011c 9C93      		st X,r25
+ 527:TinyTimber.c  **** 
+ 528:TinyTimber.c  **** 
+ 529:TinyTimber.c  **** Thread pop(Thread *stack) {
+ 530:TinyTimber.c  ****     Thread t = *stack;
+ 393               	n	68,0,530,.LM34-.LFBB7
+ 394               	.LM34:
+ 395 011e CF01      		movw r24,r30
+ 396               	/* epilogue start */
+ 397 0120 0895      		ret
+ 398               	.L28:
+ 400               	.LM35:
+ 401 0122 8FEF      		ldi r24,lo8(-1)
+ 402 0124 8093 EC00 		sts 236,r24
+ 403 0128 8093 ED00 		sts 237,r24
+ 404 012c 8093 EE00 		sts 238,r24
+ 405 0130 81E0      		ldi r24,lo8(1)
+ 406               	.L29:
+ 407 0132 83BF      		out 83-32,r24
+ 408               	/* #APP */
+ 409               	 ;  528 "TinyTimber.c" 1
+ 410 0134 8895      		sleep
+ 411               	 ;  0 "" 2
+ 412               	/* #NOAPP */
+ 413 0136 00C0      		rjmp .L29
+ 418               	.Lscope7:
+ 422               	.global	insert
+ 424               	insert:
+ 531:TinyTimber.c  ****  *stack = t->next;
+ 532:TinyTimber.c  ****     return t;
+ 425               	M36:
+ 426               	.LFBB8:
+ 427               	/* prologue: function */
+ 428               	/* frame size = 0 */
+ 429               		movw r26,r24
+ 430 0138 DC01      		movw r30,r22
+ 533:TinyTimber.c  **** 
+ 432               		ld r24,Z
+ 433               		ldd r25,Z+1
+ 434 013c 8081      		adiw r26,1
+ 435 013e 9181      		st X,r25
+ 436 0140 1196      		st -X,r24
+ 438 0144 8E93      	.LM38:
+ 534:TinyTimber.c  **** static int remove(Msg m, Msg *queue) {
+ 439               	1,r27
+ 440               		st Z,r26
+ 441 0146 B183      	/* epilogue start */
+ 443               	.LM39:
+ 535:TinyTimber.c  ****    Msg prev = NULL, q = *queue;
+ 445               	.Lscope8:
+ 449               	.global	push
+ 451               	push:
+ 453               	.LM40:
+ 454               	.LFBB9:
+ 536:TinyTimber.c  ****    while (q && (q != m)) {
+ 537:TinyTimber.c  ****         prev = q;
+ 455               	: function */
+ 456               	/* frame size = 0 */
+ 457               		movw r26,r24
+ 458               		movw r30,r22
+ 460 014c DC01      	.LM41:
+ 461 014e FB01      		ld r24,Z
+ 538:TinyTimber.c  ****       q = q->next;
+ 462               	5,Z+1
+ 463               		adiw r26,1
+ 464 0150 8081      		st X,r25
+ 465 0152 9181      		st -X,r24
+ 467 0156 9C93      	.LM42:
+ 468 0158 8E93      		std Z+1,r27
+ 539:TinyTimber.c  ****    }
+ 469               	26
+ 470               	/* epilogue start */
+ 472 015c A083      	.LM43:
+ 473               		ret
+ 540:TinyTimber.c  ****    if (q) {
+ 474               	e	push, .-push
+ 475               	.Lscope9:
+ 478               	.global	pop
+ 480               	pop:
+ 482               	.LM44:
+ 483               	.LFBB10:
+ 541:TinyTimber.c  ****        if (prev)
+ 542:TinyTimber.c  ****             prev->next = q->next;
+ 484               	e: function */
+ 485               	/* frame size = 0 */
+ 486               		movw r30,r24
+ 488               	.LM45:
+ 489 0160 FC01      		ld r26,Z
+ 543:TinyTimber.c  ****       else
+ 490               	27,Z+1
+ 492 0162 A081      	.LM46:
+ 493 0164 B181      		ld r24,X+
+ 544:TinyTimber.c  ****            *queue = q->next;
+ 494               	r25,X
+ 495               		sbiw r26,1
+ 496 0166 8D91      		std Z+1,r25
+ 497 0168 9C91      		st Z,r24
+ 499 016c 9183      	.LM47:
+ 500 016e 8083      		movw r24,r26
+ 545:TinyTimber.c  ****        return 1;
+ 546:TinyTimber.c  ****     }
+ 501               	ogue start */
+ 502               		ret
+ 507               	.Lscope10:
+ 509               	.global	__vector_9
+ 511               	__vector_9:
+ 513               	.LM48:
+ 514               	.LFBB11:
+ 547:TinyTimber.c  ****   return 0;
+ 548:TinyTimber.c  **** }
+ 549:TinyTimber.c  **** 
+ 550:TinyTimber.c  **** TIMER_OVERFLOW_INTERRUPT {
+ 551:TinyTimber.c  ****     TIMER_OCLR();
+ 552:TinyTimber.c  ****     overflows++;
+ 553:TinyTimber.c  ****     TIMERSET(timerQ);
+ 554:TinyTimber.c  **** }
+ 555:TinyTimber.c  **** 
+ 556:TinyTimber.c  **** TIMER_COMPARE_INTERRUPT {
+ 557:TinyTimber.c  ****     Time now;
+ 558:TinyTimber.c  ****     TIMER_CCLR();
+ 559:TinyTimber.c  ****     TIMERGET(now);
+ 560:TinyTimber.c  ****     while (timerQ && (timerQ->baseline - now <= 0))
+ 561:TinyTimber.c  ****         enqueueByDeadline( dequeue(&timerQ), &msgQ );
+ 562:TinyTimber.c  ****     TIMERSET(timerQ);
+ 563:TinyTimber.c  ****     schedule();
+ 564:TinyTimber.c  **** }
+ 515               	eg__
+ 516               		push r0
+ 517               		in r0,__SREG__
+ 518 0174 1F92      		push r0
+ 519 0176 0F92      		clr __zero_reg__
+ 520 0178 0FB6      		push r18
+ 521 017a 0F92      		push r19
+ 522 017c 1124      		push r20
+ 523 017e 2F93      		push r21
+ 524 0180 3F93      		push r22
+ 525 0182 4F93      		push r23
+ 526 0184 5F93      		push r24
+ 527 0186 6F93      		push r25
+ 528 0188 7F93      		push r26
+ 529 018a 8F93      		push r27
+ 530 018c 9F93      		push r30
+ 531 018e AF93      		push r31
+ 532 0190 BF93      	/* prologue: Signal */
+ 533 0192 EF93      	/* frame size = 0 */
+ 535               	.LM49:
+ 536               		lds r22,overflows
+ 565:TinyTimber.c  **** ing */
+ 566:TinyTimber.c  **** static void dispatch( Thread next ) {
+ 537               	
+ 538               		subi r22,lo8(-(1))
+ 539 0196 6091 0000 		sbci r23,hi8(-(1))
+ 540 019a 7091 0000 		sts (overflows)+1,r23
+ 541 019e 6F5F      		sts overflows,r22
+ 543 01a2 7093 0000 	.LM50:
+ 544 01a6 6093 0000 		lds r30,timerQ
+ 567:TinyTimber.c  ****   if (setjmp( current->context ) == 0) {
+ 545               	1,(timerQ)+1
+ 546               		sbiw r30,0
+ 547 01aa E091 0000 		breq .L38
+ 548 01ae F091 0000 		ldd r18,Z+2
+ 549 01b2 3097      		ldd r19,Z+3
+ 550 01b4 01F0      		ldd r20,Z+4
+ 551 01b6 2281      		ldd r21,Z+5
+ 552 01b8 3381      		movw r24,r20
+ 553 01ba 4481      		clr r27
+ 554 01bc 5581      		sbrc r25,7
+ 555 01be CA01      		com r27
+ 556 01c0 BB27      		mov r26,r27
+ 557 01c2 97FD      		cp r22,r24
+ 558 01c4 B095      		cpc r23,r25
+ 559 01c6 AB2F      		brne .L38
+ 560 01c8 6817      		lds r24,132
+ 561 01ca 7907      		lds r25,(132)+1
+ 562 01cc 01F4      		com r24
+ 563 01ce 8091 8400 		com r25
+ 564 01d2 9091 8500 		add r24,r18
+ 565 01d6 8095      		adc r25,r19
+ 566 01d8 9095      		or r24,r25
+ 567 01da 820F      		brne .L39
+ 568 01dc 931F      		lds r18,132
+ 569 01de 892B      		lds r19,(132)+1
+ 570 01e0 01F4      		subi r18,lo8(-(1))
+ 571 01e2 2091 8400 		sbci r19,hi8(-(1))
+ 572 01e6 3091 8500 	.L39:
+ 573 01ea 2F5F      		sts (136)+1,r19
+ 574 01ec 3F4F      		sts 136,r18
+ 575               		lds r24,111
+ 576 01ee 3093 8900 		ori r24,lo8(2)
+ 577 01f2 2093 8800 		rjmp .L42
+ 578 01f6 8091 6F00 	.L38:
+ 579 01fa 8260      		lds r24,111
+ 580 01fc 00C0      		andi r24,lo8(-3)
+ 581               	.L42:
+ 582 01fe 8091 6F00 		sts 111,r24
+ 583 0202 8D7F      	/* epilogue start */
+ 585 0204 8093 6F00 	.LM51:
+ 586               		pop r31
+ 568:TinyTimber.c  ****        current = next;
+ 587               	24
+ 588               		pop r23
+ 589 0208 FF91      		pop r22
+ 590 020a EF91      		pop r21
+ 591 020c BF91      		pop r20
+ 592 020e AF91      		pop r19
+ 593 0210 9F91      		pop r18
+ 594 0212 8F91      		pop r0
+ 595 0214 7F91      		out __SREG__,r0
+ 596 0216 6F91      		pop r0
+ 597 0218 5F91      		pop __zero_reg__
+ 598 021a 4F91      		reti
+ 600 021e 2F91      	.Lscope11:
+ 603 0224 0F90      	.global	ABORT
+ 605 0228 1895      	ABORT:
+ 607               	.LM52:
+ 608               	.LFBB12:
+ 609               	/* prologue: function */
+ 610               	/* frame size = 0 */
+ 611               		movw r26,r24
+ 569:TinyTimber.c  ****        longjmp( next->context, 1 );
+ 570:TinyTimber.c  ****     }
+ 571:TinyTimber.c  **** }
+ 572:TinyTimber.c  **** 
+ 573:TinyTimber.c  **** static void run(void) {
+ 574:TinyTimber.c  ****     while (1) {
+ 575:TinyTimber.c  ****         Msg this = current->msg = dequeue(&msgQ);
+ 576:TinyTimber.c  ****         Msg oldMsg;
+ 577:TinyTimber.c  ****         char status = 1;
+ 578:TinyTimber.c  ****         
+ 579:TinyTimber.c  ****         ENABLE(status);
+ 580:TinyTimber.c  ****         SYNC(this->to, this->method, this->arg);
+ 581:TinyTimber.c  ****         DISABLE(status);
+ 582:TinyTimber.c  ****         insert(this, &msgPool);
+ 583:TinyTimber.c  ****        
+ 584:TinyTimber.c  ****         oldMsg = activeStack->next->msg;
+ 585:TinyTimber.c  ****         if (!msgQ || (oldMsg && (msgQ->deadline - oldMsg->deadline > 0))) {
+ 586:TinyTimber.c  ****             Thread t;
+ 587:TinyTimber.c  ****             push(pop(&activeStack), &threadPool);
+ 588:TinyTimber.c  ****             t = activeStack;  // can't be NULL, may be &thread0
+ 589:TinyTimber.c  ****             while (t->waitsFor) 
+ 590:TinyTimber.c  **** 	            t = t->waitsFor->ownedBy;
+ 591:TinyTimber.c  ****             dispatch(t);
+ 592:TinyTimber.c  ****         }
+ 593:TinyTimber.c  ****     }
+ 594:TinyTimber.c  **** }
+ 595:TinyTimber.c  **** 
+ 596:TinyTimber.c  **** static void idle(void) {
+ 597:TinyTimber.c  ****     schedule();
+ 598:TinyTimber.c  ****     ENABLE(1);
+ 599:TinyTimber.c  ****     while (1) {
+ 600:TinyTimber.c  ****         SLEEP();
+ 601:TinyTimber.c  ****     }
+ 602:TinyTimber.c  **** }
+ 603:TinyTimber.c  **** 
+ 604:TinyTimber.c  **** static void schedule(void) {
+ 605:TinyTimber.c  ****     Msg topMsg = activeStack->msg;
+ 606:TinyTimber.c  ****     if (msgQ && threadPool && ((!topMsg) || (msgQ->deadline - topMsg->deadline < 0))) {
+ 607:TinyTimber.c  ****         push(pop(&threadPool), &activeStack);
+ 608:TinyTimber.c  ****         dispatch(activeStack);
+ 609:TinyTimber.c  ****     }
+ 610:TinyTimber.c  **** }
+ 611:TinyTimber.c  **** 
+ 612:TinyTimber.c  **** /* communication primitives */
+ 613:TinyTimber.c  **** Msg async(Time bl, Time dl, Object *to, Method meth, int arg) {
+ 614:TinyTimber.c  ****     Msg m;
+ 615:TinyTimber.c  ****     Time now;
+ 616:TinyTimber.c  ****     char status;
+ 617:TinyTimber.c  ****     DISABLE(status);
+ 618:TinyTimber.c  ****     m = dequeue(&msgPool);
+ 619:TinyTimber.c  ****     m->to = to; 
+ 620:TinyTimber.c  ****     m->method = meth; 
+ 621:TinyTimber.c  ****     m->arg = arg;
+ 622:TinyTimber.c  ****     m->baseline = (status ? current->msg->baseline : timestamp) + bl;
+ 623:TinyTimber.c  ****     m->deadline = m->baseline + (dl > 0 ? dl : INFINITY);
+ 624:TinyTimber.c  ****     
+ 625:TinyTimber.c  ****     TIMERGET(now);
+ 626:TinyTimber.c  ****     if (m->baseline - now > 0) {        // baseline has not yet passed
+ 627:TinyTimber.c  ****         enqueueByBaseline(m, &timerQ);
+ 628:TinyTimber.c  ****         TIMERSET(timerQ);
+ 629:TinyTimber.c  ****     } else {                            // m is immediately schedulable
+ 630:TinyTimber.c  ****         enqueueByDeadline(m, &msgQ);
+ 631:TinyTimber.c  ****         if (status && threadPool && (msgQ->deadline - activeStack->msg->deadline < 0)) {
+ 632:TinyTimber.c  ****             push(pop(&threadPool), &activeStack);
+ 633:TinyTimber.c  ****             dispatch(activeStack);
+ 634:TinyTimber.c  ****         }
+ 635:TinyTimber.c  ****     }
+ 636:TinyTimber.c  ****     
+ 637:TinyTimber.c  ****     ENABLE(status);
+ 638:TinyTimber.c  ****     return m;
+ 639:TinyTimber.c  **** }
+ 640:TinyTimber.c  **** 
+ 641:TinyTimber.c  **** int sync(Object *to, Method meth, int arg) {
+ 642:TinyTimber.c  ****     Thread t;
+ 643:TinyTimber.c  ****     int result;
+ 644:TinyTimber.c  ****     char status, status_ignore;
+ 645:TinyTimber.c  ****     
+ 646:TinyTimber.c  ****     DISABLE(status);
+ 647:TinyTimber.c  ****     t = to->ownedBy;
+ 648:TinyTimber.c  ****     if (t) {                            // to is already locked
+ 649:TinyTimber.c  ****         while (t->waitsFor) 
+ 650:TinyTimber.c  ****             t = t->waitsFor->ownedBy;
+ 651:TinyTimber.c  ****         if (t == current || !status) {  // deadlock!
+ 652:TinyTimber.c  ****             ENABLE(status);
+ 653:TinyTimber.c  ****             return -1;
+ 654:TinyTimber.c  ****         }
+ 655:TinyTimber.c  ****         if (to->wantedBy)               // must be a lower priority thread
+ 656:TinyTimber.c  ****             to->wantedBy->waitsFor = NULL;
+ 657:TinyTimber.c  ****         to->wantedBy = current;
+ 658:TinyTimber.c  ****         current->waitsFor = to;
+ 659:TinyTimber.c  ****         dispatch(t);
+ 660:TinyTimber.c  ****         if (current->msg == NULL) {     // message was aborted (when called from run)
+ 661:TinyTimber.c  ****             ENABLE(status);
+ 662:TinyTimber.c  ****             return 0;
+ 663:TinyTimber.c  ****         }
+ 664:TinyTimber.c  ****     }
+ 665:TinyTimber.c  ****     to->ownedBy = current;
+ 666:TinyTimber.c  ****     ENABLE(status && (to->wantedBy != INSTALLED_TAG));
+ 667:TinyTimber.c  ****     result = meth(to, arg);
+ 668:TinyTimber.c  ****     DISABLE(status_ignore);
+ 669:TinyTimber.c  ****     to->ownedBy = NULL; 
+ 670:TinyTimber.c  ****     t = to->wantedBy;
+ 671:TinyTimber.c  ****     if (t && (t != INSTALLED_TAG)) {      // we have run on someone's behalf
+ 672:TinyTimber.c  ****         to->wantedBy = NULL; 
+ 673:TinyTimber.c  ****         t->waitsFor = NULL;
+ 674:TinyTimber.c  ****         dispatch(t);
+ 675:TinyTimber.c  ****     }
+ 676:TinyTimber.c  ****     ENABLE(status);
+ 677:TinyTimber.c  ****     return result;
+ 678:TinyTimber.c  **** }
+ 679:TinyTimber.c  **** 
+ 680:TinyTimber.c  **** void ABORT(Msg m) {
+ 681:TinyTimber.c  ****     char status;
+ 682:TinyTimber.c  ****     DISABLE(status);
+ 683:TinyTimber.c  ****     if (remove(m, &timerQ) || remove(m, &msgQ))
+ 684:TinyTimber.c  ****         insert(m, &msgPool);
+ 685:TinyTimber.c  ****     else {
+ 686:TinyTimber.c  ****         Thread t = activeStack;
+ 687:TinyTimber.c  ****         while (t) {
+ 688:TinyTimber.c  ****             if ((t != current) && (t->msg == m) && (t->waitsFor == m->to)) {
+ 689:TinyTimber.c  **** 	            t->msg = NULL;
+ 690:TinyTimber.c  **** 	            insert(m, &msgPool);
+ 691:TinyTimber.c  **** 	            break;
+ 692:TinyTimber.c  ****             }
+ 693:TinyTimber.c  ****             t = t->next;
+ 694:TinyTimber.c  ****         }
+ 695:TinyTimber.c  ****     }
+ 613               	 #APP */
+ 614               	 ;  697 "TinyTimber.c" 1
+ 615               		cli
+ 616               	 ;  0 "" 2
+ 617               	/* #NOAPP */
+ 618 022a DC01      	.LBB56:
+ 696:TinyTimber.c  **** Timer *t) {
+ 697:TinyTimber.c  ****     return (STATUS() ? current->msg->baseline : timestamp) - t->accum;
+ 619               	:
+ 621 022c 6FB7      	.LM54:
+ 622               		lds r18,timerQ
+ 623               		lds r19,(timerQ)+1
+ 624 022e F894      		ldi r30,lo8(0)
+ 625               		ldi r31,hi8(0)
+ 626               		rjmp .L44
+ 627               	.L46:
+ 629               	.LM55:
+ 630               		movw r30,r18
+ 631 0230 2091 0000 		ld r24,Z
+ 632 0234 3091 0000 		ldd r25,Z+1
+ 633 0238 E0E0      		movw r18,r24
+ 634 023a F0E0      	.L44:
+ 636               	.LM56:
+ 637               		cp r18,__zero_reg__
+ 638               		cpc r19,__zero_reg__
+ 639 023e F901      		breq .L45
+ 640 0240 8081      		cp r18,r26
+ 641 0242 9181      		cpc r19,r27
+ 642 0244 9C01      		brne .L46
+ 643               		ld r24,X+
+ 644               		ld r25,X
+ 645               		sbiw r26,1
+ 647 0248 3105      	.LM57:
+ 648 024a 01F0      		sbiw r30,0
+ 649 024c 2A17      		brne .L59
+ 650 024e 3B07      	.L47:
+ 652 0252 8D91      	.LM58:
+ 653 0254 9C91      		sts (timerQ)+1,r25
+ 654 0256 1197      		sts timerQ,r24
+ 655               		rjmp .L60
+ 656               	.L45:
+ 657 0258 3097      	.LBE57:
+ 658 025a 01F4      	.LBE56:
+ 659               	.LBB58:
+ 660               	.LBB59:
+ 662 025c 9093 0000 	.LM59:
+ 663 0260 8093 0000 		lds r18,msgQ
+ 664 0264 00C0      		lds r19,(msgQ)+1
+ 665               		ldi r30,lo8(0)
+ 666               		ldi r31,hi8(0)
+ 667               		rjmp .L49
+ 668               	.L51:
+ 670               	.LM60:
+ 671               		movw r30,r18
+ 672 0266 2091 0000 		ld r24,Z
+ 673 026a 3091 0000 		ldd r25,Z+1
+ 674 026e E0E0      		movw r18,r24
+ 675 0270 F0E0      	.L49:
+ 677               	.LM61:
+ 678               		cp r18,__zero_reg__
+ 679               		cpc r19,__zero_reg__
+ 680 0274 F901      		breq .L50
+ 681 0276 8081      		cp r18,r26
+ 682 0278 9181      		cpc r19,r27
+ 683 027a 9C01      		brne .L51
+ 684               		ld r24,X+
+ 685               		ld r25,X
+ 686               		sbiw r26,1
+ 688 027e 3105      	.LM62:
+ 689 0280 01F0      		sbiw r30,0
+ 690 0282 2A17      		breq .L52
+ 691 0284 3B07      	.L59:
+ 693 0288 8D91      	.LM63:
+ 694 028a 9C91      		std Z+1,r25
+ 695 028c 1197      		st Z,r24
+ 696               		rjmp .L60
+ 697               	.L52:
+ 699 0290 01F0      	.LM64:
+ 700               		sts (msgQ)+1,r25
+ 701               		sts msgQ,r24
+ 702               		rjmp .L60
+ 703 0292 9183      	.L50:
+ 704 0294 8083      	.LBE59:
+ 705 0296 00C0      	.LBE58:
+ 706               	.LBB60:
+ 708               	.LM65:
+ 709 0298 9093 0000 		lds r30,activeStack
+ 710 029c 8093 0000 		lds r31,(activeStack)+1
+ 712               	.LM66:
+ 713               		lds r20,current
+ 714               		lds r21,(current)+1
+ 715               		rjmp .L53
+ 698:TinyTimber.c  **** turn (STATUS() ? current->msg->baseline : timestamp) - t->accum;
+ 699:TinyTimber.c  **** }
+ 700:TinyTimber.c  **** 
+ 701:TinyTimber.c  **** Time CURRENT_OFFSET(void) {
+ 716               	e .L55
+ 717               		ldd r18,Z+4
+ 718 02a2 E091 0000 		ldd r19,Z+5
+ 719 02a6 F091 0000 		adiw r26,10
+ 702:TinyTimber.c  **** eline : timestamp) - t->accum;
+ 703:TinyTimber.c  **** }
+ 720               	r24,X+
+ 721               		ld r25,X
+ 722 02aa 4091 0000 		sbiw r26,10+1
+ 723 02ae 5091 0000 		cp r18,r24
+ 724 02b2 00C0      		cpc r19,r25
+ 725               		brne .L55
+ 727 02b6 F507      	.LM67:
+ 728 02b8 01F0      		std Z+3,__zero_reg__
+ 729 02ba 8281      		std Z+2,__zero_reg__
+ 730 02bc 9381      	.L60:
+ 731 02be 8A17      	.LBB61:
+ 732 02c0 9B07      	.LBB62:
+ 734 02c4 2481      	.LM68:
+ 735 02c6 3581      		lds r24,msgPool
+ 736 02c8 1A96      		lds r25,(msgPool)+1
+ 737 02ca 8D91      		adiw r26,1
+ 738 02cc 9C91      		st X,r25
+ 739 02ce 1B97      		st -X,r24
+ 741 02d2 3907      	.LM69:
+ 742 02d4 01F4      		sts (msgPool)+1,r27
+ 704:TinyTimber.c  **** n (STATUS() ? current->msg->baseline : timestamp) - t->accum;
+ 743               	.L54
+ 744               	.L55:
+ 745 02d6 1382      	.LBE62:
+ 746 02d8 1282      	.LBE61:
+ 748               	.LM70:
+ 749               		ld __tmp_reg__,Z+
+ 750               		ld r31,Z
+ 751               		mov r30,__tmp_reg__
+ 752 02da 8091 0000 	.L53:
+ 754 02e2 1196      	.LM71:
+ 755 02e4 9C93      		sbiw r30,0
+ 756 02e6 8E93      		brne .L56
+ 757               	.L54:
+ 758               	.LBE60:
+ 760 02ec A093 0000 	.LM72:
+ 761 02f0 00C0      		sbrs r22,7
+ 762               		rjmp .L58
+ 763               	/* #APP */
+ 764               	 ;  711 "TinyTimber.c" 1
+ 705:TinyTimber.c  **** turn (STATUS() ? current->msg->baseline : timestamp) - t->accum;
+ 706:TinyTimber.c  **** }
+ 707:TinyTimber.c  **** 
+ 708:TinyTimber.c  **** Time CURRENT_OFFSET(void) {
+ 765               	APP */
+ 766               	.L58:
+ 767 02f2 0190      		ret
+ 772               	.Lscope12:
+ 775               	.global	T_RESET
+ 709:TinyTimber.c  **** eline : timestamp) - t->accum;
+ 710:TinyTimber.c  **** }
+ 711:TinyTimber.c  **** 
+ 777               	tabn	68,0,714,.LM73-.LFBB13
+ 778               	.LM73:
+ 779 02fc 67FF      	.LFBB13:
+ 780 02fe 00C0      		push r28
+ 781               		push r29
+ 782               	/* prologue: function */
+ 783 0300 7894      	/* frame size = 0 */
+ 784               		movw r28,r24
+ 786               	.LM74:
+ 787 0302 0895      		in __tmp_reg__,95-32
+ 788               		sbrs __tmp_reg__,7
+ 789               		rjmp .L62
+ 790               		lds r30,current
+ 791               		lds r31,(current)+1
+ 792               		ldd __tmp_reg__,Z+2
+ 793               		ldd r31,Z+3
+ 794               		mov r30,__tmp_reg__
+ 795               		ldd r24,Z+2
+ 796               		ldd r25,Z+3
+ 797               		ldd r26,Z+4
+ 712:TinyTimber.c  **** (STATUS() ? current->msg->baseline : timestamp) - t->accum;
+ 713:TinyTimber.c  **** }
+ 714:TinyTimber.c  **** 
+ 798               	63
+ 799               	.L62:
+ 800               		lds r24,timestamp
+ 801 0304 CF93      		lds r25,(timestamp)+1
+ 802 0306 DF93      		lds r26,(timestamp)+2
+ 803               		lds r27,(timestamp)+3
+ 804               	.L63:
+ 805 0308 EC01      		st Y,r24
+ 715:TinyTimber.c  **** (STATUS() ? current->msg->baseline : timestamp) - t->accum;
+ 806               	,r25
+ 807               		std Y+2,r26
+ 808 030a 0FB6      		std Y+3,r27
+ 809 030c 07FE      	/* epilogue start */
+ 811 0310 E091 0000 	.LM75:
+ 812 0314 F091 0000 		pop r29
+ 813 0318 0280      		pop r28
+ 814 031a F381      		ret
+ 816 031e 8281      	.Lscope13:
+ 819 0324 B581      	.global	T_SAMPLE
+ 821               	T_SAMPLE:
+ 823 032c 9091 0000 	.LM76:
+ 824 0330 A091 0000 	.LFBB14:
+ 825 0334 B091 0000 	/* prologue: function */
+ 826               	/* frame size = 0 */
+ 827 0338 8883      		movw r26,r24
+ 829 033c AA83      	.LM77:
+ 830 033e BB83      		in __tmp_reg__,95-32
+ 831               		sbrs __tmp_reg__,7
+ 716:TinyTimber.c  **** turn (STATUS() ? current->msg->baseline : timestamp) - t->accum;
+ 832               	t
+ 833               		lds r31,(current)+1
+ 834 0340 DF91      		ldd __tmp_reg__,Z+2
+ 835 0342 CF91      		ldd r31,Z+3
+ 836 0344 0895      		mov r30,__tmp_reg__
+ 837               		ldd r18,Z+2
+ 838               		ldd r19,Z+3
+ 839               		ldd r20,Z+4
+ 840               		ldd r21,Z+5
+ 841               		rjmp .L67
+ 842               	.L66:
+ 843               		lds r18,timestamp
+ 717:TinyTimber.c  **** turn (STATUS() ? current->msg->baseline : timestamp) - t->accum;
+ 718:TinyTimber.c  **** }
+ 844               	mestamp)+1
+ 845               		lds r20,(timestamp)+2
+ 846               		lds r21,(timestamp)+3
+ 847               	.L67:
+ 848               		ld r24,X+
+ 849 0346 DC01      		ld r25,X+
+ 719:TinyTimber.c  **** n (STATUS() ? current->msg->baseline : timestamp) - t->accum;
+ 850               	tmp_reg__,X+
+ 851               		ld r27,X
+ 852 0348 0FB6      		mov r26,__tmp_reg__
+ 853 034a 07FE      		sub r18,r24
+ 854 034c 00C0      		sbc r19,r25
+ 855 034e E091 0000 		sbc r20,r26
+ 856 0352 F091 0000 		sbc r21,r27
+ 858 0358 F381      	.LM78:
+ 859 035a E02D      		movw r22,r18
+ 860 035c 2281      		movw r24,r20
+ 861 035e 3381      	/* epilogue start */
+ 862 0360 4481      		ret
+ 864 0364 00C0      	.Lscope14:
+ 866 0366 2091 0000 	.global	CURRENT_OFFSET
+ 868 036e 4091 0000 	CURRENT_OFFSET:
+ 870               	.LM79:
+ 871 0376 8D91      	.LFBB15:
+ 872 0378 9D91      		push r14
+ 873 037a 0D90      		push r15
+ 874 037c BC91      		push r16
+ 875 037e A02D      		push r17
+ 876 0380 281B      	/* prologue: function */
+ 877 0382 390B      	/* frame size = 0 */
+ 879 0386 5B0B      	.LM80:
+ 720:TinyTimber.c  **** turn (STATUS() ? current->msg->baseline : timestamp) - t->accum;
+ 880               	  725 "TinyTimber.c" 1
+ 881               		cli
+ 882 0388 B901      	 ;  0 "" 2
+ 884               	.LM81:
+ 885 038c 0895      	/* #NOAPP */
+ 886               		lds r20,overflows
+ 887               		lds r21,(overflows)+1
+ 888               		lds r18,132
+ 889               		lds r19,(132)+1
+ 890               		sbic 54-32,0
+ 891               		rjmp .L70
+ 721:TinyTimber.c  **** turn (STATUS() ? current->msg->baseline : timestamp) - t->accum;
+ 722:TinyTimber.c  **** }
+ 892               	0
+ 893               		clr r26
+ 894               		sbrc r25,7
+ 895 038e EF92      		com r26
+ 896 0390 FF92      		mov r27,r26
+ 897 0392 0F93      		movw r16,r24
+ 898 0394 1F93      		clr r15
+ 899               		clr r14
+ 900               		movw r24,r18
+ 723:TinyTimber.c  **** n (STATUS() ? current->msg->baseline : timestamp) - t->accum;
+ 724:TinyTimber.c  **** }
+ 725:TinyTimber.c  **** 
+ 901               	lo8(0)
+ 902               		ldi r27,hi8(0)
+ 903 0396 6FB7      		or r14,r24
+ 904               		or r15,r25
+ 905               		or r16,r26
+ 906 0398 F894      		or r17,r27
+ 907               		rjmp .L71
+ 726:TinyTimber.c  **** (STATUS() ? current->msg->baseline : timestamp) - t->accum;
+ 908               	lds r18,132
+ 909               		lds r19,(132)+1
+ 910               		subi r20,lo8(-(1))
+ 911 039a 4091 0000 		sbci r21,hi8(-(1))
+ 912 039e 5091 0000 		movw r24,r20
+ 913 03a2 2091 8400 		clr r26
+ 914 03a6 3091 8500 		sbrc r25,7
+ 915 03aa B099      		com r26
+ 916 03ac 00C0      		mov r27,r26
+ 917 03ae CA01      		movw r16,r24
+ 918 03b0 AA27      		clr r15
+ 919 03b2 97FD      		clr r14
+ 920 03b4 A095      		ldi r20,lo8(0)
+ 921 03b6 BA2F      		ldi r21,hi8(0)
+ 922 03b8 8C01      		or r14,r18
+ 923 03ba FF24      		or r15,r19
+ 924 03bc EE24      		or r16,r20
+ 925 03be C901      		or r17,r21
+ 926 03c0 A0E0      	.L71:
+ 928 03c4 E82A      	.LM82:
+ 929 03c6 F92A      		sbrs r22,7
+ 930 03c8 0A2B      		rjmp .L72
+ 931 03ca 1B2B      	/* #APP */
+ 932 03cc 00C0      	 ;  727 "TinyTimber.c" 1
+ 933               		sei
+ 934 03ce 2091 8400 	 ;  0 "" 2
+ 936 03d6 4F5F      	.LM83:
+ 937 03d8 5F4F      	/* #NOAPP */
+ 938 03da CA01      		lds r30,current
+ 939 03dc AA27      		lds r31,(current)+1
+ 940 03de 97FD      		ldd __tmp_reg__,Z+2
+ 941 03e0 A095      		ldd r31,Z+3
+ 942 03e2 BA2F      		mov r30,__tmp_reg__
+ 943 03e4 8C01      		ldd r24,Z+2
+ 944 03e6 FF24      		ldd r25,Z+3
+ 945 03e8 EE24      		ldd r26,Z+4
+ 946 03ea 40E0      		ldd r27,Z+5
+ 947 03ec 50E0      		rjmp .L73
+ 948 03ee E22A      	.L72:
+ 949 03f0 F32A      		lds r24,timestamp
+ 950 03f2 042B      		lds r25,(timestamp)+1
+ 951 03f4 152B      		lds r26,(timestamp)+2
+ 952               		lds r27,(timestamp)+3
+ 727:TinyTimber.c  **** turn (STATUS() ? current->msg->baseline : timestamp) - t->accum;
+ 953               	4
+ 954               		sbc r19,r25
+ 955 03f6 67FF      		sbc r20,r26
+ 956 03f8 00C0      		sbc r21,r27
+ 958               	.LM84:
+ 959 03fa 7894      		movw r22,r18
+ 960               		movw r24,r20
+ 728:TinyTimber.c  **** turn (STATUS() ? current->msg->baseline : timestamp) - t->accum;
+ 961               	gue start */
+ 962               		pop r17
+ 963               		pop r16
+ 964 03fc E091 0000 		pop r15
+ 965 0400 F091 0000 		pop r14
+ 966 0404 0280      		ret
+ 971 040e A481      	.Lscope15:
+ 976 0418 9091 0000 	.global	install
+ 978 0420 B091 0000 	install:
+ 980 0424 A801      	.LM85:
+ 981 0426 9701      	.LFBB16:
+ 982 0428 281B      		push r28
+ 983 042a 390B      		push r29
+ 984 042c 4A0B      	/* prologue: function */
+ 985 042e 5B0B      	/* frame size = 0 */
+ 729:TinyTimber.c  **** turn (STATUS() ? current->msg->baseline : timestamp) - t->accum;
+ 986               	0,764,.LM86-.LFBB16
+ 987               	.LM86:
+ 988 0430 B901      		cpi r20,lo8(18)
+ 989 0432 CA01      		brsh .L77
+ 990               	.LBB63:
+ 992 0436 0F91      	.LM87:
+ 993 0438 FF90      		in r18,__SREG__
+ 994 043a EF90      	/* #APP */
+ 995 043c 0895      	 ;  766 "TinyTimber.c" 1
+ 996               		cli
+ 997               	 ;  0 "" 2
+ 999               	.LM88:
+ 1000               	/* #NOAPP */
+ 1001               		mov r30,r20
+ 1002               		ldi r31,lo8(0)
+ 1003               		lsl r30
+ 1004               		rol r31
+ 1005               		movw r26,r30
+ 1006               		subi r26,lo8(-(otable))
+ 1007               		sbci r27,hi8(-(otable))
+ 730:TinyTimber.c  **** turn (STATUS() ? current->msg->baseline : timestamp) - t->accum;
+ 731:TinyTimber.c  **** }
+ 732:TinyTimber.c  **** 
+ 733:TinyTimber.c  **** Time CURRENT_OFFSET(void) {
+ 734:TinyTimber.c  ****     char status;
+ 735:TinyTimber.c  ****     Time now;
+ 736:TinyTimber.c  ****     DISABLE(status);
+ 737:TinyTimber.c  ****     TIMERGET(now);
+ 738:TinyTimber.c  ****     ENABLE(status);
+ 739:TinyTimber.c  ****     return now - (status ? current->msg->baseline : timestamp);
+ 740:TinyTimber.c  **** }
+ 741:TinyTimber.c  **** 
+ 742:TinyTimber.c  ****     
+ 743:TinyTimber.c  **** /* initialization */
+ 744:TinyTimber.c  **** static void initialize(void) {
+ 745:TinyTimber.c  ****     int i;
+ 746:TinyTimber.c  **** 
+ 747:TinyTimber.c  ****     DUMP_INIT();
+ 748:TinyTimber.c  ****     
+ 749:TinyTimber.c  ****     for (i=0; i<NMSGS-1; i++)
+ 750:TinyTimber.c  ****         messages[i].next = &messages[i+1];
+ 751:TinyTimber.c  ****     messages[NMSGS-1].next = NULL;
+ 752:TinyTimber.c  ****     
+ 753:TinyTimber.c  ****     for (i=0; i<NTHREADS-1; i++)
+ 754:TinyTimber.c  ****         threads[i].next = &threads[i+1];
+ 755:TinyTimber.c  ****     threads[NTHREADS-1].next = NULL;
+ 756:TinyTimber.c  ****     
+ 757:TinyTimber.c  ****     for (i=0; i<NTHREADS; i++) {
+ 758:TinyTimber.c  ****         setjmp( threads[i].context );
+ 759:TinyTimber.c  ****         SETSTACK( &threads[i].context, &stacks[i] );
+ 760:TinyTimber.c  ****         SETPC( &threads[i].context, run );
+ 761:TinyTimber.c  ****         threads[i].waitsFor = NULL;
+ 762:TinyTimber.c  ****     }
+ 763:TinyTimber.c  **** 
+ 1009               	.LM89:
+ 1010               		subi r30,lo8(-(mtable))
+ 1011 043e CF93      		sbci r31,hi8(-(mtable))
+ 1012 0440 DF93      		std Z+1,r23
+ 1013               		st Z,r22
+ 1015 0442 EC01      	.LM90:
+ 764:TinyTimber.c  **** eads[i].waitsFor = NULL;
+ 1016               	,lo8(1)
+ 1017               		ldi r25,hi8(1)
+ 1018 0444 4231      		std Y+3,r25
+ 1019 0446 00F4      		std Y+2,r24
+ 765:TinyTimber.c  ****       threads[i].waitsFor = NULL;
+ 766:TinyTimber.c  ****     }
+ 1021               	:
+ 1022               		sbrs r18,7
+ 1023 0448 2FB7      		rjmp .L77
+ 1024               	/* #APP */
+ 1025               	 ;  770 "TinyTimber.c" 1
+ 1026 044a F894      		sei
+ 1027               	 ;  0 "" 2
+ 767:TinyTimber.c  **** hreads[i].waitsFor = NULL;
+ 1028               	PP */
+ 1029               	.L77:
+ 1030               	/* epilogue start */
+ 1031 044c E42F      	.LBE63:
+ 1033 0450 EE0F      	.LM92:
+ 1034 0452 FF1F      		pop r29
+ 1035 0454 DF01      		pop r28
+ 1036 0456 A050      		ret
+ 1038 045a CD93      	.Lscope16:
+ 1039 045c DC93      		.data
+ 768:TinyTimber.c  ****       threads[i].waitsFor = NULL;
+ 1040               	ng	"\n\rTinyTimber "
+ 1041               	.LC1:
+ 1042 045e E050      		.string	"v2.01 (2012-01-24)"
+ 1043 0460 F040      	.LC2:
+ 1044 0462 7183      		.string	"\n\r"
+ 1045 0464 6083      		.text
+ 769:TinyTimber.c  ****       threads[i].waitsFor = NULL;
+ 1046               	s	"initialize:f(0,15)",36,0,0,initialize
+ 1048 0466 81E0      	initialize:
+ 1050 046a 9B83      	.LM93:
+ 1051 046c 8A83      	.LFBB17:
+ 770:TinyTimber.c  ****       threads[i].waitsFor = NULL;
+ 1052               	r29
+ 1053               		push r28
+ 1054 046e 27FF      		rcall .
+ 1055 0470 00C0      		rcall .
+ 1056               		rcall .
+ 1057               		in r28,__SP_L__
+ 1058 0472 7894      		in r29,__SP_H__
+ 1059               	/* prologue: function */
+ 1060               	/* frame size = 6 */
+ 1062               	.LM94:
+ 1063               		ldi r24,lo8(messages+16)
+ 771:TinyTimber.c  ****       threads[i].waitsFor = NULL;
+ 772:TinyTimber.c  ****     }
+ 1064               	(messages+16)
+ 1066 0474 DF91      	.LM95:
+ 1067 0476 CF91      		ldi r18,lo8(messages+240)
+ 1068 0478 0895      		ldi r19,hi8(messages+240)
+ 1069               	.L79:
+ 1071               	.LM96:
+ 1072               		movw r30,r24
+ 1073 0000 0A0D 5469 		sbiw r30,16
+ 1073      6E79 5469 
+ 1073      6D62 6572 
+ 1073      2000 
+ 1074               		std Z+1,r25
+ 1075 000e 7632 2E30 		st Z,r24
+ 1075      3120 2832 
+ 1075      3031 322D 
+ 1075      3031 2D32 
+ 1075      3429 00
+ 1076               		adiw r24,16
+ 1078               	.LM97:
+ 1079               		cp r24,r18
+ 1080               		cpc r25,r19
+ 1081               		brne .L79
+ 1083               	.LM98:
+ 1084               		sts (messages+224)+1,__zero_reg__
+ 1085 047a DF93      		sts messages+224,__zero_reg__
+ 1087 047e 00D0      	.LM99:
+ 1088 0480 00D0      		ldi r24,lo8(threads+29)
+ 1089 0482 00D0      		ldi r25,hi8(threads+29)
+ 1090 0484 CDB7      		sts (threads)+1,r25
+ 1091 0486 DEB7      		sts threads,r24
+ 1092               		adiw r24,29
+ 1093               		sts (threads+29)+1,r25
+ 1094               		sts threads+29,r24
+ 1095               		sbiw r24,58
+ 1096 0488 80E0      		ldi r18,lo8(threads+87)
+ 1097 048a 90E0      		ldi r19,hi8(threads+87)
+ 1098               		sts (threads+58)+1,r19
+ 1099               		sts threads+58,r18
+ 1101 048e 30E0      	.LM100:
+ 1102               		sts (threads+87)+1,__zero_reg__
+ 1103               		sts threads+87,__zero_reg__
+ 1104               		ldi r18,lo8(stacks+92)
+ 1105 0490 FC01      		ldi r19,hi8(stacks+92)
+ 1106 0492 7097      		std Y+4,r19
+ 1107 0494 9183      		std Y+3,r18
+ 1108 0496 8083      		movw r20,r24
+ 1109 0498 4096      		subi r20,lo8(-(4))
+ 1110               		sbci r21,hi8(-(4))
+ 1111               		std Y+2,r21
+ 1112 049a 8217      		std Y+1,r20
+ 1113 049c 9307      		std Y+6,__zero_reg__
+ 1114 049e 01F4      		std Y+5,__zero_reg__
+ 1115               	.L80:
+ 1117 04a0 1092 0000 	.LM101:
+ 1118 04a4 1092 0000 		ldd r26,Y+5
+ 1119               		ldd r27,Y+6
+ 1120               		ldi r30,lo8(29)
+ 1121 04a8 80E0      		ldi r31,hi8(29)
+ 1122 04aa 90E0      		mul r26,r30
+ 1123 04ac 9093 0000 		movw r24,r0
+ 1124 04b0 8093 0000 		mul r26,r31
+ 1125 04b4 4D96      		add r25,r0
+ 1126 04b6 9093 0000 		mul r27,r30
+ 1127 04ba 8093 0000 		add r25,r0
+ 1128 04be CA97      		clr r1
+ 1129 04c0 20E0      		adiw r24,6
+ 1130 04c2 30E0      		subi r24,lo8(-(threads))
+ 1131 04c4 3093 0000 		sbci r25,hi8(-(threads))
+ 1132 04c8 2093 0000 		call setjmp
+ 1134               	.LM102:
+ 1135 04cc 1092 0000 		ldd r18,Y+5
+ 1136 04d0 1092 0000 		ldd r19,Y+6
+ 1137 04d4 20E0      		ldi r20,lo8(29)
+ 1138 04d6 30E0      		ldi r21,hi8(29)
+ 1139 04d8 3C83      		mul r18,r20
+ 1140 04da 2B83      		movw r30,r0
+ 1141 04dc AC01      		mul r18,r21
+ 1142 04de 4C5F      		add r31,r0
+ 1143 04e0 5F4F      		mul r19,r20
+ 1144 04e2 5A83      		add r31,r0
+ 1145 04e4 4983      		clr r1
+ 1146 04e6 1E82      		adiw r30,6
+ 1147 04e8 1D82      		subi r30,lo8(-(threads))
+ 1148               		sbci r31,hi8(-(threads))
+ 1149               		ldd r24,Y+3
+ 1150               		ldd r25,Y+4
+ 1151 04ea AD81      		std Z+17,r25
+ 1152 04ec BE81      		std Z+16,r24
+ 1153 04ee EDE1      		std Z+19,r25
+ 1154 04f0 F0E0      		std Z+18,r24
+ 1156 04f4 C001      	.LM103:
+ 1157 04f6 AF9F      		ldi r26,lo8(gs(run))
+ 1158 04f8 900D      		ldi r27,hi8(gs(run))
+ 1159 04fa BE9F      		std Z+22,r27
+ 1160 04fc 900D      		std Z+21,r26
+ 1162 0500 0696      	.LM104:
+ 1163 0502 8050      		ldd r30,Y+1
+ 1164 0504 9040      		ldd r31,Y+2
+ 1165 0506 0E94 0000 		std Z+1,__zero_reg__
+ 1166               		st Z,__zero_reg__
+ 1168 050a 2D81      	.LM105:
+ 1169 050c 3E81      		subi r18,lo8(-(1))
+ 1170 050e 4DE1      		sbci r19,hi8(-(1))
+ 1171 0510 50E0      		std Y+6,r19
+ 1172 0512 249F      		std Y+5,r18
+ 1173 0514 F001      		subi r24,lo8(-(96))
+ 1174 0516 259F      		sbci r25,hi8(-(96))
+ 1175 0518 F00D      		std Y+4,r25
+ 1176 051a 349F      		std Y+3,r24
+ 1177 051c F00D      		adiw r30,29
+ 1178 051e 1124      		std Y+2,r31
+ 1179 0520 3696      		std Y+1,r30
+ 1180 0522 E050      		cpi r18,4
+ 1181 0524 F040      		cpc r19,__zero_reg__
+ 1182 0526 8B81      		brne .L80
+ 1184 052a 918B      	.LM106:
+ 1185 052c 808B      		sts (thread0)+1,__zero_reg__
+ 1186 052e 938B      		sts thread0,__zero_reg__
+ 1188               	.LM107:
+ 1189               		sts (thread0+4)+1,__zero_reg__
+ 1190 0532 A0E0      		sts thread0+4,__zero_reg__
+ 1192 0536 B68B      	.LM108:
+ 1193 0538 A58B      		sts (thread0+2)+1,__zero_reg__
+ 1194               		sts thread0+2,__zero_reg__
+ 1195               		ldi r30,lo8(.LC0)
+ 1196 053a E981      		ldi r31,hi8(.LC0)
+ 1197 053c FA81      		rjmp .L81
+ 1198 053e 1182      	.L82:
+ 1199 0540 1082      	.LBB64:
+ 1200               	.LBB65:
+ 1202 0542 2F5F      	.LM109:
+ 1203 0544 3F4F      		adiw r30,1
+ 1204 0546 3E83      	.L81:
+ 1206 054a 805A      	.LM110:
+ 1207 054c 9F4F      		ld r24,Z
+ 1208 054e 9C83      		tst r24
+ 1209 0550 8B83      		brne .L82
+ 1210 0552 7D96      		ldi r30,lo8(.LC1)
+ 1211 0554 FA83      		ldi r31,hi8(.LC1)
+ 1212 0556 E983      		rjmp .L83
+ 1213 0558 2430      	.L84:
+ 1214 055a 3105      	.LBE65:
+ 1215 055c 01F4      	.LBE64:
+ 1216               	.LBB66:
+ 1217               	.LBB67:
+ 1219 0562 1092 0000 	.LM111:
+ 1220               		adiw r30,1
+ 1221               	.L83:
+ 1223 056a 1092 0000 	.LM112:
+ 1224               		ld r24,Z
+ 1225               		tst r24
+ 1226 056e 1092 0000 		brne .L84
+ 1227 0572 1092 0000 		ldi r30,lo8(.LC2)
+ 1228 0576 E0E0      		ldi r31,hi8(.LC2)
+ 1229 0578 F0E0      		rjmp .L85
+ 1230 057a 00C0      	.L86:
+ 1231               	.LBE67:
+ 1232               	.LBE66:
+ 1233               	.LBB68:
+ 1234               	.LBB69:
+ 1236 057c 3196      	.LM113:
+ 1237               		adiw r30,1
+ 1238               	.L85:
+ 1240 057e 8081      	.LM114:
+ 1241 0580 8823      		ld r24,Z
+ 1242 0582 01F4      		tst r24
+ 1243 0584 E0E0      		brne .L86
+ 1244 0586 F0E0      	.LBE69:
+ 1245 0588 00C0      	.LBE68:
+ 1247               	.LM115:
+ 1248               		ldi r30,lo8(97)
+ 1249               		ldi r31,hi8(97)
+ 1250               		ldi r24,lo8(-128)
+ 1251               		st Z,r24
+ 1252               		st Z,__zero_reg__
+ 1253 058a 3196      		sts (132)+1,__zero_reg__
+ 1254               		sts 132,__zero_reg__
+ 1255               		ldi r24,lo8(4)
+ 1256               		sts 129,r24
+ 1257 058c 8081      		ldi r24,lo8(1)
+ 1258 058e 8823      		sts 111,r24
+ 1259 0590 01F4      	/* epilogue start */
+ 1261 0594 F0E0      	.LM116:
+ 1262 0596 00C0      		adiw r28,6
+ 1263               		in __tmp_reg__,__SREG__
+ 1264               		cli
+ 1265               		out __SP_H__,r29
+ 1266               		out __SREG__,__tmp_reg__
+ 1267               		out __SP_L__,r28
+ 1268               		pop r28
+ 1269               		pop r29
+ 1270 0598 3196      		ret
+ 1284 05a6 8083      	.Lscope17:
+ 1288 05b2 84E0      	dispatch:
+ 1290 05b8 81E0      	.LM117:
+ 1291 05ba 8093 6F00 	.LFBB18:
+ 1292               		push r29
+ 1293               		push r28
+ 1294               		rcall .
+ 1295 05be 2696      		in r28,__SP_L__
+ 1296 05c0 0FB6      		in r29,__SP_H__
+ 1297 05c2 F894      	/* prologue: function */
+ 1298 05c4 DEBF      	/* frame size = 2 */
+ 1299 05c6 0FBE      		std Y+2,r25
+ 1300 05c8 CDBF      		std Y+1,r24
+ 1302 05cc DF91      	.LM118:
+ 1303 05ce 0895      		lds r24,current
+ 1304               		lds r25,(current)+1
+ 1305               		adiw r24,6
+ 1306               		call setjmp
+ 1307               		or r24,r25
+ 1308               		brne .L92
+ 1310               	.LM119:
+ 1311               		ldd r24,Y+1
+ 1312               		ldd r25,Y+2
+ 1313               		sts (current)+1,r25
+ 1314               		sts current,r24
+ 1316               	.LM120:
+ 1317               		ldi r22,lo8(1)
+ 1318               		ldi r23,hi8(1)
+ 1319               		adiw r24,6
+ 1320               		call longjmp
+ 1321               	.L92:
+ 1322               	/* epilogue start */
+ 1324               	.LM121:
+ 1325 05d0 DF93      		pop __tmp_reg__
+ 1326 05d2 CF93      		pop __tmp_reg__
+ 1327 05d4 00D0      		pop r28
+ 1328 05d6 CDB7      		pop r29
+ 1329 05d8 DEB7      		ret
+ 1331               	.Lscope18:
+ 1334               	schedule:
+ 1336 05de 8091 0000 	.LM122:
+ 1337 05e2 9091 0000 	.LFBB19:
+ 1338 05e6 0696      		push r28
+ 1339 05e8 0E94 0000 		push r29
+ 1340 05ec 892B      	/* prologue: function */
+ 1341 05ee 01F4      	/* frame size = 0 */
+ 1343               	.LM123:
+ 1344 05f0 8981      		lds r22,activeStack
+ 1345 05f2 9A81      		lds r23,(activeStack)+1
+ 1346 05f4 9093 0000 		movw r30,r22
+ 1347 05f8 8093 0000 		ldd r28,Z+2
+ 1348               		ldd r29,Z+3
+ 1350 05fc 61E0      	.LM124:
+ 1351 05fe 70E0      		lds r26,msgQ
+ 1352 0600 0696      		lds r27,(msgQ)+1
+ 1353 0602 0E94 0000 		sbiw r26,0
+ 1354               		breq .L96
+ 1355               		lds r30,threadPool
+ 1356               		lds r31,(threadPool)+1
+ 1357               		sbiw r30,0
+ 1358 0606 0F90      		breq .L96
+ 1359 0608 0F90      		sbiw r28,0
+ 1360 060a CF91      		breq .L95
+ 1361 060c DF91      		adiw r26,6
+ 1362 060e 0895      		ld r24,X+
+ 1363               		ld r25,X+
+ 1364               		ld __tmp_reg__,X+
+ 1365               		ld r27,X
+ 1366               		mov r26,__tmp_reg__
+ 1367               		ldd r18,Y+6
+ 1368               		ldd r19,Y+7
+ 1369               		ldd r20,Y+8
+ 1370               		ldd r21,Y+9
+ 1371 0610 CF93      		sub r24,r18
+ 1372 0612 DF93      		sbc r25,r19
+ 1373               		sbc r26,r20
+ 1374               		sbc r27,r21
+ 1375               		sbrs r27,7
+ 1376               		rjmp .L96
+ 1377 0614 6091 0000 	.L95:
+ 1378 0618 7091 0000 	.LBB70:
+ 1379 061c FB01      	.LBB71:
+ 1381 0620 D381      	.LM125:
+ 1382               		ld r24,Z
+ 1383               		ldd r25,Z+1
+ 1384 0622 A091 0000 		sts (threadPool)+1,r25
+ 1385 0626 B091 0000 		sts threadPool,r24
+ 1386 062a 1097      	.LBE71:
+ 1387 062c 01F0      	.LBE70:
+ 1388 062e E091 0000 	.LBB72:
+ 1389 0632 F091 0000 	.LBB73:
+ 1391 0638 01F0      	.LM126:
+ 1392 063a 2097      		std Z+1,r23
+ 1393 063c 01F0      		st Z,r22
+ 1395 0640 8D91      	.LM127:
+ 1396 0642 9D91      		sts (activeStack)+1,r31
+ 1397 0644 0D90      		sts activeStack,r30
+ 1398 0646 BC91      	.LBE73:
+ 1399 0648 A02D      	.LBE72:
+ 1401 064c 3F81      	.LM128:
+ 1402 064e 4885      		movw r24,r30
+ 1403 0650 5985      		call dispatch
+ 1404 0652 821B      	.L96:
+ 1405 0654 930B      	/* epilogue start */
+ 1407 0658 B50B      	.LM129:
+ 1408 065a B7FF      		pop r29
+ 1409 065c 00C0      		pop r28
+ 1410               		ret
+ 1415 065e 8081      	.Lscope19:
+ 1420               	.global	tinytimber
+ 1422               	tinytimber:
+ 1424               	.LM130:
+ 1425 066a 7183      	.LFBB20:
+ 1426 066c 6083      		push r14
+ 1427               		push r15
+ 1428               		push r16
+ 1429 066e F093 0000 		push r17
+ 1430 0672 E093 0000 		push r28
+ 1431               		push r29
+ 1432               	/* prologue: function */
+ 1433               	/* frame size = 0 */
+ 1434               		movw r14,r24
+ 1435 0676 CF01      		movw r28,r22
+ 1436 0678 0E94 0000 		movw r16,r20
+ 1438               	.LM131:
+ 1439               		in r24,__SREG__
+ 1440               	/* #APP */
+ 1441 067c DF91      	 ;  776 "TinyTimber.c" 1
+ 1442 067e CF91      		cli
+ 1443 0680 0895      	 ;  0 "" 2
+ 1445               	.LM132:
+ 1446               	/* #NOAPP */
+ 1447               		call initialize
+ 1449               	.LM133:
+ 1450               	/* #APP */
+ 1451               	 ;  778 "TinyTimber.c" 1
+ 1452               		sei
+ 1453               	 ;  0 "" 2
+ 1455               	.LM134:
+ 773:TinyTimber.c  **** hreads[i].waitsFor = NULL;
+ 774:TinyTimber.c  ****     }
+ 1456               	FBB20
+ 1457               	.LM136:
+ 1458               		in r24,__SREG__
+ 1459 0682 EF92      	/* #APP */
+ 1460 0684 FF92      	 ;  781 "TinyTimber.c" 1
+ 1461 0686 0F93      		cli
+ 1462 0688 1F93      	 ;  0 "" 2
+ 1463 068a CF93      	/* #NOAPP */
+ 1464 068c DF93      	.LBB74:
+ 1465               	.LBB75:
+ 1467 068e 7C01      	.LM137:
+ 1468 0690 EB01      		call schedule
+ 775:TinyTimber.c  **** hreads[i].waitsFor = NULL;
+ 776:TinyTimber.c  ****     }
+ 1470               	P */
+ 1471               	 ;  613 "TinyTimber.c" 1
+ 1472 0694 8FB7      		sei
+ 1473               	 ;  0 "" 2
+ 1475 0696 F894      	.LM139:
+ 1476               	/* #NOAPP */
+ 777:TinyTimber.c  **** hreads[i].waitsFor = NULL;
+ 1477               	4,lo8(1)
+ 1478               	.L99:
+ 1479               		out 83-32,r24
+ 1480 0698 0E94 0000 	/* #APP */
+ 778:TinyTimber.c  ****       threads[i].waitsFor = NULL;
+ 1481               	615 "TinyTimber.c" 1
+ 1482               		sleep
+ 1483               	 ;  0 "" 2
+ 1484               	/* #NOAPP */
+ 1485 069c 7894      		rjmp .L99
+ 1486               	.LBE75:
+ 779:TinyTimber.c  ****       threads[i].waitsFor = NULL;
+ 1487               	:
+ 1489               	.Lscope20:
+ 1491 06a0 01F0      	.global	__vector_7
+ 780:TinyTimber.c  ****       threads[i].waitsFor = NULL;
+ 1492               	e	__vector_7, @function
+ 1493               	__vector_7:
+ 1495 06a4 C701      	.LM140:
+ 1496 06a6 FE01      	.LFBB21:
+ 1497 06a8 0995      		push __zero_reg__
+ 1498               		push r0
+ 781:TinyTimber.c  ****       threads[i].waitsFor = NULL;
+ 1499               	__SREG__
+ 1500               		push r0
+ 1501 06aa 8FB7      		clr __zero_reg__
+ 1502               		push r8
+ 1503               		push r9
+ 1504 06ac F894      		push r10
+ 1505               		push r11
+ 1506               		push r12
+ 1507               		push r13
+ 1508               		push r14
+ 1509               		push r15
+ 1510               		push r16
+ 1511 06ae 0E94 0000 		push r17
+ 1512               		push r18
+ 1513               		push r19
+ 1514               		push r20
+ 1515               		push r21
+ 1516 06b2 7894      		push r22
+ 1517               		push r23
+ 1518               		push r24
+ 1519               		push r25
+ 1520               		push r26
+ 1521 06b4 81E0      		push r27
+ 1522               		push r28
+ 1523 06b6 83BF      		push r29
+ 1524               		push r30
+ 1525               		push r31
+ 1526 06b8 8895      	/* prologue: Signal */
+ 1527               	/* frame size = 0 */
+ 1529 06ba 00C0      	.LM141:
+ 1530               		lds r12,overflows
+ 1531               		lds r13,(overflows)+1
+ 1532               		lds r18,132
+ 1533               		lds r19,(132)+1
+ 1534               		sbic 54-32,0
+ 1535               		rjmp .L102
+ 1536               		movw r24,r12
+ 1537               		clr r26
+ 1538               		sbrc r25,7
+ 1539               		com r26
+ 1540               		mov r27,r26
+ 1541 06bc 1F92      		movw r16,r24
+ 1542 06be 0F92      		clr r15
+ 1543 06c0 0FB6      		clr r14
+ 1544 06c2 0F92      		movw r24,r18
+ 1545 06c4 1124      		rjmp .L120
+ 1546 06c6 8F92      	.L102:
+ 1547 06c8 9F92      		lds r24,132
+ 1548 06ca AF92      		lds r25,(132)+1
+ 1549 06cc BF92      		sec
+ 1550 06ce CF92      		adc r12,__zero_reg__
+ 1551 06d0 DF92      		adc r13,__zero_reg__
+ 1552 06d2 EF92      		movw r18,r12
+ 1553 06d4 FF92      		clr r20
+ 1554 06d6 0F93      		sbrc r19,7
+ 1555 06d8 1F93      		com r20
+ 1556 06da 2F93      		mov r21,r20
+ 1557 06dc 3F93      		sec
+ 1558 06de 4F93      		sbc r12,__zero_reg__
+ 1559 06e0 5F93      		sbc r13,__zero_reg__
+ 1560 06e2 6F93      		movw r16,r18
+ 1561 06e4 7F93      		clr r15
+ 1562 06e6 8F93      		clr r14
+ 1563 06e8 9F93      	.L120:
+ 1564 06ea AF93      		ldi r26,lo8(0)
+ 1565 06ec BF93      		ldi r27,hi8(0)
+ 1566 06ee CF93      		or r14,r24
+ 1567 06f0 DF93      		or r15,r25
+ 1568 06f2 EF93      		or r16,r26
+ 1569 06f4 FF93      		or r17,r27
+ 1570               		lds r11,msgQ
+ 1571               		lds r10,msgQ+1
+ 1572               		lds r28,timerQ
+ 1573               		lds r29,(timerQ)+1
+ 1574 06f6 C090 0000 		rjmp .L104
+ 1575 06fa D090 0000 	.L111:
+ 1576 06fe 2091 8400 	.LBB76:
+ 1577 0702 3091 8500 	.LBB77:
+ 1579 0708 00C0      	.LM142:
+ 1580 070a C601      		ld r9,Y
+ 1581 070c AA27      		ldd r8,Y+1
+ 1582 070e 97FD      		mov r24,r11
+ 1583 0710 A095      		mov r25,r10
+ 1584 0712 BA2F      		movw r18,r24
+ 1585 0714 8C01      		movw r30,r18
+ 1586 0716 FF24      		ldi r22,lo8(0)
+ 1587 0718 EE24      		ldi r23,hi8(0)
+ 1588 071a C901      		rjmp .L105
+ 1589 071c 00C0      	.L107:
+ 1590               	.LBE77:
+ 1591 071e 8091 8400 	.LBE76:
+ 1592 0722 9091 8500 	.LBB78:
+ 1593 0726 0894      	.LBB79:
+ 1595 072a D11C      	.LM143:
+ 1596 072c 9601      		movw r22,r30
+ 1597 072e 4427      		ld r24,Z
+ 1598 0730 37FD      		ldd r25,Z+1
+ 1599 0732 4095      		movw r18,r24
+ 1600 0734 542F      		movw r30,r18
+ 1601 0736 0894      	.L105:
+ 1603 073a D108      	.LM144:
+ 1604 073c 8901      		sbiw r30,0
+ 1605 073e FF24      		breq .L106
+ 1606 0740 EE24      		ldd r18,Z+6
+ 1607               		ldd r19,Z+7
+ 1608 0742 A0E0      		ldd r20,Z+8
+ 1609 0744 B0E0      		ldd r21,Z+9
+ 1610 0746 E82A      		ldd r24,Y+6
+ 1611 0748 F92A      		ldd r25,Y+7
+ 1612 074a 0A2B      		ldd r26,Y+8
+ 1613 074c 1B2B      		ldd r27,Y+9
+ 1614 074e B090 0000 		cp r24,r18
+ 1615 0752 A090 0000 		cpc r25,r19
+ 1616 0756 C091 0000 		cpc r26,r20
+ 1617 075a D091 0000 		cpc r27,r21
+ 1618 075e 00C0      		brge .L107
+ 1619               	.L106:
+ 1621               	.LM145:
+ 1622               		std Y+1,r31
+ 1623               		st Y,r30
+ 1625 0762 8980      	.LM146:
+ 1626 0764 8B2D      		cp r22,__zero_reg__
+ 1627 0766 9A2D      		cpc r23,__zero_reg__
+ 1628 0768 9C01      		brne .L108
+ 1629 076a F901      		mov r11,r28
+ 1630 076c 60E0      		mov r10,r29
+ 1631 076e 70E0      		rjmp .L109
+ 1632 0770 00C0      	.L108:
+ 1634               	.LM147:
+ 1635               		movw r30,r22
+ 1636               		std Z+1,r29
+ 1637               		st Z,r28
+ 1638               	.L109:
+ 1639               		mov r24,r9
+ 1640 0772 BF01      		mov r25,r8
+ 1641 0774 8081      		movw r18,r24
+ 1642 0776 9181      		movw r28,r18
+ 1643 0778 9C01      	.L104:
+ 1644 077a F901      	.LBE79:
+ 1645               	.LBE78:
+ 1647               	.LM148:
+ 1648 077c 3097      		sbiw r28,0
+ 1649 077e 01F0      		breq .L110
+ 1650 0780 2681      		ldd r18,Y+2
+ 1651 0782 3781      		ldd r19,Y+3
+ 1652 0784 4085      		ldd r20,Y+4
+ 1653 0786 5185      		ldd r21,Y+5
+ 1654 0788 8E81      		movw r26,r20
+ 1655 078a 9F81      		movw r24,r18
+ 1656 078c A885      		sub r24,r14
+ 1657 078e B985      		sbc r25,r15
+ 1658 0790 8217      		sbc r26,r16
+ 1659 0792 9307      		sbc r27,r17
+ 1660 0794 A407      		cp __zero_reg__,r24
+ 1661 0796 B507      		cpc __zero_reg__,r25
+ 1662 0798 04F4      		cpc __zero_reg__,r26
+ 1663               		cpc __zero_reg__,r27
+ 1664               		brge .L111
+ 1665               		rjmp .L122
+ 1666 079a F983      	.L123:
+ 1668               	.LM149:
+ 1669               		lds r24,132
+ 1670 079e 6115      		lds r25,(132)+1
+ 1671 07a0 7105      		com r24
+ 1672 07a2 01F4      		com r25
+ 1673 07a4 BC2E      		add r24,r18
+ 1674 07a6 AD2E      		adc r25,r19
+ 1675 07a8 00C0      		or r24,r25
+ 1676               		brne .L113
+ 1677               		lds r18,132
+ 1678               		lds r19,(132)+1
+ 1679 07aa FB01      		subi r18,lo8(-(1))
+ 1680 07ac D183      		sbci r19,hi8(-(1))
+ 1681 07ae C083      	.L113:
+ 1682               		sts (136)+1,r19
+ 1683 07b0 892D      		sts 136,r18
+ 1684 07b2 982D      		lds r24,111
+ 1685 07b4 9C01      		ori r24,lo8(2)
+ 1686 07b6 E901      		rjmp .L121
+ 1687               	.L110:
+ 1688               		sts msgQ,r11
+ 1689               		sts msgQ+1,r10
+ 1690               		sts (timerQ)+1,__zero_reg__
+ 1691               		sts timerQ,__zero_reg__
+ 1692 07b8 2097      	.L115:
+ 1693 07ba 01F0      		lds r24,111
+ 1694 07bc 2A81      		andi r24,lo8(-3)
+ 1695 07be 3B81      	.L121:
+ 1696 07c0 4C81      		sts 111,r24
+ 1698 07c4 DA01      	.LM150:
+ 1699 07c6 C901      		call schedule
+ 1700 07c8 8E19      	/* epilogue start */
+ 1702 07cc A00B      	.LM151:
+ 1703 07ce B10B      		pop r31
+ 1704 07d0 1816      		pop r30
+ 1705 07d2 1906      		pop r29
+ 1706 07d4 1A06      		pop r28
+ 1707 07d6 1B06      		pop r27
+ 1708 07d8 04F4      		pop r26
+ 1709 07da 00C0      		pop r25
+ 1710               		pop r24
+ 1711               		pop r23
+ 1712               		pop r22
+ 1713 07dc 8091 8400 		pop r21
+ 1714 07e0 9091 8500 		pop r20
+ 1715 07e4 8095      		pop r19
+ 1716 07e6 9095      		pop r18
+ 1717 07e8 820F      		pop r17
+ 1718 07ea 931F      		pop r16
+ 1719 07ec 892B      		pop r15
+ 1720 07ee 01F4      		pop r14
+ 1721 07f0 2091 8400 		pop r13
+ 1722 07f4 3091 8500 		pop r12
+ 1723 07f8 2F5F      		pop r11
+ 1724 07fa 3F4F      		pop r10
+ 1725               		pop r9
+ 1726 07fc 3093 8900 		pop r8
+ 1727 0800 2093 8800 		pop r0
+ 1728 0804 8091 6F00 		out __SREG__,r0
+ 1729 0808 8260      		pop r0
+ 1730 080a 00C0      		pop __zero_reg__
+ 1731               		reti
+ 1732 080c B092 0000 	.L122:
+ 1733 0810 A092 0000 		sts msgQ,r11
+ 1734 0814 1092 0000 		sts msgQ+1,r10
+ 1735 0818 1092 0000 		sts (timerQ)+1,r29
+ 1736               		sts timerQ,r28
+ 1738 0820 8D7F      	.LM152:
+ 1739               		movw r24,r20
+ 1740 0822 8093 6F00 		clr r27
+ 1741               		sbrc r25,7
+ 1742               		com r27
+ 1743 0826 0E94 0000 		mov r26,r27
+ 1744               		cp r12,r24
+ 1745               		cpc r13,r25
+ 1746               		brne .L115
+ 1747 082a FF91      		rjmp .L123
+ 1755 083a 7F91      	.Lscope21:
+ 1757 083e 5F91      	.global	__vector_22
+ 1759 0842 3F91      	__vector_22:
+ 1761 0846 1F91      	.LM153:
+ 1762 0848 0F91      	.LFBB22:
+ 1763 084a FF90      		push __zero_reg__
+ 1764 084c EF90      		push r0
+ 1765 084e DF90      		in r0,__SREG__
+ 1766 0850 CF90      		push r0
+ 1767 0852 BF90      		clr __zero_reg__
+ 1768 0854 AF90      		push r18
+ 1769 0856 9F90      		push r19
+ 1770 0858 8F90      		push r20
+ 1771 085a 0F90      		push r21
+ 1772 085c 0FBE      		push r22
+ 1773 085e 0F90      		push r23
+ 1774 0860 1F90      		push r24
+ 1775 0862 1895      		push r25
+ 1776               		push r26
+ 1777 0864 B092 0000 		push r27
+ 1778 0868 A092 0000 		push r30
+ 1779 086c D093 0000 		push r31
+ 1780 0870 C093 0000 	/* prologue: Signal */
+ 1781               	/* frame size = 0 */
+ 1783 0874 CA01      	.LM154:
+ 1784 0876 BB27      		lds r22,overflows
+ 1785 0878 97FD      		lds r23,(overflows)+1
+ 1786 087a B095      		lds r18,132
+ 1787 087c AB2F      		lds r19,(132)+1
+ 1788 087e C816      		movw r24,r22
+ 1789 0880 D906      		clr r26
+ 1790 0882 01F4      		sbrc r25,7
+ 1791 0884 00C0      		com r26
+ 1792               		mov r27,r26
+ 1793               		movw r26,r24
+ 1794               		clr r25
+ 1795               		clr r24
+ 1796               		ldi r20,lo8(0)
+ 1797               		ldi r21,hi8(0)
+ 1798               		or r24,r18
+ 1799               		or r25,r19
+ 1800               		or r26,r20
+ 1801               		or r27,r21
+ 1802               		sts timestamp,r24
+ 1803               		sts (timestamp)+1,r25
+ 1804               		sts (timestamp)+2,r26
+ 1805               		sts (timestamp)+3,r27
+ 1806               		sbis 54-32,0
+ 1807 0886 1F92      		rjmp .L125
+ 1808 0888 0F92      		lds r18,132
+ 1809 088a 0FB6      		lds r19,(132)+1
+ 1810 088c 0F92      		subi r22,lo8(-(1))
+ 1811 088e 1124      		sbci r23,hi8(-(1))
+ 1812 0890 2F93      		movw r24,r22
+ 1813 0892 3F93      		clr r26
+ 1814 0894 4F93      		sbrc r25,7
+ 1815 0896 5F93      		com r26
+ 1816 0898 6F93      		mov r27,r26
+ 1817 089a 7F93      		movw r26,r24
+ 1818 089c 8F93      		clr r25
+ 1819 089e 9F93      		clr r24
+ 1820 08a0 AF93      		ldi r20,lo8(0)
+ 1821 08a2 BF93      		ldi r21,hi8(0)
+ 1822 08a4 EF93      		or r24,r18
+ 1823 08a6 FF93      		or r25,r19
+ 1824               		or r26,r20
+ 1825               		or r27,r21
+ 1826               		sts timestamp,r24
+ 1827               		sts (timestamp)+1,r25
+ 1828 08a8 6091 0000 		sts (timestamp)+2,r26
+ 1829 08ac 7091 0000 		sts (timestamp)+3,r27
+ 1830 08b0 2091 8400 	.L125:
+ 1831 08b4 3091 8500 		lds r30,mtable+34
+ 1832 08b8 CB01      		lds r31,(mtable+34)+1
+ 1833 08ba AA27      		sbiw r30,0
+ 1834 08bc 97FD      		breq .L126
+ 1835 08be A095      		ldi r22,lo8(17)
+ 1836 08c0 BA2F      		ldi r23,hi8(17)
+ 1837 08c2 DC01      		lds r24,otable+34
+ 1838 08c4 9927      		lds r25,(otable+34)+1
+ 1839 08c6 8827      		icall
+ 1840 08c8 40E0      	.L126:
+ 1841 08ca 50E0      		call schedule
+ 1842 08cc 822B      	/* epilogue start */
+ 1843 08ce 932B      		pop r31
+ 1844 08d0 A42B      		pop r30
+ 1845 08d2 B52B      		pop r27
+ 1846 08d4 8093 0000 		pop r26
+ 1847 08d8 9093 0000 		pop r25
+ 1848 08dc A093 0000 		pop r24
+ 1849 08e0 B093 0000 		pop r23
+ 1850 08e4 B09B      		pop r22
+ 1851 08e6 00C0      		pop r21
+ 1852 08e8 2091 8400 		pop r20
+ 1853 08ec 3091 8500 		pop r19
+ 1854 08f0 6F5F      		pop r18
+ 1855 08f2 7F4F      		pop r0
+ 1856 08f4 CB01      		out __SREG__,r0
+ 1857 08f6 AA27      		pop r0
+ 1858 08f8 97FD      		pop __zero_reg__
+ 1859 08fa A095      		reti
+ 1861 08fe DC01      	.Lscope22:
+ 1863 0902 8827      	.global	__vector_21
+ 1865 0906 50E0      	__vector_21:
+ 1867 090a 932B      	.LM155:
+ 1868 090c A42B      	.LFBB23:
+ 1869 090e B52B      		push __zero_reg__
+ 1870 0910 8093 0000 		push r0
+ 1871 0914 9093 0000 		in r0,__SREG__
+ 1872 0918 A093 0000 		push r0
+ 1873 091c B093 0000 		clr __zero_reg__
+ 1874               		push r18
+ 1875 0920 E091 0000 		push r19
+ 1876 0924 F091 0000 		push r20
+ 1877 0928 3097      		push r21
+ 1878 092a 01F0      		push r22
+ 1879 092c 61E1      		push r23
+ 1880 092e 70E0      		push r24
+ 1881 0930 8091 0000 		push r25
+ 1882 0934 9091 0000 		push r26
+ 1883 0938 0995      		push r27
+ 1884               		push r30
+ 1885 093a 0E94 0000 		push r31
+ 1886               	/* prologue: Signal */
+ 1887 093e FF91      	/* frame size = 0 */
+ 1889 0942 BF91      	.LM156:
+ 1890 0944 AF91      		lds r22,overflows
+ 1891 0946 9F91      		lds r23,(overflows)+1
+ 1892 0948 8F91      		lds r18,132
+ 1893 094a 7F91      		lds r19,(132)+1
+ 1894 094c 6F91      		movw r24,r22
+ 1895 094e 5F91      		clr r26
+ 1896 0950 4F91      		sbrc r25,7
+ 1897 0952 3F91      		com r26
+ 1898 0954 2F91      		mov r27,r26
+ 1899 0956 0F90      		movw r26,r24
+ 1900 0958 0FBE      		clr r25
+ 1901 095a 0F90      		clr r24
+ 1902 095c 1F90      		ldi r20,lo8(0)
+ 1903 095e 1895      		ldi r21,hi8(0)
+ 1904               		or r24,r18
+ 1905               		or r25,r19
+ 1906               		or r26,r20
+ 1907               		or r27,r21
+ 1908               		sts timestamp,r24
+ 1909               		sts (timestamp)+1,r25
+ 1910               		sts (timestamp)+2,r26
+ 1911               		sts (timestamp)+3,r27
+ 1912               		sbis 54-32,0
+ 1913 0960 1F92      		rjmp .L129
+ 1914 0962 0F92      		lds r18,132
+ 1915 0964 0FB6      		lds r19,(132)+1
+ 1916 0966 0F92      		subi r22,lo8(-(1))
+ 1917 0968 1124      		sbci r23,hi8(-(1))
+ 1918 096a 2F93      		movw r24,r22
+ 1919 096c 3F93      		clr r26
+ 1920 096e 4F93      		sbrc r25,7
+ 1921 0970 5F93      		com r26
+ 1922 0972 6F93      		mov r27,r26
+ 1923 0974 7F93      		movw r26,r24
+ 1924 0976 8F93      		clr r25
+ 1925 0978 9F93      		clr r24
+ 1926 097a AF93      		ldi r20,lo8(0)
+ 1927 097c BF93      		ldi r21,hi8(0)
+ 1928 097e EF93      		or r24,r18
+ 1929 0980 FF93      		or r25,r19
+ 1930               		or r26,r20
+ 1931               		or r27,r21
+ 1932               		sts timestamp,r24
+ 1933               		sts (timestamp)+1,r25
+ 1934 0982 6091 0000 		sts (timestamp)+2,r26
+ 1935 0986 7091 0000 		sts (timestamp)+3,r27
+ 1936 098a 2091 8400 	.L129:
+ 1937 098e 3091 8500 		lds r30,mtable+32
+ 1938 0992 CB01      		lds r31,(mtable+32)+1
+ 1939 0994 AA27      		sbiw r30,0
+ 1940 0996 97FD      		breq .L130
+ 1941 0998 A095      		ldi r22,lo8(16)
+ 1942 099a BA2F      		ldi r23,hi8(16)
+ 1943 099c DC01      		lds r24,otable+32
+ 1944 099e 9927      		lds r25,(otable+32)+1
+ 1945 09a0 8827      		icall
+ 1946 09a2 40E0      	.L130:
+ 1947 09a4 50E0      		call schedule
+ 1948 09a6 822B      	/* epilogue start */
+ 1949 09a8 932B      		pop r31
+ 1950 09aa A42B      		pop r30
+ 1951 09ac B52B      		pop r27
+ 1952 09ae 8093 0000 		pop r26
+ 1953 09b2 9093 0000 		pop r25
+ 1954 09b6 A093 0000 		pop r24
+ 1955 09ba B093 0000 		pop r23
+ 1956 09be B09B      		pop r22
+ 1957 09c0 00C0      		pop r21
+ 1958 09c2 2091 8400 		pop r20
+ 1959 09c6 3091 8500 		pop r19
+ 1960 09ca 6F5F      		pop r18
+ 1961 09cc 7F4F      		pop r0
+ 1962 09ce CB01      		out __SREG__,r0
+ 1963 09d0 AA27      		pop r0
+ 1964 09d2 97FD      		pop __zero_reg__
+ 1965 09d4 A095      		reti
+ 1967 09d8 DC01      	.Lscope23:
+ 1969 09dc 8827      	.global	__vector_20
+ 1971 09e0 50E0      	__vector_20:
+ 1973 09e4 932B      	.LM157:
+ 1974 09e6 A42B      	.LFBB24:
+ 1975 09e8 B52B      		push __zero_reg__
+ 1976 09ea 8093 0000 		push r0
+ 1977 09ee 9093 0000 		in r0,__SREG__
+ 1978 09f2 A093 0000 		push r0
+ 1979 09f6 B093 0000 		clr __zero_reg__
+ 1980               		push r18
+ 1981 09fa E091 0000 		push r19
+ 1982 09fe F091 0000 		push r20
+ 1983 0a02 3097      		push r21
+ 1984 0a04 01F0      		push r22
+ 1985 0a06 60E1      		push r23
+ 1986 0a08 70E0      		push r24
+ 1987 0a0a 8091 0000 		push r25
+ 1988 0a0e 9091 0000 		push r26
+ 1989 0a12 0995      		push r27
+ 1990               		push r30
+ 1991 0a14 0E94 0000 		push r31
+ 1992               	/* prologue: Signal */
+ 1993 0a18 FF91      	/* frame size = 0 */
+ 1995 0a1c BF91      	.LM158:
+ 1996 0a1e AF91      		lds r22,overflows
+ 1997 0a20 9F91      		lds r23,(overflows)+1
+ 1998 0a22 8F91      		lds r18,132
+ 1999 0a24 7F91      		lds r19,(132)+1
+ 2000 0a26 6F91      		movw r24,r22
+ 2001 0a28 5F91      		clr r26
+ 2002 0a2a 4F91      		sbrc r25,7
+ 2003 0a2c 3F91      		com r26
+ 2004 0a2e 2F91      		mov r27,r26
+ 2005 0a30 0F90      		movw r26,r24
+ 2006 0a32 0FBE      		clr r25
+ 2007 0a34 0F90      		clr r24
+ 2008 0a36 1F90      		ldi r20,lo8(0)
+ 2009 0a38 1895      		ldi r21,hi8(0)
+ 2010               		or r24,r18
+ 2011               		or r25,r19
+ 2012               		or r26,r20
+ 2013               		or r27,r21
+ 2014               		sts timestamp,r24
+ 2015               		sts (timestamp)+1,r25
+ 2016               		sts (timestamp)+2,r26
+ 2017               		sts (timestamp)+3,r27
+ 2018               		sbis 54-32,0
+ 2019 0a3a 1F92      		rjmp .L133
+ 2020 0a3c 0F92      		lds r18,132
+ 2021 0a3e 0FB6      		lds r19,(132)+1
+ 2022 0a40 0F92      		subi r22,lo8(-(1))
+ 2023 0a42 1124      		sbci r23,hi8(-(1))
+ 2024 0a44 2F93      		movw r24,r22
+ 2025 0a46 3F93      		clr r26
+ 2026 0a48 4F93      		sbrc r25,7
+ 2027 0a4a 5F93      		com r26
+ 2028 0a4c 6F93      		mov r27,r26
+ 2029 0a4e 7F93      		movw r26,r24
+ 2030 0a50 8F93      		clr r25
+ 2031 0a52 9F93      		clr r24
+ 2032 0a54 AF93      		ldi r20,lo8(0)
+ 2033 0a56 BF93      		ldi r21,hi8(0)
+ 2034 0a58 EF93      		or r24,r18
+ 2035 0a5a FF93      		or r25,r19
+ 2036               		or r26,r20
+ 2037               		or r27,r21
+ 2038               		sts timestamp,r24
+ 2039               		sts (timestamp)+1,r25
+ 2040 0a5c 6091 0000 		sts (timestamp)+2,r26
+ 2041 0a60 7091 0000 		sts (timestamp)+3,r27
+ 2042 0a64 2091 8400 	.L133:
+ 2043 0a68 3091 8500 		lds r30,mtable+30
+ 2044 0a6c CB01      		lds r31,(mtable+30)+1
+ 2045 0a6e AA27      		sbiw r30,0
+ 2046 0a70 97FD      		breq .L134
+ 2047 0a72 A095      		ldi r22,lo8(15)
+ 2048 0a74 BA2F      		ldi r23,hi8(15)
+ 2049 0a76 DC01      		lds r24,otable+30
+ 2050 0a78 9927      		lds r25,(otable+30)+1
+ 2051 0a7a 8827      		icall
+ 2052 0a7c 40E0      	.L134:
+ 2053 0a7e 50E0      		call schedule
+ 2054 0a80 822B      	/* epilogue start */
+ 2055 0a82 932B      		pop r31
+ 2056 0a84 A42B      		pop r30
+ 2057 0a86 B52B      		pop r27
+ 2058 0a88 8093 0000 		pop r26
+ 2059 0a8c 9093 0000 		pop r25
+ 2060 0a90 A093 0000 		pop r24
+ 2061 0a94 B093 0000 		pop r23
+ 2062 0a98 B09B      		pop r22
+ 2063 0a9a 00C0      		pop r21
+ 2064 0a9c 2091 8400 		pop r20
+ 2065 0aa0 3091 8500 		pop r19
+ 2066 0aa4 6F5F      		pop r18
+ 2067 0aa6 7F4F      		pop r0
+ 2068 0aa8 CB01      		out __SREG__,r0
+ 2069 0aaa AA27      		pop r0
+ 2070 0aac 97FD      		pop __zero_reg__
+ 2071 0aae A095      		reti
+ 2073 0ab2 DC01      	.Lscope24:
+ 2075 0ab6 8827      	.global	__vector_19
+ 2077 0aba 50E0      	__vector_19:
+ 2079 0abe 932B      	.LM159:
+ 2080 0ac0 A42B      	.LFBB25:
+ 2081 0ac2 B52B      		push __zero_reg__
+ 2082 0ac4 8093 0000 		push r0
+ 2083 0ac8 9093 0000 		in r0,__SREG__
+ 2084 0acc A093 0000 		push r0
+ 2085 0ad0 B093 0000 		clr __zero_reg__
+ 2086               		push r18
+ 2087 0ad4 E091 0000 		push r19
+ 2088 0ad8 F091 0000 		push r20
+ 2089 0adc 3097      		push r21
+ 2090 0ade 01F0      		push r22
+ 2091 0ae0 6FE0      		push r23
+ 2092 0ae2 70E0      		push r24
+ 2093 0ae4 8091 0000 		push r25
+ 2094 0ae8 9091 0000 		push r26
+ 2095 0aec 0995      		push r27
+ 2096               		push r30
+ 2097 0aee 0E94 0000 		push r31
+ 2098               	/* prologue: Signal */
+ 2099 0af2 FF91      	/* frame size = 0 */
+ 2101 0af6 BF91      	.LM160:
+ 2102 0af8 AF91      		lds r22,overflows
+ 2103 0afa 9F91      		lds r23,(overflows)+1
+ 2104 0afc 8F91      		lds r18,132
+ 2105 0afe 7F91      		lds r19,(132)+1
+ 2106 0b00 6F91      		movw r24,r22
+ 2107 0b02 5F91      		clr r26
+ 2108 0b04 4F91      		sbrc r25,7
+ 2109 0b06 3F91      		com r26
+ 2110 0b08 2F91      		mov r27,r26
+ 2111 0b0a 0F90      		movw r26,r24
+ 2112 0b0c 0FBE      		clr r25
+ 2113 0b0e 0F90      		clr r24
+ 2114 0b10 1F90      		ldi r20,lo8(0)
+ 2115 0b12 1895      		ldi r21,hi8(0)
+ 2116               		or r24,r18
+ 2117               		or r25,r19
+ 2118               		or r26,r20
+ 2119               		or r27,r21
+ 2120               		sts timestamp,r24
+ 2121               		sts (timestamp)+1,r25
+ 2122               		sts (timestamp)+2,r26
+ 2123               		sts (timestamp)+3,r27
+ 2124               		sbis 54-32,0
+ 2125 0b14 1F92      		rjmp .L137
+ 2126 0b16 0F92      		lds r18,132
+ 2127 0b18 0FB6      		lds r19,(132)+1
+ 2128 0b1a 0F92      		subi r22,lo8(-(1))
+ 2129 0b1c 1124      		sbci r23,hi8(-(1))
+ 2130 0b1e 2F93      		movw r24,r22
+ 2131 0b20 3F93      		clr r26
+ 2132 0b22 4F93      		sbrc r25,7
+ 2133 0b24 5F93      		com r26
+ 2134 0b26 6F93      		mov r27,r26
+ 2135 0b28 7F93      		movw r26,r24
+ 2136 0b2a 8F93      		clr r25
+ 2137 0b2c 9F93      		clr r24
+ 2138 0b2e AF93      		ldi r20,lo8(0)
+ 2139 0b30 BF93      		ldi r21,hi8(0)
+ 2140 0b32 EF93      		or r24,r18
+ 2141 0b34 FF93      		or r25,r19
+ 2142               		or r26,r20
+ 2143               		or r27,r21
+ 2144               		sts timestamp,r24
+ 2145               		sts (timestamp)+1,r25
+ 2146 0b36 6091 0000 		sts (timestamp)+2,r26
+ 2147 0b3a 7091 0000 		sts (timestamp)+3,r27
+ 2148 0b3e 2091 8400 	.L137:
+ 2149 0b42 3091 8500 		lds r30,mtable+28
+ 2150 0b46 CB01      		lds r31,(mtable+28)+1
+ 2151 0b48 AA27      		sbiw r30,0
+ 2152 0b4a 97FD      		breq .L138
+ 2153 0b4c A095      		ldi r22,lo8(14)
+ 2154 0b4e BA2F      		ldi r23,hi8(14)
+ 2155 0b50 DC01      		lds r24,otable+28
+ 2156 0b52 9927      		lds r25,(otable+28)+1
+ 2157 0b54 8827      		icall
+ 2158 0b56 40E0      	.L138:
+ 2159 0b58 50E0      		call schedule
+ 2160 0b5a 822B      	/* epilogue start */
+ 2161 0b5c 932B      		pop r31
+ 2162 0b5e A42B      		pop r30
+ 2163 0b60 B52B      		pop r27
+ 2164 0b62 8093 0000 		pop r26
+ 2165 0b66 9093 0000 		pop r25
+ 2166 0b6a A093 0000 		pop r24
+ 2167 0b6e B093 0000 		pop r23
+ 2168 0b72 B09B      		pop r22
+ 2169 0b74 00C0      		pop r21
+ 2170 0b76 2091 8400 		pop r20
+ 2171 0b7a 3091 8500 		pop r19
+ 2172 0b7e 6F5F      		pop r18
+ 2173 0b80 7F4F      		pop r0
+ 2174 0b82 CB01      		out __SREG__,r0
+ 2175 0b84 AA27      		pop r0
+ 2176 0b86 97FD      		pop __zero_reg__
+ 2177 0b88 A095      		reti
+ 2179 0b8c DC01      	.Lscope25:
+ 2181 0b90 8827      	.global	__vector_18
+ 2183 0b94 50E0      	__vector_18:
+ 2185 0b98 932B      	.LM161:
+ 2186 0b9a A42B      	.LFBB26:
+ 2187 0b9c B52B      		push __zero_reg__
+ 2188 0b9e 8093 0000 		push r0
+ 2189 0ba2 9093 0000 		in r0,__SREG__
+ 2190 0ba6 A093 0000 		push r0
+ 2191 0baa B093 0000 		clr __zero_reg__
+ 2192               		push r18
+ 2193 0bae E091 0000 		push r19
+ 2194 0bb2 F091 0000 		push r20
+ 2195 0bb6 3097      		push r21
+ 2196 0bb8 01F0      		push r22
+ 2197 0bba 6EE0      		push r23
+ 2198 0bbc 70E0      		push r24
+ 2199 0bbe 8091 0000 		push r25
+ 2200 0bc2 9091 0000 		push r26
+ 2201 0bc6 0995      		push r27
+ 2202               		push r30
+ 2203 0bc8 0E94 0000 		push r31
+ 2204               	/* prologue: Signal */
+ 2205 0bcc FF91      	/* frame size = 0 */
+ 2207 0bd0 BF91      	.LM162:
+ 2208 0bd2 AF91      		lds r22,overflows
+ 2209 0bd4 9F91      		lds r23,(overflows)+1
+ 2210 0bd6 8F91      		lds r18,132
+ 2211 0bd8 7F91      		lds r19,(132)+1
+ 2212 0bda 6F91      		movw r24,r22
+ 2213 0bdc 5F91      		clr r26
+ 2214 0bde 4F91      		sbrc r25,7
+ 2215 0be0 3F91      		com r26
+ 2216 0be2 2F91      		mov r27,r26
+ 2217 0be4 0F90      		movw r26,r24
+ 2218 0be6 0FBE      		clr r25
+ 2219 0be8 0F90      		clr r24
+ 2220 0bea 1F90      		ldi r20,lo8(0)
+ 2221 0bec 1895      		ldi r21,hi8(0)
+ 2222               		or r24,r18
+ 2223               		or r25,r19
+ 2224               		or r26,r20
+ 2225               		or r27,r21
+ 2226               		sts timestamp,r24
+ 2227               		sts (timestamp)+1,r25
+ 2228               		sts (timestamp)+2,r26
+ 2229               		sts (timestamp)+3,r27
+ 2230               		sbis 54-32,0
+ 2231 0bee 1F92      		rjmp .L141
+ 2232 0bf0 0F92      		lds r18,132
+ 2233 0bf2 0FB6      		lds r19,(132)+1
+ 2234 0bf4 0F92      		subi r22,lo8(-(1))
+ 2235 0bf6 1124      		sbci r23,hi8(-(1))
+ 2236 0bf8 2F93      		movw r24,r22
+ 2237 0bfa 3F93      		clr r26
+ 2238 0bfc 4F93      		sbrc r25,7
+ 2239 0bfe 5F93      		com r26
+ 2240 0c00 6F93      		mov r27,r26
+ 2241 0c02 7F93      		movw r26,r24
+ 2242 0c04 8F93      		clr r25
+ 2243 0c06 9F93      		clr r24
+ 2244 0c08 AF93      		ldi r20,lo8(0)
+ 2245 0c0a BF93      		ldi r21,hi8(0)
+ 2246 0c0c EF93      		or r24,r18
+ 2247 0c0e FF93      		or r25,r19
+ 2248               		or r26,r20
+ 2249               		or r27,r21
+ 2250               		sts timestamp,r24
+ 2251               		sts (timestamp)+1,r25
+ 2252 0c10 6091 0000 		sts (timestamp)+2,r26
+ 2253 0c14 7091 0000 		sts (timestamp)+3,r27
+ 2254 0c18 2091 8400 	.L141:
+ 2255 0c1c 3091 8500 		lds r30,mtable+26
+ 2256 0c20 CB01      		lds r31,(mtable+26)+1
+ 2257 0c22 AA27      		sbiw r30,0
+ 2258 0c24 97FD      		breq .L142
+ 2259 0c26 A095      		ldi r22,lo8(13)
+ 2260 0c28 BA2F      		ldi r23,hi8(13)
+ 2261 0c2a DC01      		lds r24,otable+26
+ 2262 0c2c 9927      		lds r25,(otable+26)+1
+ 2263 0c2e 8827      		icall
+ 2264 0c30 40E0      	.L142:
+ 2265 0c32 50E0      		call schedule
+ 2266 0c34 822B      	/* epilogue start */
+ 2267 0c36 932B      		pop r31
+ 2268 0c38 A42B      		pop r30
+ 2269 0c3a B52B      		pop r27
+ 2270 0c3c 8093 0000 		pop r26
+ 2271 0c40 9093 0000 		pop r25
+ 2272 0c44 A093 0000 		pop r24
+ 2273 0c48 B093 0000 		pop r23
+ 2274 0c4c B09B      		pop r22
+ 2275 0c4e 00C0      		pop r21
+ 2276 0c50 2091 8400 		pop r20
+ 2277 0c54 3091 8500 		pop r19
+ 2278 0c58 6F5F      		pop r18
+ 2279 0c5a 7F4F      		pop r0
+ 2280 0c5c CB01      		out __SREG__,r0
+ 2281 0c5e AA27      		pop r0
+ 2282 0c60 97FD      		pop __zero_reg__
+ 2283 0c62 A095      		reti
+ 2285 0c66 DC01      	.Lscope26:
+ 2287 0c6a 8827      	.global	__vector_17
+ 2289 0c6e 50E0      	__vector_17:
+ 2291 0c72 932B      	.LM163:
+ 2292 0c74 A42B      	.LFBB27:
+ 2293 0c76 B52B      		push __zero_reg__
+ 2294 0c78 8093 0000 		push r0
+ 2295 0c7c 9093 0000 		in r0,__SREG__
+ 2296 0c80 A093 0000 		push r0
+ 2297 0c84 B093 0000 		clr __zero_reg__
+ 2298               		push r18
+ 2299 0c88 E091 0000 		push r19
+ 2300 0c8c F091 0000 		push r20
+ 2301 0c90 3097      		push r21
+ 2302 0c92 01F0      		push r22
+ 2303 0c94 6DE0      		push r23
+ 2304 0c96 70E0      		push r24
+ 2305 0c98 8091 0000 		push r25
+ 2306 0c9c 9091 0000 		push r26
+ 2307 0ca0 0995      		push r27
+ 2308               		push r30
+ 2309 0ca2 0E94 0000 		push r31
+ 2310               	/* prologue: Signal */
+ 2311 0ca6 FF91      	/* frame size = 0 */
+ 2313 0caa BF91      	.LM164:
+ 2314 0cac AF91      		lds r22,overflows
+ 2315 0cae 9F91      		lds r23,(overflows)+1
+ 2316 0cb0 8F91      		lds r18,132
+ 2317 0cb2 7F91      		lds r19,(132)+1
+ 2318 0cb4 6F91      		movw r24,r22
+ 2319 0cb6 5F91      		clr r26
+ 2320 0cb8 4F91      		sbrc r25,7
+ 2321 0cba 3F91      		com r26
+ 2322 0cbc 2F91      		mov r27,r26
+ 2323 0cbe 0F90      		movw r26,r24
+ 2324 0cc0 0FBE      		clr r25
+ 2325 0cc2 0F90      		clr r24
+ 2326 0cc4 1F90      		ldi r20,lo8(0)
+ 2327 0cc6 1895      		ldi r21,hi8(0)
+ 2328               		or r24,r18
+ 2329               		or r25,r19
+ 2330               		or r26,r20
+ 2331               		or r27,r21
+ 2332               		sts timestamp,r24
+ 2333               		sts (timestamp)+1,r25
+ 2334               		sts (timestamp)+2,r26
+ 2335               		sts (timestamp)+3,r27
+ 2336               		sbis 54-32,0
+ 2337 0cc8 1F92      		rjmp .L145
+ 2338 0cca 0F92      		lds r18,132
+ 2339 0ccc 0FB6      		lds r19,(132)+1
+ 2340 0cce 0F92      		subi r22,lo8(-(1))
+ 2341 0cd0 1124      		sbci r23,hi8(-(1))
+ 2342 0cd2 2F93      		movw r24,r22
+ 2343 0cd4 3F93      		clr r26
+ 2344 0cd6 4F93      		sbrc r25,7
+ 2345 0cd8 5F93      		com r26
+ 2346 0cda 6F93      		mov r27,r26
+ 2347 0cdc 7F93      		movw r26,r24
+ 2348 0cde 8F93      		clr r25
+ 2349 0ce0 9F93      		clr r24
+ 2350 0ce2 AF93      		ldi r20,lo8(0)
+ 2351 0ce4 BF93      		ldi r21,hi8(0)
+ 2352 0ce6 EF93      		or r24,r18
+ 2353 0ce8 FF93      		or r25,r19
+ 2354               		or r26,r20
+ 2355               		or r27,r21
+ 2356               		sts timestamp,r24
+ 2357               		sts (timestamp)+1,r25
+ 2358 0cea 6091 0000 		sts (timestamp)+2,r26
+ 2359 0cee 7091 0000 		sts (timestamp)+3,r27
+ 2360 0cf2 2091 8400 	.L145:
+ 2361 0cf6 3091 8500 		lds r30,mtable+24
+ 2362 0cfa CB01      		lds r31,(mtable+24)+1
+ 2363 0cfc AA27      		sbiw r30,0
+ 2364 0cfe 97FD      		breq .L146
+ 2365 0d00 A095      		ldi r22,lo8(12)
+ 2366 0d02 BA2F      		ldi r23,hi8(12)
+ 2367 0d04 DC01      		lds r24,otable+24
+ 2368 0d06 9927      		lds r25,(otable+24)+1
+ 2369 0d08 8827      		icall
+ 2370 0d0a 40E0      	.L146:
+ 2371 0d0c 50E0      		call schedule
+ 2372 0d0e 822B      	/* epilogue start */
+ 2373 0d10 932B      		pop r31
+ 2374 0d12 A42B      		pop r30
+ 2375 0d14 B52B      		pop r27
+ 2376 0d16 8093 0000 		pop r26
+ 2377 0d1a 9093 0000 		pop r25
+ 2378 0d1e A093 0000 		pop r24
+ 2379 0d22 B093 0000 		pop r23
+ 2380 0d26 B09B      		pop r22
+ 2381 0d28 00C0      		pop r21
+ 2382 0d2a 2091 8400 		pop r20
+ 2383 0d2e 3091 8500 		pop r19
+ 2384 0d32 6F5F      		pop r18
+ 2385 0d34 7F4F      		pop r0
+ 2386 0d36 CB01      		out __SREG__,r0
+ 2387 0d38 AA27      		pop r0
+ 2388 0d3a 97FD      		pop __zero_reg__
+ 2389 0d3c A095      		reti
+ 2391 0d40 DC01      	.Lscope27:
+ 2393 0d44 8827      	.global	__vector_16
+ 2395 0d48 50E0      	__vector_16:
+ 2397 0d4c 932B      	.LM165:
+ 2398 0d4e A42B      	.LFBB28:
+ 2399 0d50 B52B      		push __zero_reg__
+ 2400 0d52 8093 0000 		push r0
+ 2401 0d56 9093 0000 		in r0,__SREG__
+ 2402 0d5a A093 0000 		push r0
+ 2403 0d5e B093 0000 		clr __zero_reg__
+ 2404               		push r18
+ 2405 0d62 E091 0000 		push r19
+ 2406 0d66 F091 0000 		push r20
+ 2407 0d6a 3097      		push r21
+ 2408 0d6c 01F0      		push r22
+ 2409 0d6e 6CE0      		push r23
+ 2410 0d70 70E0      		push r24
+ 2411 0d72 8091 0000 		push r25
+ 2412 0d76 9091 0000 		push r26
+ 2413 0d7a 0995      		push r27
+ 2414               		push r30
+ 2415 0d7c 0E94 0000 		push r31
+ 2416               	/* prologue: Signal */
+ 2417 0d80 FF91      	/* frame size = 0 */
+ 2419 0d84 BF91      	.LM166:
+ 2420 0d86 AF91      		lds r22,overflows
+ 2421 0d88 9F91      		lds r23,(overflows)+1
+ 2422 0d8a 8F91      		lds r18,132
+ 2423 0d8c 7F91      		lds r19,(132)+1
+ 2424 0d8e 6F91      		movw r24,r22
+ 2425 0d90 5F91      		clr r26
+ 2426 0d92 4F91      		sbrc r25,7
+ 2427 0d94 3F91      		com r26
+ 2428 0d96 2F91      		mov r27,r26
+ 2429 0d98 0F90      		movw r26,r24
+ 2430 0d9a 0FBE      		clr r25
+ 2431 0d9c 0F90      		clr r24
+ 2432 0d9e 1F90      		ldi r20,lo8(0)
+ 2433 0da0 1895      		ldi r21,hi8(0)
+ 2434               		or r24,r18
+ 2435               		or r25,r19
+ 2436               		or r26,r20
+ 2437               		or r27,r21
+ 2438               		sts timestamp,r24
+ 2439               		sts (timestamp)+1,r25
+ 2440               		sts (timestamp)+2,r26
+ 2441               		sts (timestamp)+3,r27
+ 2442               		sbis 54-32,0
+ 2443 0da2 1F92      		rjmp .L149
+ 2444 0da4 0F92      		lds r18,132
+ 2445 0da6 0FB6      		lds r19,(132)+1
+ 2446 0da8 0F92      		subi r22,lo8(-(1))
+ 2447 0daa 1124      		sbci r23,hi8(-(1))
+ 2448 0dac 2F93      		movw r24,r22
+ 2449 0dae 3F93      		clr r26
+ 2450 0db0 4F93      		sbrc r25,7
+ 2451 0db2 5F93      		com r26
+ 2452 0db4 6F93      		mov r27,r26
+ 2453 0db6 7F93      		movw r26,r24
+ 2454 0db8 8F93      		clr r25
+ 2455 0dba 9F93      		clr r24
+ 2456 0dbc AF93      		ldi r20,lo8(0)
+ 2457 0dbe BF93      		ldi r21,hi8(0)
+ 2458 0dc0 EF93      		or r24,r18
+ 2459 0dc2 FF93      		or r25,r19
+ 2460               		or r26,r20
+ 2461               		or r27,r21
+ 2462               		sts timestamp,r24
+ 2463               		sts (timestamp)+1,r25
+ 2464 0dc4 6091 0000 		sts (timestamp)+2,r26
+ 2465 0dc8 7091 0000 		sts (timestamp)+3,r27
+ 2466 0dcc 2091 8400 	.L149:
+ 2467 0dd0 3091 8500 		lds r30,mtable+22
+ 2468 0dd4 CB01      		lds r31,(mtable+22)+1
+ 2469 0dd6 AA27      		sbiw r30,0
+ 2470 0dd8 97FD      		breq .L150
+ 2471 0dda A095      		ldi r22,lo8(11)
+ 2472 0ddc BA2F      		ldi r23,hi8(11)
+ 2473 0dde DC01      		lds r24,otable+22
+ 2474 0de0 9927      		lds r25,(otable+22)+1
+ 2475 0de2 8827      		icall
+ 2476 0de4 40E0      	.L150:
+ 2477 0de6 50E0      		call schedule
+ 2478 0de8 822B      	/* epilogue start */
+ 2479 0dea 932B      		pop r31
+ 2480 0dec A42B      		pop r30
+ 2481 0dee B52B      		pop r27
+ 2482 0df0 8093 0000 		pop r26
+ 2483 0df4 9093 0000 		pop r25
+ 2484 0df8 A093 0000 		pop r24
+ 2485 0dfc B093 0000 		pop r23
+ 2486 0e00 B09B      		pop r22
+ 2487 0e02 00C0      		pop r21
+ 2488 0e04 2091 8400 		pop r20
+ 2489 0e08 3091 8500 		pop r19
+ 2490 0e0c 6F5F      		pop r18
+ 2491 0e0e 7F4F      		pop r0
+ 2492 0e10 CB01      		out __SREG__,r0
+ 2493 0e12 AA27      		pop r0
+ 2494 0e14 97FD      		pop __zero_reg__
+ 2495 0e16 A095      		reti
+ 2497 0e1a DC01      	.Lscope28:
+ 2499 0e1e 8827      	.global	__vector_15
+ 2501 0e22 50E0      	__vector_15:
+ 2503 0e26 932B      	.LM167:
+ 2504 0e28 A42B      	.LFBB29:
+ 2505 0e2a B52B      		push __zero_reg__
+ 2506 0e2c 8093 0000 		push r0
+ 2507 0e30 9093 0000 		in r0,__SREG__
+ 2508 0e34 A093 0000 		push r0
+ 2509 0e38 B093 0000 		clr __zero_reg__
+ 2510               		push r18
+ 2511 0e3c E091 0000 		push r19
+ 2512 0e40 F091 0000 		push r20
+ 2513 0e44 3097      		push r21
+ 2514 0e46 01F0      		push r22
+ 2515 0e48 6BE0      		push r23
+ 2516 0e4a 70E0      		push r24
+ 2517 0e4c 8091 0000 		push r25
+ 2518 0e50 9091 0000 		push r26
+ 2519 0e54 0995      		push r27
+ 2520               		push r30
+ 2521 0e56 0E94 0000 		push r31
+ 2522               	/* prologue: Signal */
+ 2523 0e5a FF91      	/* frame size = 0 */
+ 2525 0e5e BF91      	.LM168:
+ 2526 0e60 AF91      		lds r22,overflows
+ 2527 0e62 9F91      		lds r23,(overflows)+1
+ 2528 0e64 8F91      		lds r18,132
+ 2529 0e66 7F91      		lds r19,(132)+1
+ 2530 0e68 6F91      		movw r24,r22
+ 2531 0e6a 5F91      		clr r26
+ 2532 0e6c 4F91      		sbrc r25,7
+ 2533 0e6e 3F91      		com r26
+ 2534 0e70 2F91      		mov r27,r26
+ 2535 0e72 0F90      		movw r26,r24
+ 2536 0e74 0FBE      		clr r25
+ 2537 0e76 0F90      		clr r24
+ 2538 0e78 1F90      		ldi r20,lo8(0)
+ 2539 0e7a 1895      		ldi r21,hi8(0)
+ 2540               		or r24,r18
+ 2541               		or r25,r19
+ 2542               		or r26,r20
+ 2543               		or r27,r21
+ 2544               		sts timestamp,r24
+ 2545               		sts (timestamp)+1,r25
+ 2546               		sts (timestamp)+2,r26
+ 2547               		sts (timestamp)+3,r27
+ 2548               		sbis 54-32,0
+ 2549 0e7c 1F92      		rjmp .L153
+ 2550 0e7e 0F92      		lds r18,132
+ 2551 0e80 0FB6      		lds r19,(132)+1
+ 2552 0e82 0F92      		subi r22,lo8(-(1))
+ 2553 0e84 1124      		sbci r23,hi8(-(1))
+ 2554 0e86 2F93      		movw r24,r22
+ 2555 0e88 3F93      		clr r26
+ 2556 0e8a 4F93      		sbrc r25,7
+ 2557 0e8c 5F93      		com r26
+ 2558 0e8e 6F93      		mov r27,r26
+ 2559 0e90 7F93      		movw r26,r24
+ 2560 0e92 8F93      		clr r25
+ 2561 0e94 9F93      		clr r24
+ 2562 0e96 AF93      		ldi r20,lo8(0)
+ 2563 0e98 BF93      		ldi r21,hi8(0)
+ 2564 0e9a EF93      		or r24,r18
+ 2565 0e9c FF93      		or r25,r19
+ 2566               		or r26,r20
+ 2567               		or r27,r21
+ 2568               		sts timestamp,r24
+ 2569               		sts (timestamp)+1,r25
+ 2570 0e9e 6091 0000 		sts (timestamp)+2,r26
+ 2571 0ea2 7091 0000 		sts (timestamp)+3,r27
+ 2572 0ea6 2091 8400 	.L153:
+ 2573 0eaa 3091 8500 		lds r30,mtable+20
+ 2574 0eae CB01      		lds r31,(mtable+20)+1
+ 2575 0eb0 AA27      		sbiw r30,0
+ 2576 0eb2 97FD      		breq .L154
+ 2577 0eb4 A095      		ldi r22,lo8(10)
+ 2578 0eb6 BA2F      		ldi r23,hi8(10)
+ 2579 0eb8 DC01      		lds r24,otable+20
+ 2580 0eba 9927      		lds r25,(otable+20)+1
+ 2581 0ebc 8827      		icall
+ 2582 0ebe 40E0      	.L154:
+ 2583 0ec0 50E0      		call schedule
+ 2584 0ec2 822B      	/* epilogue start */
+ 2585 0ec4 932B      		pop r31
+ 2586 0ec6 A42B      		pop r30
+ 2587 0ec8 B52B      		pop r27
+ 2588 0eca 8093 0000 		pop r26
+ 2589 0ece 9093 0000 		pop r25
+ 2590 0ed2 A093 0000 		pop r24
+ 2591 0ed6 B093 0000 		pop r23
+ 2592 0eda B09B      		pop r22
+ 2593 0edc 00C0      		pop r21
+ 2594 0ede 2091 8400 		pop r20
+ 2595 0ee2 3091 8500 		pop r19
+ 2596 0ee6 6F5F      		pop r18
+ 2597 0ee8 7F4F      		pop r0
+ 2598 0eea CB01      		out __SREG__,r0
+ 2599 0eec AA27      		pop r0
+ 2600 0eee 97FD      		pop __zero_reg__
+ 2601 0ef0 A095      		reti
+ 2603 0ef4 DC01      	.Lscope29:
+ 2605 0ef8 8827      	.global	__vector_14
+ 2607 0efc 50E0      	__vector_14:
+ 2609 0f00 932B      	.LM169:
+ 2610 0f02 A42B      	.LFBB30:
+ 2611 0f04 B52B      		push __zero_reg__
+ 2612 0f06 8093 0000 		push r0
+ 2613 0f0a 9093 0000 		in r0,__SREG__
+ 2614 0f0e A093 0000 		push r0
+ 2615 0f12 B093 0000 		clr __zero_reg__
+ 2616               		push r18
+ 2617 0f16 E091 0000 		push r19
+ 2618 0f1a F091 0000 		push r20
+ 2619 0f1e 3097      		push r21
+ 2620 0f20 01F0      		push r22
+ 2621 0f22 6AE0      		push r23
+ 2622 0f24 70E0      		push r24
+ 2623 0f26 8091 0000 		push r25
+ 2624 0f2a 9091 0000 		push r26
+ 2625 0f2e 0995      		push r27
+ 2626               		push r30
+ 2627 0f30 0E94 0000 		push r31
+ 2628               	/* prologue: Signal */
+ 2629 0f34 FF91      	/* frame size = 0 */
+ 2631 0f38 BF91      	.LM170:
+ 2632 0f3a AF91      		lds r22,overflows
+ 2633 0f3c 9F91      		lds r23,(overflows)+1
+ 2634 0f3e 8F91      		lds r18,132
+ 2635 0f40 7F91      		lds r19,(132)+1
+ 2636 0f42 6F91      		movw r24,r22
+ 2637 0f44 5F91      		clr r26
+ 2638 0f46 4F91      		sbrc r25,7
+ 2639 0f48 3F91      		com r26
+ 2640 0f4a 2F91      		mov r27,r26
+ 2641 0f4c 0F90      		movw r26,r24
+ 2642 0f4e 0FBE      		clr r25
+ 2643 0f50 0F90      		clr r24
+ 2644 0f52 1F90      		ldi r20,lo8(0)
+ 2645 0f54 1895      		ldi r21,hi8(0)
+ 2646               		or r24,r18
+ 2647               		or r25,r19
+ 2648               		or r26,r20
+ 2649               		or r27,r21
+ 2650               		sts timestamp,r24
+ 2651               		sts (timestamp)+1,r25
+ 2652               		sts (timestamp)+2,r26
+ 2653               		sts (timestamp)+3,r27
+ 2654               		sbis 54-32,0
+ 2655 0f56 1F92      		rjmp .L157
+ 2656 0f58 0F92      		lds r18,132
+ 2657 0f5a 0FB6      		lds r19,(132)+1
+ 2658 0f5c 0F92      		subi r22,lo8(-(1))
+ 2659 0f5e 1124      		sbci r23,hi8(-(1))
+ 2660 0f60 2F93      		movw r24,r22
+ 2661 0f62 3F93      		clr r26
+ 2662 0f64 4F93      		sbrc r25,7
+ 2663 0f66 5F93      		com r26
+ 2664 0f68 6F93      		mov r27,r26
+ 2665 0f6a 7F93      		movw r26,r24
+ 2666 0f6c 8F93      		clr r25
+ 2667 0f6e 9F93      		clr r24
+ 2668 0f70 AF93      		ldi r20,lo8(0)
+ 2669 0f72 BF93      		ldi r21,hi8(0)
+ 2670 0f74 EF93      		or r24,r18
+ 2671 0f76 FF93      		or r25,r19
+ 2672               		or r26,r20
+ 2673               		or r27,r21
+ 2674               		sts timestamp,r24
+ 2675               		sts (timestamp)+1,r25
+ 2676 0f78 6091 0000 		sts (timestamp)+2,r26
+ 2677 0f7c 7091 0000 		sts (timestamp)+3,r27
+ 2678 0f80 2091 8400 	.L157:
+ 2679 0f84 3091 8500 		lds r30,mtable+18
+ 2680 0f88 CB01      		lds r31,(mtable+18)+1
+ 2681 0f8a AA27      		sbiw r30,0
+ 2682 0f8c 97FD      		breq .L158
+ 2683 0f8e A095      		ldi r22,lo8(9)
+ 2684 0f90 BA2F      		ldi r23,hi8(9)
+ 2685 0f92 DC01      		lds r24,otable+18
+ 2686 0f94 9927      		lds r25,(otable+18)+1
+ 2687 0f96 8827      		icall
+ 2688 0f98 40E0      	.L158:
+ 2689 0f9a 50E0      		call schedule
+ 2690 0f9c 822B      	/* epilogue start */
+ 2691 0f9e 932B      		pop r31
+ 2692 0fa0 A42B      		pop r30
+ 2693 0fa2 B52B      		pop r27
+ 2694 0fa4 8093 0000 		pop r26
+ 2695 0fa8 9093 0000 		pop r25
+ 2696 0fac A093 0000 		pop r24
+ 2697 0fb0 B093 0000 		pop r23
+ 2698 0fb4 B09B      		pop r22
+ 2699 0fb6 00C0      		pop r21
+ 2700 0fb8 2091 8400 		pop r20
+ 2701 0fbc 3091 8500 		pop r19
+ 2702 0fc0 6F5F      		pop r18
+ 2703 0fc2 7F4F      		pop r0
+ 2704 0fc4 CB01      		out __SREG__,r0
+ 2705 0fc6 AA27      		pop r0
+ 2706 0fc8 97FD      		pop __zero_reg__
+ 2707 0fca A095      		reti
+ 2709 0fce DC01      	.Lscope30:
+ 2711 0fd2 8827      	.global	__vector_13
+ 2713 0fd6 50E0      	__vector_13:
+ 2715 0fda 932B      	.LM171:
+ 2716 0fdc A42B      	.LFBB31:
+ 2717 0fde B52B      		push __zero_reg__
+ 2718 0fe0 8093 0000 		push r0
+ 2719 0fe4 9093 0000 		in r0,__SREG__
+ 2720 0fe8 A093 0000 		push r0
+ 2721 0fec B093 0000 		clr __zero_reg__
+ 2722               		push r18
+ 2723 0ff0 E091 0000 		push r19
+ 2724 0ff4 F091 0000 		push r20
+ 2725 0ff8 3097      		push r21
+ 2726 0ffa 01F0      		push r22
+ 2727 0ffc 69E0      		push r23
+ 2728 0ffe 70E0      		push r24
+ 2729 1000 8091 0000 		push r25
+ 2730 1004 9091 0000 		push r26
+ 2731 1008 0995      		push r27
+ 2732               		push r30
+ 2733 100a 0E94 0000 		push r31
+ 2734               	/* prologue: Signal */
+ 2735 100e FF91      	/* frame size = 0 */
+ 2737 1012 BF91      	.LM172:
+ 2738 1014 AF91      		lds r22,overflows
+ 2739 1016 9F91      		lds r23,(overflows)+1
+ 2740 1018 8F91      		lds r18,132
+ 2741 101a 7F91      		lds r19,(132)+1
+ 2742 101c 6F91      		movw r24,r22
+ 2743 101e 5F91      		clr r26
+ 2744 1020 4F91      		sbrc r25,7
+ 2745 1022 3F91      		com r26
+ 2746 1024 2F91      		mov r27,r26
+ 2747 1026 0F90      		movw r26,r24
+ 2748 1028 0FBE      		clr r25
+ 2749 102a 0F90      		clr r24
+ 2750 102c 1F90      		ldi r20,lo8(0)
+ 2751 102e 1895      		ldi r21,hi8(0)
+ 2752               		or r24,r18
+ 2753               		or r25,r19
+ 2754               		or r26,r20
+ 2755               		or r27,r21
+ 2756               		sts timestamp,r24
+ 2757               		sts (timestamp)+1,r25
+ 2758               		sts (timestamp)+2,r26
+ 2759               		sts (timestamp)+3,r27
+ 2760               		sbis 54-32,0
+ 2761 1030 1F92      		rjmp .L161
+ 2762 1032 0F92      		lds r18,132
+ 2763 1034 0FB6      		lds r19,(132)+1
+ 2764 1036 0F92      		subi r22,lo8(-(1))
+ 2765 1038 1124      		sbci r23,hi8(-(1))
+ 2766 103a 2F93      		movw r24,r22
+ 2767 103c 3F93      		clr r26
+ 2768 103e 4F93      		sbrc r25,7
+ 2769 1040 5F93      		com r26
+ 2770 1042 6F93      		mov r27,r26
+ 2771 1044 7F93      		movw r26,r24
+ 2772 1046 8F93      		clr r25
+ 2773 1048 9F93      		clr r24
+ 2774 104a AF93      		ldi r20,lo8(0)
+ 2775 104c BF93      		ldi r21,hi8(0)
+ 2776 104e EF93      		or r24,r18
+ 2777 1050 FF93      		or r25,r19
+ 2778               		or r26,r20
+ 2779               		or r27,r21
+ 2780               		sts timestamp,r24
+ 2781               		sts (timestamp)+1,r25
+ 2782 1052 6091 0000 		sts (timestamp)+2,r26
+ 2783 1056 7091 0000 		sts (timestamp)+3,r27
+ 2784 105a 2091 8400 	.L161:
+ 2785 105e 3091 8500 		lds r30,mtable+16
+ 2786 1062 CB01      		lds r31,(mtable+16)+1
+ 2787 1064 AA27      		sbiw r30,0
+ 2788 1066 97FD      		breq .L162
+ 2789 1068 A095      		ldi r22,lo8(8)
+ 2790 106a BA2F      		ldi r23,hi8(8)
+ 2791 106c DC01      		lds r24,otable+16
+ 2792 106e 9927      		lds r25,(otable+16)+1
+ 2793 1070 8827      		icall
+ 2794 1072 40E0      	.L162:
+ 2795 1074 50E0      		call schedule
+ 2796 1076 822B      	/* epilogue start */
+ 2797 1078 932B      		pop r31
+ 2798 107a A42B      		pop r30
+ 2799 107c B52B      		pop r27
+ 2800 107e 8093 0000 		pop r26
+ 2801 1082 9093 0000 		pop r25
+ 2802 1086 A093 0000 		pop r24
+ 2803 108a B093 0000 		pop r23
+ 2804 108e B09B      		pop r22
+ 2805 1090 00C0      		pop r21
+ 2806 1092 2091 8400 		pop r20
+ 2807 1096 3091 8500 		pop r19
+ 2808 109a 6F5F      		pop r18
+ 2809 109c 7F4F      		pop r0
+ 2810 109e CB01      		out __SREG__,r0
+ 2811 10a0 AA27      		pop r0
+ 2812 10a2 97FD      		pop __zero_reg__
+ 2813 10a4 A095      		reti
+ 2815 10a8 DC01      	.Lscope31:
+ 2817 10ac 8827      	.global	__vector_12
+ 2819 10b0 50E0      	__vector_12:
+ 2821 10b4 932B      	.LM173:
+ 2822 10b6 A42B      	.LFBB32:
+ 2823 10b8 B52B      		push __zero_reg__
+ 2824 10ba 8093 0000 		push r0
+ 2825 10be 9093 0000 		in r0,__SREG__
+ 2826 10c2 A093 0000 		push r0
+ 2827 10c6 B093 0000 		clr __zero_reg__
+ 2828               		push r18
+ 2829 10ca E091 0000 		push r19
+ 2830 10ce F091 0000 		push r20
+ 2831 10d2 3097      		push r21
+ 2832 10d4 01F0      		push r22
+ 2833 10d6 68E0      		push r23
+ 2834 10d8 70E0      		push r24
+ 2835 10da 8091 0000 		push r25
+ 2836 10de 9091 0000 		push r26
+ 2837 10e2 0995      		push r27
+ 2838               		push r30
+ 2839 10e4 0E94 0000 		push r31
+ 2840               	/* prologue: Signal */
+ 2841 10e8 FF91      	/* frame size = 0 */
+ 2843 10ec BF91      	.LM174:
+ 2844 10ee AF91      		lds r22,overflows
+ 2845 10f0 9F91      		lds r23,(overflows)+1
+ 2846 10f2 8F91      		lds r18,132
+ 2847 10f4 7F91      		lds r19,(132)+1
+ 2848 10f6 6F91      		movw r24,r22
+ 2849 10f8 5F91      		clr r26
+ 2850 10fa 4F91      		sbrc r25,7
+ 2851 10fc 3F91      		com r26
+ 2852 10fe 2F91      		mov r27,r26
+ 2853 1100 0F90      		movw r26,r24
+ 2854 1102 0FBE      		clr r25
+ 2855 1104 0F90      		clr r24
+ 2856 1106 1F90      		ldi r20,lo8(0)
+ 2857 1108 1895      		ldi r21,hi8(0)
+ 2858               		or r24,r18
+ 2859               		or r25,r19
+ 2860               		or r26,r20
+ 2861               		or r27,r21
+ 2862               		sts timestamp,r24
+ 2863               		sts (timestamp)+1,r25
+ 2864               		sts (timestamp)+2,r26
+ 2865               		sts (timestamp)+3,r27
+ 2866               		sbis 54-32,0
+ 2867 110a 1F92      		rjmp .L165
+ 2868 110c 0F92      		lds r18,132
+ 2869 110e 0FB6      		lds r19,(132)+1
+ 2870 1110 0F92      		subi r22,lo8(-(1))
+ 2871 1112 1124      		sbci r23,hi8(-(1))
+ 2872 1114 2F93      		movw r24,r22
+ 2873 1116 3F93      		clr r26
+ 2874 1118 4F93      		sbrc r25,7
+ 2875 111a 5F93      		com r26
+ 2876 111c 6F93      		mov r27,r26
+ 2877 111e 7F93      		movw r26,r24
+ 2878 1120 8F93      		clr r25
+ 2879 1122 9F93      		clr r24
+ 2880 1124 AF93      		ldi r20,lo8(0)
+ 2881 1126 BF93      		ldi r21,hi8(0)
+ 2882 1128 EF93      		or r24,r18
+ 2883 112a FF93      		or r25,r19
+ 2884               		or r26,r20
+ 2885               		or r27,r21
+ 2886               		sts timestamp,r24
+ 2887               		sts (timestamp)+1,r25
+ 2888 112c 6091 0000 		sts (timestamp)+2,r26
+ 2889 1130 7091 0000 		sts (timestamp)+3,r27
+ 2890 1134 2091 8400 	.L165:
+ 2891 1138 3091 8500 		lds r30,mtable+14
+ 2892 113c CB01      		lds r31,(mtable+14)+1
+ 2893 113e AA27      		sbiw r30,0
+ 2894 1140 97FD      		breq .L166
+ 2895 1142 A095      		ldi r22,lo8(7)
+ 2896 1144 BA2F      		ldi r23,hi8(7)
+ 2897 1146 DC01      		lds r24,otable+14
+ 2898 1148 9927      		lds r25,(otable+14)+1
+ 2899 114a 8827      		icall
+ 2900 114c 40E0      	.L166:
+ 2901 114e 50E0      		call schedule
+ 2902 1150 822B      	/* epilogue start */
+ 2903 1152 932B      		pop r31
+ 2904 1154 A42B      		pop r30
+ 2905 1156 B52B      		pop r27
+ 2906 1158 8093 0000 		pop r26
+ 2907 115c 9093 0000 		pop r25
+ 2908 1160 A093 0000 		pop r24
+ 2909 1164 B093 0000 		pop r23
+ 2910 1168 B09B      		pop r22
+ 2911 116a 00C0      		pop r21
+ 2912 116c 2091 8400 		pop r20
+ 2913 1170 3091 8500 		pop r19
+ 2914 1174 6F5F      		pop r18
+ 2915 1176 7F4F      		pop r0
+ 2916 1178 CB01      		out __SREG__,r0
+ 2917 117a AA27      		pop r0
+ 2918 117c 97FD      		pop __zero_reg__
+ 2919 117e A095      		reti
+ 2921 1182 DC01      	.Lscope32:
+ 2923 1186 8827      	.global	__vector_11
+ 2925 118a 50E0      	__vector_11:
+ 2927 118e 932B      	.LM175:
+ 2928 1190 A42B      	.LFBB33:
+ 2929 1192 B52B      		push __zero_reg__
+ 2930 1194 8093 0000 		push r0
+ 2931 1198 9093 0000 		in r0,__SREG__
+ 2932 119c A093 0000 		push r0
+ 2933 11a0 B093 0000 		clr __zero_reg__
+ 2934               		push r18
+ 2935 11a4 E091 0000 		push r19
+ 2936 11a8 F091 0000 		push r20
+ 2937 11ac 3097      		push r21
+ 2938 11ae 01F0      		push r22
+ 2939 11b0 67E0      		push r23
+ 2940 11b2 70E0      		push r24
+ 2941 11b4 8091 0000 		push r25
+ 2942 11b8 9091 0000 		push r26
+ 2943 11bc 0995      		push r27
+ 2944               		push r30
+ 2945 11be 0E94 0000 		push r31
+ 2946               	/* prologue: Signal */
+ 2947 11c2 FF91      	/* frame size = 0 */
+ 2949 11c6 BF91      	.LM176:
+ 2950 11c8 AF91      		lds r22,overflows
+ 2951 11ca 9F91      		lds r23,(overflows)+1
+ 2952 11cc 8F91      		lds r18,132
+ 2953 11ce 7F91      		lds r19,(132)+1
+ 2954 11d0 6F91      		movw r24,r22
+ 2955 11d2 5F91      		clr r26
+ 2956 11d4 4F91      		sbrc r25,7
+ 2957 11d6 3F91      		com r26
+ 2958 11d8 2F91      		mov r27,r26
+ 2959 11da 0F90      		movw r26,r24
+ 2960 11dc 0FBE      		clr r25
+ 2961 11de 0F90      		clr r24
+ 2962 11e0 1F90      		ldi r20,lo8(0)
+ 2963 11e2 1895      		ldi r21,hi8(0)
+ 2964               		or r24,r18
+ 2965               		or r25,r19
+ 2966               		or r26,r20
+ 2967               		or r27,r21
+ 2968               		sts timestamp,r24
+ 2969               		sts (timestamp)+1,r25
+ 2970               		sts (timestamp)+2,r26
+ 2971               		sts (timestamp)+3,r27
+ 2972               		sbis 54-32,0
+ 2973 11e4 1F92      		rjmp .L169
+ 2974 11e6 0F92      		lds r18,132
+ 2975 11e8 0FB6      		lds r19,(132)+1
+ 2976 11ea 0F92      		subi r22,lo8(-(1))
+ 2977 11ec 1124      		sbci r23,hi8(-(1))
+ 2978 11ee 2F93      		movw r24,r22
+ 2979 11f0 3F93      		clr r26
+ 2980 11f2 4F93      		sbrc r25,7
+ 2981 11f4 5F93      		com r26
+ 2982 11f6 6F93      		mov r27,r26
+ 2983 11f8 7F93      		movw r26,r24
+ 2984 11fa 8F93      		clr r25
+ 2985 11fc 9F93      		clr r24
+ 2986 11fe AF93      		ldi r20,lo8(0)
+ 2987 1200 BF93      		ldi r21,hi8(0)
+ 2988 1202 EF93      		or r24,r18
+ 2989 1204 FF93      		or r25,r19
+ 2990               		or r26,r20
+ 2991               		or r27,r21
+ 2992               		sts timestamp,r24
+ 2993               		sts (timestamp)+1,r25
+ 2994 1206 6091 0000 		sts (timestamp)+2,r26
+ 2995 120a 7091 0000 		sts (timestamp)+3,r27
+ 2996 120e 2091 8400 	.L169:
+ 2997 1212 3091 8500 		lds r30,mtable+12
+ 2998 1216 CB01      		lds r31,(mtable+12)+1
+ 2999 1218 AA27      		sbiw r30,0
+ 3000 121a 97FD      		breq .L170
+ 3001 121c A095      		ldi r22,lo8(6)
+ 3002 121e BA2F      		ldi r23,hi8(6)
+ 3003 1220 DC01      		lds r24,otable+12
+ 3004 1222 9927      		lds r25,(otable+12)+1
+ 3005 1224 8827      		icall
+ 3006 1226 40E0      	.L170:
+ 3007 1228 50E0      		call schedule
+ 3008 122a 822B      	/* epilogue start */
+ 3009 122c 932B      		pop r31
+ 3010 122e A42B      		pop r30
+ 3011 1230 B52B      		pop r27
+ 3012 1232 8093 0000 		pop r26
+ 3013 1236 9093 0000 		pop r25
+ 3014 123a A093 0000 		pop r24
+ 3015 123e B093 0000 		pop r23
+ 3016 1242 B09B      		pop r22
+ 3017 1244 00C0      		pop r21
+ 3018 1246 2091 8400 		pop r20
+ 3019 124a 3091 8500 		pop r19
+ 3020 124e 6F5F      		pop r18
+ 3021 1250 7F4F      		pop r0
+ 3022 1252 CB01      		out __SREG__,r0
+ 3023 1254 AA27      		pop r0
+ 3024 1256 97FD      		pop __zero_reg__
+ 3025 1258 A095      		reti
+ 3027 125c DC01      	.Lscope33:
+ 3029 1260 8827      	.global	__vector_10
+ 3031 1264 50E0      	__vector_10:
+ 3033 1268 932B      	.LM177:
+ 3034 126a A42B      	.LFBB34:
+ 3035 126c B52B      		push __zero_reg__
+ 3036 126e 8093 0000 		push r0
+ 3037 1272 9093 0000 		in r0,__SREG__
+ 3038 1276 A093 0000 		push r0
+ 3039 127a B093 0000 		clr __zero_reg__
+ 3040               		push r18
+ 3041 127e E091 0000 		push r19
+ 3042 1282 F091 0000 		push r20
+ 3043 1286 3097      		push r21
+ 3044 1288 01F0      		push r22
+ 3045 128a 66E0      		push r23
+ 3046 128c 70E0      		push r24
+ 3047 128e 8091 0000 		push r25
+ 3048 1292 9091 0000 		push r26
+ 3049 1296 0995      		push r27
+ 3050               		push r30
+ 3051 1298 0E94 0000 		push r31
+ 3052               	/* prologue: Signal */
+ 3053 129c FF91      	/* frame size = 0 */
+ 3055 12a0 BF91      	.LM178:
+ 3056 12a2 AF91      		lds r22,overflows
+ 3057 12a4 9F91      		lds r23,(overflows)+1
+ 3058 12a6 8F91      		lds r18,132
+ 3059 12a8 7F91      		lds r19,(132)+1
+ 3060 12aa 6F91      		movw r24,r22
+ 3061 12ac 5F91      		clr r26
+ 3062 12ae 4F91      		sbrc r25,7
+ 3063 12b0 3F91      		com r26
+ 3064 12b2 2F91      		mov r27,r26
+ 3065 12b4 0F90      		movw r26,r24
+ 3066 12b6 0FBE      		clr r25
+ 3067 12b8 0F90      		clr r24
+ 3068 12ba 1F90      		ldi r20,lo8(0)
+ 3069 12bc 1895      		ldi r21,hi8(0)
+ 3070               		or r24,r18
+ 3071               		or r25,r19
+ 3072               		or r26,r20
+ 3073               		or r27,r21
+ 3074               		sts timestamp,r24
+ 3075               		sts (timestamp)+1,r25
+ 3076               		sts (timestamp)+2,r26
+ 3077               		sts (timestamp)+3,r27
+ 3078               		sbis 54-32,0
+ 3079 12be 1F92      		rjmp .L173
+ 3080 12c0 0F92      		lds r18,132
+ 3081 12c2 0FB6      		lds r19,(132)+1
+ 3082 12c4 0F92      		subi r22,lo8(-(1))
+ 3083 12c6 1124      		sbci r23,hi8(-(1))
+ 3084 12c8 2F93      		movw r24,r22
+ 3085 12ca 3F93      		clr r26
+ 3086 12cc 4F93      		sbrc r25,7
+ 3087 12ce 5F93      		com r26
+ 3088 12d0 6F93      		mov r27,r26
+ 3089 12d2 7F93      		movw r26,r24
+ 3090 12d4 8F93      		clr r25
+ 3091 12d6 9F93      		clr r24
+ 3092 12d8 AF93      		ldi r20,lo8(0)
+ 3093 12da BF93      		ldi r21,hi8(0)
+ 3094 12dc EF93      		or r24,r18
+ 3095 12de FF93      		or r25,r19
+ 3096               		or r26,r20
+ 3097               		or r27,r21
+ 3098               		sts timestamp,r24
+ 3099               		sts (timestamp)+1,r25
+ 3100 12e0 6091 0000 		sts (timestamp)+2,r26
+ 3101 12e4 7091 0000 		sts (timestamp)+3,r27
+ 3102 12e8 2091 8400 	.L173:
+ 3103 12ec 3091 8500 		lds r30,mtable+10
+ 3104 12f0 CB01      		lds r31,(mtable+10)+1
+ 3105 12f2 AA27      		sbiw r30,0
+ 3106 12f4 97FD      		breq .L174
+ 3107 12f6 A095      		ldi r22,lo8(5)
+ 3108 12f8 BA2F      		ldi r23,hi8(5)
+ 3109 12fa DC01      		lds r24,otable+10
+ 3110 12fc 9927      		lds r25,(otable+10)+1
+ 3111 12fe 8827      		icall
+ 3112 1300 40E0      	.L174:
+ 3113 1302 50E0      		call schedule
+ 3114 1304 822B      	/* epilogue start */
+ 3115 1306 932B      		pop r31
+ 3116 1308 A42B      		pop r30
+ 3117 130a B52B      		pop r27
+ 3118 130c 8093 0000 		pop r26
+ 3119 1310 9093 0000 		pop r25
+ 3120 1314 A093 0000 		pop r24
+ 3121 1318 B093 0000 		pop r23
+ 3122 131c B09B      		pop r22
+ 3123 131e 00C0      		pop r21
+ 3124 1320 2091 8400 		pop r20
+ 3125 1324 3091 8500 		pop r19
+ 3126 1328 6F5F      		pop r18
+ 3127 132a 7F4F      		pop r0
+ 3128 132c CB01      		out __SREG__,r0
+ 3129 132e AA27      		pop r0
+ 3130 1330 97FD      		pop __zero_reg__
+ 3131 1332 A095      		reti
+ 3133 1336 DC01      	.Lscope34:
+ 3135 133a 8827      	.global	__vector_5
+ 3137 133e 50E0      	__vector_5:
+ 3139 1342 932B      	.LM179:
+ 3140 1344 A42B      	.LFBB35:
+ 3141 1346 B52B      		push __zero_reg__
+ 3142 1348 8093 0000 		push r0
+ 3143 134c 9093 0000 		in r0,__SREG__
+ 3144 1350 A093 0000 		push r0
+ 3145 1354 B093 0000 		clr __zero_reg__
+ 3146               		push r18
+ 3147 1358 E091 0000 		push r19
+ 3148 135c F091 0000 		push r20
+ 3149 1360 3097      		push r21
+ 3150 1362 01F0      		push r22
+ 3151 1364 65E0      		push r23
+ 3152 1366 70E0      		push r24
+ 3153 1368 8091 0000 		push r25
+ 3154 136c 9091 0000 		push r26
+ 3155 1370 0995      		push r27
+ 3156               		push r30
+ 3157 1372 0E94 0000 		push r31
+ 3158               	/* prologue: Signal */
+ 3159 1376 FF91      	/* frame size = 0 */
+ 3161 137a BF91      	.LM180:
+ 3162 137c AF91      		lds r22,overflows
+ 3163 137e 9F91      		lds r23,(overflows)+1
+ 3164 1380 8F91      		lds r18,132
+ 3165 1382 7F91      		lds r19,(132)+1
+ 3166 1384 6F91      		movw r24,r22
+ 3167 1386 5F91      		clr r26
+ 3168 1388 4F91      		sbrc r25,7
+ 3169 138a 3F91      		com r26
+ 3170 138c 2F91      		mov r27,r26
+ 3171 138e 0F90      		movw r26,r24
+ 3172 1390 0FBE      		clr r25
+ 3173 1392 0F90      		clr r24
+ 3174 1394 1F90      		ldi r20,lo8(0)
+ 3175 1396 1895      		ldi r21,hi8(0)
+ 3176               		or r24,r18
+ 3177               		or r25,r19
+ 3178               		or r26,r20
+ 3179               		or r27,r21
+ 3180               		sts timestamp,r24
+ 3181               		sts (timestamp)+1,r25
+ 3182               		sts (timestamp)+2,r26
+ 3183               		sts (timestamp)+3,r27
+ 3184               		sbis 54-32,0
+ 3185 1398 1F92      		rjmp .L177
+ 3186 139a 0F92      		lds r18,132
+ 3187 139c 0FB6      		lds r19,(132)+1
+ 3188 139e 0F92      		subi r22,lo8(-(1))
+ 3189 13a0 1124      		sbci r23,hi8(-(1))
+ 3190 13a2 2F93      		movw r24,r22
+ 3191 13a4 3F93      		clr r26
+ 3192 13a6 4F93      		sbrc r25,7
+ 3193 13a8 5F93      		com r26
+ 3194 13aa 6F93      		mov r27,r26
+ 3195 13ac 7F93      		movw r26,r24
+ 3196 13ae 8F93      		clr r25
+ 3197 13b0 9F93      		clr r24
+ 3198 13b2 AF93      		ldi r20,lo8(0)
+ 3199 13b4 BF93      		ldi r21,hi8(0)
+ 3200 13b6 EF93      		or r24,r18
+ 3201 13b8 FF93      		or r25,r19
+ 3202               		or r26,r20
+ 3203               		or r27,r21
+ 3204               		sts timestamp,r24
+ 3205               		sts (timestamp)+1,r25
+ 3206 13ba 6091 0000 		sts (timestamp)+2,r26
+ 3207 13be 7091 0000 		sts (timestamp)+3,r27
+ 3208 13c2 2091 8400 	.L177:
+ 3209 13c6 3091 8500 		lds r30,mtable+8
+ 3210 13ca CB01      		lds r31,(mtable+8)+1
+ 3211 13cc AA27      		sbiw r30,0
+ 3212 13ce 97FD      		breq .L178
+ 3213 13d0 A095      		ldi r22,lo8(4)
+ 3214 13d2 BA2F      		ldi r23,hi8(4)
+ 3215 13d4 DC01      		lds r24,otable+8
+ 3216 13d6 9927      		lds r25,(otable+8)+1
+ 3217 13d8 8827      		icall
+ 3218 13da 40E0      	.L178:
+ 3219 13dc 50E0      		call schedule
+ 3220 13de 822B      	/* epilogue start */
+ 3221 13e0 932B      		pop r31
+ 3222 13e2 A42B      		pop r30
+ 3223 13e4 B52B      		pop r27
+ 3224 13e6 8093 0000 		pop r26
+ 3225 13ea 9093 0000 		pop r25
+ 3226 13ee A093 0000 		pop r24
+ 3227 13f2 B093 0000 		pop r23
+ 3228 13f6 B09B      		pop r22
+ 3229 13f8 00C0      		pop r21
+ 3230 13fa 2091 8400 		pop r20
+ 3231 13fe 3091 8500 		pop r19
+ 3232 1402 6F5F      		pop r18
+ 3233 1404 7F4F      		pop r0
+ 3234 1406 CB01      		out __SREG__,r0
+ 3235 1408 AA27      		pop r0
+ 3236 140a 97FD      		pop __zero_reg__
+ 3237 140c A095      		reti
+ 3239 1410 DC01      	.Lscope35:
+ 3241 1414 8827      	.global	__vector_4
+ 3243 1418 50E0      	__vector_4:
+ 3245 141c 932B      	.LM181:
+ 3246 141e A42B      	.LFBB36:
+ 3247 1420 B52B      		push __zero_reg__
+ 3248 1422 8093 0000 		push r0
+ 3249 1426 9093 0000 		in r0,__SREG__
+ 3250 142a A093 0000 		push r0
+ 3251 142e B093 0000 		clr __zero_reg__
+ 3252               		push r18
+ 3253 1432 E091 0000 		push r19
+ 3254 1436 F091 0000 		push r20
+ 3255 143a 3097      		push r21
+ 3256 143c 01F0      		push r22
+ 3257 143e 64E0      		push r23
+ 3258 1440 70E0      		push r24
+ 3259 1442 8091 0000 		push r25
+ 3260 1446 9091 0000 		push r26
+ 3261 144a 0995      		push r27
+ 3262               		push r30
+ 3263 144c 0E94 0000 		push r31
+ 3264               	/* prologue: Signal */
+ 3265 1450 FF91      	/* frame size = 0 */
+ 3267 1454 BF91      	.LM182:
+ 3268 1456 AF91      		lds r22,overflows
+ 3269 1458 9F91      		lds r23,(overflows)+1
+ 3270 145a 8F91      		lds r18,132
+ 3271 145c 7F91      		lds r19,(132)+1
+ 3272 145e 6F91      		movw r24,r22
+ 3273 1460 5F91      		clr r26
+ 3274 1462 4F91      		sbrc r25,7
+ 3275 1464 3F91      		com r26
+ 3276 1466 2F91      		mov r27,r26
+ 3277 1468 0F90      		movw r26,r24
+ 3278 146a 0FBE      		clr r25
+ 3279 146c 0F90      		clr r24
+ 3280 146e 1F90      		ldi r20,lo8(0)
+ 3281 1470 1895      		ldi r21,hi8(0)
+ 3282               		or r24,r18
+ 3283               		or r25,r19
+ 3284               		or r26,r20
+ 3285               		or r27,r21
+ 3286               		sts timestamp,r24
+ 3287               		sts (timestamp)+1,r25
+ 3288               		sts (timestamp)+2,r26
+ 3289               		sts (timestamp)+3,r27
+ 3290               		sbis 54-32,0
+ 3291 1472 1F92      		rjmp .L181
+ 3292 1474 0F92      		lds r18,132
+ 3293 1476 0FB6      		lds r19,(132)+1
+ 3294 1478 0F92      		subi r22,lo8(-(1))
+ 3295 147a 1124      		sbci r23,hi8(-(1))
+ 3296 147c 2F93      		movw r24,r22
+ 3297 147e 3F93      		clr r26
+ 3298 1480 4F93      		sbrc r25,7
+ 3299 1482 5F93      		com r26
+ 3300 1484 6F93      		mov r27,r26
+ 3301 1486 7F93      		movw r26,r24
+ 3302 1488 8F93      		clr r25
+ 3303 148a 9F93      		clr r24
+ 3304 148c AF93      		ldi r20,lo8(0)
+ 3305 148e BF93      		ldi r21,hi8(0)
+ 3306 1490 EF93      		or r24,r18
+ 3307 1492 FF93      		or r25,r19
+ 3308               		or r26,r20
+ 3309               		or r27,r21
+ 3310               		sts timestamp,r24
+ 3311               		sts (timestamp)+1,r25
+ 3312 1494 6091 0000 		sts (timestamp)+2,r26
+ 3313 1498 7091 0000 		sts (timestamp)+3,r27
+ 3314 149c 2091 8400 	.L181:
+ 3315 14a0 3091 8500 		lds r30,mtable+6
+ 3316 14a4 CB01      		lds r31,(mtable+6)+1
+ 3317 14a6 AA27      		sbiw r30,0
+ 3318 14a8 97FD      		breq .L182
+ 3319 14aa A095      		ldi r22,lo8(3)
+ 3320 14ac BA2F      		ldi r23,hi8(3)
+ 3321 14ae DC01      		lds r24,otable+6
+ 3322 14b0 9927      		lds r25,(otable+6)+1
+ 3323 14b2 8827      		icall
+ 3324 14b4 40E0      	.L182:
+ 3325 14b6 50E0      		call schedule
+ 3326 14b8 822B      	/* epilogue start */
+ 3327 14ba 932B      		pop r31
+ 3328 14bc A42B      		pop r30
+ 3329 14be B52B      		pop r27
+ 3330 14c0 8093 0000 		pop r26
+ 3331 14c4 9093 0000 		pop r25
+ 3332 14c8 A093 0000 		pop r24
+ 3333 14cc B093 0000 		pop r23
+ 3334 14d0 B09B      		pop r22
+ 3335 14d2 00C0      		pop r21
+ 3336 14d4 2091 8400 		pop r20
+ 3337 14d8 3091 8500 		pop r19
+ 3338 14dc 6F5F      		pop r18
+ 3339 14de 7F4F      		pop r0
+ 3340 14e0 CB01      		out __SREG__,r0
+ 3341 14e2 AA27      		pop r0
+ 3342 14e4 97FD      		pop __zero_reg__
+ 3343 14e6 A095      		reti
+ 3345 14ea DC01      	.Lscope36:
+ 3347 14ee 8827      	.global	__vector_3
+ 3349 14f2 50E0      	__vector_3:
+ 3351 14f6 932B      	.LM183:
+ 3352 14f8 A42B      	.LFBB37:
+ 3353 14fa B52B      		push __zero_reg__
+ 3354 14fc 8093 0000 		push r0
+ 3355 1500 9093 0000 		in r0,__SREG__
+ 3356 1504 A093 0000 		push r0
+ 3357 1508 B093 0000 		clr __zero_reg__
+ 3358               		push r18
+ 3359 150c E091 0000 		push r19
+ 3360 1510 F091 0000 		push r20
+ 3361 1514 3097      		push r21
+ 3362 1516 01F0      		push r22
+ 3363 1518 63E0      		push r23
+ 3364 151a 70E0      		push r24
+ 3365 151c 8091 0000 		push r25
+ 3366 1520 9091 0000 		push r26
+ 3367 1524 0995      		push r27
+ 3368               		push r30
+ 3369 1526 0E94 0000 		push r31
+ 3370               	/* prologue: Signal */
+ 3371 152a FF91      	/* frame size = 0 */
+ 3373 152e BF91      	.LM184:
+ 3374 1530 AF91      		lds r22,overflows
+ 3375 1532 9F91      		lds r23,(overflows)+1
+ 3376 1534 8F91      		lds r18,132
+ 3377 1536 7F91      		lds r19,(132)+1
+ 3378 1538 6F91      		movw r24,r22
+ 3379 153a 5F91      		clr r26
+ 3380 153c 4F91      		sbrc r25,7
+ 3381 153e 3F91      		com r26
+ 3382 1540 2F91      		mov r27,r26
+ 3383 1542 0F90      		movw r26,r24
+ 3384 1544 0FBE      		clr r25
+ 3385 1546 0F90      		clr r24
+ 3386 1548 1F90      		ldi r20,lo8(0)
+ 3387 154a 1895      		ldi r21,hi8(0)
+ 3388               		or r24,r18
+ 3389               		or r25,r19
+ 3390               		or r26,r20
+ 3391               		or r27,r21
+ 3392               		sts timestamp,r24
+ 3393               		sts (timestamp)+1,r25
+ 3394               		sts (timestamp)+2,r26
+ 3395               		sts (timestamp)+3,r27
+ 3396               		sbis 54-32,0
+ 3397 154c 1F92      		rjmp .L185
+ 3398 154e 0F92      		lds r18,132
+ 3399 1550 0FB6      		lds r19,(132)+1
+ 3400 1552 0F92      		subi r22,lo8(-(1))
+ 3401 1554 1124      		sbci r23,hi8(-(1))
+ 3402 1556 2F93      		movw r24,r22
+ 3403 1558 3F93      		clr r26
+ 3404 155a 4F93      		sbrc r25,7
+ 3405 155c 5F93      		com r26
+ 3406 155e 6F93      		mov r27,r26
+ 3407 1560 7F93      		movw r26,r24
+ 3408 1562 8F93      		clr r25
+ 3409 1564 9F93      		clr r24
+ 3410 1566 AF93      		ldi r20,lo8(0)
+ 3411 1568 BF93      		ldi r21,hi8(0)
+ 3412 156a EF93      		or r24,r18
+ 3413 156c FF93      		or r25,r19
+ 3414               		or r26,r20
+ 3415               		or r27,r21
+ 3416               		sts timestamp,r24
+ 3417               		sts (timestamp)+1,r25
+ 3418 156e 6091 0000 		sts (timestamp)+2,r26
+ 3419 1572 7091 0000 		sts (timestamp)+3,r27
+ 3420 1576 2091 8400 	.L185:
+ 3421 157a 3091 8500 		lds r30,mtable+4
+ 3422 157e CB01      		lds r31,(mtable+4)+1
+ 3423 1580 AA27      		sbiw r30,0
+ 3424 1582 97FD      		breq .L186
+ 3425 1584 A095      		ldi r22,lo8(2)
+ 3426 1586 BA2F      		ldi r23,hi8(2)
+ 3427 1588 DC01      		lds r24,otable+4
+ 3428 158a 9927      		lds r25,(otable+4)+1
+ 3429 158c 8827      		icall
+ 3430 158e 40E0      	.L186:
+ 3431 1590 50E0      		call schedule
+ 3432 1592 822B      	/* epilogue start */
+ 3433 1594 932B      		pop r31
+ 3434 1596 A42B      		pop r30
+ 3435 1598 B52B      		pop r27
+ 3436 159a 8093 0000 		pop r26
+ 3437 159e 9093 0000 		pop r25
+ 3438 15a2 A093 0000 		pop r24
+ 3439 15a6 B093 0000 		pop r23
+ 3440 15aa B09B      		pop r22
+ 3441 15ac 00C0      		pop r21
+ 3442 15ae 2091 8400 		pop r20
+ 3443 15b2 3091 8500 		pop r19
+ 3444 15b6 6F5F      		pop r18
+ 3445 15b8 7F4F      		pop r0
+ 3446 15ba CB01      		out __SREG__,r0
+ 3447 15bc AA27      		pop r0
+ 3448 15be 97FD      		pop __zero_reg__
+ 3449 15c0 A095      		reti
+ 3451 15c4 DC01      	.Lscope37:
+ 3453 15c8 8827      	.global	__vector_2
+ 3455 15cc 50E0      	__vector_2:
+ 3457 15d0 932B      	.LM185:
+ 3458 15d2 A42B      	.LFBB38:
+ 3459 15d4 B52B      		push __zero_reg__
+ 3460 15d6 8093 0000 		push r0
+ 3461 15da 9093 0000 		in r0,__SREG__
+ 3462 15de A093 0000 		push r0
+ 3463 15e2 B093 0000 		clr __zero_reg__
+ 3464               		push r18
+ 3465 15e6 E091 0000 		push r19
+ 3466 15ea F091 0000 		push r20
+ 3467 15ee 3097      		push r21
+ 3468 15f0 01F0      		push r22
+ 3469 15f2 62E0      		push r23
+ 3470 15f4 70E0      		push r24
+ 3471 15f6 8091 0000 		push r25
+ 3472 15fa 9091 0000 		push r26
+ 3473 15fe 0995      		push r27
+ 3474               		push r30
+ 3475 1600 0E94 0000 		push r31
+ 3476               	/* prologue: Signal */
+ 3477 1604 FF91      	/* frame size = 0 */
+ 3479 1608 BF91      	.LM186:
+ 3480 160a AF91      		lds r22,overflows
+ 3481 160c 9F91      		lds r23,(overflows)+1
+ 3482 160e 8F91      		lds r18,132
+ 3483 1610 7F91      		lds r19,(132)+1
+ 3484 1612 6F91      		movw r24,r22
+ 3485 1614 5F91      		clr r26
+ 3486 1616 4F91      		sbrc r25,7
+ 3487 1618 3F91      		com r26
+ 3488 161a 2F91      		mov r27,r26
+ 3489 161c 0F90      		movw r26,r24
+ 3490 161e 0FBE      		clr r25
+ 3491 1620 0F90      		clr r24
+ 3492 1622 1F90      		ldi r20,lo8(0)
+ 3493 1624 1895      		ldi r21,hi8(0)
+ 3494               		or r24,r18
+ 3495               		or r25,r19
+ 3496               		or r26,r20
+ 3497               		or r27,r21
+ 3498               		sts timestamp,r24
+ 3499               		sts (timestamp)+1,r25
+ 3500               		sts (timestamp)+2,r26
+ 3501               		sts (timestamp)+3,r27
+ 3502               		sbis 54-32,0
+ 3503 1626 1F92      		rjmp .L189
+ 3504 1628 0F92      		lds r18,132
+ 3505 162a 0FB6      		lds r19,(132)+1
+ 3506 162c 0F92      		subi r22,lo8(-(1))
+ 3507 162e 1124      		sbci r23,hi8(-(1))
+ 3508 1630 2F93      		movw r24,r22
+ 3509 1632 3F93      		clr r26
+ 3510 1634 4F93      		sbrc r25,7
+ 3511 1636 5F93      		com r26
+ 3512 1638 6F93      		mov r27,r26
+ 3513 163a 7F93      		movw r26,r24
+ 3514 163c 8F93      		clr r25
+ 3515 163e 9F93      		clr r24
+ 3516 1640 AF93      		ldi r20,lo8(0)
+ 3517 1642 BF93      		ldi r21,hi8(0)
+ 3518 1644 EF93      		or r24,r18
+ 3519 1646 FF93      		or r25,r19
+ 3520               		or r26,r20
+ 3521               		or r27,r21
+ 3522               		sts timestamp,r24
+ 3523               		sts (timestamp)+1,r25
+ 3524 1648 6091 0000 		sts (timestamp)+2,r26
+ 3525 164c 7091 0000 		sts (timestamp)+3,r27
+ 3526 1650 2091 8400 	.L189:
+ 3527 1654 3091 8500 		lds r30,mtable+2
+ 3528 1658 CB01      		lds r31,(mtable+2)+1
+ 3529 165a AA27      		sbiw r30,0
+ 3530 165c 97FD      		breq .L190
+ 3531 165e A095      		ldi r22,lo8(1)
+ 3532 1660 BA2F      		ldi r23,hi8(1)
+ 3533 1662 DC01      		lds r24,otable+2
+ 3534 1664 9927      		lds r25,(otable+2)+1
+ 3535 1666 8827      		icall
+ 3536 1668 40E0      	.L190:
+ 3537 166a 50E0      		call schedule
+ 3538 166c 822B      	/* epilogue start */
+ 3539 166e 932B      		pop r31
+ 3540 1670 A42B      		pop r30
+ 3541 1672 B52B      		pop r27
+ 3542 1674 8093 0000 		pop r26
+ 3543 1678 9093 0000 		pop r25
+ 3544 167c A093 0000 		pop r24
+ 3545 1680 B093 0000 		pop r23
+ 3546 1684 B09B      		pop r22
+ 3547 1686 00C0      		pop r21
+ 3548 1688 2091 8400 		pop r20
+ 3549 168c 3091 8500 		pop r19
+ 3550 1690 6F5F      		pop r18
+ 3551 1692 7F4F      		pop r0
+ 3552 1694 CB01      		out __SREG__,r0
+ 3553 1696 AA27      		pop r0
+ 3554 1698 97FD      		pop __zero_reg__
+ 3555 169a A095      		reti
+ 3557 169e DC01      	.Lscope38:
+ 3559 16a2 8827      	.global	__vector_1
+ 3561 16a6 50E0      	__vector_1:
+ 3563 16aa 932B      	.LM187:
+ 3564 16ac A42B      	.LFBB39:
+ 3565 16ae B52B      		push __zero_reg__
+ 3566 16b0 8093 0000 		push r0
+ 3567 16b4 9093 0000 		in r0,__SREG__
+ 3568 16b8 A093 0000 		push r0
+ 3569 16bc B093 0000 		clr __zero_reg__
+ 3570               		push r18
+ 3571 16c0 E091 0000 		push r19
+ 3572 16c4 F091 0000 		push r20
+ 3573 16c8 3097      		push r21
+ 3574 16ca 01F0      		push r22
+ 3575 16cc 61E0      		push r23
+ 3576 16ce 70E0      		push r24
+ 3577 16d0 8091 0000 		push r25
+ 3578 16d4 9091 0000 		push r26
+ 3579 16d8 0995      		push r27
+ 3580               		push r30
+ 3581 16da 0E94 0000 		push r31
+ 3582               	/* prologue: Signal */
+ 3583 16de FF91      	/* frame size = 0 */
+ 3585 16e2 BF91      	.LM188:
+ 3586 16e4 AF91      		lds r22,overflows
+ 3587 16e6 9F91      		lds r23,(overflows)+1
+ 3588 16e8 8F91      		lds r18,132
+ 3589 16ea 7F91      		lds r19,(132)+1
+ 3590 16ec 6F91      		movw r24,r22
+ 3591 16ee 5F91      		clr r26
+ 3592 16f0 4F91      		sbrc r25,7
+ 3593 16f2 3F91      		com r26
+ 3594 16f4 2F91      		mov r27,r26
+ 3595 16f6 0F90      		movw r26,r24
+ 3596 16f8 0FBE      		clr r25
+ 3597 16fa 0F90      		clr r24
+ 3598 16fc 1F90      		ldi r20,lo8(0)
+ 3599 16fe 1895      		ldi r21,hi8(0)
+ 3600               		or r24,r18
+ 3601               		or r25,r19
+ 3602               		or r26,r20
+ 3603               		or r27,r21
+ 3604               		sts timestamp,r24
+ 3605               		sts (timestamp)+1,r25
+ 3606               		sts (timestamp)+2,r26
+ 3607               		sts (timestamp)+3,r27
+ 3608               		sbis 54-32,0
+ 3609 1700 1F92      		rjmp .L193
+ 3610 1702 0F92      		lds r18,132
+ 3611 1704 0FB6      		lds r19,(132)+1
+ 3612 1706 0F92      		subi r22,lo8(-(1))
+ 3613 1708 1124      		sbci r23,hi8(-(1))
+ 3614 170a 2F93      		movw r24,r22
+ 3615 170c 3F93      		clr r26
+ 3616 170e 4F93      		sbrc r25,7
+ 3617 1710 5F93      		com r26
+ 3618 1712 6F93      		mov r27,r26
+ 3619 1714 7F93      		movw r26,r24
+ 3620 1716 8F93      		clr r25
+ 3621 1718 9F93      		clr r24
+ 3622 171a AF93      		ldi r20,lo8(0)
+ 3623 171c BF93      		ldi r21,hi8(0)
+ 3624 171e EF93      		or r24,r18
+ 3625 1720 FF93      		or r25,r19
+ 3626               		or r26,r20
+ 3627               		or r27,r21
+ 3628               		sts timestamp,r24
+ 3629               		sts (timestamp)+1,r25
+ 3630 1722 6091 0000 		sts (timestamp)+2,r26
+ 3631 1726 7091 0000 		sts (timestamp)+3,r27
+ 3632 172a 2091 8400 	.L193:
+ 3633 172e 3091 8500 		lds r30,mtable
+ 3634 1732 CB01      		lds r31,(mtable)+1
+ 3635 1734 AA27      		sbiw r30,0
+ 3636 1736 97FD      		breq .L194
+ 3637 1738 A095      		ldi r22,lo8(0)
+ 3638 173a BA2F      		ldi r23,hi8(0)
+ 3639 173c DC01      		lds r24,otable
+ 3640 173e 9927      		lds r25,(otable)+1
+ 3641 1740 8827      		icall
+ 3642 1742 40E0      	.L194:
+ 3643 1744 50E0      		call schedule
+ 3644 1746 822B      	/* epilogue start */
+ 3645 1748 932B      		pop r31
+ 3646 174a A42B      		pop r30
+ 3647 174c B52B      		pop r27
+ 3648 174e 8093 0000 		pop r26
+ 3649 1752 9093 0000 		pop r25
+ 3650 1756 A093 0000 		pop r24
+ 3651 175a B093 0000 		pop r23
+ 3652 175e B09B      		pop r22
+ 3653 1760 00C0      		pop r21
+ 3654 1762 2091 8400 		pop r20
+ 3655 1766 3091 8500 		pop r19
+ 3656 176a 6F5F      		pop r18
+ 3657 176c 7F4F      		pop r0
+ 3658 176e CB01      		out __SREG__,r0
+ 3659 1770 AA27      		pop r0
+ 3660 1772 97FD      		pop __zero_reg__
+ 3661 1774 A095      		reti
+ 3663 1778 DC01      	.Lscope39:
+ 3668 1782 822B      	.global	sync
+ 3670 1786 A42B      	sync:
+ 3672 178a 8093 0000 	.LM189:
+ 3673 178e 9093 0000 	.LFBB40:
+ 3674 1792 A093 0000 		push r12
+ 3675 1796 B093 0000 		push r13
+ 3676               		push r15
+ 3677 179a E091 0000 		push r16
+ 3678 179e F091 0000 		push r17
+ 3679 17a2 3097      		push r28
+ 3680 17a4 01F0      		push r29
+ 3681 17a6 60E0      	/* prologue: function */
+ 3682 17a8 70E0      	/* frame size = 0 */
+ 3683 17aa 8091 0000 		movw r28,r24
+ 3684 17ae 9091 0000 		movw r12,r22
+ 3685 17b2 0995      		movw r16,r20
+ 3687 17b4 0E94 0000 	.LM190:
+ 3688               		in r15,__SREG__
+ 3689 17b8 FF91      		ldi r24,lo8(-128)
+ 3690 17ba EF91      		and r15,r24
+ 3691 17bc BF91      	/* #APP */
+ 3692 17be AF91      	 ;  661 "TinyTimber.c" 1
+ 3693 17c0 9F91      		cli
+ 3694 17c2 8F91      	 ;  0 "" 2
+ 3696 17c6 6F91      	.LM191:
+ 3697 17c8 5F91      	/* #NOAPP */
+ 3698 17ca 4F91      		ld r24,Y
+ 3699 17cc 3F91      		ldd r25,Y+1
+ 3701 17d0 0F90      	.LM192:
+ 3702 17d2 0FBE      		sbiw r24,0
+ 3703 17d4 0F90      		brne .L208
+ 3704 17d6 1F90      		rjmp .L198
+ 3705 17d8 1895      	.L199:
+ 3707               	.LM193:
+ 3708               		ld r24,Z
+ 3709               		ldd r25,Z+1
+ 3710               	.L208:
+ 3712               	.LM194:
+ 3713               		movw r26,r24
+ 3714               		adiw r26,4
+ 3715               		ld r30,X+
+ 3716               		ld r31,X
+ 3717               		sbiw r26,4+1
+ 3718 17da CF92      		sbiw r30,0
+ 3719 17dc DF92      		brne .L199
+ 3721 17e0 0F93      	.LM195:
+ 3722 17e2 1F93      		lds r26,current
+ 3723 17e4 CF93      		lds r27,(current)+1
+ 3724 17e6 DF93      		cp r24,r26
+ 3725               		cpc r25,r27
+ 3726               		breq .L200
+ 3727 17e8 EC01      		tst r15
+ 3728 17ea 6B01      		brne .+2
+ 3729 17ec 8A01      		rjmp .L201
+ 3730               		rjmp .L210
+ 3731               	.L200:
+ 3733 17f0 80E8      	.LM196:
+ 3734 17f2 F822      		tst r15
+ 3735               		brne .+2
+ 3736               		rjmp .L201
+ 3737 17f4 F894      	/* #APP */
+ 3738               	 ;  667 "TinyTimber.c" 1
+ 3739               		sei
+ 3740               	 ;  0 "" 2
+ 3741               	/* #NOAPP */
+ 3742 17f6 8881      		rjmp .L201
+ 3743 17f8 9981      	.L210:
+ 3745               	.LM197:
+ 3746 17fa 0097      		ldd r30,Y+2
+ 3747 17fc 01F4      		ldd r31,Y+3
+ 3748 17fe 00C0      		sbiw r30,0
+ 3749               		breq .L204
+ 3751               	.LM198:
+ 3752 1800 8081      		std Z+5,__zero_reg__
+ 3753 1802 9181      		std Z+4,__zero_reg__
+ 3754               	.L204:
+ 3756               	.LM199:
+ 3757 1804 DC01      		std Y+3,r27
+ 3758 1806 1496      		std Y+2,r26
+ 3760 180a FC91      	.LM200:
+ 3761 180c 1597      		adiw r26,4+1
+ 3762 180e 3097      		st X,r29
+ 3763 1810 01F4      		st -X,r28
+ 3764               		sbiw r26,4
+ 3766 1812 A091 0000 	.LM201:
+ 3767 1816 B091 0000 		call dispatch
+ 3769 181c 9B07      	.LM202:
+ 3770 181e 01F0      		lds r30,current
+ 3771 1820 FF20      		lds r31,(current)+1
+ 3772 1822 01F4      		ldd r24,Z+2
+ 3773 1824 00C0      		ldd r25,Z+3
+ 3774 1826 00C0      		or r24,r25
+ 3775               		brne .L198
+ 3777               	.LM203:
+ 3778 1828 FF20      	/* #APP */
+ 3779 182a 01F4      	 ;  676 "TinyTimber.c" 1
+ 3780 182c 00C0      		sei
+ 3781               	 ;  0 "" 2
+ 3782               	/* #NOAPP */
+ 3783 182e 7894      		ldi r16,lo8(0)
+ 3784               		ldi r17,hi8(0)
+ 3785               		rjmp .L203
+ 3786 1830 00C0      	.L198:
+ 3788               	.LM204:
+ 3789               		lds r24,current
+ 3790 1832 EA81      		lds r25,(current)+1
+ 3791 1834 FB81      		std Y+1,r25
+ 3792 1836 3097      		st Y,r24
+ 3794               	.LM205:
+ 3795               		tst r15
+ 3796 183a 1582      		breq .L205
+ 3797 183c 1482      		ldd r24,Y+2
+ 3798               		ldd r25,Y+3
+ 3799               		sbiw r24,1
+ 3800               		breq .L205
+ 3801 183e BB83      	/* #APP */
+ 3802 1840 AA83      	 ;  681 "TinyTimber.c" 1
+ 3803               		sei
+ 3804               	 ;  0 "" 2
+ 3805 1842 1596      	/* #NOAPP */
+ 3806 1844 DC93      	.L205:
+ 3808 1848 1497      	.LM206:
+ 3809               		movw r22,r16
+ 3810               		movw r24,r28
+ 3811 184a 0E94 0000 		movw r30,r12
+ 3812               		icall
+ 3813               		movw r16,r24
+ 3815 1852 F091 0000 	.LM207:
+ 3816 1856 8281      		in r24,__SREG__
+ 3817 1858 9381      	/* #APP */
+ 3818 185a 892B      	 ;  683 "TinyTimber.c" 1
+ 3819 185c 01F4      		cli
+ 3820               	 ;  0 "" 2
+ 3822               	.LM208:
+ 3823               	/* #NOAPP */
+ 3824 185e 7894      		std Y+1,__zero_reg__
+ 3825               		st Y,__zero_reg__
+ 3827 1860 00E0      	.LM209:
+ 3828 1862 10E0      		ldd r30,Y+2
+ 3829 1864 00C0      		ldd r31,Y+3
+ 3831               	.LM210:
+ 3832               		cpi r30,2
+ 3833 1866 8091 0000 		cpc r31,__zero_reg__
+ 3834 186a 9091 0000 		brlo .L206
+ 3836 1870 8883      	.LM211:
+ 3837               		std Y+3,__zero_reg__
+ 3838               		std Y+2,__zero_reg__
+ 3840 1874 01F0      	.LM212:
+ 3841 1876 8A81      		std Z+5,__zero_reg__
+ 3842 1878 9B81      		std Z+4,__zero_reg__
+ 3844 187c 01F0      	.LM213:
+ 3845               		movw r24,r30
+ 3846               		call dispatch
+ 3847 187e 7894      	.L206:
+ 3849               	.LM214:
+ 3850               		tst r15
+ 3851               		breq .L203
+ 3852               	/* #APP */
+ 3853 1880 B801      	 ;  691 "TinyTimber.c" 1
+ 3854 1882 CE01      		sei
+ 3855 1884 F601      	 ;  0 "" 2
+ 3856 1886 0995      	/* #NOAPP */
+ 3857 1888 8C01      		rjmp .L203
+ 3858               	.L201:
+ 3859               		ldi r16,lo8(-1)
+ 3860 188a 8FB7      		ldi r17,hi8(-1)
+ 3861               	.L203:
+ 3863 188c F894      	.LM215:
+ 3864               		movw r24,r16
+ 3865               	/* epilogue start */
+ 3866               		pop r29
+ 3867               		pop r28
+ 3868 188e 1982      		pop r17
+ 3869 1890 1882      		pop r16
+ 3870               		pop r15
+ 3871               		pop r13
+ 3872 1892 EA81      		pop r12
+ 3873 1894 FB81      		ret
+ 3880               	.Lscope40:
+ 3883               	run:
+ 3885 18a0 1582      	.LM216:
+ 3886 18a2 1482      	.LFBB41:
+ 3887               		push r28
+ 3888               		push r29
+ 3889 18a4 CF01      	/* prologue: function */
+ 3890 18a6 0E94 0000 	/* frame size = 0 */
+ 3891               	.L222:
+ 3892               	.LBB80:
+ 3894 18aa FF20      	.LM217:
+ 3895 18ac 01F0      		lds r30,current
+ 3896               		lds r31,(current)+1
+ 3897               	.LBB81:
+ 3898 18ae 7894      	.LBB82:
+ 3900               	.LM218:
+ 3901 18b0 00C0      		lds r28,msgQ
+ 3902               		lds r29,(msgQ)+1
+ 3904 18b4 1FEF      	.LM219:
+ 3905               		sbiw r28,0
+ 3906               		breq .L212
+ 3908 18b6 C801      	.LM220:
+ 3909               		ld r24,Y
+ 3910 18b8 DF91      		ldd r25,Y+1
+ 3911 18ba CF91      		sts (msgQ)+1,r25
+ 3912 18bc 1F91      		sts msgQ,r24
+ 3913 18be 0F91      	.LBE82:
+ 3914 18c0 FF90      	.LBE81:
+ 3916 18c4 CF90      	.LM221:
+ 3917 18c6 0895      		std Z+3,r29
+ 3918               		std Z+2,r28
+ 3920               	.LM222:
+ 3921               	/* #APP */
+ 3922               	 ;  594 "TinyTimber.c" 1
+ 3923               		sei
+ 3924               	 ;  0 "" 2
+ 3926               	.LM223:
+ 3927               	/* #NOAPP */
+ 3928               		ldd r20,Y+14
+ 3929               		ldd r21,Y+15
+ 3930               		ldd r22,Y+12
+ 3931 18c8 CF93      		ldd r23,Y+13
+ 3932 18ca DF93      		ldd r24,Y+10
+ 3933               		ldd r25,Y+11
+ 3934               		call sync
+ 3936               	.LM224:
+ 3937               		in r24,__SREG__
+ 3938               	/* #APP */
+ 3939 18cc E091 0000 	 ;  596 "TinyTimber.c" 1
+ 3940 18d0 F091 0000 		cli
+ 3941               	 ;  0 "" 2
+ 3942               	/* #NOAPP */
+ 3943               	.LBB84:
+ 3944               	.LBB85:
+ 3946 18d8 D091 0000 	.LM225:
+ 3947               		lds r24,msgPool
+ 3948               		lds r25,(msgPool)+1
+ 3949 18dc 2097      		std Y+1,r25
+ 3950 18de 01F0      		st Y,r24
+ 3952               	.LM226:
+ 3953 18e0 8881      		sts (msgPool)+1,r29
+ 3954 18e2 9981      		sts msgPool,r28
+ 3955 18e4 9093 0000 	.LBE85:
+ 3956 18e8 8093 0000 	.LBE84:
+ 3958               	.LM227:
+ 3959               		lds r22,activeStack
+ 3960               		lds r23,(activeStack)+1
+ 3961 18ec D383      		movw r30,r22
+ 3962 18ee C283      		ld r28,Z
+ 3963               		ldd r29,Z+1
+ 3964               		ldd r18,Y+2
+ 3965               		ldd r19,Y+3
+ 3967 18f0 7894      	.LM228:
+ 3968               		lds r30,msgQ
+ 3969               		lds r31,(msgQ)+1
+ 3970               		sbiw r30,0
+ 3971               		brne .L223
+ 3972 18f2 4E85      		rjmp .L213
+ 3973 18f4 5F85      	.L212:
+ 3974 18f6 6C85      	.LBB86:
+ 3975 18f8 7D85      	.LBB83:
+ 3977 18fc 9B85      	.LM229:
+ 3978 18fe 0E94 0000 		ldi r24,lo8(-1)
+ 3979               		sts 236,r24
+ 3980               		sts 237,r24
+ 3981 1902 8FB7      		sts 238,r24
+ 3982               		ldi r24,lo8(1)
+ 3983               	.L215:
+ 3984 1904 F894      		out 83-32,r24
+ 3985               	/* #APP */
+ 3986               	 ;  528 "TinyTimber.c" 1
+ 3987               		sleep
+ 3988               	 ;  0 "" 2
+ 3989               	/* #NOAPP */
+ 3990               		rjmp .L215
+ 3991 1906 8091 0000 	.L223:
+ 3992 190a 9091 0000 	.LBE83:
+ 3993 190e 9983      	.LBE86:
+ 3995               	.LM230:
+ 3996               		cp r18,__zero_reg__
+ 3997 1912 D093 0000 		cpc r19,__zero_reg__
+ 3998 1916 C093 0000 		brne .+2
+ 3999               		rjmp .L222
+ 4000               		ldd r24,Z+6
+ 4001               		ldd r25,Z+7
+ 4002               		ldd r26,Z+8
+ 4003 191a 6091 0000 		ldd r27,Z+9
+ 4004 191e 7091 0000 		movw r30,r18
+ 4005 1922 FB01      		ldd r18,Z+6
+ 4006 1924 C081      		ldd r19,Z+7
+ 4007 1926 D181      		ldd r20,Z+8
+ 4008 1928 2A81      		ldd r21,Z+9
+ 4009 192a 3B81      		sub r24,r18
+ 4010               		sbc r25,r19
+ 4011               		sbc r26,r20
+ 4012 192c E091 0000 		sbc r27,r21
+ 4013 1930 F091 0000 		cp __zero_reg__,r24
+ 4014 1934 3097      		cpc __zero_reg__,r25
+ 4015 1936 01F4      		cpc __zero_reg__,r26
+ 4016 1938 00C0      		cpc __zero_reg__,r27
+ 4017               		brlt .+2
+ 4018               		rjmp .L222
+ 4019               	.L213:
+ 4020               	.LBB87:
+ 4021               	.LBB88:
+ 4022 193a 8FEF      	.LBB89:
+ 4024 1940 8093 ED00 	.LM231:
+ 4025 1944 8093 EE00 		sts (activeStack)+1,r29
+ 4026 1948 81E0      		sts activeStack,r28
+ 4027               	.LBE89:
+ 4028 194a 83BF      	.LBE88:
+ 4029               	.LBB90:
+ 4030               	.LBB91:
+ 4032               	.LM232:
+ 4033               		lds r24,threadPool
+ 4034 194e 00C0      		lds r25,(threadPool)+1
+ 4035               		movw r30,r22
+ 4036               		std Z+1,r25
+ 4037               		st Z,r24
+ 4039               	.LM233:
+ 4040 1950 2115      		sts (threadPool)+1,r23
+ 4041 1952 3105      		sts threadPool,r22
+ 4042 1954 01F4      		rjmp .L217
+ 4043 1956 00C0      	.L218:
+ 4044 1958 8681      	.LBE91:
+ 4045 195a 9781      	.LBE90:
+ 4047 195e B185      	.LM234:
+ 4048 1960 F901      		ld r28,Z
+ 4049 1962 2681      		ldd r29,Z+1
+ 4050 1964 3781      	.L217:
+ 4052 1968 5185      	.LM235:
+ 4053 196a 821B      		ldd r30,Y+4
+ 4054 196c 930B      		ldd r31,Y+5
+ 4055 196e A40B      		sbiw r30,0
+ 4056 1970 B50B      		brne .L218
+ 4058 1974 1906      	.LM236:
+ 4059 1976 1A06      		movw r24,r28
+ 4060 1978 1B06      		call dispatch
+ 4061 197a 04F0      		rjmp .L222
+ 4062 197c 00C0      	.LBE87:
+ 4063               	.LBE80:
+ 4065               	.Lscope41:
+ 4072               	.global	async
+ 4074               	async:
+ 4076               	.LM237:
+ 4077 1986 8091 0000 	.LFBB42:
+ 4078 198a 9091 0000 		push r3
+ 4079 198e FB01      		push r4
+ 4080 1990 9183      		push r5
+ 4081 1992 8083      		push r6
+ 4082               		push r7
+ 4083               		push r8
+ 4084 1994 7093 0000 		push r9
+ 4085 1998 6093 0000 		push r10
+ 4086 199c 00C0      		push r11
+ 4087               		push r12
+ 4088               		push r13
+ 4089               		push r14
+ 4090               		push r15
+ 4091               		push r16
+ 4092 199e C081      		push r17
+ 4093 19a0 D181      		push r28
+ 4094               		push r29
+ 4095               	/* prologue: function */
+ 4096               	/* frame size = 0 */
+ 4097 19a2 EC81      		movw r4,r22
+ 4098 19a4 FD81      		movw r6,r24
+ 4099 19a6 3097      		movw r8,r18
+ 4100 19a8 01F4      		movw r10,r20
+ 4101               		movw r18,r16
+ 4103 19aa CE01      	.LM238:
+ 4104 19ac 0E94 0000 		in r24,__SREG__
+ 4105 19b0 00C0      	/* #APP */
+ 4106               	 ;  632 "TinyTimber.c" 1
+ 4107               		cli
+ 4108               	 ;  0 "" 2
+ 4109               	/* #NOAPP */
+ 4110               	.LBB92:
+ 4111               	.LBB94:
+ 4113               	.LM239:
+ 4114               		lds r16,msgPool
+ 4115               		lds r17,(msgPool)+1
+ 4117               	.LM240:
+ 4118               		cp r16,__zero_reg__
+ 4119               		cpc r17,__zero_reg__
+ 4120               		breq .L225
+ 4121               	.LBE94:
+ 4122 19b2 3F92      	.LBE92:
+ 4124 19b6 5F92      	.LM241:
+ 4125 19b8 6F92      		ldi r23,lo8(-128)
+ 4126 19ba 7F92      		mov r3,r23
+ 4127 19bc 8F92      		and r3,r24
+ 4128 19be 9F92      	.LBB96:
+ 4129 19c0 AF92      	.LBB93:
+ 4131 19c4 CF92      	.LM242:
+ 4132 19c6 DF92      		movw r26,r16
+ 4133 19c8 EF92      		ld r24,X+
+ 4134 19ca FF92      		ld r25,X
+ 4135 19cc 0F93      		sbiw r26,1
+ 4136 19ce 1F93      		sts (msgPool)+1,r25
+ 4137 19d0 CF93      		sts msgPool,r24
+ 4138 19d2 DF93      	.LBE93:
+ 4139               	.LBE96:
+ 4141 19d4 2B01      	.LM243:
+ 4142 19d6 3C01      		adiw r26,10+1
+ 4143 19d8 4901      		st X,r19
+ 4144 19da 5A01      		st -X,r18
+ 4145 19dc 9801      		sbiw r26,10
+ 4147               	.LM244:
+ 4148 19de 8FB7      		adiw r26,12+1
+ 4149               		st X,r15
+ 4150               		st -X,r14
+ 4151 19e0 F894      		sbiw r26,12
+ 4153               	.LM245:
+ 4154               		adiw r26,14+1
+ 4155               		st X,r13
+ 4156               		st -X,r12
+ 4157               		sbiw r26,14
+ 4159 19e6 1091 0000 	.LM246:
+ 4160               		tst r3
+ 4161               		brne .L226
+ 4162 19ea 0115      		rjmp .L253
+ 4163 19ec 1105      	.L225:
+ 4164 19ee 01F0      	.LBB97:
+ 4165               	.LBB95:
+ 4167               	.LM247:
+ 4168               		ldi r24,lo8(-1)
+ 4169 19f0 70E8      		sts 236,r24
+ 4170 19f2 372E      		sts 237,r24
+ 4171 19f4 3822      		sts 238,r24
+ 4172               		ldi r24,lo8(1)
+ 4173               	.L228:
+ 4174               		out 83-32,r24
+ 4175               	/* #APP */
+ 4176 19f6 D801      	 ;  528 "TinyTimber.c" 1
+ 4177 19f8 8D91      		sleep
+ 4178 19fa 9C91      	 ;  0 "" 2
+ 4179 19fc 1197      	/* #NOAPP */
+ 4180 19fe 9093 0000 		rjmp .L228
+ 4181 1a02 8093 0000 	.L226:
+ 4182               	.LBE95:
+ 4183               	.LBE97:
+ 4185               	.LM248:
+ 4186 1a06 1B96      		lds r30,current
+ 4187 1a08 3C93      		lds r31,(current)+1
+ 4188 1a0a 2E93      		ldd __tmp_reg__,Z+2
+ 4189 1a0c 1A97      		ldd r31,Z+3
+ 4190               		mov r30,__tmp_reg__
+ 4191               		ldd r22,Z+2
+ 4192 1a0e 1D96      		ldd r23,Z+3
+ 4193 1a10 FC92      		ldd r24,Z+4
+ 4194 1a12 EE92      		ldd r25,Z+5
+ 4195 1a14 1C97      		rjmp .L229
+ 4196               	.L253:
+ 4197               		lds r22,timestamp
+ 4198 1a16 1F96      		lds r23,(timestamp)+1
+ 4199 1a18 DC92      		lds r24,(timestamp)+2
+ 4200 1a1a CE92      		lds r25,(timestamp)+3
+ 4201 1a1c 1E97      	.L229:
+ 4202               		movw r18,r22
+ 4203               		movw r20,r24
+ 4204 1a1e 3320      		add r18,r4
+ 4205 1a20 01F4      		adc r19,r5
+ 4206 1a22 00C0      		adc r20,r6
+ 4207               		adc r21,r7
+ 4208               		movw r30,r16
+ 4209               		std Z+2,r18
+ 4210               		std Z+3,r19
+ 4211               		std Z+4,r20
+ 4212 1a24 8FEF      		std Z+5,r21
+ 4214 1a2a 8093 ED00 	.LM249:
+ 4215 1a2e 8093 EE00 		cp __zero_reg__,r8
+ 4216 1a32 81E0      		cpc __zero_reg__,r9
+ 4217               		cpc __zero_reg__,r10
+ 4218 1a34 83BF      		cpc __zero_reg__,r11
+ 4219               		brlt .L230
+ 4220               		ldi r22,lo8(2147483647)
+ 4221 1a36 8895      		mov r8,r22
+ 4222               		ldi r22,hi8(2147483647)
+ 4223               		mov r9,r22
+ 4224 1a38 00C0      		ldi r22,hlo8(2147483647)
+ 4225               		mov r10,r22
+ 4226               		ldi r22,hhi8(2147483647)
+ 4227               		mov r11,r22
+ 4228               	.L230:
+ 4229               		movw r6,r8
+ 4230 1a3a E091 0000 		movw r8,r10
+ 4231 1a3e F091 0000 		add r6,r18
+ 4232 1a42 0280      		adc r7,r19
+ 4233 1a44 F381      		adc r8,r20
+ 4234 1a46 E02D      		adc r9,r21
+ 4235 1a48 6281      		movw r26,r16
+ 4236 1a4a 7381      		adiw r26,6
+ 4237 1a4c 8481      		st X+,r6
+ 4238 1a4e 9581      		st X+,r7
+ 4239 1a50 00C0      		st X+,r8
+ 4240               		st X,r9
+ 4241 1a52 6091 0000 		sbiw r26,6+3
+ 4243 1a5a 8091 0000 	.LM250:
+ 4244 1a5e 9091 0000 		lds r14,overflows
+ 4245               		lds r15,(overflows)+1
+ 4246 1a62 9B01      		lds r30,132
+ 4247 1a64 AC01      		lds r31,(132)+1
+ 4248 1a66 240D      		sbic 54-32,0
+ 4249 1a68 351D      		rjmp .L231
+ 4250 1a6a 461D      		movw r24,r14
+ 4251 1a6c 571D      		clr r26
+ 4252 1a6e F801      		sbrc r25,7
+ 4253 1a70 2283      		com r26
+ 4254 1a72 3383      		mov r27,r26
+ 4255 1a74 4483      		movw r20,r24
+ 4256 1a76 5583      		clr r19
+ 4257               		clr r18
+ 4258               		movw r24,r30
+ 4259 1a78 1814      		rjmp .L251
+ 4260 1a7a 1904      	.L231:
+ 4261 1a7c 1A04      		lds r24,132
+ 4262 1a7e 1B04      		lds r25,(132)+1
+ 4263 1a80 04F0      		sec
+ 4264 1a82 6FEF      		adc r14,__zero_reg__
+ 4265 1a84 862E      		adc r15,__zero_reg__
+ 4266 1a86 6FEF      		movw r18,r14
+ 4267 1a88 962E      		clr r20
+ 4268 1a8a 6FEF      		sbrc r19,7
+ 4269 1a8c A62E      		com r20
+ 4270 1a8e 6FE7      		mov r21,r20
+ 4271 1a90 B62E      		sec
+ 4272               		sbc r14,__zero_reg__
+ 4273 1a92 3401      		sbc r15,__zero_reg__
+ 4274 1a94 4501      		movw r20,r18
+ 4275 1a96 620E      		clr r19
+ 4276 1a98 731E      		clr r18
+ 4277 1a9a 841E      	.L251:
+ 4278 1a9c 951E      		ldi r26,lo8(0)
+ 4279 1a9e D801      		ldi r27,hi8(0)
+ 4280 1aa0 1696      		or r18,r24
+ 4281 1aa2 6D92      		or r19,r25
+ 4282 1aa4 7D92      		or r20,r26
+ 4283 1aa6 8D92      		or r21,r27
+ 4285 1aaa 1997      	.LM251:
+ 4286               		movw r30,r16
+ 4287               		ldd r10,Z+2
+ 4288 1aac E090 0000 		ldd r11,Z+3
+ 4289 1ab0 F090 0000 		ldd r12,Z+4
+ 4290 1ab4 E091 8400 		ldd r13,Z+5
+ 4291 1ab8 F091 8500 		movw r26,r12
+ 4292 1abc B099      		movw r24,r10
+ 4293 1abe 00C0      		sub r24,r18
+ 4294 1ac0 C701      		sbc r25,r19
+ 4295 1ac2 AA27      		sbc r26,r20
+ 4296 1ac4 97FD      		sbc r27,r21
+ 4297 1ac6 A095      		cp __zero_reg__,r24
+ 4298 1ac8 BA2F      		cpc __zero_reg__,r25
+ 4299 1aca AC01      		cpc __zero_reg__,r26
+ 4300 1acc 3327      		cpc __zero_reg__,r27
+ 4301 1ace 2227      		brlt .+2
+ 4302 1ad0 CF01      		rjmp .L233
+ 4303 1ad2 00C0      	.LBB98:
+ 4304               	.LBB99:
+ 4306 1ad8 9091 8500 	.LM252:
+ 4307 1adc 0894      		lds r30,timerQ
+ 4308 1ade E11C      		lds r31,(timerQ)+1
+ 4309 1ae0 F11C      		ldi r28,lo8(0)
+ 4310 1ae2 9701      		ldi r29,hi8(0)
+ 4311 1ae4 4427      		rjmp .L234
+ 4312 1ae6 37FD      	.L236:
+ 4314 1aea 542F      	.LM253:
+ 4315 1aec 0894      		movw r28,r30
+ 4316 1aee E108      		ld r24,Z
+ 4317 1af0 F108      		ldd r25,Z+1
+ 4318 1af2 A901      		movw r18,r24
+ 4319 1af4 3327      		movw r30,r18
+ 4320 1af6 2227      	.L234:
+ 4322 1af8 A0E0      	.LM254:
+ 4323 1afa B0E0      		sbiw r30,0
+ 4324 1afc 282B      		breq .L235
+ 4325 1afe 392B      		ldd r24,Z+2
+ 4326 1b00 4A2B      		ldd r25,Z+3
+ 4327 1b02 5B2B      		ldd r26,Z+4
+ 4328               		ldd r27,Z+5
+ 4329               		cp r10,r24
+ 4330 1b04 F801      		cpc r11,r25
+ 4331 1b06 A280      		cpc r12,r26
+ 4332 1b08 B380      		cpc r13,r27
+ 4333 1b0a C480      		brge .L236
+ 4334 1b0c D580      	.L235:
+ 4336 1b10 C501      	.LM255:
+ 4337 1b12 821B      		movw r26,r16
+ 4338 1b14 930B      		st X+,r30
+ 4339 1b16 A40B      		st X,r31
+ 4341 1b1a 1816      	.LM256:
+ 4342 1b1c 1906      		sbiw r28,0
+ 4343 1b1e 1A06      		brne .L237
+ 4345 1b22 04F0      	.LM257:
+ 4346 1b24 00C0      		sts (timerQ)+1,r17
+ 4347               		sts timerQ,r16
+ 4348               		rjmp .L238
+ 4349               	.L237:
+ 4351 1b26 E091 0000 	.LM258:
+ 4352 1b2a F091 0000 		std Y+1,r17
+ 4353 1b2e C0E0      		st Y,r16
+ 4354 1b30 D0E0      	.L238:
+ 4355 1b32 00C0      	.LBE99:
+ 4356               	.LBE98:
+ 4358               	.LM259:
+ 4359 1b34 EF01      		lds r30,timerQ
+ 4360 1b36 8081      		lds r31,(timerQ)+1
+ 4361 1b38 9181      		sbiw r30,0
+ 4362 1b3a 9C01      		breq .L239
+ 4363 1b3c F901      		ldd r18,Z+2
+ 4364               		ldd r19,Z+3
+ 4365               		ldd r20,Z+4
+ 4366               		ldd r21,Z+5
+ 4367 1b3e 3097      		movw r24,r20
+ 4368 1b40 01F0      		clr r27
+ 4369 1b42 8281      		sbrc r25,7
+ 4370 1b44 9381      		com r27
+ 4371 1b46 A481      		mov r26,r27
+ 4372 1b48 B581      		cp r14,r24
+ 4373 1b4a A816      		cpc r15,r25
+ 4374 1b4c B906      		brne .L239
+ 4375 1b4e CA06      		lds r24,132
+ 4376 1b50 DB06      		lds r25,(132)+1
+ 4377 1b52 04F4      		com r24
+ 4378               		com r25
+ 4379               		add r24,r18
+ 4380               		adc r25,r19
+ 4381 1b54 D801      		or r24,r25
+ 4382 1b56 ED93      		brne .L240
+ 4383 1b58 FC93      		lds r18,132
+ 4384               		lds r19,(132)+1
+ 4385               		subi r18,lo8(-(1))
+ 4386 1b5a 2097      		sbci r19,hi8(-(1))
+ 4387 1b5c 01F4      	.L240:
+ 4388               		sts (136)+1,r19
+ 4389               		sts 136,r18
+ 4390 1b5e 1093 0000 		lds r24,111
+ 4391 1b62 0093 0000 		ori r24,lo8(2)
+ 4392 1b66 00C0      		rjmp .L252
+ 4393               	.L239:
+ 4394               		lds r24,111
+ 4395               		andi r24,lo8(-3)
+ 4396 1b68 1983      	.L252:
+ 4397 1b6a 0883      		sts 111,r24
+ 4399               	.LM260:
+ 4400               		tst r3
+ 4401               		breq .+2
+ 4402               		rjmp .L248
+ 4403 1b6c E091 0000 		rjmp .L247
+ 4404 1b70 F091 0000 	.L233:
+ 4405 1b74 3097      	.LBB100:
+ 4406 1b76 01F0      	.LBB101:
+ 4408 1b7a 3381      	.LM261:
+ 4409 1b7c 4481      		lds r30,msgQ
+ 4410 1b7e 5581      		lds r31,(msgQ)+1
+ 4411 1b80 CA01      		ldi r28,lo8(0)
+ 4412 1b82 BB27      		ldi r29,hi8(0)
+ 4413 1b84 97FD      		rjmp .L242
+ 4414 1b86 B095      	.L244:
+ 4416 1b8a E816      	.LM262:
+ 4417 1b8c F906      		movw r28,r30
+ 4418 1b8e 01F4      		ld r24,Z
+ 4419 1b90 8091 8400 		ldd r25,Z+1
+ 4420 1b94 9091 8500 		movw r18,r24
+ 4421 1b98 8095      		movw r30,r18
+ 4422 1b9a 9095      	.L242:
+ 4424 1b9e 931F      	.LM263:
+ 4425 1ba0 892B      		sbiw r30,0
+ 4426 1ba2 01F4      		breq .L243
+ 4427 1ba4 2091 8400 		ldd r24,Z+6
+ 4428 1ba8 3091 8500 		ldd r25,Z+7
+ 4429 1bac 2F5F      		ldd r26,Z+8
+ 4430 1bae 3F4F      		ldd r27,Z+9
+ 4431               		cp r6,r24
+ 4432 1bb0 3093 8900 		cpc r7,r25
+ 4433 1bb4 2093 8800 		cpc r8,r26
+ 4434 1bb8 8091 6F00 		cpc r9,r27
+ 4435 1bbc 8260      		brge .L244
+ 4436 1bbe 00C0      	.L243:
+ 4438 1bc0 8091 6F00 	.LM264:
+ 4439 1bc4 8D7F      		movw r26,r16
+ 4440               		st X+,r30
+ 4441 1bc6 8093 6F00 		st X,r31
+ 4443               	.LM265:
+ 4444 1bca 3320      		sbiw r28,0
+ 4445 1bcc 01F0      		brne .L245
+ 4447 1bd0 00C0      	.LM266:
+ 4448               		sts (msgQ)+1,r17
+ 4449               		sts msgQ,r16
+ 4450               		rjmp .L246
+ 4451               	.L245:
+ 4453 1bd2 E091 0000 	.LM267:
+ 4454 1bd6 F091 0000 		std Y+1,r17
+ 4455 1bda C0E0      		st Y,r16
+ 4456 1bdc D0E0      	.L246:
+ 4457 1bde 00C0      	.LBE101:
+ 4458               	.LBE100:
+ 4460               	.LM268:
+ 4461 1be0 EF01      		tst r3
+ 4462 1be2 8081      		breq .L247
+ 4463 1be4 9181      		lds r28,threadPool
+ 4464 1be6 9C01      		lds r29,(threadPool)+1
+ 4465 1be8 F901      		sbiw r28,0
+ 4466               		breq .L248
+ 4467               		lds r22,activeStack
+ 4468               		lds r23,(activeStack)+1
+ 4469 1bea 3097      		lds r30,msgQ
+ 4470 1bec 01F0      		lds r31,(msgQ)+1
+ 4471 1bee 8681      		movw r26,r22
+ 4472 1bf0 9781      		adiw r26,2
+ 4473 1bf2 A085      		ld r18,X+
+ 4474 1bf4 B185      		ld r19,X
+ 4475 1bf6 6816      		sbiw r26,2+1
+ 4476 1bf8 7906      		ldd r24,Z+6
+ 4477 1bfa 8A06      		ldd r25,Z+7
+ 4478 1bfc 9B06      		ldd r26,Z+8
+ 4479 1bfe 04F4      		ldd r27,Z+9
+ 4480               		movw r30,r18
+ 4481               		ldd r18,Z+6
+ 4482               		ldd r19,Z+7
+ 4483 1c00 D801      		ldd r20,Z+8
+ 4484 1c02 ED93      		ldd r21,Z+9
+ 4485 1c04 FC93      		sub r24,r18
+ 4486               		sbc r25,r19
+ 4487               		sbc r26,r20
+ 4488 1c06 2097      		sbc r27,r21
+ 4489 1c08 01F4      		sbrs r27,7
+ 4490               		rjmp .L248
+ 4491               	.LBB102:
+ 4492 1c0a 1093 0000 	.LBB103:
+ 4494 1c12 00C0      	.LM269:
+ 4495               		ld r24,Y
+ 4496               		ldd r25,Y+1
+ 4497               		sts (threadPool)+1,r25
+ 4498 1c14 1983      		sts threadPool,r24
+ 4499 1c16 0883      	.LBE103:
+ 4500               	.LBE102:
+ 4501               	.LBB104:
+ 4502               	.LBB105:
+ 4504               	.LM270:
+ 4505 1c18 3320      		std Y+1,r23
+ 4506 1c1a 01F0      		st Y,r22
+ 4508 1c20 D091 0000 	.LM271:
+ 4509 1c24 2097      		sts (activeStack)+1,r29
+ 4510 1c26 01F0      		sts activeStack,r28
+ 4511 1c28 6091 0000 	.LBE105:
+ 4512 1c2c 7091 0000 	.LBE104:
+ 4514 1c34 F091 0000 	.LM272:
+ 4515 1c38 DB01      		movw r24,r28
+ 4516 1c3a 1296      		call dispatch
+ 4517 1c3c 2D91      	.L248:
+ 4519 1c40 1397      	.LM273:
+ 4520 1c42 8681      	/* #APP */
+ 4521 1c44 9781      	 ;  652 "TinyTimber.c" 1
+ 4522 1c46 A085      		sei
+ 4523 1c48 B185      	 ;  0 "" 2
+ 4524 1c4a F901      	/* #NOAPP */
+ 4525 1c4c 2681      	.L247:
+ 4527 1c50 4085      	.LM274:
+ 4528 1c52 5185      		movw r24,r16
+ 4529 1c54 821B      	/* epilogue start */
+ 4530 1c56 930B      		pop r29
+ 4531 1c58 A40B      		pop r28
+ 4532 1c5a B50B      		pop r17
+ 4533 1c5c B7FF      		pop r16
+ 4534 1c5e 00C0      		pop r15
+ 4535               		pop r14
+ 4536               		pop r13
+ 4537               		pop r12
+ 4538               		pop r11
+ 4539 1c60 8881      		pop r10
+ 4540 1c62 9981      		pop r9
+ 4541 1c64 9093 0000 		pop r8
+ 4542 1c68 8093 0000 		pop r7
+ 4543               		pop r6
+ 4544               		pop r5
+ 4545               		pop r4
+ 4546               		pop r3
+ 4547               		ret
+ 4560 1c7a 0E94 0000 	.Lscope42:
+ 4561               	.global	hex
+ 4562               		.data
+ 4565               	hex:
+ 4566 1c7e 7894      		.string	"0123456789ABCDEF"
+ 4567               	.global	msgPool
+ 4570               	msgPool:
+ 4571               		.word	messages
+ 4572 1c80 C801      	.global	msgQ
+ 4573               	.global	msgQ
+ 4574 1c82 DF91      		.section .bss
+ 4577 1c88 0F91      	msgQ:
+ 4578 1c8a FF90      		.skip 2,0
+ 4579 1c8c EF90      	.global	timerQ
+ 4580 1c8e DF90      	.global	timerQ
+ 4583 1c94 AF90      	timerQ:
+ 4584 1c96 9F90      		.skip 2,0
+ 4585 1c98 8F90      	.global	timestamp
+ 4586 1c9a 7F90      	.global	timestamp
+ 4589 1ca0 4F90      	timestamp:
+ 4590 1ca2 3F90      		.skip 4,0
+ 4591 1ca4 0895      	.global	overflows
+ 4592               	.global	overflows
+ 4595               	overflows:
+ 4596               		.skip 2,0
+ 4597               	.global	threadPool
+ 4598               		.data
+ 4601               	threadPool:
+ 4602               		.word	threads
+ 4603               	.global	activeStack
+ 4606               	activeStack:
+ 4607               		.word	thread0
+ 4608               	.global	current
+ 4611               	current:
+ 4612               		.word	thread0
+ 4613               		.comm messages,240,1
+ 4614               		.comm threads,116,1
+ 4615 0035 0000      		.comm stacks,384,1
+ 4616               		.comm thread0,29,1
+ 4617               		.comm mtable,36,1
+ 4618               		.comm otable,36,1
+ 4634 0004 0000 0000 		.text
+ 4636               	.Letext0:
+ 4637               	...
+DEFINED SYMBOLS
+                            *ABS*:00000000 TinyTimber.c
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:90     .text:00000000 DUMP
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:118    .text:0000000e DUMPH
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:145    .text:0000001e DUMP_INIT
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:161    .text:00000020 DUMPC
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:178    .text:00000022 enqueueByDeadline
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:275    .text:00000096 enqueueByBaseline
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:371    .text:0000010a dequeue
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:424    .text:00000138 insert
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:454    .text:0000014c push
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:483    .text:00000160 pop
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:514    .text:00000174 __vector_9
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:4639   .bss:00000008 overflows
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:4627   .bss:00000002 timerQ
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:612    .text:0000022a ABORT
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:4621   .bss:00000000 msgQ
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:4650   .data:00000039 activeStack
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:4655   .data:0000003b current
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:4614   .data:00000035 msgPool
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:797    .text:00000304 T_RESET
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:4633   .bss:00000004 timestamp
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:843    .text:00000346 T_SAMPLE
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:891    .text:0000038e CURRENT_OFFSET
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:1007   .text:0000043e install
+                            *COM*:00000024 otable
+                            *COM*:00000024 mtable
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:1081   .text:0000047a initialize
+                            *COM*:000000f0 messages
+                            *COM*:00000074 threads
+                            *COM*:00000180 stacks
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:3927   .text:000018c8 run
+                            *COM*:0000001d thread0
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:1321   .text:000005d0 dispatch
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:1367   .text:00000610 schedule
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:4645   .data:00000037 threadPool
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:1455   .text:00000682 tinytimber
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:1537   .text:000006bc __vector_7
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:1803   .text:00000886 __vector_22
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:1909   .text:00000960 __vector_21
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:2015   .text:00000a3a __vector_20
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:2121   .text:00000b14 __vector_19
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:2227   .text:00000bee __vector_18
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:2333   .text:00000cc8 __vector_17
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:2439   .text:00000da2 __vector_16
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:2545   .text:00000e7c __vector_15
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:2651   .text:00000f56 __vector_14
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:2757   .text:00001030 __vector_13
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:2863   .text:0000110a __vector_12
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:2969   .text:000011e4 __vector_11
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:3075   .text:000012be __vector_10
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:3181   .text:00001398 __vector_5
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:3287   .text:00001472 __vector_4
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:3393   .text:0000154c __vector_3
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:3499   .text:00001626 __vector_2
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:3605   .text:00001700 __vector_1
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:3714   .text:000017da sync
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:4118   .text:000019b2 async
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccDvNXb5.s:4609   .data:00000024 hex
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
+setjmp
+longjmp

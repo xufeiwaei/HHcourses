@@ -1,0 +1,10 @@
+/Makefile.am/1.2/Wed Dec 18 22:35:38 2002//Tavr-libc-1_0_5-release
+/avr-recv.c/1.1/Fri Jul  5 20:38:44 2002//Tavr-libc-1_0_5-release
+/io.c/1.1/Fri Jul  5 20:38:44 2002//Tavr-libc-1_0_5-release
+/prg/1.1/Fri Jul  5 20:38:44 2002//Tavr-libc-1_0_5-release
+/printf.h/1.1/Fri Jul  5 20:38:44 2002//Tavr-libc-1_0_5-release
+/progmem.c/1.1/Fri Jul  5 20:38:44 2002//Tavr-libc-1_0_5-release
+/send_byte.s/1.1/Fri Jul  5 20:38:44 2002//Tavr-libc-1_0_5-release
+/signal.c/1.1/Fri Jul  5 20:38:44 2002//Tavr-libc-1_0_5-release
+D/demo////
+D/twitest////

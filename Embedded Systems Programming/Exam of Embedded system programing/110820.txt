@@ -1,0 +1,118 @@
+1. 
+int areSet(unsigned char * port, unsigned char mask){
+  return (*port & mask) == mask;
+}
+
+int areClear(unsigned char * port, unsigned char mask){
+  return (*port & mask) == 0x00;
+}
+
+2.  
+You might write a cyclic-executive loop where on every turn of the
+loop the program checks on all sources of input and engages in the
+respective computations for the input that is detected as ready. In
+order to give turns to the diffrent tasks we might want to place some
+attempts to do some short tasks in between sub-tasks of time consuming
+tasks.
+
+3. 
+The problem is that there is a global variable pp used in the function
+printAt that is used in two threads. A bad behaviour could be 
+thread 1               thread 2
+...                          ...
+pp = 0             
+writeChar('0',0)
+                             pp = 3
+p++
+writeChar('2',4)
+
+a solution using mutex looks would  add one global variable
+mutex m = initMutex();
+
+and the function printAt would be  changed to 
+lock(&m);
+pp=pos;
+writeChar
+pp++
+writeChar
+unlock(&m)
+
+4.
+In array.h we would have the declarations
+
+typedef struct {
+  Object super;
+  int theArray[];
+  int pos;
+} Array;
+
+#define initArray(theArray) {initObject(),theArray,0}
+// record a position
+int setPosition(Array *self, int x);
+
+// set the value at the recorded position to x
+int setElement(Array *self, int x);
+
+// return the value at the recorded position
+int getElement(Array *self, int x);
+
+
+In array.c we would have the implementations
+
+int setPosition(Array *self, int x){
+    self->pos = x;
+}
+
+int setElement(Array *self, int x){
+    self->theArray[self->pos] =x;
+}
+
+int getElement(Array *self, int x){
+    return self->theArray[self->pos];
+}
+
+5.a.
+In the file blinker.h we would have the declarations
+typedef struct {
+  Object super;
+  LED *led;
+  int period;
+  int state;
+  int running;
+} BLINKER;
+#define initBLINKER(led, period) {initObject(), led, period, 0, 0}
+int start(BLINKER *self, void * arg);
+int stop(BLINKER *self, void * arg);
+int setPeriod(BLINKER *self, int * arg);
+
+In the file blinker.c we would have
+int blink(BLINKER *self, void * arg)
+{
+   if(self->running){
+	if(self->state == 0)
+	{
+		ASYNC(self->led,on,NULL);
+	}
+	else
+	{
+		ASYNC(self->led,off,NULL);
+	}	
+
+	self->state = 1-(self->state);
+	AFTER (SEC(self-> period),self,blink,NULL);
+   }
+}
+int start(BLINKER *self, void * arg){
+    self->running = 1;
+    blink(self,NULL);	
+}
+int stop(BLINKER *self, void * arg){
+    self->running = 0;
+}
+int setPeriod(BLINKER *self, int * arg){
+  self->period = *arg;
+}
+
+5.b.
+As the program is, the two waves of on-off started from the call to
+start will interfere with each other. 

@@ -1,0 +1,138 @@
+1.
+void set(unsigned int *port, unsigned int mask){
+  *port = *port|mask;
+}
+void clear(unsigned int *port, unsigned int mask){
+  *port = *port&~mask; 
+}
+
+2. 
+a.
+ While the program is waiting for one of the inputs the other input sources are ignored (we cannot do concurrent
+waiting). While the program is calculating one it is ignoring input (we cannot do concurrent execution). While nothing
+useful is being done (waiting for some input) the CPU is anyway working (energy consumption). 
+b.
+ By breaking up the busy waiting functions we can at least wait on all inputs at the same time (we do not need to impose an order).
+main(){
+  struct Params params;
+  struct Packet packet;
+  int dist, signal;
+  while(1){
+    if (SONAR_STATUS & READY == 0){
+       dist = SONAR_DATA;    
+       control(dist, &signal, &params);
+       servo_write(signal);
+    }
+    if(RADIO_STATUS & READY == 0){
+        packet.v1 = RADIO_DATA1;
+        ...
+        packet.vn = RADIO_DATAn;
+        decode(&packet,&params);
+    }
+  }
+}
+c. We still have the problems of not having concurrent execution and  energy consumption.
+
+3.
+ The arguments in C are passed by value, values are calculated and allocated in the stack for the function call, there is no need to protect them. 
+For the global variables there is only one copy that all threads can access, they have to be protectsd. 
+Local variables declared in f are, as the arguments, allocated in the stack for each function call, there is no need to protect them. 
+Heap allocated variables that are passed as arguments have to be protected if their fields are accessed.
+
+4.
+In array.h we would have the declarations
+typedef struct {
+  Object super;
+  int theArray[];
+  int pos;
+} Array;
+#define initArray(theArray) {initObject(),theArray,0}
+// record a position
+int setPosition(Array *self, int x);
+// set the value at the recorded position to x
+int setElement(Array *self, int x);
+// return the value at the recorded position
+int getElement(Array *self, int x);
+In array.c we would have the implementations
+int setPosition(Array *self, int x){
+    self->pos = x;
+}
+int setElement(Array *self, int x){
+    self->theArray[self->pos] =x;
+}
+int getElement(Array *self, int x){
+    return self->theArray[self->pos];
+}
+5.
+a.
+In the file blinker.h we would have the declarations
+typedef struct {
+  Object super;
+  LED *led;
+  int period;
+  int state;
+  int running;
+} BLINKER;
+#define initBLINKER(led, period) {initObject(), led, period, 0, 0}
+int start(BLINKER *self, void * arg);
+int stop(BLINKER *self, void * arg);
+int setPeriod(BLINKER *self, int * arg);
+
+In the file blinker.c we would have
+int blink(BLINKER *self, void * arg)
+{
+   if(self->running){
+	if(self->state == 0)
+	{
+		ASYNC(self->led,on,NULL);
+	}
+	else
+	{
+		ASYNC(self->led,off,NULL);
+	}	
+
+	self->state = 1-(self->state);
+	AFTER (SEC(self-> period),self,blink,NULL);
+   }
+}
+int start(BLINKER *self, void * arg){
+    self->running = 1;
+    blink(self,NULL);	
+}
+int stop(BLINKER *self, void * arg){
+    self->running = 0;
+}
+int setPeriod(BLINKER *self, int * arg){
+  self->period = *arg;
+}
+b.
+In the method blink we can include a deadline so that the message with blink gets a higher priority:
+WITHIN (SEC(self-> period),,MSEC(10),self,blink,NULL);
+
+6. 
+a.In a task set of periodic tasks RM assigns priorities using the periods: the shorter the period the higher the priority.
+Using a reverse scale for priorities, the periods can be the priorities. All instances of a task get the same priority.
+In a task set with 3 tasks with periods 10,20,30 RM might assign priorities 10,20,30 (10 the highest prio, 30 the lowest
+prio in the ususal reversed scale).
+b. In a task set of periodic tasks where each task has relative deadline equal to the period, EDF assigs priorities to each
+instance of a task. When a new instance of a task becomes schedulable, the priorities of the set of instances reflect
+the time left to absolute deadline: the task instance with shortest time to absolute deadline gets the highest priority.
+
+7. You have to declare a global variable of type Mutex and the entries lock and unlock have to be called in the bodys of
+the threads that need to protect a critical section. Here is an example where the task for computing and printing prime
+numbers need to get exclusive access to the output (the last two lines start two threads for printing prime numbers.)
+   Sem : Mutex;
+   task type Primes(Ix:Positive);
+   task body Primes is
+   begin
+      for I in Positive loop
+         if Is_Prime(I) 
+	 then Sem.Lock;
+	      Put("Primes");Put(Ix,Width=>1);Put(": ");Put(I,Width=>1);Put_line(""); 
+	      Sem.Unlock;
+	 end if;
+      end loop;
+   end Primes;
+
+   Primes1 : Primes(1);
+   Primes2 : Primes(2);

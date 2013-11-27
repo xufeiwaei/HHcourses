@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Primes and More</string>
+    <string name="primes_app">Primes</string>
+    <string name="hi_there_app">Hi There</string>
+
+    <string name="primes_text">Primes?</string>
+    <string name="hi_there_text">Hi There?</string>
+    <string name="quit_text">Stop This!</string>
+
+    <string name="launchmap">Launch Map</string>
+
+
+
+</resources>

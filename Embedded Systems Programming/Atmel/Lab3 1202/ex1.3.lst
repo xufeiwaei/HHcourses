@@ -1,0 +1,179 @@
+   1               		.file	"ex1.3.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  11               		.text
+  12               	.Ltext0:
+  89               	.global	main
+  91               	main:
+   1:ex1.3.c       **** #include "TinyTimber.h"
+   2:ex1.3.c       **** #include "lcd.h"
+   3:ex1.3.c       **** #include "primes.h"
+   4:ex1.3.c       **** #include "blinker.h"
+   5:ex1.3.c       **** 
+   6:ex1.3.c       **** LCD lcdDriver = initLCD(); 
+   7:ex1.3.c       **** PrimeCalculator primeCalc = initPrimeCalculator(&lcdDriver);
+   8:ex1.3.c       **** Blinker blinker = initBlinker(&lcdDriver,7,500);
+   9:ex1.3.c       **** 
+  10:ex1.3.c       **** typedef struct{
+  11:ex1.3.c       ****   Object super;
+  12:ex1.3.c       ****   PrimeCalculator* pctr;
+  13:ex1.3.c       ****   Blinker* bkr;
+  14:ex1.3.c       **** } APP;
+  15:ex1.3.c       **** 
+  16:ex1.3.c       **** #define initAPP(p,b) {initObject(),p,b}
+  17:ex1.3.c       ****  
+  18:ex1.3.c       **** int startup(APP * self, int x){
+  19:ex1.3.c       ****   ASYNC(self -> pctr, primes,0);
+  20:ex1.3.c       ****   ASYNC(self -> bkr, startBlinking, 0);
+  21:ex1.3.c       **** }
+  22:ex1.3.c       **** 
+  23:ex1.3.c       **** APP app = initAPP(&primeCalc,&blinker);
+  24:ex1.3.c       **** 
+  25:ex1.3.c       **** int main(){
+  92               	32;pctr:(0,18)=*(8,1),32,16;bkr:(0,19)=*(9,1),48,16;;",128,0,0,0
+  94               	.global	main
+  96               	main:
+  26:ex1.3.c       ****   CONFLCD;
+  97               	32;pctr:(0,18)=*(8,1),32,16;bkr:(0,19)=*(9,1),48,16;;",128,0,0,0
+  99 0000 87EB      	.global	main
+ 101 0006 80E1      	main:
+ 103 000c 8FE0      	.LM0:
+ 104 000e 8093 E700 	.LFBB1:
+ 105 0012 80E8      	/* prologue: function */
+ 106 0014 8093 E400 	/* frame size = 0 */
+  27:ex1.3.c       ****   return TINYTIMBER(app.bkr,Blinking,0);
+ 107               	,main
+ 108               	.global	main
+ 110 001a 50E0      	main:
+ 112 001e 70E0      	.LM0:
+ 113 0020 8091 0000 	.LFBB1:
+ 114 0024 9091 0000 	/* prologue: function */
+ 115 0028 0E94 0000 	/* frame size = 0 */
+  28:ex1.3.c       **** }...
+ 117               	n, @function
+ 118               	main:
+ 120               	.LM0:
+ 121               	.LFBB1:
+ 122               	/* prologue: function */
+ 123               	/* frame size = 0 */
+ 125               	.LM1:
+ 126               		ldi r24,lo8(-73)
+ 127               		sts 229,r24
+ 128               		ldi r24,lo8(16)
+ 129               		sts 230,r24
+ 130               		ldi r24,lo8(15)
+ 131 002e AF92      		sts 231,r24
+ 132 0030 BF92      		ldi r24,lo8(-128)
+ 133 0032 CF92      		sts 228,r24
+ 135 0036 EF92      	.LM2:
+ 136 0038 FF92      		ldi r20,lo8(0)
+ 137 003a 0F93      		ldi r21,hi8(0)
+ 138 003c 1F93      		ldi r22,lo8(gs(Blinking))
+ 139               		ldi r23,hi8(gs(Blinking))
+ 140               		lds r24,app+6
+ 141 003e 5C01      		lds r25,(app+6)+1
+ 142               		call tinytimber
+ 143               	/* epilogue start */
+ 145 0042 0481      	.LM3:
+ 146 0044 1581      		ret
+ 148 0048 DD24      	.Lscope1:
+ 152 0050 F92E      	.global	startup
+ 154 0054 30E0      	startup:
+ 156 0058 50E0      	.LM4:
+ 157 005a 60E0      	.LFBB2:
+ 158 005c 70E0      		push r10
+ 159 005e 80E0      		push r11
+ 160 0060 90E0      		push r12
+ 161 0062 0E94 0000 		push r13
+ 162               		push r14
+ 163               		push r15
+ 164 0066 F501      		push r16
+ 165 0068 0681      		push r17
+ 166 006a 1781      	/* prologue: function */
+ 167 006c 80E0      	/* frame size = 0 */
+ 168 006e E82E      		movw r10,r24
+ 170 0072 F82E      	.LM5:
+ 171 0074 20E0      		movw r30,r24
+ 172 0076 30E0      		ldd r16,Z+4
+ 173 0078 40E0      		ldd r17,Z+5
+ 174 007a 50E0      		clr r12
+ 175 007c 60E0      		clr r13
+ 176 007e 70E0      		ldi r25,lo8(gs(primes))
+ 177 0080 80E0      		mov r14,r25
+ 178 0082 90E0      		ldi r25,hi8(gs(primes))
+ 179 0084 0E94 0000 		mov r15,r25
+ 180               		ldi r18,lo8(0)
+ 181               		ldi r19,hi8(0)
+ 182               		ldi r20,hlo8(0)
+ 183 0088 1F91      		ldi r21,hhi8(0)
+ 184 008a 0F91      		ldi r22,lo8(0)
+ 185 008c FF90      		ldi r23,hi8(0)
+ 186 008e EF90      		ldi r24,hlo8(0)
+ 187 0090 DF90      		ldi r25,hhi8(0)
+ 188 0092 CF90      		call async
+ 190 0096 AF90      	.LM6:
+ 191 0098 0895      		movw r30,r10
+ 192               		ldd r16,Z+6
+ 193               		ldd r17,Z+7
+ 194               		ldi r24,lo8(gs(startBlinking))
+ 195               		mov r14,r24
+ 196               		ldi r24,hi8(gs(startBlinking))
+ 197               		mov r15,r24
+ 198               		ldi r18,lo8(0)
+ 199               		ldi r19,hi8(0)
+ 200 0000 0000 0000 		ldi r20,hlo8(0)
+ 201               		ldi r21,hhi8(0)
+ 202               		ldi r22,lo8(0)
+ 203               		ldi r23,hi8(0)
+ 204               		ldi r24,hlo8(0)
+ 205               		ldi r25,hhi8(0)
+ 206 0000 0000      		call async
+ 207 0002 0000      	/* epilogue start */
+ 209               	.LM7:
+ 210               		pop r17
+ 211               		pop r16
+ 212               		pop r15
+ 213 0006 0000      		pop r14
+ 214 0008 0000      		pop r13
+ 215 000a 0000      		pop r12
+ 216 000c 0700      		pop r11
+ 217 000e F401      		pop r10
+ 218               		ret
+ 220               	.Lscope2:
+ 221               	.global	lcdDriver
+ 222 0010 0000      	.global	lcdDriver
+ 223 0012 0000      		.section .bss
+ 226               	lcdDriver:
+ 227               		.skip 4,0
+ 228               	.global	primeCalc
+ 229               		.data
+ 232               	primeCalc:
+DEFINED SYMBOLS
+                            *ABS*:00000000 ex1.3.c
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccpSDz46.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccpSDz46.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccpSDz46.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccpSDz46.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccpSDz46.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccpSDz46.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccpSDz46.s:91     .text:00000000 main
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccpSDz46.s:221    .data:00000010 app
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccpSDz46.s:127    .text:0000002e startup
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccpSDz46.s:199    .bss:00000000 lcdDriver
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccpSDz46.s:205    .data:00000000 primeCalc
+C:\DOCUME~1\sungao12\LOCALS~1\Temp/ccpSDz46.s:212    .data:00000006 blinker
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
+Blinking
+tinytimber
+primes
+async
+startBlinking
