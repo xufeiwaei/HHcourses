@@ -1,0 +1,1 @@
+ Au = jacobian([x*y*z; y; x+z],[x y z])

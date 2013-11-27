@@ -1,0 +1,97 @@
+%
+% Fits (by translation and rotation) data points to a set of 
+% line segments, i.e. applying the Cox's algorithm
+% function [ddx,ddy,dda,C] = Cox_LineFit(ANG, DIS, POSE, LINEMODEL)
+% 
+%
+%
+function [ddx,ddy,dda,C] = Cox_LineFit2012(ANG, DIS, POSE, LINEMODEL, SensorPose)
+    % Init variables
+    ddx = 0; ddy = 0; dda = 0;
+    Rx = POSE(1,1); Ry = POSE(2,1); Ra = POSE(3,1); 
+    Sensor_pos_x = SensorPose(1);
+    Sensor_pos_y = SensorPose(2);
+    Sensor_ang = SensorPose(3);
+    max_iterations = 15;
+    no_update = 0;
+
+    % 0) Normal vectors (length = 1) to the line segments
+    [noLines tmp] = size(LINEMODEL);
+    for kk = 1:noLines,
+        R = [0 -1;1 0];
+        T(1,1:2) = LINEMODEL(kk,1);
+        T(2,1:2) = LINEMODEL(kk,2);
+        V = [LINEMODEL(kk,1:2:3);LINEMODEL(kk,2:2:4)];
+        V2 = R*(V(1:2,:) - T); % Stays in origin
+        U(kk,1:2) = V2(1:2,2)' / sqrt(V2(1,2)^2 + V2(2,2)^2);
+        RI(kk,1) = dot(U(kk,1:2)', LINEMODEL(kk,1:2)');
+        
+%         Rotate pi/2 to get orthogonal vector.
+%         R = [0 -1;1 0];
+% 		LINEMODEL [x1 y1 x2 y2]
+% 		Two points on this line.
+% 		v = [LINEMODEL(kk, 1:2)];
+% 		u = [LINEMODEL(kk, 3:4)];
+% 		V = R*(u-v)';
+% 		V = V';
+% 		U(kk, 1:2) = V / sqrt(dot(V, V));
+% 		RI(kk, 1) = dot(U(kk, 1:2), v);
+        
+        
+    end;
+    
+    % REPEAT UNTIL THE PROCESS CONVERGE
+    for i = 1:max_iterations,
+        % 1) -------------- Translate and rotate data points
+            % 1.1) Relative measurements => Sensor co-ordinates
+            x = DIS(i)*cos(ANG(i));
+            y = DIS(i)*sin(ANG(i));            
+            % 1.2) Sensor co-ordinates => Robot co-ordinates
+            R = [cos(Sensor_ang) -sin(Sensor_ang) Sensor_pos_x; 
+                 sin(Sensor_ang) cos(Sensor_ang) Sensor_pos_y;
+                 0 0 1];
+            Xs = R*[Rx Ry 1]';
+            % 1.3) Robot co-ordinates => World co-ordinates
+            R = [cos(Ra) -sin(Ra) Xs(1);
+                 sin(Ra) cos(Ra) Xs(2);
+                 0 0 1];
+            Xw = R*[Xr(1) Xr(2) 1]';
+            points(i,1:2) = Xw(1:2);
+        % 2) -------------- Find targets for data points
+        
+        
+        
+        
+            % Your code here!
+            % note it you don't get any match you have to handle that
+        
+        % 3) -------------- Set up linear equation system, find b = (dx,dy,da)' from the LS
+        
+        % Your code here!
+        
+        % Reject outliers
+        
+        % Your code here!
+        
+        % Note you have to handle situations then det(A'*A) == 0
+        % b = inv(A'*A)*A'*Y(idx,1);
+        
+        % Do the least square fit
+        
+        % Your code here!
+        
+        % Calculate the variance of the fit!
+
+         % Your code here!
+        
+        % 4) -------------- Add latest contribution to the overall congruence
+        
+        % Your code here!
+        
+        % 5) Check if the process has converged
+        
+        % Your code here!
+        
+    end;
+    % Check if max number off iterations is reached, i.e. no congurance!
+    

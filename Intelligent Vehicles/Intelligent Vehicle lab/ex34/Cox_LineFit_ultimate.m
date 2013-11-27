@@ -1,0 +1,244 @@
+
+function [dx dy da C iteration_count final_sample_quantity finished_flag Dis_threshold S2] = Cox_LineFit_ultimate(alfa, r, Xr, Parameter, LINEMODEL, fig, REF, LINES)
+
+% Extract and Initialize data
+dynamic_showing = 0;
+ddx = 0; ddy = 0; dda = 0;
+no_sample_flag = 0;
+finished_flag = 0;
+Dis_threshold = 200;
+Dis_threshold_min = 100;
+iteration_time_max = 20;
+iteration_count = 1;
+Sx = Parameter(1);
+Sy = Parameter(2);
+Sa = Parameter(3);
+theta = Xr(3);
+ui = LINEMODEL(:,5:6);
+ri = LINEMODEL(:,7)';
+
+% Step 1 - translate and rotate data points
+% Sensor values to Cartesian coordinates (sensor coordinates)
+x = r.*cos(alfa);
+y = r.*sin(alfa);
+
+% Sensor coordinates to robot coordinates
+R  = [cos(Sa) -sin(Sa) Sx; sin(Sa) cos(Sa) Sy; 0 0 1];
+Xs = R * [x; y; ones(1,size(x,2))];
+
+% Robot coordinates to world coordinates
+R  = [cos(theta) -sin(theta) Xr(1); sin(theta) cos(theta) Xr(2); 0 0 1];
+Xw = R * Xs;
+
+
+
+% Step 2 - Find the target for data points
+vi = Xw(1:2, :);
+
+
+% plot matching result every time
+if dynamic_showing
+    figure(fig);plot_line_segments(REF, LINES, 1);
+    hold on; plot(vi(1,:), vi(2,:), 'x'); hold off;
+    pause(1);
+end
+
+
+
+n = 1;
+for k1 = 1:size(vi,2)
+    for k2 = 1:size(ri,2)
+        vertical_distance = ri(k2)-dot(ui(k2,:), vi(:,k1)');
+        Distance1 = sqrt((vi(1,k1)-LINEMODEL(k2,1))^2+(vi(2,k1)-LINEMODEL(k2,2))^2);
+        Distance2 = sqrt((vi(1,k1)-LINEMODEL(k2,3))^2+(vi(2,k1)-LINEMODEL(k2,4))^2);
+        Long_dis = max(Distance1,Distance2);
+        Line_length = sqrt((LINEMODEL(k2,1)-LINEMODEL(k2,3))^2+(LINEMODEL(k2,2)-LINEMODEL(k2,4))^2);
+        if (Long_dis^2 - vertical_distance^2) < Line_length^2
+            y_dis(k2) = vertical_distance;
+        else if vertical_distance > 0
+                y_dis(k2) = min(Distance1,Distance2);
+            else
+                y_dis(k2) = -min(Distance1,Distance2);
+            end
+        end
+    end    
+        [Distance Line_num] = min(abs(y_dis));
+    if Distance < Dis_threshold;
+        target(1,n) = y_dis(Line_num);
+        target(2,n) = Line_num;
+        v_temp(1,n) = vi(1,k1);
+        v_temp(2,n) = vi(2,k1);
+        n = n + 1;
+    end
+    clear y_dis;
+end
+
+clear n;
+clear vi;
+vi = v_temp;
+clear v_temp;
+
+
+% plot matching result every time
+if dynamic_showing
+    figure(fig); plot_line_segments(REF, LINES, 1);
+    hold on; plot(vi(1,:), vi(2,:), 'x'); hold off;
+    pause(0.1);
+end
+
+
+
+% Step 3 - Set up linear equation system
+yi = target(1,:)';
+vm = [mean(vi(1,:));mean(vi(2,:))];
+for k = 1:size(vi,2)
+    xi1(k,1) = ui(target(2,k),1);
+    xi2(k,1) = ui(target(2,k),2);
+    xi3(k,1) = ui(target(2,k),:)*[0 -1; 1 0]*(vi(:,k)-vm);
+end
+A = [xi1 xi2 xi3];
+B = inv(A'*A)*A'*yi;
+
+% Calculate the variance
+S2 = (yi-A*B)'*(yi-A*B)/(size(A,1)-4);
+
+
+% Step 4 - Add latest contribution to the overall congruence
+ddx = ddx + B(1,1);
+ddy = ddy + B(2,1);
+dda = dda + B(3,1);
+
+Xr(1) = Xr(1) + B(1,1);
+Xr(2) = Xr(2) + B(2,1);
+Xr(3) = Xr(3) + B(3,1);
+
+
+while ~finished_flag
+    while iteration_count < iteration_time_max
+        if ((sqrt(B(1,1)^2 + B(2,1)^2) < 5 ) && (abs(B(3,1)) < 0.1*pi/180)) && S2 < 3500
+            finished_flag = 1;
+            break;
+        else
+
+            % Robot coordinates to world coordinates
+            R  = [cos(Xr(3)) -sin(Xr(3)) Xr(1); sin(Xr(3)) cos(Xr(3)) Xr(2); 0 0 1];
+            Xw = R * Xs;
+
+            vi = Xw(1:2, :);
+            % update imagepoints
+
+
+
+            clear target; clear xi1; clear xi2; clear xi3; clear v_temp;
+
+
+
+            % Step 2 - Find the target for data points
+            % vi = Xw(1:2, :);
+
+            n = 1;
+            for k1 = 1:size(vi,2)
+                for k2 = 1:size(ri,2)
+                    vertical_distance = ri(k2)-dot(ui(k2,:), vi(:,k1)');
+                    Distance1 = sqrt((vi(1,k1)-LINEMODEL(k2,1))^2+(vi(2,k1)-LINEMODEL(k2,2))^2);
+                    Distance2 = sqrt((vi(1,k1)-LINEMODEL(k2,3))^2+(vi(2,k1)-LINEMODEL(k2,4))^2);
+                    Long_dis = max(Distance1,Distance2);
+                    Line_length = sqrt((LINEMODEL(k2,1)-LINEMODEL(k2,3))^2+(LINEMODEL(k2,2)-LINEMODEL(k2,4))^2);
+                    if (Long_dis^2 - vertical_distance^2) < Line_length^2
+                        y_dis(k2) = vertical_distance;
+                    else if vertical_distance > 0
+                            y_dis(k2) = min(Distance1,Distance2);
+                        else
+                            y_dis(k2) = -min(Distance1,Distance2);
+                        end
+                    end
+                end    
+                [Distance Line_num] = min(abs(y_dis));
+                if Distance < Dis_threshold;
+                    target(1,n) = y_dis(Line_num);
+                    target(2,n) = Line_num;
+                    v_temp(1,n) = vi(1,k1);
+                    v_temp(2,n) = vi(2,k1);
+                    n = n + 1;
+                end
+                clear y_dis;
+            end
+
+            if n==1
+                no_sample_flag = 1;
+                break;
+            end
+
+            clear vi;
+            vi = v_temp;
+
+            % plot matching result every time
+            if dynamic_showing
+                figure(fig); plot_line_segments(REF, LINES, 1);
+                hold on; plot(vi(1,:), vi(2,:), 'x'); hold off;
+                pause(0.1);
+            end
+
+            % Step 3 - Set up linear equation system
+            yi = target(1,:)';
+            vm = [mean(vi(1,:));mean(vi(2,:))];
+            for k = 1:size(vi,2)
+                xi1(k,1) = ui(target(2,k),1);
+                xi2(k,1) = ui(target(2,k),2);
+                xi3(k,1) = ui(target(2,k),:)*[0 -1; 1 0]*(vi(:,k)-vm);
+            end
+            A = [xi1 xi2 xi3];
+            B = inv(A'*A)*A'*yi;
+
+            % Calculate the variance
+            S2 = (yi-A*B)'*(yi-A*B)/(size(A,1)-4);
+
+
+            % Step 4 - Add latest contribution to the overall congruence
+            ddx = ddx + B(1,1);
+            ddy = ddy + B(2,1);
+            dda = dda + B(3,1);
+
+            Xr(1) = Xr(1) + B(1,1);
+            Xr(2) = Xr(2) + B(2,1);
+            Xr(3) = Xr(3) + B(3,1);
+
+            iteration_count = iteration_count + 1;
+        end
+
+    end
+    if ~finished_flag 
+        Dis_threshold = Dis_threshold - 20;
+        iteration_count = 0;
+    end
+    if Dis_threshold < Dis_threshold_min
+        disp('Failed to match!');
+        break;
+    end
+end
+
+if ~dynamic_showing
+    figure(fig); plot_line_segments(REF, LINES, 1);
+    hold on; plot(vi(1,:), vi(2,:), 'x'); hold off;
+end
+
+dx = ddx;
+dy = ddy;
+da = dda;
+C  = S2*inv(A'*A);
+if no_sample_flag
+    final_sample_quantity = 0;
+    disp('All samples are eliminated! Failed!');
+    finished_flag = 0;
+else
+    final_sample_quantity = size(vi,2);
+end
+
+
+if ~finished_flag
+    C = [100^2 0 0 ; 0 100^2 0 ; 0 0 (3*pi/180)^2];
+else
+    disp('Matched sucessfully!');
+end
+
+end

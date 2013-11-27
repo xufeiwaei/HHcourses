@@ -1,0 +1,15 @@
+Description:
+In the first part of this video, the key points of the accompanying paper are stressed.
+In the second part, our Segway RMP platform is shown as it navigates in real-time through a large and cluttered indoor environment. 
+The navigation approach employed is the "single area" 4D planner presented in the accompanying paper.
+For a higher quality version of the video, please contact the author.
+
+Player Information:
+vlc media player, mplayer, ... No additional codecs required.
+
+Contact Information:
+martin dot rufli at mavt dot ethz dot ch.
+
+
+
+Attachment filename: 0850_VI.mp4 (5006650 Bytes)
