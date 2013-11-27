@@ -1,0 +1,20 @@
+A = [1,-2.9172,0.9048,0];
+B = [0,1.115,-2.23,1.115];
+R = [1,-2.191611659843037,1.174471268501992];
+S = [2.399126574105173,-0.815918501363259,-1.533614335334607e-2];
+T = nan;
+Rf = 1;
+Sf = 1;
+degT = 0;
+w = [];
+stdev = 0;
+_plots = 'Closed-Loop Poles\tSensitivity Sy\nStep Response y/r\tSensitivity Su';
+_plotprops = [270336,zeros(1,4)
+262144,zeros(1,4)
+262144,zeros(1,4)
+262144,zeros(1,4)];
+_plot3d = [];
+_plotparam = {[], ...
+[], ...
+[], ...
+[]};

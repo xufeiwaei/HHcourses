@@ -1,0 +1,289 @@
+title "Pole-placement design"
+
+variable A, B        // model
+variable R, S, T     // controller
+variable Rf, Sf      // fixed parts of the controller (e.g. Rf = [1,-1] for an integrator)
+variable degT        // degree of T polynomial 
+variable w		  // [] or frequency displayed in frequency and zero/pole plots
+
+init (A,B,R,S,T,Rf,Sf,degT,w) = init
+
+figure "Closed-Loop Poles"
+	draw drawPoles(A,B,R,S,w)
+	mousedrag (R,S,T,_msg) = dragPoles(A,B,R,S,T,Rf,Sf,_id,_nb,_z0,_z1)
+	mouseover (_msg, _cursor) = overCLPoles(_z0)
+
+figure "T zeros"
+	draw drawZeros(A,B,R,S,T,w)
+	mousedrag (T,_msg) = dragZeros(A,B,R,S,T,_id,_z0,_z1)
+	mouseover (_msg, _cursor) = overCLPoles(_z0)
+
+separator
+
+figure "Sensitivity Sy"
+	draw drawSensy(A,B,R,S,w)
+	mouseover (_msg, w) = overW(_x)
+	mouseout w = emptyW
+
+figure "Sensitivity Su"
+	draw drawSensu(A,B,R,S,w)
+	mouseover (_msg, w) = overW(_x)
+	mouseout w = emptyW
+
+figure "Step Response y/r"
+	draw drawStepRY(A,B,R,S,T)
+	mouseover _msg = overT(_x)
+
+figure "Step Response u/r"
+	draw drawStepRU(A,B,R,S,T)
+	mouseover _msg = overT(_x)
+
+figure "Nyquist curve"
+     draw drawNyquist(A,B,R,S)
+     mouseover (_msg, _cursor) = overNyquist(_id, _q)
+
+menu "System" (A,B,R,S,T) = editSystem(A,B,Rf,Sf,T)
+
+separator
+
+menu "Fixed factor Rf" (R,S,T,Rf) = menuRf(A,B,R,S,T,Rf,Sf)
+menu "Fixed factor Sf" (R,S,T,Sf) = menuSf(A,B,R,S,T,Rf,Sf)
+menu "Degree of T polynomial" (T,degT) = menuTf(A,B,R,S,T,Rf,Sf,degT)
+
+functions
+{@
+
+function (A,B,R,S,T,Rf,Sf,degT,w) = init
+
+	% integrator model
+    A = [1, -0.5];	
+    B = [0, 0.5];
+	
+	% fixed parts of the controller: integrator
+	Rf = 1;
+	Sf = 1;
+     degT = 0;
+     T=1;
+	(R,S,T) = newController(A,B,Rf,Sf,T);
+    w= [];
+    
+	% initial plots	
+	subplots('Closed-Loop Poles\tSensitivity Sy\nStep Response y/r\tSensitivity Su');
+
+
+function (A,B,R,S,T) = editSystem(A,B,Rf,Sf,T)
+	(ok, B, A) = dialog('[B],[A] coefficients in backward-shift', B, A);
+	if ~ok, cancel; end;
+	if size(A, 1) ~=  size(B, 1)
+		dialog('A and B must have the same number of lines.');
+		cancel;
+	end
+	(R,S,T) = newController(A,B,Rf,Sf,T);
+	
+
+function (R,S,T) = newController(A,B,Rf,Sf,T) 
+	
+	A1 = conv(A, Rf, 2);
+	B1 = conv(B, Sf, 2);
+     rA = roots(A(1,:));
+     for k=1:length(rA),
+         if abs(rA(k))>1,
+             rA(k) = 1/rA(k); 
+         elseif abs(rA(k))==1,
+             rA(k) = 0.9;
+         end
+     end 
+     Ac = poly(rA); % choose open-loop pole-placement with unstable poles projected inside
+	(R1, S1) = peq(A1(1,:) , B1(1,:), Ac);
+	R = conv(R1,Rf);
+	S = conv(S1,Sf);
+	T = scaleT(A,B,R,S,T);
+
+function T = scaleT(A,B,R,S,T) 
+     Ac = add(conv(A(1,:),R),conv(B(1,:),S));
+     T = T*sum(Ac)/(sum(B(1,:)*sum(T)));
+
+function (sum)=add(A,B)
+	% Sum of the polynomials represented in backward shift operator
+	n=max([size(A,2) size(B,2)]);
+	A=[A,zeros(size(A,1),n-size(A,2))];
+	B=[B,zeros(size(B,1),n-size(B,2))];
+	sum=A+B;
+
+function (X,Y) = peq(A, B, C)
+     %(X,Y) = peq(A, B, C)    Polynomial equation AX + BY  =C
+	%
+	% Polynomials in increasing powers; e.g. A(z)=1+az : A = [1 a]
+	% The solution is chosen such that
+	%    deg X = deg B -1
+	%    deg Y = max(deg C - deg B, deg A - 1)
+	nA = length(A);
+	nB = length(B);
+	nC = length(C);
+	nX = nB-1;
+	nY = max(nC-nB + 1, nA - 1);
+	n  = max(nA + nX, nB + nY) - 1; % number of equations
+	AA = zeros(n,nX);
+	for k=1:nX,
+		AA(:,k) = [zeros(k-1,1); A(1:min(n-k+1,nA))'; zeros(n-k+1-nA,1)];
+	end;
+	BB = zeros(n,nY);
+	for k=1:nY,
+		BB(:,k) = [zeros(k-1,1); B(1:min(n-k+1,nB))'; zeros(n-k+1-nB,1)];
+	end;
+	CC = [C'; zeros(n-nC,1)];
+	XY = [AA BB]\CC;
+	X  = XY(1:nX)';
+	Y  = XY(nX+1:n)';
+
+function (R,S,T,msg) = dragPoles(A,B,R,S,T,Rf,Sf,id,nb,z0,z1)
+
+	if isempty(id)
+		cancel
+	end
+	Ac = add(conv(A(nb,:),R,2),conv(B(nb,:),S,2));
+	(C, zz) = movezero(Ac, z0, z1);
+	(R1, S1) = peq(conv(A(nb,:),Rf), conv(B(nb,:),Sf), C);
+	R = conv(R1, Rf);
+	S = conv(S1, Sf);
+	T = T*sum(C)/(sum(T)*sum(B(nb,:)));
+	msg = dispComplex('Closed-loop pole: ', zz);
+
+function (T,msg) = dragZeros(A,B,R,S,T,id,z0,z1)
+	
+	if isempty(id)
+		cancel
+	end
+	(T, zz) = movezero(T, z0, z1);
+	T = scaleT(A,B,R,S,T);
+	msg = dispComplex('Zero: ', zz);
+
+function msg = dispComplex(s, z)
+	
+	if imag(z) == 0
+		msg = sprintf('%s%.2g', s, z);
+	elseif imag(z) > 0
+		msg = sprintf('%s%.2g+%.2gj', s, real(z), imag(z));
+	else
+		msg = sprintf('%s%.2g%.2gj', s, real(z), imag(z));
+	end
+
+function (msg, cursor) = overCLPoles(z)
+	
+	if isempty(z)
+		cancel;
+	end
+	cursor = true;
+	msg = dispComplex('Closed-loop pole: ', z);
+
+function drawPoles(A,B,R,S,w)	
+	scale('equal',[-1.1,1.1,-1.1,1.1]);
+	zgrid;
+	plotroots(add(conv(A,R,2), conv(B,S,2)), 'rxbxgx',1);
+	if ~isempty(w)
+		zgrid([],w,'m');
+	end
+	
+function drawZeros(A,B,R,S,T,w)	
+	scale('equal',[-1.1,1.1,-1.1,1.1]);
+	zgrid;
+	plotroots(add(conv(A,R,2), conv(B,S,2)), 'rxbxgx');
+	plotroots(T, 'ro',1);
+	if ~isempty(w)
+		zgrid([],w,'m');
+	end
+
+function drawSensy(A,B,R,S,w)
+	
+	num = conv(A,R,2);
+	den = add(num, conv(B,S,2));
+	dbodemag(num, den, 1, 'rbg');
+	if ~isempty(w)
+		line([1,0],w,'m');
+	end
+
+function drawSensu(A,B,R,S,w)
+	
+	num = -conv(A,S,2);
+	den = add(conv(A,R,2),conv(B,S,2));
+	dbodemag(num, den, 1, 'rbg');
+	if ~isempty(w)
+		line([1,0],w,'m');
+	end
+
+function drawStepRY(A,B,R,S,T)
+	tmax=20;
+	scale([0,tmax]);
+	Ac = add(conv(B,S,2), conv(A,R,2));
+	tt = [0:tmax-1];
+    r = ones(1,tmax);
+    n = size(A,1);
+    y = zeros(n,tmax);
+    for k=1:n,
+        y(k,:) = filter(conv(T,B(k,:)),Ac(k,:),r);
+    end;
+    plot(tt,y,'rbg');
+    plot(tt,r,'c');
+
+function drawStepRU(A,B,R,S,T)
+	tmax=20;
+	scale([0,tmax]);
+	scale([0,tmax]);
+	Ac = add(conv(B,S,2), conv(A,R,2));
+	tt = [0:tmax-1];
+    r = ones(1,tmax);
+    n = size(A,1);
+    color = 'rbg';
+   for k=1:n,
+        u = filter(conv(T,A(k,:)),Ac(k,:),r);
+        plot(tt,u,color(k));
+    end;
+
+function (msg, w) = overW(x)
+
+	msg = sprintf('w = %g', x);
+	if x >= 0 & x <= pi
+		w = x;
+	else
+		w = [];
+	end
+
+function msg = overT(x)
+	
+	msg = sprintf('t = %g', x);
+
+
+function (R,S,T,Rf) = menuRf(A,B,R,S,T,Rf,Sf)
+    Rf = dialog('Fixed factor Rf',Rf);
+    (R,S,T) = newController(A,B,Rf,Sf,T);
+   
+function (R,S,T,Sf) = menuSf(A,B,R,S,T,Rf,Sf)
+    Sf = dialog('Fixed factor Sf',Sf);
+    (R,S,T) = newController(A,B,Rf,Sf,T);
+
+function (T,degT) = menuTf(A,B,R,S,T,Rf,Sf,degT)
+    degT = dialog('degree of T polynomial',degT);
+    degTold=size(T,2)-1;
+    if degT>degTold, T=[T, zeros(1,degT-degTold)]; else T=[1, zeros(1,degT)]; end;
+    T = scaleT(A,B,R,S,T);
+    
+function w = emptyW
+    
+    w = [];
+
+function drawNyquist(A,B,R,S)
+	N = conv2(B,S);
+	D = conv2(A,R);
+	scale equal;
+	hgrid;
+	dnyquist(N,D,'rbg', 1);
+
+function (msg, cursor) = overNyquist(id, q)
+	
+	if isempty(id)
+		cancel;
+	end
+	cursor = true;
+	msg = sprintf('w = %g', q); 
+
+@}

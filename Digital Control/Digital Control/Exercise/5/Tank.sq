@@ -1,0 +1,244 @@
+title "Tank control"
+
+variable y     // tank water level
+variable u0    // manual control signal
+variable r     // reference
+variable K, Ti    // PI control parameters
+variable Twin  // Time window for plotting
+variable aw    // antiwindup
+variable valve // open or close valve to enter disturbance
+variable control
+
+init (u0, y, r, K, Ti, control, Twin, aw, valve) = init
+idle y = idleHandle(u0, y, r, K, Ti, control, aw, valve)
+
+figure "Tank"
+	draw drawTank(y, r, valve)
+	mousedragcont (r, valve) = dragTank(r, valve, _id, _nb, _ix, _y1)
+	mouseover _cursor = overTank(_id)
+
+figure "Controls"
+	draw drawControl(u0, K, Ti, control, aw)
+	mousedrag (u0, K, Ti, control, aw)	= dragControl(u0, K, Ti, control, aw, _id, _x1)
+
+figure "Signals"
+	draw drawSignals(Twin)
+
+
+functions
+{@
+
+function (u0, y, r, K, Ti, control, Twin, aw, valve) = init
+     global data
+     global samples
+     data=zeros(1000,3);
+     samples=zeros(100,4);
+     y = 250;
+     lastTime = getTime;
+     u0 = 10;
+     r = 110;
+     K = 1;
+     Ti = 1;
+     control = 1; % P control
+     Twin = 20;
+     aw = 1; % antiwindup
+     valve = 0;
+  	subplots('Controls\tTank\nSignals');			% initial plots
+
+function drawControl(u0, K, Ti, control, aw)
+
+   if control==1,
+      settabs('Controller:   \t P           \t PI          \t PI, T scalar');
+      button(sprintf('Controller: \tP\tPI\tPI (T scalar)', control), control, 'radiobutton','',4);
+      settabs('u0=0000000\t');
+      slider(sprintf('u0=%g', u0), u0, [0, 40], '-', 'r', 1);
+ 	 slider(sprintf('K=%g', K), K, [0, 3], '-', 'b', 2);
+   elseif control==2,
+      settabs('Controller:   \t P           \t PI          \t PI, T scalar');
+      button(sprintf('Controller: \tP\tPI\tPI (T scalar)', control), control, 'radiobutton','',4);
+      button(sprintf('Antiwindup: \t ', aw), aw, 'checkbox', 'b', 5);
+      text('Controller gain and zero');
+      settabs('K=????\t');
+      slider(sprintf('K=%.2g', K), K, [0, 3], '-', 'b', 2);
+      slider(sprintf('Ti=%.2g', Ti), Ti, [0.1, 3], '-', 'b', 3);   
+   else
+      settabs('Controller:   \t P           \t PI          \t PI, T scalar');
+      button(sprintf('Controller: \tP\tPI\tPI (T scalar)', control), control, 'radiobutton','',4);
+      button(sprintf('Antiwindup: \t ', aw), aw, 'checkbox', 'b', 5);
+      text('Controller gain and zero');
+      settabs('K=????\t');
+      slider(sprintf('K=%.2g', K), K, [0, 3], '-', 'b', 2);
+      slider(sprintf('Ti=%.2g', Ti), Ti, [0.1, 3], '-', 'b', 3);
+   end
+
+function (u0, K, Ti, control, aw) = dragControl(u0, K, Ti, control, aw, id, x1)
+   if isempty(id)
+       cancel;
+   end
+   switch id
+       case 1
+            u0 = x1;
+       case 2
+            K = x1;
+       case 3
+            Ti = x1;
+       case 4
+            control = x1;
+       case 5
+            aw = x1;
+    end
+
+function drawTank(y, r, valve)
+
+   	rects = [100,50,400,50+y];	// for each row i, rectangular wall defined by [x1,y1,x2,y2]
+	scale('equal', [0, 500, 0, 500]);
+    plotoption noframe;
+	plot(rects(:,[1,3,3,1,1]), rects(:,[2,2,4,4,2]), 'cf');
+    plot([100,100,400,400],[450,50,50,450],'k');
+    plot([0,250,250],[480,480,450],'c');
+    if valve==1,
+         plot([240,240,260,260],[50,0,0,50],'cf'); % valve fully opened
+         plot([260,280],[20,20],'r');
+         circle(300,20,20,'rf', 2);  
+    else
+         plot([250,250],[50,0],'c');
+         plot([250,270],[20,20],'r');
+         circle(290,20,20,'rf', 2);  
+    end;
+    if rects(1,4)>450,
+         font=fontset('Font','Times','Bold',true,'Size',18,'Color',[1,0,0]);
+         text(250,250,'OVERFLOW',font);
+     end
+    plot(400,r+50,'.w',1);
+    plot([400,450],r*[1,1]+50,'r');
+    plot([420,400,420],[r+20,r,r-20]+50,'r');
+
+function (r, valve) = dragTank(r, valve, id, nb, ix, y1)
+
+	if isempty(id)
+		cancel;
+	end
+	switch id
+         case 1
+              r = max(min(y1 -50,401),0);
+         case 2
+              if valve==0, valve=1; else valve=0; end;
+	end
+
+function cursor = overTank(id)
+	
+	cursor = ~isempty(id);
+
+function t = getTime
+	
+	t = clock * [0; 0; 0; 3600; 60; 1];
+
+function Xp = f(t, X, p)
+     u = p(1); valve = p(2);
+     if valve==0, alpha = 1; else alpha = 4; end;
+     beta = 1;
+     Xp = beta*u - alpha*sqrt(max(X,0));
+
+function y = idleHandle(u0, y, r, K, Ti, control, aw, valve)
+    persistent lastTime X1 tsamp u
+    persistent u_o y_o r_o
+    global data
+    global samples    
+	
+    s0 = K*(1+1/Ti);  % Backward-difference approximation of PI controller
+    s1 = -K;
+    if control==3,
+    	t0 = s0 + s1; % T=S(1) scalar
+    	t1 = 0;       % no zero from reference response
+    else            
+    	t0 = s0; 
+    	t1 = s1;      % one-degree-of-freedom structure T=S
+    end
+
+	if isempty(X1), X1=250; end
+
+    t = getTime;
+    
+    % Initialisation of sampling
+    Ts = 1; % sampling period
+    if isempty(tsamp), 
+    	tsamp=t; 
+    	lastTime = t-1e-2;
+    	u=10;  
+    	u_o = 10;
+    	y_o=X1; 
+    	r_o=X1;
+    end
+    
+	dT = t - lastTime;
+	lastTime = t;
+
+     % Process dynamics simulation
+     (tsim, X) = ode45(@f, [t-dT,t], X1, [], [u, valve]);
+     X1 = max(min(X(end,:)',401), 0);
+     y = X1;
+
+     % Discrete-time controller
+     if t>tsamp+Ts, 
+         tsamp=t; % sampling time
+
+         if control==1,
+         	u = u0 + K*(r-y); % P-controller with off-set u0
+         else
+         	u = u_o - s0*y - s1*y_o + t0*r + t1*r_o; % Integrating controller
+         end 
+          
+         if aw, u = max(min(u,100),0); end % limitation
+    
+         u_o = u;
+         y_o = y;
+         r_o = r;
+       
+         u = max(min(u,100),0);
+         
+         samples(1:99,:)=samples(2:100,:);
+         samples(100,:)=[tsamp,u,y,r];        % discrete-time signals
+     end;     
+
+     data(1:999,:)=data(2:1000,:);data(1000,:)=[t, u, y]; % continuous-time signals
+ 
+     % Process dynamics    
+%     if valve==0, alpha = 1; else alpha = 4; end;
+%     beta = 1;
+%     y = max(min(y + dT*(beta*u - alpha*sqrt(y)),401),0);
+
+function drawSignals(Twin)
+     global data
+     global samples
+     if nargin==0, Twin=10; end;
+
+     k=find(data(:,1)>data(end,1)-Twin);
+     plot(data(k,1)',data(k,2:3)','br');
+     ks=find(samples(:,1)>samples(end,1)-Twin);
+     plot(samples(ks,1)',samples(ks,2:4)','boroko');
+
+@}
+
+data
+{@
+_plots = 'Controls\nSignals\n\nTank';
+_plotprops = [294912,zeros(1,4)
+262144,zeros(1,4)
+360448,zeros(1,4)
+294912,zeros(1,4)];
+_plotpos = [0,31.25,0,23.75
+0,31.25,23.75,47.5
+31.25,62.5,23.75,47.5
+27,65,3.5,45.5];
+_plotsize = [63.375,48.375];
+_plotspring = [0.5*ones(1,6)
+0.5*ones(1,6)
+0.5*ones(1,6)
+0.5*ones(1,6)];
+_plotparam = {[], ...
+[], ...
+[], ...
+[]};
+
+@}
+

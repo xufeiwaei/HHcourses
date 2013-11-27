@@ -1,0 +1,150 @@
+define down = _auto
+define up = _auto
+
+variable r, X1
+variable Twin // Time window for plotting
+variable config  // choose up or down
+variable contr
+
+
+init (r, X1, Twin, config, contr) = init
+
+idle (r, X1, config) = Simulation(r, X1, config, contr)
+
+menu "Closed Loop" _checkmark(contr) contr = not(contr)
+
+figure "Pendulum motion"
+    draw drawit(r, X1)
+    mousedragcont (r, X1) = dragit(r, X1, _z1, _id)
+
+figure "Signals"
+	draw drawSignals(Twin)
+
+functions
+{@
+function (r, X1, Twin, config, contr) = init
+
+	X1=zeros(4,1); 
+    r = 0;
+    Twin = 100;
+ 	config = down;
+	contr = false;
+
+    global data
+    global samples
+    data=zeros(1000,4);
+    samples=zeros(100,5);
+	
+    subplots('Pendulum motion\nSignals');			% initial plots
+
+function t = getTime
+	
+	t = clock * [0; 0; 0; 3600; 60; 1];
+
+function drawit(r, X1)
+
+	y = X1(3);
+	theta=X1(1);
+	plot(r, 0, 'ko', 1);
+	plot(y, 0, 'ro')
+    line([0,1],0,'c');
+    plot([y, y+sin(theta)], [0, -cos(theta)], 'r');
+    plot(y + sin(theta),-cos(theta),'.', 2);
+	scale('equal',[-3, 3, -1 1]);
+
+function (r, X1) = dragit(r, X1, z1, id)
+
+    if isempty(id)
+    	cancel;
+    end
+    y = X1(3);
+    switch id
+		case 1
+       		r = real(z1);    
+		case 2
+			X1(1) = atan2(real(z1-y),-imag(z1));
+			X1(2) = 0;
+	end
+
+
+function Xp = f(t, X, u)
+   % X = [theta; dtheta; h, x4], 
+   % x4= 1/(Ts+1) u=> sx4= s/(Ts+1) u Å su Å accereration
+   gl = 0.982; d=0.1; T1=0.1;
+   a = 1/T1*(u - X(4));
+   Xp= [X(2); -gl*sin(X(1)) - d*X(2) - a*cos(X(1)); u; a];
+
+function drawSignals(Twin)
+     global data
+     global samples
+     if nargin==0, Twin=10; end;
+
+     k=find(data(:,1)>data(end,1)-Twin);
+     plot(data(k,1)',data(k,2:4)','brg');
+     ks=find(samples(:,1)>samples(end,1)-Twin);
+     plot(samples(ks,1)',samples(ks,2:5)','borokogo');
+
+
+function (r, X1, config) = Simulation(r, X1, config, contr)
+
+    persistent lastTime tsamp u 
+    persistent u_o y_o r_o
+    global data samples    
+   
+    t = getTime;
+
+     % Initialisation of sampling
+     Ts = 1; % sampling period
+     if isempty(tsamp), 
+         tsamp=t; 
+         lastTime=t-1e-2; 
+         u=0; 
+         u_o = zeros(2,1); 
+         y_o = 0; 
+         r_o = 0;
+      end 
+
+	dT = t - lastTime;
+	lastTime = t;
+
+
+     % Process dynamics simulation
+     (tsim, X) = ode45(@f, [t-dT,t], X1, [], u);
+     X1 = X(end,:)';
+     x = X1(3); % position
+     y = X1(1); % angle theta
+     if config == up, y = y - pi; end
+     y = mod(y + pi,2*pi) - pi;  % angle in (-pi, pi)
+     if abs(y)>pi/2,
+        if config == down, config = up; else config = down; end;
+     end
+    
+     % Discrete-time controller
+     if t>tsamp+Ts, 
+         tsamp=t; % update sampling time
+
+         if contr, 
+           if config == down,
+% Edit next line to implement your controller for down-control
+			  v = 0.1283*r + (0.37968)*y + (-0.053776)*samples(100,3) + (-0.10716)*samples(99,3) + (1.2052)*x + (-0.33352)*samples(100,5);  % ...difference equation for controller
+           elseif config == up,
+% Edit next line for inverted pendulum control 
+              v = -0.081768*r + (0.064628)*r_o + (-2.3991)*y + (0.81592)*samples(100,3) + (0.015336)*samples(99,3) + (2.1916)*x + (-1.1745)*samples(100,5);  % ...difference equation for controller
+           end
+         else
+            v = r;
+         end
+         
+         u  = v - x;  % local feedback !!!!!!!!!
+         u  = max(min(u,2),-2);
+         
+         u_o(2) = u_o(1); % memorize old signals
+         u_o(1) = u;
+         y_o = y;
+         r_o = r;
+
+         samples(1:99,:)=samples(2:100,:);
+         samples(100,:)=[tsamp, u, y, r, x];        % discrete-time signals
+     end
+     data(1:999,:)=data(2:1000,:);data(1000,:)=[t, u, y, x]; % continuous-time signals
+@}

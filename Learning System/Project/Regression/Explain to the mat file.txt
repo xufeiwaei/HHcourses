@@ -1,0 +1,5 @@
+ModelcommitteResult.mat is the result of the model that combined with Linear,PLS and MLP together.
+NNcommitteResult.mat is the result of the model that combined with 3 MLP models together.
+LinearResult.mat is the result of the Linear regression model.
+PLSresult.mat is the result of the PLS regression model.
+MLPresult.mat is the result of the MLP model.

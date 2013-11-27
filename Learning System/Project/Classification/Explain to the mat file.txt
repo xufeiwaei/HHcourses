@@ -1,0 +1,4 @@
+CommitteResult.mat is the result of the model combined KNN with MLP
+KNNresult.mat is the result of the KNN model
+MLPresult.mat is the result of the MLP model
+FI.mat is Fisher Index

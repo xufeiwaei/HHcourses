@@ -1,0 +1,91 @@
+// Poles - zeros positions and their influence on the step response of
+// a discrete-time system with 3 poles and zeros
+
+variable A,B	// discrete-time model(s), given by the user or computed
+				// from Ac, Bc and Ts
+
+init (A,B) = init
+
+figure "Step Response"
+	draw drawStep(A,B)
+	mouseover _msg = overT(_x)
+
+figure "Zeros/Poles"
+	draw drawZerosPoles(A,B)
+	mousedrag (A,B) = dragZerosPoles(A,B,_id,_z0,_z1)
+	mouseover (_msg, _cursor) = overZeroPole(_id,_z0)
+
+functions
+{@
+
+function (A,B) = init
+
+	A = [1, 0, 0, 0];
+	B = [1, 0, 0, 0];
+	subplots('Zeros/Poles\tStep Response');
+
+function drawZerosPoles(A,B)
+	
+	scale('equal',[-1.2,1.2,-1.2,1.2]);
+	zgrid;
+	plotroots(A, 'rx', 1);
+	plotroots(B, 'bo', 2);
+
+
+function (A,B) = dragZerosPoles(A,B,id,z0,z1)
+	
+	if isempty(id)
+		cancel;
+	end
+	switch id
+		case 1	% pole 
+			A = movezero(A, z0, z1);
+		case 2	% zero 
+			B = movezero(B, z0, z1);
+	end
+	B = B*sum(A)/sum(B);
+
+
+function msg = dispComplex(s, z)
+	
+	if imag(z) == 0
+		msg = sprintf('%s%.2g', s, z);
+	elseif imag(z) > 0
+		msg = sprintf('%s%.2g+%.2gj', s, real(z), imag(z));
+	else
+		msg = sprintf('%s%.2g%.2gj', s, real(z), imag(z));
+	end
+
+
+function (msg, cursor) = overZeroPole(id, z)
+	
+	if isempty(z)
+		cancel;
+	end
+		if isempty(id)
+		cancel;
+	end
+	cursor = true;
+	switch id
+		case 1 % pole
+			msg = dispComplex('Pole: ', z);
+		case 2 % zero
+			msg = dispComplex('Zero: ', z);
+	end
+	
+
+function drawStep(A,B)
+
+	u = ones(1,50);
+	t = (0:length(u)-1);
+	y = filter(B, A, u);
+	plot(t, y, 'b');
+	plot(t, y, 'ro');
+
+
+function msg = overT(x)
+	
+	msg = sprintf('t = %g', x);
+
+
+@}

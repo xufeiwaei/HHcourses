@@ -1,0 +1,10 @@
+clear all; close all;
+k=(1:200);
+u=[0,0,0,0,0,cos(0.1*k)];
+y=filter(0.2,[1,-1,0.5,0,0,0],u);
+figure;plot(y(1:200),'r','LineWidth',2);hold on;
+z=exp(-0.1*i);
+G=0.2*z^5/(1-z+0.5*z^2);
+ya=abs(G)*cos(0.1*k+angle(G));
+plot(ya(1:200),'bo');
+legend('y(k)','ya(k)');

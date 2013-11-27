@@ -1,0 +1,173 @@
+define Linear = _auto
+define Rotate = _auto
+define Manual = _auto
+define Automatic = _auto
+
+variable y, r
+variable Twin // Time window for plotting
+variable motion // Choose between Linear och Rotational motion
+variable setpoint
+variable R, S, T
+
+init (y, r, Twin, motion, setpoint, R, S, T) = init
+
+idle (y, r) = Simulation(r, setpoint, R, S, T)
+
+menu "Linear Motion" _checkmark(motion == Linear) motion = Linear
+menu "Rotational Motion" _checkmark(motion == Rotate) motion = Rotate
+menu "Manual Setpoint"   _checkmark(setpoint == Manual) setpoint = Manual
+menu "Setpoint Generation"   _checkmark(setpoint == Automatic) setpoint = Automatic
+
+separator
+
+menu "Controller" (R, S, T) = menuRST(R, S, T)
+
+figure "Linear motion"
+    draw drawit(y, r, motion)
+    mousedrag (r, setpoint) = dragit(r, motion, _z1)
+
+figure "Signals"
+	draw drawSignals(Twin)
+
+functions
+{@
+function (y, r, Twin, motion, setpoint, R, S, T) = init
+
+    y = 0;
+    r = 0;
+    Twin = 100;
+    motion = Linear;
+    setpoint = Manual; 
+ 
+    global data
+    global samples
+    data=zeros(1000,3);
+    samples=zeros(100,4);
+    
+    R = 1;
+    S = 0; 
+    T = 1;
+	
+    subplots('Linear motion\nSignals');			% initial plots
+
+function t = getTime
+	
+	t = clock * [0; 0; 0; 3600; 60; 1];
+
+function drawit(y, r, motion)
+
+    switch motion
+        case Linear
+            plot(r, 0, 'ko', 1);
+            plot(y, 0, 'ro')
+            scale([-1, 1, -1 1]);
+            title('Linear Motion');
+        case Rotate
+            plot([0 cos(r)],[0 sin(r)],'k',1);
+            plot([0 cos(y)],[0 sin(y)],'r');
+            scale('equal',[-1 1 -1 1]);
+            title('Rotational Motion');
+    end
+
+function (r, setpoint) = dragit(r, motion, z1)
+
+    switch motion
+        if isempty(z1), cancel; end
+        case Linear
+           r = real(z1);    
+        case Rotate
+           r = angle(z1);
+    end
+    setpoint = Manual;
+
+function (R, S, T) = menuRST(R, S, T)
+  (ok, R, S, T) = dialog('R, S, T', R, S, T);
+  if ~ok
+      cancel;
+  end
+
+function (y, r) = Simulation(r, setpoint, R, S, T)
+
+    persistent lastTime X1 tsamp u 
+    persistent u_o y_o r_o
+    persistent ref_o
+    global data samples    
+
+    w1 = 2*pi/20; w2=3*w1; 
+    D1=[1,-2*cos(w1),1]; D2=[1,-2*cos(w2),1]; D=conv(D1,D2);
+
+    if isempty(X1), X1=0; end
+   
+    	t = getTime;
+
+     % Initialisation of sampling
+     Ts = 1; % sampling period
+     if isempty(tsamp), 
+         tsamp=t; 
+         lastTime=t-1e-2; 
+         u=0; 
+         u_o = zeros(length(R)-1,1); 
+         y_o = zeros(length(S)-1,1); 
+         r_o = zeros(length(T)-1,1);
+         ti =[1:4]';
+ 		 ref_o=4/(pi*pi)*cos(w1*ti)+2/(3*pi)^2*cos(w2*ti);
+      end 
+      % Reinitialization if size of R, S or T is changed
+      if length(u_o) ~= length(R)-1, u_o = zeros(length(R)-1,1); end;
+      if length(y_o) ~= length(S)-1, y_o = zeros(length(S)-1,1); end;
+      if length(r_o) ~= length(T)-1, r_o = zeros(length(T)-1,1); end;
+
+	dT = t - lastTime;
+	lastTime = t;
+
+
+     % Process dynamics simulation
+     d = 0.1;
+     (tsim, X) = ode45(@f, [t-dT,t], X1, [], [u,d]);
+     X1 = X(end,:)';
+     y = X1;
+
+     
+     % Discrete-time controller
+     if t>tsamp+Ts, 
+         tsamp=t; % update sampling time
+
+         if setpoint == Automatic,
+             r = -D(2:end)*ref_o;
+             ref_o(2:end) = ref_o(1:end-1); ref_o(1)=r;
+         end
+
+         if length(R)>1, uR = -R(2:end)*u_o; else uR = 0; end;
+         if length(S)>1, uS = -S*[y; y_o]; else uS = -S*y; end;
+         if length(T)>1, uT = T*[r; r_o]; else uT = T*r; end;
+         u  = uR + uS + uT;
+         
+         u_o(2:end) = u_o(1:end-1); 
+         u_o(1) = u;
+         y_o(2:end) = y_o(1:end-1);
+         y_o(1) = y;
+         r_o(2:end) = r_o(1:end-1);
+         r_o(1) = r;
+
+         samples(1:99,:)=samples(2:100,:);
+         samples(100,:)=[tsamp, u, y, r];        % discrete-time signals
+     end
+     data(1:999,:)=data(2:1000,:);data(1000,:)=[t, u, y]; % continuous-time signals
+
+
+function Xp = f(t, X, p)
+     u = p(1); d = p(2);
+     Xp = sign(u)*max(abs(u)-d,0);
+
+function drawSignals(Twin)
+     global data
+     global samples
+     if nargin==0, Twin=10; end;
+
+     k=find(data(:,1)>data(end,1)-Twin);
+%     plot(data(k,1)',data(k,2:4)','brk');
+     plot(data(k,1)',data(k,2:3)','br');
+     ks=find(samples(:,1)>samples(end,1)-Twin);
+     plot(samples(ks,1)',samples(ks,2:4)','boroko');
+
+@}

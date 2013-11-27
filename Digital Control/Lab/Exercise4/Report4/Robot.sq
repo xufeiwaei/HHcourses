@@ -1,0 +1,238 @@
+title "Robot control"
+
+variable X1	        // angle and position of the robot
+variable v, u0      // velocity and angular velocity (control variable)
+variable p         // path (as a complex vector)
+variable Twin // Time window for plotting
+variable control   // manual or automatic mode
+variable K, zc, pc  // controller parameters
+variable Kp, Td     // PD controller parameters
+
+init (X1, v, u0, p, Twin, control, K, zc, pc, Kp, Td) = init
+idle (X1, v, u0) = Simulation(X1, v, u0, p, control, K, zc, pc, Kp, Td)
+
+figure "World"
+	draw drawWorld(X1, p)
+	mousedrag (X1, p) = dragWorld(X1, p, _id, _z1, _ix)
+	mouseover _cursor = overWorld(_id)
+
+figure "Sliders"
+     draw drawSliders(v, u0, Kp, Td, K, zc, pc, control)
+     mousedrag (v, u0, Kp, Td, K, zc, pc, control) = dragSliders(v, u0, Kp, Td, K, zc, pc, control, _id, _x1)
+
+figure "Signals"
+	draw drawSignals(Twin)
+
+menu "Time window" (Twin) = menuTwin(Twin)
+
+functions
+{@
+
+function (X1, v, u0, p, Twin, control, K, zc, pc, Kp, Td) = init
+     global data
+     global samples
+     data=zeros(1000,3);
+     samples=zeros(100,3);
+
+     Twin = 30;
+     X1 = [1; 50 ; 250]; % robot direction and position
+     v = 0;
+     u0 = 0;
+     p = [100, 250i, 100+500i, 400+500i, 500+250i, 400];  % path
+     control = 1;  % manual control
+     K = 0; zc=0; pc=0; Kp = 0; Td = 0;
+	subplots('Sliders\tWorld\nSignals');			% initial plots
+
+function drawWorld(X1, p)
+	drawRobot(X1);
+     drawpath(p);
+	scale('equal',[-100, 600, -100, 600]);
+
+function (X1, p) = dragWorld(X1, p, id, z1, ix)
+
+	if isempty(id)
+		cancel;
+	end
+	switch id
+		case 1	% robot position
+              X1(2) = real(z1);
+              X1(3) = imag(z1);
+         case 2
+              X1(1) = angle(z1-z);
+         case 3
+              p(ix) = z1;
+    end
+
+function cursor = overWorld(id)
+	
+	cursor = ~isempty(id);
+
+
+function t = getTime
+	
+	t = clock * [0; 0; 0; 3600; 60; 1];
+
+function drawRobot(X1)
+     theta = X1(1); z = X1(2) + X1(3)*j;
+     wheelaxis = [20j, -20j];
+	plot(real(z + exp(1j*theta) * wheelaxis), imag(z + exp(1j*theta) * wheelaxis), 'k');
+	circle(real(z), imag(z), 11, 'gf');
+     plot(real(z), imag(z),'w.', 1); % robot position
+	arrow = [-10+1j, 5+1j, 5+5j, 11, 5-5j, 5-1j, -10-1j, -10+1j];
+	plot(real(z + exp(1j*theta) * arrow), imag(z + exp(1j*theta) * arrow), 'wf');
+     plot(real(z + exp(j*theta) * 11), imag(z + exp(j*theta) * 11), 'w.', 2); % direction
+     Lwheel = [20j, 20j-10, -10+22j, 22j+10, 20j+10, 20j];
+    wheels = [Lwheel, -Lwheel];
+	plot(real(z + exp(1j*theta) * wheels), imag(z + exp(1j*theta) * wheels), 'bf');
+
+function drawpath(y)
+     plot(real(y),imag(y),'b',3), 
+     plot(real([y(1) y(end)]),imag([y(1) y(end)]),'b')
+
+function e = dist_to_path(X1, y)
+    persistent oldsign
+    theta = X1(1); z = X1(2) + X1(3)*j;
+    if isempty(oldsign), oldsign=1; end; % assume starting inside the closed path!
+    ny=length(y);
+    E = zeros(1,ny);  % distance to all lines 
+    k=1;
+    while k<ny+1,
+       y1 = y(k);
+       if k==ny, y2=y(1); else y2=y(k+1); end
+       x = y2 - y1; % line to find distance to
+       phi = angle(x)-pi/2;
+       rx = x*exp(-i*phi); 
+       drivdir = sign(sin(theta - phi)); % positive driving direction when p right of line y
+       e_vec = (z-y1)*exp(-i*phi);
+       e_i = imag(e_vec);
+       e_r = real(e_vec);
+       if e_i<0 | e_i > norm(x),
+          E(k) = min(abs(z-[y1 y2]))*oldsign;
+       else
+          E(k) = e_r*drivdir;
+       end
+       k=k+1;
+    end
+    e = E(find(min(abs(E))==abs(E))); e=e(1);
+    if e>0, oldsign=1; else oldsign=-1; end; % keep sign when passing into sector outside line
+
+
+function drawSliders(v, u0, Kp, Td, K, zc, pc, control)
+      settabs('u0=0000000\t');
+      text('Velocity');
+ 	 slider(sprintf('v=%g', v), v, [0, 40], '-', 'g', 2);
+     text('Control');
+      settabs('\tManual        \t PD          \tGeneral feedback');
+      button(sprintf('\tManual\tPD\tGeneral feedback', control), control, 'radiobutton','',6);
+   if control==1,
+      settabs('u0=0000000\t');
+      slider(sprintf('u=%g', u0), u0, [-1, 1], '-', 'r', 1);
+   elseif control==2,
+      text('PD-controller parameters Kp and Td');
+      settabs('lamc=????\t');
+      slider(sprintf('Kp=%.2g', Kp), Kp, [0, 0.5], '-', 'b', 7);
+      slider(sprintf('Td=%.2g', Td), Td, [0, 10], '-', 'b', 8);   
+   else
+      text('Controller gain, zero and pole');
+      settabs('lamc=????\t');
+      slider(sprintf('K=%.2g', K), K, [0, 3], '-', 'b', 3);
+      slider(sprintf('zc=%.2g', zc), zc, [0, 1], '-', 'b', 4);
+      slider(sprintf('pc=%.2g', pc), pc, [-1, 1], '-', 'b', 5);
+   end
+
+function (v, u0, Kp, Td, K, zc, pc, control) = dragSliders(v, u0, Kp, Td ,K, zc, pc, control, id, x1)
+    if isempty(id)
+       cancel;
+    end
+    switch id
+       case 1
+          u0 = x1;
+       case 2
+          v = x1;
+       case 3
+          K = x1;
+       case 4
+          zc = x1;
+       case 5
+          pc = x1;
+       case 6
+          control = x1;
+       case 7
+          Kp = x1;  
+       case 8
+          Td = x1;
+    end
+
+function (Twin) = menuTwin(Twin)
+     Twin = dialog('Time window (10-100):',Twin);
+     Twin = min(max(Twin,10),100);
+
+function drawSignals(Twin)
+     global data
+     global samples
+     if nargin==0, Twin=10; end;
+
+     k=find(data(:,1)>data(end,1)-Twin);
+     plot(data(k,1)',data(k,2:3)','br');
+     ks=find(samples(:,1)>samples(end,1)-Twin);
+     plot(samples(ks,1)',samples(ks,2:3)','boro');
+
+function Xp = f(t, X, p)
+     u = p(1); v = p(2);
+     Xp = [u; v*cos(X(1)); v*sin(X(1))];
+
+function (X1, v, u0) = Simulation(X1, v, u0, p, control, K, zc, pc, Kp, Td)
+    persistent lastTime tsamp u 
+    persistent u_o e_o
+    global data samples    
+   
+    t = getTime;
+
+     % Initialisation of sampling
+     Ts = 1; % sampling period
+     if isempty(tsamp), 
+         tsamp=t; 
+         lastTime=t-1e-2; 
+         u=0; 
+         u_o = 0;
+         e_o = 0;
+      end 
+
+	dT = t - lastTime;
+	lastTime = t;
+
+	% Process dynamics simulation
+     (tsim, X) = ode45(@f, [t-dT,t], X1, [], [u, v]);
+     X1 = X(end,:)';
+
+
+     % Discrete-time controller
+     if control == 2, % PD-control
+          pc = Td/(Td+20);
+          zc = pc*(1+20)/(1+20*pc);
+          K  = Kp*(1+20*pc);
+     end
+     e = dist_to_path(X1, p);
+     if t>tsamp+Ts, 
+         tsamp=t; % sampling time
+
+         if control==1,
+             u = u0; % manual control
+         else
+         	 if v == 0, v = 1; end
+             u = pc*u_o + (K/v)*(e -zc*e_o);
+             u = max(min(1,u),-1); % limit the control signal
+         end
+
+         u_o = u;
+         e_o = e;
+
+         samples(1:99,:)=samples(2:100,:);
+         samples(100,:)=[tsamp, u,e];        % discrete-time signals
+
+     end
+
+     data(1:999,:)=data(2:1000,:);data(1000,:)=[t, u, e]; % continuous-time signals
+ 
+@}
+
