@@ -1,0 +1,43 @@
+; Code Composer Project File, Version 2.0 (do not modify or remove this line)
+
+[Project Settings]
+ProjectName="ex3b"
+ProjectDir="C:\ti\ex3b\"
+ProjectType=Executable
+CPUFamily=TMS320C62XX
+Tool="Compiler"
+Tool="DspBiosBuilder"
+Tool="Linker"
+Config="Debug"
+Config="Release"
+
+[Source Files]
+Source="..\c6000\cgtools\lib\rts6201.lib"
+Source="..\c6000\imglib\lib\img62x.lib"
+Source="fboot.asm"
+Source="iic.c"
+Source="main.c"
+Source="ov7620.c"
+Source="robotnic.c"
+Source="timers.c"
+Source="vectors.asm"
+Source="lnk.cmd"
+
+["Compiler" Settings: "Debug"]
+Options=-g -q -fr"C:\ti\ex3b\Debug" -d"_DEBUG"
+
+["Compiler" Settings: "Release"]
+Options=-q -o3 -fr"C:\ti\ex3b\Release"
+
+["DspBiosBuilder" Settings: "Debug"]
+Options=-v6x
+
+["DspBiosBuilder" Settings: "Release"]
+Options=-v6x
+
+["Linker" Settings: "Debug"]
+Options=-q -c -o".\Debug\ex3b.out" -x
+
+["Linker" Settings: "Release"]
+Options=-q -c -o".\Release\ex3b.out" -x
+

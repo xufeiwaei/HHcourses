@@ -1,0 +1,27 @@
+********************************************************************************
+TMS320C6x COFF/Hex Converter                                        Version 4.10
+********************************************************************************
+
+INPUT FILE NAME: <ex3b.out>
+OUTPUT FORMAT:   ASCII-Hex
+
+PHYSICAL MEMORY PARAMETERS
+   Default data width   :   8
+   Default memory width :   8
+   Default output width :   8
+
+
+OUTPUT TRANSLATION MAP
+--------------------------------------------------------------------------------
+00000000..0000ffff  Page=0  Memory Width=8  ROM Width=8  "FLASH"
+--------------------------------------------------------------------------------
+   OUTPUT FILES: ex3b.hex [b0..b7]
+
+   CONTENTS: 00000000..000001ff   vectors
+             000001ff..000001ff   FILL = 00000000
+             00000200..000002df   .boot_load
+             000002df..000002df   FILL = 00000000
+             000002e0..0000037b   .cinit
+             0000037b..000007ff   FILL = 00000000
+             00000800..00009dff   .text
+             00009dff..0000ffff   FILL = 00000000

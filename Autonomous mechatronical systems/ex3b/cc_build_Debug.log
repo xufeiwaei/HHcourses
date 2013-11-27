@@ -1,0 +1,27 @@
+------------------------------  ex3b.pjt - Debug  ------------------------------
+"c:\ti\c6000\cgtools\bin\cl6x" -g -q -fr"C:/ti/ex3b/Debug" -d"_DEBUG" -@"Debug.lkf" "fboot.asm"
+<fboot.asm>
+
+"c:\ti\c6000\cgtools\bin\cl6x" -g -q -fr"C:/ti/ex3b/Debug" -d"_DEBUG" -@"Debug.lkf" "iic.c"
+[iic.c]
+
+"c:\ti\c6000\cgtools\bin\cl6x" -g -q -fr"C:/ti/ex3b/Debug" -d"_DEBUG" -@"Debug.lkf" "main.c"
+[main.c]
+
+"c:\ti\c6000\cgtools\bin\cl6x" -g -q -fr"C:/ti/ex3b/Debug" -d"_DEBUG" -@"Debug.lkf" "ov7620.c"
+[ov7620.c]
+
+"c:\ti\c6000\cgtools\bin\cl6x" -g -q -fr"C:/ti/ex3b/Debug" -d"_DEBUG" -@"Debug.lkf" "robotnic.c"
+[robotnic.c]
+
+"c:\ti\c6000\cgtools\bin\cl6x" -g -q -fr"C:/ti/ex3b/Debug" -d"_DEBUG" -@"Debug.lkf" "timers.c"
+[timers.c]
+
+"c:\ti\c6000\cgtools\bin\cl6x" -g -q -fr"C:/ti/ex3b/Debug" -d"_DEBUG" -@"Debug.lkf" "vectors.asm"
+<vectors.asm>
+
+"c:\ti\c6000\cgtools\bin\cl6x" -@"Debug.lkf"
+<Linking>
+
+Build Complete,
+  0 Errors, 0 Warnings, 0 Remarks.

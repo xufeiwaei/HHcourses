@@ -1,0 +1,24 @@
+------------------------------  ex3.pjt - Debug  ------------------------------
+"c:\ti\c6000\cgtools\bin\cl6x" -g -q -fr"C:/ti/ex3/Debug" -d"_DEBUG" -@"Debug.lkf" "iic.c"
+[iic.c]
+
+"c:\ti\c6000\cgtools\bin\cl6x" -g -q -fr"C:/ti/ex3/Debug" -d"_DEBUG" -@"Debug.lkf" "main.c"
+[main.c]
+"main.c", line 38: warning: variable "temp" was declared but never referenced
+"main.c", line 48: warning: variable "temp" was declared but never referenced
+"main.c", line 58: warning: variable "temp" was declared but never referenced
+
+"c:\ti\c6000\cgtools\bin\cl6x" -g -q -fr"C:/ti/ex3/Debug" -d"_DEBUG" -@"Debug.lkf" "ov7620.c"
+[ov7620.c]
+
+"c:\ti\c6000\cgtools\bin\cl6x" -g -q -fr"C:/ti/ex3/Debug" -d"_DEBUG" -@"Debug.lkf" "robotnic.c"
+[robotnic.c]
+
+"c:\ti\c6000\cgtools\bin\cl6x" -g -q -fr"C:/ti/ex3/Debug" -d"_DEBUG" -@"Debug.lkf" "timers.c"
+[timers.c]
+
+"c:\ti\c6000\cgtools\bin\cl6x" -@"Debug.lkf"
+<Linking>
+
+Build Complete,
+  0 Errors, 3 Warnings, 0 Remarks.

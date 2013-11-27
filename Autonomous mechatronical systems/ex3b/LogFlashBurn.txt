@@ -1,0 +1,3 @@
+## 05/29/13 13:06:00
+FlashBurn of 65536 bytes is complete.
+Time: 55500 mSec.

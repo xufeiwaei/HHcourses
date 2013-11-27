@@ -1,0 +1,8 @@
+-z -q -c -o"./Debug/ex3.out" -x -i"c:/ti/c6000/bios/lib" -i"c:/ti/c6000/rtdx/lib" -i"c:/ti/c6000/cgtools/lib"
+"C:\ti\c6000\imglib\lib\img62x.lib"
+"C:\ti\ex3\Debug\iic.obj"
+"C:\ti\ex3\Debug\main.obj"
+"C:\ti\ex3\Debug\ov7620.obj"
+"C:\ti\ex3\Debug\robotnic.obj"
+"C:\ti\ex3\Debug\timers.obj"
+"C:\ti\ex3\lnk.cmd"
