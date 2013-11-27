@@ -1,0 +1,23 @@
+<project default="compile">
+    <target name="clean">
+		<delete includeEmptyDirs="true">
+			<fileset dir="bin" includes="**/*" defaultexcludes="no" />
+		</delete>
+    </target>
+
+	<target name="init">
+        <mkdir dir="bin"/>
+	</target>
+
+    <target name="compile" depends="init">
+		<javac srcdir="src" destdir="bin"/>
+    </target>
+
+    <target name="run" depends="compile">
+		<java classpath="bin" classname="nn.AppDigits" fork="yes"/>
+    </target>
+
+    <target name="train" depends="compile">
+		<java classpath="bin" classname="nn.AppTrain" fork="yes"/>
+    </target>
+</project>
