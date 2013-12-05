@@ -124,7 +124,7 @@ Initial position of centre of projection : (-600.000000, 100.000000, 0.000000)w
 
 Initial camera rotation with respect to the default camera reference frame:
 I)
-By angle: 1.570796 (in radians)    -     89.999992 (in degrees) 
+By angle: 1.570796 (in radians) - 89.999992 (in degrees) 
 around the unit vector : (0.000000, -1.000000, 0.000000)w 
 
 II)
