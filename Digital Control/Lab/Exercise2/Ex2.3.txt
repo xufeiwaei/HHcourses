@@ -1,0 +1,97 @@
+//Albert Hoxha 2012-02
+//------------------------------------------------------------------------------
+//Uppg. 3a)
+
+/*
+G(q^-1) = 0.1q^-2 / (1 - 0.1q^-1)(1 - 0.7q^-1)(1 - 0.9q^-1)
+*/
+
+B=[0 0 0.1];
+A=poly([0.1 0.7 0.9]);
+
+w=0:0.01:pi;
+e=exp(-i*w);
+
+Bw=polyval(fliplr(B),e);
+Aw=polyval(fliplr(A),e);
+Gw=Bw./Aw;
+
+subplot 121
+scale ('equal',[-1,1,-1,1])
+hgrid
+title('Nyquist curve in complex plane')
+plot(real(Gw),imag(Gw))	//The plot for Nyquist!
+
+plot(-0.32,0,'ro')
+
+for k=1:310;		//Finding the closest point for phase margin and  
+if abs(Gw(k))<=1	//  the cross-over frequency,wx, where |G|=1.
+	
+	point_pm=Gw(k),
+	wx=k*0.001,
+	break,
+end,
+end;
+
+plot(real(point_pm),imag(point_pm),'bx')	//plot the point for phase margin
+legend('Amplitude (gain) margin\nPhase margin','robx')
+
+pm = angle(-0.6082 - 0.7724j)+pi
+
+/*
+	phase margin: ===> pm = arg(-0.6082 - 0.7724j)+pi = 0.9038
+*/
+
+//------------------------------------------------------------------------------
+//Uppg. 3b)
+
+/*
+	Gain margin: (-1 / Am)=-0.32 ===> Am=3.125 (From lecture slides)
+
+	Phase margin: |G| = 1 ===> 0.9038
+
+	Delay margin = phase margin / gain ===> 0.9038/0.2861 = 3.159
+
+	Three sample delays can be introduced before the closed-loop gets 			unstable.
+	
+	Closed-loop poles of the system can be calculated throungh Acloced:
+	
+	Aclosed = AR + BS, where S = q^-3 and R = 1
+*/
+
+Dm=pm/wx
+
+AR=[A 0 0];
+BS=[0 0 0 B];
+Aclosed=AR+BS;
+
+subplot 122
+scale ('equal',[-1,1,-1,1])
+hgrid
+plotroots(Aclosed,'gx')
+title('Closed-loop poles, wx=0.2861, wc=0.612, ')
+
+
+poles_Aclosed=roots(Aclosed)
+arg_Aclosed=angle(poles_Aclosed)
+
+(gm,psi,wc,wx)=dmargin([B 0],A)
+
+/*
+
+		There are two poles on the stability margin (From plot)
+
+		poles_Aclosed =
+  			0.9538 + 0.2871j
+  			0.9538 - 0.2871j
+
+		The Argument (arg_Aclosed from plot)
+			+/- 0.2924
+
+
+	From the Nyquist diagram where the curve crosses the unit circle has 
+	the frequency, wx, which is about 0.28.
+
+	This frequency has about the same value as the argument of the unstable 		poles. It means that if max 3 samples is added to the system, it will 			be unstable and has an oscillation frequency at 0.28 rad/s due to the 			unstable poles. This value can also be found on the Nyquist diagram at 			the point where the curve crosses the unit circle.   
+*/
+//------------------------------------------------------------------------------
