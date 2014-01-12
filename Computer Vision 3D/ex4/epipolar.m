@@ -250,7 +250,7 @@ for i = 1:15
     abc=abc/abc(2);   %We make sure that the coefficient of y in the line-equation is 1
                       %We assumed that abc(2) is not zero
     y=-abc(1)*x - abc(3);
-    figure(2);plot(x,y,'g'); 
+    figure(2);plot(x,y,'g');
 end
 	    
 
